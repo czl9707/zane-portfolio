@@ -1,31 +1,52 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: 'selector',
+  dimMode: 'selector',
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  safelist: [
+    {
+      pattern: /(bg|text|border)-(green|yellow|purple|purple|textprimary|textsecondary)(-(dim|dimmer|contrast))?/,
+      variants: ["hover", "active"]
+    },
+    {
+      pattern: /(bg|text|border)-(textprimary|textsecondary)/
+    }
   ],
   theme: {
     extend: {
       colors: {
-        background: "var(--color-background)",
-        foreground: "var(--color-foreground)",
-        "text-primary": "var(--color-text-primary)",
-        "text-secondary": "var(--color-text-secondary)",
-        "text-primary-contrast": "var(--color-text-primary-contrast)",
-        "text-secondary-contrast": "var(--color-text-secondary-contrast)",
+        "background": "var(--color-background)",
+        "background-dim": "var(--color-background-dim)",
+        "background-dimmer": "var(--color-background-dimmer)",
+
+        "foreground": "var(--color-foreground)",
+        "foreground-dim": "var(--color-foreground-dim)",
+        "foreground-dimmer": "var(--color-foreground-dimmer)",
+
+        "textprimary": "var(--color-text-primary)",
+        "textsecondary": "var(--color-text-secondary)",
+
         "green": "var(--color-green)",
-        "green-light": "var(--color-green-light)",
-        "green-dark": "var(--color-green-dark)",
+        "green-dim": "var(--color-green-dim)",
+        "green-dimmer": "var(--color-green-dimmer)",
+        "green-contrast": "var(--color-green-contrast)",
+
         "yellow": "var(--color-yellow)",
-        "yellow-light": "var(--color-yellow-light)",
-        "yellow-dark": "var(--color-yellow-dark)",
+        "yellow-dim": "var(--color-yellow-dim)",
+        "yellow-dimmer": "var(--color-yellow-dimmer)",
+        "yellow-contrast": "var(--color-yellow-contrast)",
+
         "purple": "var(--color-purple)",
-        "purple-light": "var(--color-purple-light)",
-        "purple-dark": "var(--color-purple-dark)",
+        "purple-dim": "var(--color-purple-dim)",
+        "purple-dimmer": "var(--color-purple-dimmer)",
+        "purple-contrast": "var(--color-purple-contrast)",
+
         "orange": "var(--color-orange)",
-        "orange-light": "var(--color-orange-light)",
-        "orange-dark": "var(--color-orange-dark)",
+        "orange-dim": "var(--color-orange-dim)",
+        "orange-dimmer": "var(--color-orange-dimmer)",
+        "orange-contrast": "var(--color-orange-contrast)",
       },
     },
     fontFamily: {

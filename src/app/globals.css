@@ -19,16 +19,20 @@ body {
   --color-text-primary-contrast: #000000;
   --color-text-secondary-contrast: #181818;
 
-  --color-green: #26392D;
-  --color-green-light: #5EBE73;
-  --color-green-dark: #122616;
-  --color-yellow: #434326;
-  --color-yellow-light: #EBEF62;
-  --color-yellow-dark: #2E2E11;
-  --color-purple: #402A48;
-  --color-purple-light: #DA6CFB;
-  --color-purple-dark: #2B1634;
-  --color-orange: #472619;
-  --color-orange-light: #F65E2B;
-  --color-orange-dark: #331205;
+  --color-green: #5EBE73;
+  --color-green-dim: #26392D;
+  --color-green-dimmer: #122616;
+  --color-green-contrast: #ffffff;
+  --color-yellow: #EBEF62;
+  --color-yellow-dim: #434326;
+  --color-yellow-dimmer: #2E2E11;
+  --color-yellow-contrast: #ffffff;
+  --color-purple: #DA6CFB;
+  --color-purple-dim: #402A48;
+  --color-purple-dimmer: #2B1634;
+  --color-purple-contrast: #ffffff;
+  --color-orange: #F65E2B;
+  --color-orange-dim: #472619;
+  --color-orange-dimmer: #331205;
+  --color-orange-contrast: #ffffff;
 }

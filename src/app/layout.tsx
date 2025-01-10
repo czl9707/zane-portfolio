@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`
-          ${redHatDisplay.variable} ${redHatMono.variable} antialiased w-full inset-0 bg-background text-text-primary black
+          ${redHatDisplay.variable} ${redHatMono.variable} antialiased w-full inset-0 bg-background text-textprimary black
         `}
       >
         <Header />
