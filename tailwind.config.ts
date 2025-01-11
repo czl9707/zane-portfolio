@@ -7,12 +7,9 @@ export default {
   ],
   safelist: [
     {
-      pattern: /(bg|text|border)-(green|yellow|purple|purple|textprimary|textsecondary)(-(dim|dimmer|contrast))?/,
+      pattern: /(bg|text|border)-(green|yellow|purple|purple|textprimary|textsecondary|background|foreground)(-(dim|dimmer|contrast))?/,
       variants: ["hover", "active"]
     },
-    {
-      pattern: /(bg|text|border)-(textprimary|textsecondary)/
-    }
   ],
   theme: {
     extend: {
@@ -26,7 +23,12 @@ export default {
         "foreground-dimmer": "var(--color-foreground-dimmer)",
 
         "textprimary": "var(--color-text-primary)",
+        "textprimary-dim": "var(--color-text-primary-dim)",
+        "textprimary-dimmer": "var(--color-text-primary-dimmer)",
+
         "textsecondary": "var(--color-text-secondary)",
+        "textsecondary-dim": "var(--color-text-secondary-dim)",
+        "textsecondary-dimmer": "var(--color-text-secondary-dimmer)",
 
         "green": "var(--color-green)",
         "green-dim": "var(--color-green-dim)",

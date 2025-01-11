@@ -11,12 +11,12 @@ export default function Header() {
             </Link>
             <div className="flex-1" />
             <Link href={"/Works"}>
-                <Button color="transparent">
+                <Button color="green">
                     <T.Button className="cursor-pointer">Works</T.Button>
                 </Button>
             </Link>
             <Link href={"/Blogs"}>
-                <Button color="transparent">
+                <Button color="green" variant="outline">
                     <T.Button className="cursor-pointer">Blogs</T.Button>
                 </Button>
             </Link>

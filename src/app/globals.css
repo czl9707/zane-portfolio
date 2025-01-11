@@ -4,20 +4,32 @@
 
 body.black {
   --color-background: #000000;
+  --color-background-dim: #303030;
+  --color-background-dimmer: #606060;
   --color-foreground: #181818;
+  --color-foreground-dim: #484848;
+  --color-foreground-dimmer: #787878;
   --color-text-primary: #ffffff;
+  --color-text-primary-dim: #cfcfcf;
+  --color-text-primary-dimmer: #9f9f9f;
   --color-text-secondary: #d8d8d8;
-  --color-text-primary-contrast: #000000;
-  --color-text-secondary-contrast: #181818;
+  --color-text-secondary-dim: #a8a8a8;
+  --color-text-secondary-dimmer: #787878;
 }
 
 body {
   --color-background: #ffffff;
+  --color-background-dim: #cfcfcf;
+  --color-background-dimmer: #9f9f9f;
   --color-foreground: #d8d8d8;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #d8d8d8;
-  --color-text-primary-contrast: #000000;
-  --color-text-secondary-contrast: #181818;
+  --color-foreground-dim: #a8a8a8;
+  --color-foreground-dimmer: #787878;
+  --color-text-primary: #000000;
+  --color-text-primary-dim: #303030;
+  --color-text-primary-dimmer: #606060;
+  --color-text-secondary: #181818;
+  --color-text-secondary-dim: #484848;
+  --color-text-secondary-dimmer: #787878;
 
   --color-green: #5EBE73;
   --color-green-dim: #26392D;

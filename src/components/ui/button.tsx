@@ -13,7 +13,7 @@ const Button = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> 
             resolveTextColorClass(color, variant),
             resolveBackgroundColorClass(color, variant),
             color === "transparent" ? "" : `border border-${color === "default" ? "background" : color} border-solid`,
-            'rounded-sm cursor-pointer px-4 py-1 m-0',
+            'rounded-sm cursor-pointer select-none px-4 py-2 m-0',
             "transition-colors duration-300",
             `hover:`
         ].join(' ')} >
@@ -43,7 +43,7 @@ function resolveBackgroundColorClass(color: ColorVariants, variant: "outline" | 
         if (variant === "outline") {
             return 'bg-background hover:bg-background-dim active:bg-background-dimmer'
         }
-        return "";
+        return "bg-textprimary hover:bg-textprimary-dim active:bg-textprimary-dimmer";
     }
     else {
         if (variant === "outline") {
