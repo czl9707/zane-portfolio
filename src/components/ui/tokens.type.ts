@@ -1,3 +1,3 @@
-type ColorVariants = 'transparent' | 'default' | 'green' | 'yellow' | 'orange' | 'purple';
+type ColorVariants = 'default' | 'nebular' | 'star' | 'galaxy' | 'solar';
 
 export type { ColorVariants }

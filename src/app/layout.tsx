@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Red_Hat_Display, Red_Hat_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 const redHatDisplay = Red_Hat_Display({
   variable: "--font-family-sans",
@@ -16,7 +17,8 @@ const redHatMono = Red_Hat_Mono({
 
 export const metadata: Metadata = {
   title: "Zane Chen",
-  description: "Zane is a ",
+  icons: "favicon.svg",
+  description: "",
 };
 
 export default function RootLayout({
@@ -27,12 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`
-          ${redHatDisplay.variable} ${redHatMono.variable} antialiased w-full inset-0 bg-background text-textprimary black
-        `}
+        className={
+          `${redHatDisplay.variable} ${redHatMono.variable} antialiased w-full inset-0 bg-background text-foreground black`
+        }
       >
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

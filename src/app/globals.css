@@ -2,49 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-body.black {
-  --color-background: #000000;
-  --color-background-dim: #303030;
-  --color-background-dimmer: #606060;
-  --color-foreground: #181818;
-  --color-foreground-dim: #484848;
-  --color-foreground-dimmer: #787878;
-  --color-text-primary: #ffffff;
-  --color-text-primary-dim: #cfcfcf;
-  --color-text-primary-dimmer: #9f9f9f;
-  --color-text-secondary: #d8d8d8;
-  --color-text-secondary-dim: #a8a8a8;
-  --color-text-secondary-dimmer: #787878;
+@layer base {
+  body {
+    --color-background: 255 255 255;
+    --color-foreground: 0 0 0;
+
+    --color-panel: 215 215 215;
+    --color-panel-foreground: 0 0 0;
+
+    --color-shade-neutral: 128 128 128;
+    --color-shade-fade: 255 255 255;
+    --color-shade-contrast: 0 0 0;
+
+    /* --color-nebular: rgb(94 190 115); */
+    --color-nebular: 94 190 115;
+    --color-nebular-foreground: 255 255 255;
+    /* --color-star: rgb(235 239 98); */
+    --color-star: 235 239 98;
+    --color-star-foreground: 255 255 255;
+    /* --color-galaxy: rgb(218 108 251); */
+    --color-galaxy: 218 108 251;
+    --color-galaxy-foreground: 255 255 255;
+    /* --color-solar: rgb(246 94 43); */
+    --color-solar: 246 94 43;
+    --color-solar-foreground: 255 255 255;
+  }
+
+  body.black {
+    --color-background: 0 0 0;
+    --color-foreground: 255 255 255;
+    --color-panel: 45 45 45;
+    --color-panel-foreground: 255 255 255;
+
+    --color-shade-fade: 0 0 0;
+    --color-shade-contrast: 255 255 255;
+
+    --color-nebular-foreground: 0 0 0;
+    --color-star-foreground: 0 0 0;
+    --color-galaxy-foreground: 0 0 0;
+    --color-solar-foreground: 0 0 0;
+  }
 }
 
-body {
-  --color-background: #ffffff;
-  --color-background-dim: #cfcfcf;
-  --color-background-dimmer: #9f9f9f;
-  --color-foreground: #d8d8d8;
-  --color-foreground-dim: #a8a8a8;
-  --color-foreground-dimmer: #787878;
-  --color-text-primary: #000000;
-  --color-text-primary-dim: #303030;
-  --color-text-primary-dimmer: #606060;
-  --color-text-secondary: #181818;
-  --color-text-secondary-dim: #484848;
-  --color-text-secondary-dimmer: #787878;
+@keyframes slide-down {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
 
-  --color-green: #5EBE73;
-  --color-green-dim: #26392D;
-  --color-green-dimmer: #122616;
-  --color-green-contrast: #ffffff;
-  --color-yellow: #EBEF62;
-  --color-yellow-dim: #434326;
-  --color-yellow-dimmer: #2E2E11;
-  --color-yellow-contrast: #ffffff;
-  --color-purple: #DA6CFB;
-  --color-purple-dim: #402A48;
-  --color-purple-dimmer: #2B1634;
-  --color-purple-contrast: #ffffff;
-  --color-orange: #F65E2B;
-  --color-orange-dim: #472619;
-  --color-orange-dimmer: #331205;
-  --color-orange-contrast: #ffffff;
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(10rem);
+    opacity: 0
+  }
+
+  100% {
+    transform: none;
+    opacity: 1;
+  }
 }
