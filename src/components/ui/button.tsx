@@ -15,7 +15,7 @@ const Button = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> 
                 resolveBackgroundColorClass(color, variant),
                 (color === "default" && variant === "filled") ?
                     "" : `border border-${color === "default" ? "foreground" : color} border-solid`,
-                'relative rounded-md cursor-pointer select-none px-4 py-2 m-0 text-opacity-0 text-red overflow-hidden',
+                'relative rounded cursor-pointer select-none px-4 py-2 m-0 text-opacity-0 text-red overflow-hidden',
                 "group",
             ),
             className,
