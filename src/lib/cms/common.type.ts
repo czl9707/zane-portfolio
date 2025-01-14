@@ -4,3 +4,4 @@ export interface ImageInfo {
     height: number,
     alt: string,
 }
+

@@ -1,21 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
 import Container from "@/components/ui/container";
 import * as T from "@/components/ui/typography";
-import * as ZaneArchProject from "@/lib/cms/zane-arch-project"
-import type { ArchProjectInfo } from "@/lib/cms/zane-arch-project";
+
+import * as Homepage from "@/lib/cms/zane-homepage"
+import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
+import * as ZaneArchProject from "@/lib/cms/zane-arch-project";
+import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
 
 import Link from "next/link";
 import "./page.css"
 import { twJoin } from "tailwind-merge";
+import Divider from "@/components/ui/divider";
 
 export const revalidate = 14400;
-
 
 export async function generateStaticParams(): Promise<object[]> {
   return [{}];
 }
 
 export default async function Page() {
+  const content = await Homepage.getContents();
+
   return (
     <>
       <Container className="h-64" />
@@ -45,18 +50,18 @@ export default async function Page() {
       <SlidingIcon />
       <Container className="h-24" />
 
-      <DeveloperSection />
+      <DeveloperSection projects={content.featuredDevProjects} blogs={content.featuredBlogs} />
 
-      <ArchitectSection />
+      <ArchitectSection projects={content.featuredArchProjects} />
     </>
   );
 }
 
-function DeveloperSection() {
+function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.Info[], blogs: ZaneDevBlog.Info[] }) {
   return (
     <div>
-      <Container className="sticky pt-32 bg-background top-0">
-        <T.H4 id="as_a_developer">As a Software Engineer</T.H4>
+      <Container className="sticky pt-32 bg-background top-0 z-10">
+        <T.H3 id="as_a_developer">As a Software Engineer</T.H3>
       </Container>
       <Container className="pt-4">
         <T.Body1 >
@@ -65,25 +70,41 @@ function DeveloperSection() {
         </T.Body1>
       </Container>
 
-      <Container className="mt-16">
-        <T.H5>Featured Projects</T.H5>
+      <Container className="pt-16">
+        <T.H4>Featured Projects</T.H4>
+        <Divider className="my-4" />
       </Container>
-      <Container className="mt-16">
-        <T.H5>Featured Blogs</T.H5>
+
+      <Container className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+        {
+          projects.map(project => (
+            <ProjectCard href={`/as/developer/project/${project.title.replace(" ", "_")}`}
+              project={project} key={project.title} />
+          ))
+        }
       </Container>
-      <Container className=""></Container>
+
+      <Container className="pt-16">
+        <T.H4>Featured Blogs</T.H4>
+        <Divider className="mt-4" />
+      </Container>
+      {
+        blogs.map(blog => (
+          <BlogSession href={`/as/developer/blog/${blog.title.replace(" ", "_")}`}
+            blog={blog} key={blog.title} />
+        ))
+      }
     </div>
   )
 }
 
 
-async function ArchitectSection() {
-  const projects = await ZaneArchProject.getAll();
-
+async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[] }) {
+  console.log(projects)
   return (
     <div>
-      <Container className="sticky pt-32 bg-background top-0">
-        <T.H4 id="as_a_architect">As an Architect</T.H4>
+      <Container className="sticky pt-32 bg-background top-0 z-10">
+        <T.H3 id="as_a_architect">As an Architect</T.H3>
       </Container>
       <Container className="pt-4">
         <T.Body1>
@@ -92,10 +113,16 @@ async function ArchitectSection() {
         </T.Body1>
       </Container>
 
-      <Container className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-2">
+      <Container className="pt-16">
+        <T.H4>Featured Archived Projects</T.H4>
+        <Divider className="my-4" />
+      </Container>
+
+      <Container className="pt-4 grid grid-cols-1 lg:grid-cols-2 gap-2">
         {
           projects.map(project => (
-            <ArchitectProjectCard project={project} key={project.title} />
+            <ProjectCard href={`/as/architect/project/${project.title.replace(" ", "_")}`}
+              project={project} key={project.title} />
           ))
         }
       </Container>
@@ -103,34 +130,59 @@ async function ArchitectSection() {
   )
 }
 
-function ArchitectProjectCard({ project }: { project: ArchProjectInfo }) {
+function ProjectCard({ project, href }: { project: ZaneArchProject.Info | ZaneDevProject.Info, href: string }) {
   return (
-    <Link href={`/as/architect/${project.title.replace(" ", "_")}`}>
+    <Link href={href}>
       <div className="group aspect-[4/3] overflow-hidden rounded relative">
         <img src={project.cover.url} alt={project.cover.alt}
-          width={project.cover.width} height={project.cover.height}
           className="aspect-[4/3] absolute inset-0 object-cover group-hover:scale-110 duration-500" />
 
         <div className={twJoin(
           "absolute inset-0 object-cover opacity-0 bg-background/75 text-foreground p-8",
           "flex flex-col",
-          "opacity-100 duration-500"
+          "group-hover:opacity-100 duration-500"
         )} >
           <div className="flex flex-row items-end">
             <T.H5>{project.title}</T.H5>
             <div className="flex-1" />
             <T.Body2 className="text-foreground/75">
-              {project.startDate.getFullYear()}.{project.startDate.getMonth() + 1} - {project.endDate.getFullYear()}.{project.endDate.getMonth() + 1}
+              {
+                project.startDate.getFullYear()}.{project.startDate.getMonth() + 1
+              } - {project.endDate ?
+                `${project.endDate.getFullYear()}.${project.endDate.getMonth() + 1}` :
+                "Ongoing"
+              }
             </T.Body2>
           </div>
           <T.Body1 className="text-foreground/75">{project.subTitle}</T.Body1>
 
-          <T.Body2 className="mt-4 flex-0 align-bottom overflow-y-clip overscroll-contain">
-            {project.description}
+          <T.Body2 className="pt-4 flex-0 align-bottom overflow-y-clip overscroll-contain">
+            {project.description.toString()}
           </T.Body2>
         </div>
       </div>
     </Link>
+  )
+}
+
+function BlogSession({ blog, href }: { blog: ZaneDevBlog.Info, href: string }) {
+  return (
+    <Container className="hover:bg-foreground/10 duration-500 ">
+      <Link href={href}>
+        <div className="w-full flex flex-row py-4 gap-8">
+          <img src={blog.cover.url} alt={blog.cover.alt}
+            className={twJoin(
+              "aspect-video object-cover lg:block hidden w-1/5"
+            )} />
+
+          <div className="flex-1">
+            <T.H5>{blog.title}</T.H5>
+            <T.Body2>{blog.description.toString()}</T.Body2>
+          </div>
+        </div>
+      </Link>
+      <Divider />
+    </Container>
   )
 }
 

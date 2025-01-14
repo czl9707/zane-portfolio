@@ -11,9 +11,7 @@ interface UserToken {
 
 let tokenCache: UserToken | undefined = undefined;
 
-const REFRESH_INTERVAL = 14400_000;
 const LOGIN_ENDPOINT = `${process.env.ADMIN_URL}/api/users/login`;
-const REFRESH_ENDPOINT = `${process.env.ADMIN_URL}/api/users/refresh-token`;
 
 async function FetchUserToken(): Promise<UserToken> {
     const user = await fetch(LOGIN_ENDPOINT, {

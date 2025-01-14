@@ -1,42 +1,36 @@
 import * as UserToken from "@/lib/cms/user-token"
 import { ImageInfo } from "@/lib/cms/common.type";
 
-interface ZaneArchProjectInfo {
+interface ZaneDevBlogInfo {
     title: string,
     subTitle: string,
-    tags: string[],
-    startDate: Date,
-    endDate?: Date,
-    location?: string,
-    contributors?: string,
+    tags?: string[],
+    createdDate: Date,
     description: string,
     cover: ImageInfo,
 }
 
-interface ZaneArchProjectDto {
+interface ZaneDevBlogDto {
     title: string,
     subTitle: string,
     tags?: { value: string }[],
-    startDate: number,
-    endDate?: number,
-    location?: string,
-    contributors?: string,
+    createdDate: number,
     description: string,
     cover: ImageInfo
 }
 
 export type {
-    ZaneArchProjectInfo as Info,
-    ZaneArchProjectDto as Dto,
+    ZaneDevBlogInfo as Info,
+    ZaneDevBlogDto as Dto,
 }
 
-const ARCHPROJECT_ENDPOINT = `${process.env.ADMIN_URL}/api/zaneArchProject`;
+const DEVBLOG_ENDPOINT = `${process.env.ADMIN_URL}/api/zaneDevBlog`;
 
-export async function getAll(): Promise<ZaneArchProjectInfo[]> {
+export async function getAll(): Promise<ZaneDevBlogInfo[]> {
     const user = await UserToken.get()
 
     return await fetch(
-        `${ARCHPROJECT_ENDPOINT}`,
+        `${DEVBLOG_ENDPOINT}`,
         {
             headers: {
                 Authorization: `JWT ${user.token}`,
@@ -49,15 +43,12 @@ export async function getAll(): Promise<ZaneArchProjectInfo[]> {
     );
 }
 
-export function fromDto(dto: ZaneArchProjectDto): ZaneArchProjectInfo {
+export function fromDto(dto: ZaneDevBlogDto): ZaneDevBlogInfo {
     return {
         title: dto.title as string,
         subTitle: dto.subTitle as string,
         tags: (dto.tags ?? []).map((t: { value: string }) => t.value),
-        startDate: new Date(dto.startDate),
-        endDate: dto.endDate ? new Date(dto.endDate) : undefined,
-        location: dto.location,
-        contributors: dto.contributors,
+        createdDate: new Date(dto.createdDate),
         description: dto.description,
         cover: dto.cover,
     }
