@@ -175,8 +175,8 @@ function BlogSession({ blog, href }: { blog: ZaneDevBlog.Info, href: string }) {
               "aspect-video object-cover lg:block hidden w-1/5"
             )} />
 
-          <div className="flex-1">
-            <T.H5>{blog.title}</T.H5>
+          <div className="flex-1 overflow-hidden">
+            <T.H5 className="mb-2">{blog.title}</T.H5>
             <T.Body2>{blog.description.toString()}</T.Body2>
           </div>
         </div>
