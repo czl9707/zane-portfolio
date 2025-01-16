@@ -11,6 +11,7 @@ import Link from "next/link";
 import "./page.css"
 import { twJoin } from "tailwind-merge";
 import Divider from "@/components/ui/divider";
+import StyledMarkdown from "@/components/ui/styled-markdown";
 
 export const revalidate = 14400;
 
@@ -100,7 +101,6 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
 
 
 async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[] }) {
-  console.log(projects)
   return (
     <div>
       <Container className="sticky pt-32 bg-background top-0 z-10">
@@ -156,9 +156,11 @@ function ProjectCard({ project, href }: { project: ZaneArchProject.Info | ZaneDe
           </div>
           <T.Body1 className="text-foreground/75">{project.subTitle}</T.Body1>
 
-          <T.Body2 className="pt-4 flex-0 align-bottom overflow-y-clip overscroll-contain">
-            {project.description.toString()}
-          </T.Body2>
+          <div className="pt-4 flex-0 align-bottom overflow-y-clip overscroll-contain">
+            <StyledMarkdown>
+              {project.description.toString()}
+            </StyledMarkdown>
+          </div>
         </div>
       </div>
     </Link>
@@ -167,17 +169,19 @@ function ProjectCard({ project, href }: { project: ZaneArchProject.Info | ZaneDe
 
 function BlogSession({ blog, href }: { blog: ZaneDevBlog.Info, href: string }) {
   return (
-    <Container className="hover:bg-foreground/10 duration-500 ">
+    <Container className="group">
       <Link href={href}>
-        <div className="w-full flex flex-row py-4 gap-8">
+        <div className="w-full flex flex-row py-4 gap-4">
           <img src={blog.cover.url} alt={blog.cover.alt}
-            className={twJoin(
-              "aspect-video object-cover lg:block hidden w-1/5"
-            )} />
+            className={"aspect-video object-cover lg:block hidden w-1/5"} />
 
-          <div className="flex-1 overflow-hidden">
+          <div className="p-4 rounded flex-1 overflow-hidden group-hover:bg-foreground/10 transition-colors duration-500">
             <T.H5 className="mb-2">{blog.title}</T.H5>
-            <T.Body2>{blog.description.toString()}</T.Body2>
+            <div>
+              <StyledMarkdown>
+                {blog.description.toString()}
+              </StyledMarkdown>
+            </div>
           </div>
         </div>
       </Link>
