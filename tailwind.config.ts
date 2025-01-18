@@ -18,6 +18,7 @@ export default {
       colors: {
         background: "rgb(var(--color-background))",
         foreground: "rgb(var(--color-foreground))",
+        neutral: "rgb(var(--color-neutral))",
 
         panel: {
           DEFAULT: "rgb(var(--color-panel))",

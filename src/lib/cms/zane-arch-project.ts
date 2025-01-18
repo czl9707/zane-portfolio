@@ -32,11 +32,11 @@ export type {
 
 const ARCHPROJECT_ENDPOINT = `${process.env.ADMIN_URL}/api/zaneArchProject`;
 
-export async function getAll(): Promise<ZaneArchProjectInfo[]> {
+export async function getAllTitle(): Promise<string[]> {
     const user = await UserToken.get()
 
     return await fetch(
-        `${ARCHPROJECT_ENDPOINT}`,
+        `${ARCHPROJECT_ENDPOINT}?select[title]=true`,
         {
             headers: {
                 Authorization: `JWT ${user.token}`,
@@ -45,7 +45,28 @@ export async function getAll(): Promise<ZaneArchProjectInfo[]> {
     ).then(
         async req => await req.json()
     ).then(
-        data => data.docs.map(fromDto)
+        data => {
+            return data.docs.map((d: { title: string }) => d.title);
+        }
+    );
+}
+
+export async function getByTitle(title: string): Promise<ZaneArchProjectInfo> {
+    const user = await UserToken.get()
+
+    return await fetch(
+        `${ARCHPROJECT_ENDPOINT}?where[title][equals]=${title}`,
+        {
+            headers: {
+                Authorization: `JWT ${user.token}`,
+            }
+        }
+    ).then(
+        async req => await req.json()
+    ).then(
+        data => {
+            return fromDto(data.docs[0]);
+        }
     );
 }
 

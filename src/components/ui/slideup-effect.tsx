@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { useInView } from 'react-intersection-observer'
-import { twJoin } from 'tailwind-merge'
+import { twMerge } from 'tailwind-merge'
 
 import Container from './container'
 
@@ -30,70 +30,14 @@ function SlideUpWrapper(Comp: React.ElementType<React.HTMLProps<HTMLDivElement>>
                         else ref.current = node;
                     }
                 }}
-                    className={twJoin(
+                    className={twMerge(
+                        `animate-[slide-up_1s_ease-out_both] delay-${delay} animate-paused`,
                         className,
-                        `animate animate-[slide-up_1s_ease-out_both] delay-${delay} animate-paused`
                     )} {...other} />
             )
         }
     )
 }
-
-// const SlideUpContainer = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { delay?: DelayVariant }>(
-//     function SlideUpContainer({ className, delay = 0, ...other }, ref) {
-//         const { ref: inviewRef, inView, entry } = useInView({ threshold: 0.05 })
-//         React.useEffect(
-//             () => {
-//                 if (inView) {
-//                     entry?.target.classList.remove("animate-paused");
-//                 }
-//             },
-//             // eslint-disable-next-line react-hooks/exhaustive-deps
-//             [inView]
-//         );
-
-//         return (
-//             <Container ref={node => {
-//                 inviewRef(node);
-//                 if (ref != null) {
-//                     if (typeof ref === 'function') ref(node);
-//                     else ref.current = node;
-//                 }
-//             }}
-//                 className={twJoin(
-//                     className,
-//                     `animate animate-[slide-up_1s_ease-out_both] delay-${delay} animate-paused`
-//                 )} {...other} />
-//         )
-//     }
-// )
-
-// const SlideUpDiv = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { delay?: DelayVariant }>(
-//     function SlideUpContainer({ className, delay = 0, ...other }, ref) {
-//         const { ref: inviewRef, inView, entry } = useInView({ threshold: 0.05 })
-//         React.useEffect(
-//             () => {
-//                 if (!ref) return;
-//                 if (inView) {
-//                     entry?.target.classList.remove("animate-paused");
-//                 }
-//             },
-//             // eslint-disable-next-line react-hooks/exhaustive-deps
-//             [inView]
-//         );
-
-//         return (
-//             <div ref={node => {
-//                 inviewRef(node);
-//                 if (ref != null) ref.current = node;
-//             }}
-//                 className={twJoin(
-//                     className,
-//                     `animate animate-[slide-up_1s_ease-out_both] delay-${delay} animate-paused`
-//                 )} {...other} />
-//         )
-//     }
-// )
 
 
 const SlideUpContainer = SlideUpWrapper(Container);

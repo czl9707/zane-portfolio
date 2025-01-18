@@ -6,6 +6,7 @@
   body {
     --color-background: 255 255 255;
     --color-foreground: 0 0 0;
+    --color-neutral: 128 128 128;
 
     --color-panel: 215 215 215;
     --color-panel-foreground: 0 0 0;
@@ -44,6 +45,7 @@
   }
 }
 
+/* the one for header */
 @keyframes slide-down {
   0% {
     transform: translateY(-100%);
@@ -56,7 +58,7 @@
   }
 }
 
-
+/* the one for container/div */
 @keyframes slide-up {
   0% {
     transform: translateY(3rem);

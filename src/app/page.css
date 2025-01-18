@@ -1,4 +1,4 @@
-@keyframes scroll-down {
+@keyframes icon-scroll-down {
     0% {
         opacity: 0;
         transform: translateY(-30%);
