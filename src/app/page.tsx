@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Container from "@/components/ui/container";
 import * as T from "@/components/ui/typography";
+import * as SlideUp from "@/components/ui/slideup-effect";
 
 import * as Homepage from "@/lib/cms/zane-homepage"
 import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
@@ -25,17 +26,17 @@ export default async function Page() {
   return (
     <>
       <Container className="h-64" />
-      <Container>
+      <SlideUp.Container>
         <T.H3>Hi, I am Zane!</T.H3>
         <br />
         <T.H3>
           Precision in detail, vision in design, building things one block at a time.
         </T.H3>
-      </Container>
+      </SlideUp.Container>
 
       <Container className="h-16" />
 
-      <Container>
+      <SlideUp.Container>
         <T.Body1>
           Once an
           <Link href="#as_a_architect"> <u>architect</u></Link>, now a self-taught
@@ -45,7 +46,7 @@ export default async function Page() {
           worked on projects spanning from individual housing designs to large-scale urban planning.
           Living at the crossroads of diverse cultures and domains, I embrace the richness of multiple perspectives.
         </T.Body1>
-      </Container>
+      </SlideUp.Container>
 
       <Container className="h-36" />
       <SlidingIcon />
@@ -60,21 +61,21 @@ export default async function Page() {
 
 function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.Info[], blogs: ZaneDevBlog.Info[] }) {
   return (
-    <div>
-      <Container className="sticky pt-32 bg-background top-0 z-10">
+    <>
+      <SlideUp.Container className="sticky pt-32 bg-background top-0 z-10">
         <T.H3 id="as_a_developer">As a Software Engineer</T.H3>
-      </Container>
-      <Container className="pt-4">
+      </SlideUp.Container>
+      <SlideUp.Container className="pt-4">
         <T.Body1 >
           I thrive on building seamless solutions, bridging gaps in technologies with innovative ideas.
           My side projects and blogs serve as platforms to explore new tools, document what I learn, and share solutions to challenges.
         </T.Body1>
-      </Container>
+      </SlideUp.Container>
 
-      <Container className="pt-16">
+      <SlideUp.Container className="pt-16">
         <T.H4>Featured Projects</T.H4>
         <Divider className="my-4" />
-      </Container>
+      </SlideUp.Container>
 
       <Container className="grid grid-cols-1 lg:grid-cols-2 gap-2">
         {
@@ -85,17 +86,17 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
         }
       </Container>
 
-      <Container className="pt-16">
+      <SlideUp.Container className="pt-16">
         <T.H4>Featured Blogs</T.H4>
         <Divider className="mt-4" />
-      </Container>
+      </SlideUp.Container>
       {
         blogs.map(blog => (
           <BlogSession href={`/as/developer/blog/${blog.title.replace(" ", "_")}`}
             blog={blog} key={blog.title} />
         ))
       }
-    </div>
+    </>
   )
 }
 
@@ -103,20 +104,20 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
 async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[] }) {
   return (
     <div>
-      <Container className="sticky pt-32 bg-background top-0 z-10">
+      <SlideUp.Container className="sticky pt-32 bg-background top-0 z-10">
         <T.H3 id="as_a_architect">As an Architect</T.H3>
-      </Container>
-      <Container className="pt-4">
+      </SlideUp.Container>
+      <SlideUp.Container className="pt-4">
         <T.Body1>
           Being an architect turned developer is a rewarding journey—architecture nurtured my systematic and aesthetic thinking,
           while coding empowers me to bring those ideas to life and make a broader impact efficiently.
         </T.Body1>
-      </Container>
+      </SlideUp.Container>
 
-      <Container className="pt-16">
+      <SlideUp.Container className="pt-16">
         <T.H4>Featured Archived Projects</T.H4>
         <Divider className="my-4" />
-      </Container>
+      </SlideUp.Container>
 
       <Container className="pt-4 grid grid-cols-1 lg:grid-cols-2 gap-2">
         {
@@ -133,7 +134,7 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
 function ProjectCard({ project, href }: { project: ZaneArchProject.Info | ZaneDevProject.Info, href: string }) {
   return (
     <Link href={href}>
-      <div className="group aspect-[4/3] overflow-hidden rounded relative">
+      <SlideUp.Div className="group aspect-[4/3] overflow-hidden rounded relative">
         <img src={project.cover.url} alt={project.cover.alt}
           className="aspect-[4/3] absolute inset-0 object-cover group-hover:scale-110 duration-500" />
 
@@ -162,14 +163,14 @@ function ProjectCard({ project, href }: { project: ZaneArchProject.Info | ZaneDe
             </StyledMarkdown>
           </div>
         </div>
-      </div>
+      </SlideUp.Div>
     </Link>
   )
 }
 
 function BlogSession({ blog, href }: { blog: ZaneDevBlog.Info, href: string }) {
   return (
-    <Container className="group">
+    <SlideUp.Container className="group">
       <Link href={href}>
         <div className="w-full flex flex-row py-4 gap-4">
           <img src={blog.cover.url} alt={blog.cover.alt}
@@ -186,7 +187,7 @@ function BlogSession({ blog, href }: { blog: ZaneDevBlog.Info, href: string }) {
         </div>
       </Link>
       <Divider />
-    </Container>
+    </SlideUp.Container>
   )
 }
 

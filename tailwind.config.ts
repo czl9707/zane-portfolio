@@ -9,6 +9,9 @@ export default {
     {
       pattern: /(bg|text|border)-(nebular|star|galaxy|solar|panel)(-foreground)?/,
     },
+    {
+      pattern: /delay-.*/
+    }
   ],
   theme: {
     extend: {

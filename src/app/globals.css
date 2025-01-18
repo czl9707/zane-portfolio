@@ -59,12 +59,22 @@
 
 @keyframes slide-up {
   0% {
-    transform: translateY(10rem);
+    transform: translateY(3rem);
     opacity: 0
   }
 
   100% {
     transform: none;
     opacity: 1;
+  }
+}
+
+@layer utilities {
+  .animate-paused {
+    animation-play-state: paused;
+  }
+
+  .animate-running {
+    animation-play-state: paused;
   }
 }
