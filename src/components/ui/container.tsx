@@ -1,13 +1,23 @@
 import * as React from 'react'
 import { twMerge } from 'tailwind-merge';
 
-const Container = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
-    function Container({ className, ...other }, ref) {
+const CenteredContainer = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
+    function CenteredContainer({ className, ...other }, ref) {
         return <div {...other} ref={ref} className={
-            twMerge('max-w-7xl w-[calc(100vw-10rem)] mx-auto', className)
+            twMerge('max-w-6xl w-full mx-auto px-20 relative', className)
         } />
     }
 )
 
+const FullContainer = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
+    function FullContainer({ className, ...other }, ref) {
+        return <div {...other} ref={ref} className={
+            twMerge('px-12 relative', className)
+        } />
+    }
+)
 
-export default Container;
+export {
+    CenteredContainer as Default,
+    FullContainer as FullWidth,
+};

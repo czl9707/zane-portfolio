@@ -4,11 +4,11 @@ import * as React from 'react'
 import { useInView } from 'react-intersection-observer'
 import { twMerge } from 'tailwind-merge'
 
-import Container from './container'
+import * as Container from '@/components/ui/container'
 
 type DelayVariant = 0 | 75 | 100 | 150 | 200 | 300 | 500 | 700 | 1000;
 
-function SlideUpWrapper(Comp: React.ElementType<React.HTMLProps<HTMLDivElement>>) {
+export function SlideUpFactory(Comp: React.ElementType<React.HTMLProps<HTMLDivElement>>) {
     return React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { delay?: DelayVariant }>(
         function SlideUpContainer({ className, delay = 0, ...other }, ref) {
             const { ref: inviewRef, inView, entry } = useInView({ threshold: 0.05 })
@@ -40,10 +40,12 @@ function SlideUpWrapper(Comp: React.ElementType<React.HTMLProps<HTMLDivElement>>
 }
 
 
-const SlideUpContainer = SlideUpWrapper(Container);
-const SlideUpDiv = SlideUpWrapper('div');
+const SlideUpFullWidthContainer = SlideUpFactory(Container.FullWidth);
+const SlideUpDefaultContainer = SlideUpFactory(Container.Default);
+const SlideUpDiv = SlideUpFactory('div');
 
 export {
-    SlideUpContainer as Container,
+    SlideUpFullWidthContainer as FullWidth,
+    SlideUpDefaultContainer as Container,
     SlideUpDiv as Div,
 }

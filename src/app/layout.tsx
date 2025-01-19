@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Red_Hat_Display, Red_Hat_Mono } from "next/font/google";
+import { Geist, Red_Hat_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { twJoin } from "tailwind-merge";
 
-const redHatDisplay = Red_Hat_Display({
+const redHatDisplay = Geist({
   variable: "--font-family-sans",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"]
