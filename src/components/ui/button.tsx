@@ -16,15 +16,15 @@ const Button = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> 
                 (color === "default" && variant === "filled") ?
                     "" : `border border-${color === "default" ? "foreground" : color} border-solid`,
                 'relative rounded cursor-pointer select-none px-4 py-2 m-0 text-opacity-0 text-red overflow-hidden',
-                "group",
+                "group/button",
             ),
             className,
         )} >
             <div className={twMerge(
                 "absolute inset-0 bg-transparent pointer-events-none",
                 "transition-colors duration-300",
-                variant === "filled" && color !== "default" ? "group-hover:bg-shade-fade/40 group-active:bg-shade-fade/60" :
-                    "group-hover:bg-shade-contrast/20 group-active:bg-shade-contrast/40"
+                variant === "filled" && color !== "default" ? "group-hover/button:bg-shade-fade/40 group-active/button:bg-shade-fade/60" :
+                    "group-hover/button:bg-shade-contrast/20 group-active/button:bg-shade-contrast/40"
             )} />
             {children}
         </div>)

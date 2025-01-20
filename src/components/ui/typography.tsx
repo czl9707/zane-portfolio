@@ -3,12 +3,12 @@ import { twMerge } from 'tailwind-merge';
 
 const H1 = React.forwardRef<HTMLHeadingElement, React.HTMLProps<HTMLHeadingElement>>(
     function H1({ className, ...others }, ref) {
-        return <h1 className={twMerge('font-sans text-8xl/tight font-light', className)} {...others} ref={ref} />
+        return <h1 className={twMerge('font-sans text-8xl/tight font-medium', className)} {...others} ref={ref} />
     }
 )
 const H2 = React.forwardRef<HTMLHeadingElement, React.HTMLProps<HTMLHeadingElement>>(
     function H2({ className, ...others }, ref) {
-        return <h2 className={twMerge('font-sans text-6xl/tight font-light', className)} {...others} ref={ref} />
+        return <h2 className={twMerge('font-sans text-6xl/tight font-medium', className)} {...others} ref={ref} />
     }
 )
 const H3 = React.forwardRef<HTMLHeadingElement, React.HTMLProps<HTMLHeadingElement>>(

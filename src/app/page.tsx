@@ -5,6 +5,11 @@ import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";
 import Divider from "@/components/ui/divider";
 import StyledMarkdown from "@/components/ui/styled-markdown";
+import ArchitectureProjectCard from "@/components/arch-project-card";
+import BlogCard from "@/components/blog-card";
+import DevProjectCard from "@/components/dev-project-card";
+import { HEIGHT_CLASS as BlogCardHeight } from "@/components/blog-card";
+import { HEIGHT_CLASS as DevProjectCardHeight } from "@/components/dev-project-card";
 
 import * as Homepage from "@/lib/cms/zane-homepage"
 import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
@@ -33,7 +38,6 @@ export default async function Page() {
       {/* <Container.Default className="h-36" />
       <SlidingIcon />
       <Container.Default className="h-24" /> */}
-
       <DeveloperSection projects={content.featuredDevProjects} blogs={content.featuredBlogs} />
 
       <ArchitectSection projects={content.featuredArchProjects} />
@@ -44,7 +48,7 @@ export default async function Page() {
 function IntroSection() {
   return (
     <>
-      <div className="h-screen flex flex-col pt-24 pb-12 sticky top-0">
+      <div className="h-screen flex flex-col pt-24 pb-8 sticky top-0">
         <Container.FullWidth>
           <Grid.ColThree>
             <SlideUp.Div className="col-span-2">
@@ -78,64 +82,99 @@ function IntroSection() {
 
 function WhoAmISection() {
   return (
-    <PinnedSection>
-      <Grid.ColThree>
-        <T.H3 className="col-span-1" id="who_am_i">Who am I?</T.H3>
+    <ContentSection className="group/section"
+      header={
+        <T.H5 className="text-foreground/75" id="who_am_i">Who am I?</T.H5>
+      }
+    >
+      <div className={"col-span-2"}>
+        <SlideUp.Div>
+          <T.H4 className="mb-12 group-hover/section:text-foreground/50 transition-colors duration-500">
+            Once an
+            <Link className="text-foreground" href="#as_an_architect"> <u>Architect</u></Link>, now a self-taught
+            <Link className="text-foreground" href="#as_a_developer"> <u>Software Engineer</u></Link>, I enjoy building solutions.
+          </T.H4>
 
-        <T.Body1 className="col-span-2">
-          Once an
-          <Link href="#as_a_architect"> <u>architect</u></Link>, now a self-taught
-          <Link href="#as_a_developer"> <u>software engineer</u></Link>, I enjoy building solutions. Currently I am working at
-          <Link href="https://www.bloomberg.com/professional"> <u>Bloomberg</u> </Link> as a software engineer, while I keep building
-          side projects outside of work to keep myself sharp. Before transitioning into tech, I received 7-year architect training,
-          worked on projects spanning from individual housing designs to large-scale urban planning.
-          Living at the crossroads of diverse cultures and domains, I embrace the richness of multiple perspectives.
-        </T.Body1>
-      </Grid.ColThree>
-    </PinnedSection>
+          <T.Body1 className="group-hover/section:text-foreground/50 transition-colors duration-500">
+            Currently I am working at
+            <Link className="text-foreground" href="https://www.bloomberg.com/professional"> <u>Bloomberg</u> </Link> as a software engineer, while I keep building
+            side projects outside of work to keep myself sharp. Before transitioning into tech, I received 7-year architect training,
+            worked on projects spanning from individual housing designs to large-scale urban planning.
+            Living at the crossroads of diverse cultures and domains, I embrace the richness of multiple perspectives.
+          </T.Body1>
+        </SlideUp.Div>
+
+        <Spacer />
+
+        <SlideUp.Div>
+          <T.H5 className="mb-4">
+            As a Software Engineer
+          </T.H5>
+
+          <T.Body1 className="group-hover/section:text-foreground/50 transition-colors duration-500">
+            I thrive on building seamless solutions, bridging gaps in technologies with innovative ideas.
+            My side projects and blogs serve as platforms to explore new tools, document what I learn, and share solutions to challenges.
+          </T.Body1>
+        </SlideUp.Div>
+
+        <Spacer />
+
+        <SlideUp.Div>
+          <T.H5 className="mb-4">
+            Once an Architect
+          </T.H5>
+
+          <T.Body1 className="group-hover/section:text-foreground/50 transition-colors duration-500">
+            Being an architect turned developer is a rewarding journey—architecture nurtured my systematic and aesthetic thinking,
+            while coding empowers me to bring those ideas to life and make a broader impact efficiently.
+          </T.Body1>
+        </SlideUp.Div>
+      </div>
+
+    </ContentSection>
   )
 }
 
 function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.Info[], blogs: ZaneDevBlog.Info[] }) {
   return (
     <>
-      <PinnedSection>
-        <Grid.ColThree id="as_a_developer">
-          <T.H3 className="col-span-1">As a Software Engineer</T.H3>
+      <TitleSection>
+        <T.H2 id="as_a_developer">NOW A SOFTWARE ENGINEER</T.H2>
+      </TitleSection>
 
-          <T.Body1 className="col-span-2">
-            I thrive on building seamless solutions, bridging gaps in technologies with innovative ideas.
-            My side projects and blogs serve as platforms to explore new tools, document what I learn, and share solutions to challenges.
-          </T.Body1>
-        </Grid.ColThree>
-      </PinnedSection>
-
-      <PinnedSection>
-        <T.H3>Featured Projects</T.H3>
-        <Spacer />
-
-        <Grid.ColThree>
+      <ContentSection className="group/section"
+        header={
+          <T.H5 className="text-foreground/75">Featured Projects</T.H5>
+        }
+      >
+        <div className="col-span-3">
           {
             projects.map(project => (
-              <ProjectCard href={`/as/developer/project/${project.title.replace(" ", "_")}`}
+              <DevProjectCard
                 project={project} key={project.title} />
             ))
           }
-        </Grid.ColThree>
-      </PinnedSection>
+        </div>
 
-      <PinnedSection>
-        <T.H3>Featured Blogs</T.H3>
-        <Spacer />
-        {
-          blogs.map(blog => (
-            <BlogSession href={`/as/developer/blog/${blog.title.replace(" ", "_")}`}
-              blog={blog} key={blog.title} />
-          ))
+        <div className={`${DevProjectCardHeight}`}></div>
+      </ContentSection>
+
+      <ContentSection className="group/section"
+        header={
+          <T.H5 className="text-foreground/75">Featured Blogs</T.H5>
         }
+      >
+        <div className="col-span-3">
+          {
+            blogs.map(blog => (
+              <BlogCard
+                blog={blog} key={blog.title} />
+            ))
+          }
+        </div>
 
-      </PinnedSection>
-
+        <div className={`${BlogCardHeight}`}></div>
+      </ContentSection>
     </>
   )
 }
@@ -144,111 +183,74 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
 async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[] }) {
   return (
     <>
-      <PinnedSection>
-        <Grid.ColThree id="as_a_architect">
-          <T.H3 className="col-span-1">As an Architect</T.H3>
+      <TitleSection>
+        <div className="lg:flex flex-row items-end">
+          <T.H2 id="as_a_developer">ONCE AN ARCHITECT</T.H2>
+          <div className="flex-1" />
+          <T.H5 className="text-foreground/75" id="as_a_developer">Archived Archi Project</T.H5>
+        </div>
+      </TitleSection>
 
-          <T.Body1 className="col-span-2">
-            Being an architect turned developer is a rewarding journey—architecture nurtured my systematic and aesthetic thinking,
-            while coding empowers me to bring those ideas to life and make a broader impact efficiently.
-          </T.Body1>
-        </Grid.ColThree>
-        <Spacer />
-      </PinnedSection>
-
-      <PinnedSection>
-        <T.H3>Featured Archived Projects</T.H3>
-        <Spacer />
-        <Grid.ColThree>
+      <Container.FullWidth className="bg-background">
+        <Divider />
+        <Grid.ColTwo className="py-12">
           {
             projects.map(project => (
-              <ProjectCard href={`/as/architect/project/${project.title.replace(" ", "_")}`}
-                project={project} key={project.title} />
+              <ArchitectureProjectCard project={project} key={project.title}
+                href={`/as/architect/project/${project.title.replace(" ", "_")}`} />
             ))
           }
-        </Grid.ColThree>
-      </PinnedSection>
+        </Grid.ColTwo>
+      </Container.FullWidth>
+
     </>
   )
 }
 
-function ProjectCard({ project, href }: { project: ZaneArchProject.Info | ZaneDevProject.Info, href: string }) {
+
+function TitleSection({ children, className }: {
+  children?: React.ReactNode,
+  className?: string
+}) {
   return (
-    <Link href={href}>
-      <SlideUp.Div className="group aspect-[4/3] overflow-hidden rounded relative">
-        <img src={project.cover.url} alt={project.cover.alt}
-          className="aspect-[4/3] absolute inset-0 object-cover group-hover:scale-110 duration-500" />
-
-        <div className={twJoin(
-          "absolute inset-0 object-cover opacity-0 bg-background/75 text-foreground p-8",
-          "flex flex-col",
-          "group-hover:opacity-100 duration-500"
-        )} >
-          <div className="flex flex-row items-end">
-            <T.H5>{project.title}</T.H5>
-            <div className="flex-1" />
-            <T.Body2 className="text-foreground/75">
-              {
-                project.startDate.getFullYear()}.{project.startDate.getMonth() + 1
-              } - {project.endDate ?
-                `${project.endDate.getFullYear()}.${project.endDate.getMonth() + 1}` :
-                "Ongoing"
-              }
-            </T.Body2>
-          </div>
-          <T.Body1 className="text-foreground/75">{project.subTitle}</T.Body1>
-
-          <div className="pt-4 flex-0 align-bottom overflow-y-clip overscroll-contain">
-            <StyledMarkdown>
-              {project.description.toString()}
-            </StyledMarkdown>
-          </div>
-        </div>
-      </SlideUp.Div>
-    </Link>
-  )
-}
-
-function BlogSession({ blog, href }: { blog: ZaneDevBlog.Info, href: string }) {
-  return (
-    <SlideUp.FullWidth className="group">
-      <Link href={href}>
-        <div className="w-full flex flex-row py-4 gap-4">
-          <img src={blog.cover.url} alt={blog.cover.alt}
-            className={"aspect-video object-cover lg:block hidden w-1/5"} />
-
-          <div className="p-4 rounded flex-1 overflow-hidden group-hover:bg-foreground/10 transition-colors duration-500">
-            <T.H5 className="mb-2">{blog.title}</T.H5>
-            <div>
-              <StyledMarkdown>
-                {blog.description.toString()}
-              </StyledMarkdown>
-            </div>
-          </div>
-        </div>
-      </Link>
-      <Divider />
-    </SlideUp.FullWidth >
-  )
-}
-
-
-function PinnedSection({ children, className }: { children: React.ReactNode, className?: string }) {
-  return (
-    <SlideUp.FullWidth className={
-      twMerge("sticky top-24 bg-background z-10", className)
+    <Container.FullWidth className={
+      twMerge("bg-background", className)
     }>
       <Divider />
-      <div className="py-12">
+      <SlideUp.Div className={"pb-8 pt-96"}>
         {children}
-      </div>
-    </SlideUp.FullWidth>
+      </SlideUp.Div>
+    </Container.FullWidth>
+  )
+}
+
+function ContentSection({ children, header, className }: {
+  children?: React.ReactNode,
+  header: React.ReactNode,
+  className?: string
+}) {
+  return (
+    <Container.FullWidth className={
+      twMerge("bg-background", className)
+    }>
+      <Divider />
+      <Grid.ColFour className="py-12">
+        <SlideUp.Div className="col-span-1">
+          <div className="sticky top-24">
+            {header}
+          </div>
+        </SlideUp.Div>
+
+        {children}
+      </Grid.ColFour>
+
+    </Container.FullWidth >
   )
 }
 
 
 function Spacer() {
-  return <div className="pb-12" />
+  return <div className="pb-12 select-none" />
 }
 
 function SlidingIcon() {

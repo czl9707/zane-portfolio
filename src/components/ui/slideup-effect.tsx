@@ -10,7 +10,7 @@ type DelayVariant = 0 | 75 | 100 | 150 | 200 | 300 | 500 | 700 | 1000;
 
 export function SlideUpFactory(Comp: React.ElementType<React.HTMLProps<HTMLDivElement>>) {
     return React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { delay?: DelayVariant }>(
-        function SlideUpContainer({ className, delay = 0, ...other }, ref) {
+        function SlideUpContainer({ className, delay = 0, children, ...other }, ref) {
             const { ref: inviewRef, inView, entry } = useInView({ threshold: 0.05 })
             React.useEffect(
                 () => {
@@ -29,11 +29,12 @@ export function SlideUpFactory(Comp: React.ElementType<React.HTMLProps<HTMLDivEl
                         if (typeof ref === 'function') ref(node);
                         else ref.current = node;
                     }
-                }}
-                    className={twMerge(
-                        `animate-[slide-up_1s_ease-out_both] delay-${delay} animate-paused`,
-                        className,
-                    )} {...other} />
+                }} className={twMerge(
+                    `animate-[slide-up_1s_ease-out_both] delay-${delay} animate-paused`,
+                    className
+                )} {...other}>
+                    {children}
+                </Comp>
             )
         }
     )

@@ -9,6 +9,7 @@ interface ZaneDevProjectInfo {
     endDate?: Date,
     description: string,
     cover: ImageInfo,
+    externalLink: string,
 }
 
 interface ZaneDevProjectDto {
@@ -18,7 +19,8 @@ interface ZaneDevProjectDto {
     startDate: number,
     endDate?: number,
     description: string,
-    cover: ImageInfo
+    cover: ImageInfo,
+    externalLink: string,
 }
 
 export type {
@@ -54,5 +56,6 @@ export function fromDto(dto: ZaneDevProjectDto): ZaneDevProjectInfo {
         endDate: dto.endDate ? new Date(dto.endDate) : undefined,
         description: dto.description,
         cover: dto.cover,
+        externalLink: dto.externalLink,
     }
 }

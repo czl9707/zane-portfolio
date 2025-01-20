@@ -61,7 +61,7 @@
 /* the one for container/div */
 @keyframes slide-up {
   0% {
-    transform: translateY(3rem);
+    transform: translateY(5rem);
     opacity: 0
   }
 
