@@ -1,3 +1,3 @@
-type ColorVariants = 'default' | 'nebular' | 'star' | 'galaxy' | 'solar';
+const ColorVariants = ['nebular', 'star', 'galaxy', 'solar'] as const;
 
-export type { ColorVariants }
+export { ColorVariants }

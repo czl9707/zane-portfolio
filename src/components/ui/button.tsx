@@ -2,9 +2,11 @@ import * as React from 'react';
 import { ColorVariants } from "./tokens.type";
 import { twJoin, twMerge } from 'tailwind-merge';
 
+type ButtonColorVariants = typeof ColorVariants[number] | "default";
+
 interface ButtonProps {
     variant?: "outline" | "filled",
-    color?: ColorVariants,
+    color?: ButtonColorVariants,
 };
 
 const Button = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & ButtonProps>(
@@ -32,7 +34,7 @@ const Button = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> 
 )
 
 
-function resolveTextColorClass(color: ColorVariants, variant: "outline" | "filled") {
+function resolveTextColorClass(color: ButtonColorVariants, variant: "outline" | "filled") {
     if (color === "default") {
         return "text-foreground";
     }
@@ -42,7 +44,7 @@ function resolveTextColorClass(color: ColorVariants, variant: "outline" | "fille
     }
 }
 
-function resolveBackgroundColorClass(color: ColorVariants, variant: "outline" | "filled") {
+function resolveBackgroundColorClass(color: ButtonColorVariants, variant: "outline" | "filled") {
     if (color === "default" || variant === "outline") {
         return 'bg-transparent';
     }

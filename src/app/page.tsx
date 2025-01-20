@@ -1,15 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 import * as Container from "@/components/ui/container";
 import * as Grid from "@/components/ui/grid";
 import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";
 import Divider from "@/components/ui/divider";
-import StyledMarkdown from "@/components/ui/styled-markdown";
 import ArchitectureProjectCard from "@/components/arch-project-card";
-import BlogCard from "@/components/blog-card";
-import DevProjectCard from "@/components/dev-project-card";
-import { HEIGHT_CLASS as BlogCardHeight } from "@/components/blog-card";
-import { HEIGHT_CLASS as DevProjectCardHeight } from "@/components/dev-project-card";
 
 import * as Homepage from "@/lib/cms/zane-homepage"
 import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
@@ -18,8 +12,9 @@ import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
 
 import "./page.css"
 import Link from "next/link";
-import { twJoin, twMerge } from "tailwind-merge";
+import { twMerge } from "tailwind-merge";
 import React from "react";
+import StyledMarkdown from "@/components/ui/styled-markdown";
 
 export const revalidate = 14400;
 
@@ -33,52 +28,45 @@ export default async function Page() {
   return (
     <>
       <IntroSection />
-
       <WhoAmISection />
-      {/* <Container.Default className="h-36" />
-      <SlidingIcon />
-      <Container.Default className="h-24" /> */}
       <DeveloperSection projects={content.featuredDevProjects} blogs={content.featuredBlogs} />
-
       <ArchitectSection projects={content.featuredArchProjects} />
     </>
   );
 }
 
+
 function IntroSection() {
   return (
-    <>
-      <div className="h-screen flex flex-col pt-24 pb-8 sticky top-0">
-        <Container.FullWidth>
-          <Grid.ColThree>
-            <SlideUp.Div className="col-span-2">
-              <T.H4>
-                Precision in detail, vision in design, <br />
-                building things one block at a time.
-              </T.H4>
-            </SlideUp.Div>
-          </Grid.ColThree>
-        </Container.FullWidth>
+    <div className="h-screen flex flex-col pt-24 pb-8 sticky top-0">
+      <Container.FullWidth>
+        <Grid.ColThree>
+          <SlideUp.Div className="col-span-2">
+            <T.H4>
+              Precision in detail, vision in design, <br />
+              building things one block at a time.
+            </T.H4>
+          </SlideUp.Div>
+        </Grid.ColThree>
+      </Container.FullWidth>
 
-        <div className="flex-1" />
+      <div className="flex-1" />
 
-        <SlideUp.FullWidth >
-          <svg width={"100%"} viewBox="0 0 45 8">
-            <text x="50%" y="50%"
-              dominantBaseline="middle" textAnchor="middle"
-              className="fill-foreground font-sans font-bold select-none"
-              style={{ fontSize: "8" }}
-            >
-              ZANE CHEN
-            </text>
-          </svg>
-        </SlideUp.FullWidth>
-      </div>
-
-      {/* <div className="h-screen" /> */}
-    </>
+      <SlideUp.FullWidth >
+        <svg width={"100%"} viewBox="0 0 45 8">
+          <text x="50%" y="50%"
+            dominantBaseline="middle" textAnchor="middle"
+            className="fill-foreground font-sans font-bold select-none"
+            style={{ fontSize: "8" }}
+          >
+            ZANE CHEN
+          </text>
+        </svg>
+      </SlideUp.FullWidth>
+    </div>
   )
 }
+
 
 function WhoAmISection() {
   return (
@@ -135,7 +123,11 @@ function WhoAmISection() {
   )
 }
 
+
 function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.Info[], blogs: ZaneDevBlog.Info[] }) {
+  const BlogCardHeight = "min-h-20";
+  const ProjCardHeight = "min-h-28";
+
   return (
     <>
       <TitleSection>
@@ -147,33 +139,65 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
           <T.H5 className="text-foreground/75">Featured Projects</T.H5>
         }
       >
-        <div className="col-span-3">
+        <div className="col-span-3 -mt-12">
           {
-            projects.map(project => (
-              <DevProjectCard
-                project={project} key={project.title} />
+            projects.map((project) => (
+              <Link href={project.externalLink} key={project.title}>
+                <ProjectBriefSession buttonText="Take me there">
+                  <T.H4 className={`mb-2 transition-color duration-500`}>{project.title}</T.H4>
+
+                  <T.Body1 className="text-foreground/75">
+                    {project.startDate.toLocaleString('US', { month: 'long', day: "2-digit", year: "numeric" })}
+                    {
+                      (project.tags?.length ?? 0) > 0 ? " · " : ""
+                    }
+                    {
+                      project.tags?.join(" · ")
+                    }
+                  </T.Body1>
+
+                  <div className="text-foreground/75 pt-6">
+                    <StyledMarkdown>
+                      {project.description}
+                    </StyledMarkdown>
+                  </div>
+                </ProjectBriefSession>
+              </Link>
             ))
           }
+          <ProjectBriefSession buttonText="All Projects" withDivider={false}>
+            <div className={`${ProjCardHeight}`} />
+          </ProjectBriefSession>
         </div>
 
-        <div className={`${DevProjectCardHeight}`}></div>
       </ContentSection>
 
       <ContentSection className="group/section"
-        header={
-          <T.H5 className="text-foreground/75">Featured Blogs</T.H5>
-        }
+        header={<T.H5 className="text-foreground/75">Featured Blogs</T.H5>}
       >
-        <div className="col-span-3">
+        <div className="col-span-3 -mt-12">
           {
-            blogs.map(blog => (
-              <BlogCard
-                blog={blog} key={blog.title} />
+            blogs.map((blog) => (
+              <Link href={`/as/developer/blog/${blog.title.replace(" ", "_")}`} key={blog.title}>
+                <ProjectBriefSession buttonText="Read More">
+                  <T.H4 className={`mb-2 transition-color duration-500`}>{blog.title}</T.H4>
+                  <T.Body1 className="text-foreground/75">
+                    {blog.createdDate.toLocaleString('US', { month: 'long', day: "2-digit", year: "numeric" })}
+                    {
+                      (blog.tags?.length ?? 0) > 0 ? " · " : ""
+                    }
+                    {
+                      blog.tags?.join(" · ")
+                    }
+                  </T.Body1>
+                </ProjectBriefSession>
+              </Link>
             ))
           }
+          <ProjectBriefSession buttonText="All Blogs" withDivider={false}>
+            <div className={`${BlogCardHeight}`} />
+          </ProjectBriefSession>
         </div>
-
-        <div className={`${BlogCardHeight}`}></div>
       </ContentSection>
     </>
   )
@@ -202,7 +226,6 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
           }
         </Grid.ColTwo>
       </Container.FullWidth>
-
     </>
   )
 }
@@ -217,12 +240,16 @@ function TitleSection({ children, className }: {
       twMerge("bg-background", className)
     }>
       <Divider />
-      <SlideUp.Div className={"pb-8 pt-96"}>
+
+      {/* <SlidingIcon className="my-48" /> */}
+      <div className="py-48" />
+      <SlideUp.Div className="pb-12">
         {children}
       </SlideUp.Div>
     </Container.FullWidth>
   )
 }
+
 
 function ContentSection({ children, header, className }: {
   children?: React.ReactNode,
@@ -248,14 +275,46 @@ function ContentSection({ children, header, className }: {
   )
 }
 
+function ProjectBriefSession({ children, buttonText, withDivider = true }: {
+  children?: React.ReactNode,
+  buttonText: string,
+  withDivider?: boolean
+}) {
+  return (
+    <SlideUp.Div className={`group pt-12 flex flex-col`}>
+      <div className="flex flex-row items-end">
+        <div className="flex-1">
+          {children}
+        </div>
+
+        <div className="select-none basis-8" />
+
+        <T.Body1 className="group-hover:text-foreground text-foreground/75 transition-colors duration-500">
+          {buttonText}
+          <span className="w-1 group-hover:w-4 inline-block transition-[width] duration-500" />
+          {">>"}
+          <span className="w-4 group-hover:w-1 inline-block transition-[width] duration-500" />
+        </T.Body1>
+      </div>
+
+      <div className="flex-1" />
+      {
+        withDivider &&
+        <Divider className="group-hover:bg-foreground transition-colors duration-500 mt-12" />
+      }
+    </SlideUp.Div >
+  )
+}
 
 function Spacer() {
   return <div className="pb-12 select-none" />
 }
 
-function SlidingIcon() {
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function SlidingIcon({ className }: { className?: string }) {
   return (
-    <Container.FullWidth>
+    <Container.FullWidth className={className}>
       <svg viewBox="0 0 100 300" width="2rem" height="6rem"
         className="m-auto stroke-foreground/50 stroke-[10]"
         strokeLinecap="square" strokeLinejoin="miter">

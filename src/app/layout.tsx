@@ -18,7 +18,7 @@ const redHatMono = Red_Hat_Mono({
 
 export const metadata: Metadata = {
   title: "Zane Chen",
-  icons: "favicon.svg",
+  icons: "/favicon.svg",
   description: "",
 };
 
