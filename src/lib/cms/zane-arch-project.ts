@@ -1,5 +1,6 @@
 import * as UserToken from "@/lib/cms/user-token"
 import { ImageInfo } from "@/lib/cms/common.type";
+import * as Blocks from "@/lib/cms/content-blocks";
 
 interface ZaneArchProjectInfo {
     title: string,
@@ -11,6 +12,7 @@ interface ZaneArchProjectInfo {
     contributors?: string,
     description: string,
     cover: ImageInfo,
+    content: { blocks: Blocks.Type[], catagory?: string }[],
 }
 
 interface ZaneArchProjectDto {
@@ -22,7 +24,8 @@ interface ZaneArchProjectDto {
     location?: string,
     contributors?: string,
     description: string,
-    cover: ImageInfo
+    cover: ImageInfo,
+    content?: Blocks.Type[]
 }
 
 export type {
@@ -65,6 +68,7 @@ export async function getByTitle(title: string): Promise<ZaneArchProjectInfo> {
         async req => await req.json()
     ).then(
         data => {
+            console.log(data.docs[0].content)
             return fromDto(data.docs[0]);
         }
     );
@@ -81,5 +85,7 @@ export function fromDto(dto: ZaneArchProjectDto): ZaneArchProjectInfo {
         contributors: dto.contributors,
         description: dto.description,
         cover: dto.cover,
+        content: dto.content === undefined ? [] :
+            Blocks.FromDtoToCatagories(dto.content),
     }
 }

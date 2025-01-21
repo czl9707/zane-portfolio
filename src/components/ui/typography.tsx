@@ -28,7 +28,7 @@ const H5 = React.forwardRef<HTMLHeadingElement, React.HTMLProps<HTMLHeadingEleme
 )
 const H6 = React.forwardRef<HTMLHeadingElement, React.HTMLProps<HTMLHeadingElement>>(
     function H6({ className, ...others }, ref) {
-        return <h6 className={twMerge('font-sans text-xl/relaxed font-bold', className)} {...others} ref={ref} />
+        return <h6 className={twMerge('font-sans text-xl/relaxed font-medium', className)} {...others} ref={ref} />
     }
 )
 const Body1 = React.forwardRef<HTMLParagraphElement, React.HTMLProps<HTMLParagraphElement>>(

@@ -3,7 +3,7 @@ import * as Grid from "@/components/ui/grid";
 import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";
 import Divider from "@/components/ui/divider";
-import ArchitectureProjectCard from "@/components/arch-project-card";
+import ArchitectureProjectCard from "@/components/arch-project/arch-project-card";
 
 import * as Homepage from "@/lib/cms/zane-homepage"
 import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
@@ -144,10 +144,10 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
             projects.map((project) => (
               <Link href={project.externalLink} key={project.title}>
                 <ProjectBriefSession buttonText="Take me there">
-                  <T.H4 className={`mb-2 transition-color duration-500`}>{project.title}</T.H4>
+                  <T.H4 className={`mb-4 transition-color duration-500`}>{project.title}</T.H4>
 
                   <T.Body1 className="text-foreground/75">
-                    {project.startDate.toLocaleString('US', { month: 'long', day: "2-digit", year: "numeric" })}
+                    {project.startDate.toLocaleString('US', { month: 'long', year: "numeric" })}
                     {
                       (project.tags?.length ?? 0) > 0 ? " · " : ""
                     }
@@ -180,7 +180,7 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
             blogs.map((blog) => (
               <Link href={`/as/developer/blog/${blog.title.replace(" ", "_")}`} key={blog.title}>
                 <ProjectBriefSession buttonText="Read More">
-                  <T.H4 className={`mb-2 transition-color duration-500`}>{blog.title}</T.H4>
+                  <T.H4 className={`mb-4 transition-color duration-500`}>{blog.title}</T.H4>
                   <T.Body1 className="text-foreground/75">
                     {blog.createdDate.toLocaleString('US', { month: 'long', day: "2-digit", year: "numeric" })}
                     {
@@ -282,20 +282,18 @@ function ProjectBriefSession({ children, buttonText, withDivider = true }: {
 }) {
   return (
     <SlideUp.Div className={`group pt-12 flex flex-col`}>
-      <div className="flex flex-row items-end">
-        <div className="flex-1">
+      <Grid.ColFour className="items-end">
+        <div className="col-span-3">
           {children}
         </div>
 
-        <div className="select-none basis-8" />
-
-        <T.Body1 className="group-hover:text-foreground text-foreground/75 transition-colors duration-500">
+        <T.Body1 className="group-hover:text-foreground text-foreground/75 transition-colors duration-500 col-span-1">
           {buttonText}
           <span className="w-1 group-hover:w-4 inline-block transition-[width] duration-500" />
           {">>"}
           <span className="w-4 group-hover:w-1 inline-block transition-[width] duration-500" />
         </T.Body1>
-      </div>
+      </Grid.ColFour>
 
       <div className="flex-1" />
       {

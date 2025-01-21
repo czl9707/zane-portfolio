@@ -41,9 +41,9 @@ export default function ArchitectureProjectCard({ project }: { project: ZaneArch
                     <div className="flex-1" />
                     <T.Body2 className="text-foreground/75">
                         {
-                            project.startDate.getFullYear()}.{project.startDate.getMonth() + 1
+                            project.startDate.toLocaleString('US', { month: 'short', year: "numeric" })
                         } - {project.endDate ?
-                            `${project.endDate.getFullYear()}.${project.endDate.getMonth() + 1}` :
+                            project.endDate.toLocaleString('US', { month: 'short', year: "numeric" }) :
                             "Ongoing"
                         }
                     </T.Body2>
