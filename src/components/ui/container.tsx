@@ -12,7 +12,7 @@ const CenteredContainer = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLD
 const FullContainer = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
     function FullContainer({ className, ...other }, ref) {
         return <div {...other} ref={ref} className={
-            twMerge('px-12 relative', className)
+            twMerge('px-group relative', className)
         } />
     }
 )

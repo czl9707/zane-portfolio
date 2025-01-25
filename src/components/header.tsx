@@ -7,7 +7,7 @@ import { twJoin } from "tailwind-merge";
 export default function Header() {
     return (
         <Container.FullWidth className={twJoin(
-            "fixed top-0 left-0 right-0 z-50 h-24",
+            "fixed top-0 left-0 right-0 z-50 h-header",
             "py-auto flex flex-row items-center gap-4",
             "bg-background animate-[slide-down_1s_ease-out_forwards]",
         )}>

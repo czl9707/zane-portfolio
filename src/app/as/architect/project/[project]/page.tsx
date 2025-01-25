@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: Promise<{ project: stri
 function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
     return (
         <>
-            <Container.FullWidth className='mt-36 -mb-24'>
+            <Container.FullWidth className='mt-header py-group -mb-block'>
                 <Grid.ColFour className='items-end'>
                     <SlideUp.Div className='col-span-2'>
                         <T.H2 >{project.title.toUpperCase()}</T.H2>
@@ -55,7 +55,7 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                     <div className='col-span-1' />
 
                     <SlideUp.Div className='col-span-1'>
-                        <T.Body1 className='text-foreground/75 mt-8'>When</T.Body1>
+                        <T.Body1 className='text-foreground/75 mt-component'>When</T.Body1>
                         <T.H6>
                             {
                                 project.startDate.toLocaleString('US', { month: 'short', year: "numeric" })
@@ -66,7 +66,7 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                         </T.H6>
 
 
-                        <T.Body1 className='text-foreground/75 mt-8'>
+                        <T.Body1 className='text-foreground/75 mt-component'>
                             Who
                         </T.Body1>
                         <T.H6>

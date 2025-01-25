@@ -21,7 +21,7 @@ export default function ArchitectureProjectCard({ project }: { project: ZaneArch
                         )} />
 
                     <div className={twJoin(
-                        "absolute inset-0 opacity-0 bg-background/75 text-foreground p-8",
+                        "absolute inset-0 opacity-0 bg-background/75 text-foreground p-component",
                         "flex flex-col",
                         "group-hover/card:opacity-100 duration-500"
                     )} >

@@ -10,7 +10,7 @@ import StyledMarkdown from '../ui/styled-markdown'
 const PADDING_TEMPLATE = "max-w-7xl w-full mx-auto"
 
 function MultiImageBlock({ block }: { block: ContentBlock.MultiImageBlockType }) {
-    return <SlideUp.FullWidth className="my-36">
+    return <SlideUp.FullWidth className="my-block">
         <div className={`col-span-3 flex flex-row gap-4 ${PADDING_TEMPLATE}`}>
             {
                 block.images.map(image => (
@@ -29,7 +29,7 @@ function MultiImageBlock({ block }: { block: ContentBlock.MultiImageBlockType })
 
 function ImageAndTextBlock({ block }: { block: ContentBlock.ImageAndTextBlockType }) {
     return (
-        <SlideUp.FullWidth className="my-36">
+        <SlideUp.FullWidth className="my-block">
             <Grid.ColThree className={PADDING_TEMPLATE}>
                 <div className='col-span-1'>
                     <T.H5 className="text-foreground/75 mb-4">{block.title}</T.H5>
@@ -50,7 +50,7 @@ function ImageAndTextBlock({ block }: { block: ContentBlock.ImageAndTextBlockTyp
 
 function FullTextBlock({ block }: { block: ContentBlock.FullTextBlockType }) {
     return (
-        <SlideUp.FullWidth className="my-36">
+        <SlideUp.FullWidth className="my-block">
             <Grid.ColThree className={PADDING_TEMPLATE}>
                 <div className='col-span-1'>
                     <T.H5 className="text-foreground/75">{block.title}</T.H5>
@@ -67,7 +67,7 @@ function FullTextBlock({ block }: { block: ContentBlock.FullTextBlockType }) {
 
 function FullSizeImageBlock({ block }: { block: ContentBlock.FullSizeImageBlockType }) {
     return (
-        <SlideUp.FullWidth className='my-36'>
+        <SlideUp.FullWidth className='my-block'>
             <img src={block.image.url} alt={block.image.alt}
                 className='w-full object-cover rounded' />
         </SlideUp.FullWidth>

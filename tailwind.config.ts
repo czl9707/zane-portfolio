@@ -48,10 +48,17 @@ export default {
           contrast: "rgb(var(--color-shade-contrast))",
         }
       },
-    },
-    fontFamily: {
-      sans: "var(--font-family-sans)",
-      mono: "var(--font-family-mono)"
+      fontFamily: {
+        sans: "var(--font-family-sans)",
+        mono: "var(--font-family-mono)"
+      },
+      spacing: {
+        header: "6rem",
+        block: "9rem",
+        group: "3rem",
+        component: "2rem",
+        paragraph: "1rem",
+      }
     },
   },
   plugins: [],

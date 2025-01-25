@@ -38,7 +38,7 @@ export default async function Page() {
 
 function IntroSection() {
   return (
-    <div className="h-screen flex flex-col pt-24 pb-8 sticky top-0">
+    <div className="h-screen flex flex-col pt-header sticky top-0">
       <Container.FullWidth>
         <Grid.ColThree>
           <SlideUp.Div className="col-span-2">
@@ -77,12 +77,12 @@ function WhoAmISection() {
     >
       <div className={"col-span-2"}>
         <SlideUp.Div>
-          <T.H4 className="mb-12 group-hover/section:text-foreground/50 transition-colors duration-500">
+          <T.H4 className="group-hover/section:text-foreground/50 transition-colors duration-500">
             Once an
             <Link className="text-foreground" href="#as_an_architect"> <u>Architect</u></Link>, now a self-taught
             <Link className="text-foreground" href="#as_a_developer"> <u>Software Engineer</u></Link>, I enjoy building solutions.
           </T.H4>
-
+          <Spacer />
           <T.Body1 className="group-hover/section:text-foreground/50 transition-colors duration-500">
             Currently I am working at
             <Link className="text-foreground" href="https://www.bloomberg.com/professional"> <u>Bloomberg</u> </Link> as a software engineer, while I keep building
@@ -139,7 +139,7 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
           <T.H5 className="text-foreground/75">Featured Projects</T.H5>
         }
       >
-        <div className="col-span-3 -mt-12">
+        <div className="col-span-3 -mt-group">
           {
             projects.map((project) => (
               <Link href={project.externalLink} key={project.title}>
@@ -175,7 +175,7 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
       <ContentSection className="group/section"
         header={<T.H5 className="text-foreground/75">Featured Blogs</T.H5>}
       >
-        <div className="col-span-3 -mt-12">
+        <div className="col-span-3 -mt-group">
           {
             blogs.map((blog) => (
               <Link href={`/as/developer/blog/${blog.title.replace(" ", "_")}`} key={blog.title}>
@@ -217,7 +217,7 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
 
       <Container.FullWidth className="bg-background">
         <Divider />
-        <Grid.ColTwo className="py-12">
+        <Grid.ColTwo className="py-group">
           {
             projects.map(project => (
               <ArchitectureProjectCard project={project} key={project.title}
@@ -241,9 +241,9 @@ function TitleSection({ children, className }: {
     }>
       <Divider />
 
-      {/* <SlidingIcon className="my-48" /> */}
-      <div className="py-48" />
-      <SlideUp.Div className="pb-12">
+      <span className="h-block block select-none" />
+      <span className="h-block block select-none" />
+      <SlideUp.Div className="pb-group">
         {children}
       </SlideUp.Div>
     </Container.FullWidth>
@@ -261,9 +261,9 @@ function ContentSection({ children, header, className }: {
       twMerge("bg-background", className)
     }>
       <Divider />
-      <Grid.ColFour className="py-12">
+      <Grid.ColFour className="py-group">
         <SlideUp.Div className="col-span-1">
-          <div className="sticky top-24">
+          <div className="sticky top-header">
             {header}
           </div>
         </SlideUp.Div>
@@ -281,7 +281,7 @@ function ProjectBriefSession({ children, buttonText, withDivider = true }: {
   withDivider?: boolean
 }) {
   return (
-    <SlideUp.Div className={`group pt-12 flex flex-col`}>
+    <SlideUp.Div className={`group pt-component flex flex-col`}>
       <Grid.ColFour className="items-end">
         <div className="col-span-3">
           {children}
@@ -298,14 +298,17 @@ function ProjectBriefSession({ children, buttonText, withDivider = true }: {
       <div className="flex-1" />
       {
         withDivider &&
-        <Divider className="group-hover:bg-foreground transition-colors duration-500 mt-12" />
+        <>
+          <Spacer />
+          <Divider className="group-hover:bg-foreground transition-colors duration-500" />
+        </>
       }
     </SlideUp.Div >
   )
 }
 
 function Spacer() {
-  return <div className="pb-12 select-none" />
+  return <span className="h-group block select-none" />
 }
 
 
