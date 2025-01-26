@@ -10,8 +10,8 @@ import { DateRangeAsString } from '@/lib/utils/date';
 
 
 export async function generateStaticParams(): Promise<{ project: string }[]> {
-    const result = (await ZaneArchProjects.getAllTitle())
-    return result.map(t => ({ project: t.replace(" ", "_") }));
+    const result = (await ZaneArchProjects.getAll())
+    return result.map(t => ({ project: t.title.replace(" ", "_") }));
 }
 
 

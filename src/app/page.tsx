@@ -17,6 +17,7 @@ import React from "react";
 import StyledMarkdown from "@/components/ui/styled-markdown";
 import { DateAsString, MonthAsString } from "@/lib/utils/date";
 import TitleSection from "@/components/layout/title-section";
+import Button from "@/components/ui/button";
 
 export const revalidate = 14400;
 
@@ -33,6 +34,7 @@ export default async function Page() {
       <WhoAmISection />
       <DeveloperSection projects={content.featuredDevProjects} blogs={content.featuredBlogs} />
       <ArchitectSection projects={content.featuredArchProjects} />
+      <FullWidthName />
     </>
   );
 }
@@ -54,21 +56,26 @@ function IntroSection() {
 
       <div className="flex-1" />
 
-      <SlideUp.FullWidth >
-        <svg width={"100%"} viewBox="0 0 45 8">
-          <text x="50%" y="50%"
-            dominantBaseline="middle" textAnchor="middle"
-            className="fill-foreground font-sans font-bold select-none"
-            style={{ fontSize: "8" }}
-          >
-            ZANE CHEN
-          </text>
-        </svg>
-      </SlideUp.FullWidth>
+      <FullWidthName />
     </div>
   )
 }
 
+function FullWidthName() {
+  return (
+    <SlideUp.FullWidth className="bg-background">
+      <svg width={"100%"} viewBox="0 0 45 8">
+        <text x="50%" y="50%"
+          dominantBaseline="middle" textAnchor="middle"
+          className="fill-foreground font-sans font-bold select-none"
+          style={{ fontSize: "8" }}
+        >
+          ZANE CHEN
+        </text>
+      </svg>
+    </SlideUp.FullWidth>
+  )
+}
 
 function WhoAmISection() {
   return (
@@ -210,12 +217,8 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
   return (
     <>
       <TitleSection>
-        <div className="lg:flex flex-row items-end">
-          <T.H2 id="as_a_developer">ONCE AN ARCHITECT</T.H2>
-          <div className="flex-1" />
-          <T.H5 className="text-foreground/75" id="as_a_developer">Archived Archi Project</T.H5>
-        </div>
-      </TitleSection>
+        <T.H2 id="as_an_architect">ONCE AN ARCHITECT</T.H2>
+      </TitleSection >
 
       <Container.FullWidth className="bg-background">
         <Divider />
@@ -227,6 +230,15 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
             ))
           }
         </Grid.ColTwo>
+      </Container.FullWidth>
+
+      <Container.FullWidth className="bg-background flex flex-col items-center">
+        <Link href="/as/architect/project">
+          <Button variant="outline">
+            <T.Button>View All Projects</T.Button>
+          </Button>
+        </Link>
+        <Spacer />
       </Container.FullWidth>
     </>
   )
@@ -263,18 +275,18 @@ function ProjectBriefSession({ children, buttonText, withDivider = true }: {
 }) {
   return (
     <SlideUp.Div className={`group pt-component flex flex-col`}>
-      <Grid.ColFour className="items-end">
-        <div className="col-span-3">
+      <div className="flex flex-row gap-component items-end">
+        <div className="flex-1">
           {children}
         </div>
-
+        <span className="block w-group" />
         <T.Body1 className="group-hover:text-foreground text-foreground/75 transition-colors duration-500 col-span-1">
           {buttonText}
           <span className="w-1 group-hover:w-4 inline-block transition-[width] duration-500" />
           {">>"}
           <span className="w-4 group-hover:w-1 inline-block transition-[width] duration-500" />
         </T.Body1>
-      </Grid.ColFour>
+      </div>
 
       <div className="flex-1" />
       {
