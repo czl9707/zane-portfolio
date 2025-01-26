@@ -11,12 +11,12 @@ const PADDING_TEMPLATE = "max-w-7xl w-full mx-auto"
 
 function MultiImageBlock({ block }: { block: ContentBlock.MultiImageBlockType }) {
     return <SlideUp.FullWidth className="my-block">
-        <div className={`col-span-3 flex flex-row gap-4 ${PADDING_TEMPLATE}`}>
+        <div className={`col-span-3 flex flex-row gap-paragraph ${PADDING_TEMPLATE}`}>
             {
                 block.images.map(image => (
                     <div className='flex-1' key={image.image.alt}>
                         <img src={image.image.url} alt={image.image.alt}
-                            className="object-cover mb-4 rounded" />
+                            className="object-cover mb-paragraph rounded" />
                         <T.Body2 className='text-foreground/75'>
                             {image.annotation}
                         </T.Body2>
@@ -32,7 +32,7 @@ function ImageAndTextBlock({ block }: { block: ContentBlock.ImageAndTextBlockTyp
         <SlideUp.FullWidth className="my-block">
             <Grid.ColThree className={PADDING_TEMPLATE}>
                 <div className='col-span-1'>
-                    <T.H5 className="text-foreground/75 mb-4">{block.title}</T.H5>
+                    <T.H5 className="text-foreground/75">{block.title}</T.H5>
                     <div >
                         <StyledMarkdown>
                             {block.text}

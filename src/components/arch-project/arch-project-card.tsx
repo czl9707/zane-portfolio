@@ -4,7 +4,6 @@ import { twJoin } from "tailwind-merge";
 
 import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";
-import StyledMarkdown from "@/components/ui/styled-markdown";
 
 import * as ZaneArchProject from "@/lib/cms/zane-arch-project";
 
@@ -27,26 +26,12 @@ export default function ArchitectureProjectCard({ project }: { project: ZaneArch
                     )} >
                         <div className="flex-1" />
 
-                        <T.H5 className="text-foreground/75">{project.subTitle}</T.H5>
-                        <div className="pt-2 overflow-y-clip overscroll-contain">
-                            <StyledMarkdown>
-                                {project.description.toString()}
-                            </StyledMarkdown>
-                        </div>
-                    </div>
-                </div>
+                        <T.H3 className="text-center">{project.title.toUpperCase()}</T.H3>
+                        <T.Body1 className="text-foreground/75 text-center">{project.tags.join(" · ")}</T.Body1>
+                        <T.H6 className="text-foreground/75 text-center">{project.subTitle}</T.H6>
 
-                <div className={"pt-2"}>
-                    <T.H5>{project.title}</T.H5>
-                    <div className="flex-1" />
-                    <T.Body2 className="text-foreground/75">
-                        {
-                            project.startDate.toLocaleString('US', { month: 'short', year: "numeric" })
-                        } - {project.endDate ?
-                            project.endDate.toLocaleString('US', { month: 'short', year: "numeric" }) :
-                            "Ongoing"
-                        }
-                    </T.Body2>
+                        <div className="flex-1" />
+                    </div>
                 </div>
             </SlideUp.Div>
         </Link>

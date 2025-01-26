@@ -6,6 +6,7 @@ import * as Grid from "@/components/ui/grid";
 import * as Container from "@/components/ui/container";
 import Button from '@/components/ui/button';
 import ArchProjectContentBlock from '@/components/arch-project/content-blocks';
+import { DateRangeAsString } from '@/lib/utils/date';
 
 
 export async function generateStaticParams(): Promise<{ project: string }[]> {
@@ -40,12 +41,12 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                     <SlideUp.Div className='col-span-2'>
                         <T.H2 >{project.title.toUpperCase()}</T.H2>
                         <T.H5 className='text-pretty text-foreground/75'>{project.subTitle}</T.H5>
-                        <div className='flex flex-row pt-6 gap-2'>
+                        <div className='inline-flex flex-row flex-wrap pt-6 gap-2'>
                             {
                                 project.tags?.map(t => (
                                     <Button className='pointer-events-none'
                                         variant='outline' key={t}>
-                                        <T.Body2>{t}</T.Body2>
+                                        <T.Button>{t}</T.Button>
                                     </Button>
                                 ))
                             }
@@ -57,14 +58,8 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                     <SlideUp.Div className='col-span-1'>
                         <T.Body1 className='text-foreground/75 mt-component'>When</T.Body1>
                         <T.H6>
-                            {
-                                project.startDate.toLocaleString('US', { month: 'short', year: "numeric" })
-                            } - {project.endDate ?
-                                project.endDate.toLocaleString('US', { month: 'short', year: "numeric" }) :
-                                "Ongoing"
-                            }
+                            {DateRangeAsString(project.startDate, project.endDate)}
                         </T.H6>
-
 
                         <T.Body1 className='text-foreground/75 mt-component'>
                             Who

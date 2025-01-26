@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Red_Hat_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 import { twJoin } from "tailwind-merge";
 
 const redHatDisplay = Geist({

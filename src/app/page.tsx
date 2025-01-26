@@ -15,6 +15,8 @@ import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import React from "react";
 import StyledMarkdown from "@/components/ui/styled-markdown";
+import { DateAsString, MonthAsString } from "@/lib/utils/date";
+import TitleSection from "@/components/layout/title-section";
 
 export const revalidate = 14400;
 
@@ -95,7 +97,7 @@ function WhoAmISection() {
         <Spacer />
 
         <SlideUp.Div>
-          <T.H5 className="mb-4">
+          <T.H5>
             As a Software Engineer
           </T.H5>
 
@@ -108,7 +110,7 @@ function WhoAmISection() {
         <Spacer />
 
         <SlideUp.Div>
-          <T.H5 className="mb-4">
+          <T.H5>
             Once an Architect
           </T.H5>
 
@@ -144,10 +146,10 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
             projects.map((project) => (
               <Link href={project.externalLink} key={project.title}>
                 <ProjectBriefSession buttonText="Take me there">
-                  <T.H4 className={`mb-4 transition-color duration-500`}>{project.title}</T.H4>
+                  <T.H4 className={`transition-color duration-500`}>{project.title}</T.H4>
 
                   <T.Body1 className="text-foreground/75">
-                    {project.startDate.toLocaleString('US', { month: 'long', year: "numeric" })}
+                    {MonthAsString(project.startDate)}
                     {
                       (project.tags?.length ?? 0) > 0 ? " · " : ""
                     }
@@ -180,9 +182,9 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
             blogs.map((blog) => (
               <Link href={`/as/developer/blog/${blog.title.replace(" ", "_")}`} key={blog.title}>
                 <ProjectBriefSession buttonText="Read More">
-                  <T.H4 className={`mb-4 transition-color duration-500`}>{blog.title}</T.H4>
+                  <T.H4 className={`transition-color duration-500`}>{blog.title}</T.H4>
                   <T.Body1 className="text-foreground/75">
-                    {blog.createdDate.toLocaleString('US', { month: 'long', day: "2-digit", year: "numeric" })}
+                    {DateAsString(blog.createdDate)}
                     {
                       (blog.tags?.length ?? 0) > 0 ? " · " : ""
                     }
@@ -229,27 +231,6 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
     </>
   )
 }
-
-
-function TitleSection({ children, className }: {
-  children?: React.ReactNode,
-  className?: string
-}) {
-  return (
-    <Container.FullWidth className={
-      twMerge("bg-background", className)
-    }>
-      <Divider />
-
-      <span className="h-block block select-none" />
-      <span className="h-block block select-none" />
-      <SlideUp.Div className="pb-group">
-        {children}
-      </SlideUp.Div>
-    </Container.FullWidth>
-  )
-}
-
 
 function ContentSection({ children, header, className }: {
   children?: React.ReactNode,

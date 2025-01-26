@@ -68,7 +68,6 @@ export async function getByTitle(title: string): Promise<ZaneArchProjectInfo> {
         async req => await req.json()
     ).then(
         data => {
-            console.log(data.docs[0].content)
             return fromDto(data.docs[0]);
         }
     );

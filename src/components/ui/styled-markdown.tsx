@@ -3,6 +3,7 @@ import * as React from 'react'
 
 import * as T from '@/components/ui/typography'
 import Divider from "@/components/ui/divider";
+import QuoteBlock from "@/components/ui/quote-block";
 
 export default function StyledMarkdown({ children }: { children: string }) {
     return (
@@ -17,6 +18,7 @@ export default function StyledMarkdown({ children }: { children: string }) {
             hr: Divider,
             // code:,
             // pre:,
+            blockquote: QuoteBlock,
         }}>
             {children}
         </Markdown>
