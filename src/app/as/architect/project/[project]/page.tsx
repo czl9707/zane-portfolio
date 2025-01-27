@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
 import * as SlideUp from "@/components/ui/slideup-effect";
 import * as T from "@/components/ui/typography";
@@ -56,12 +55,12 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                     <div className='col-span-1' />
 
                     <SlideUp.Div className='col-span-1'>
-                        <T.Body1 className='text-foreground/75 mt-component'>When</T.Body1>
+                        <T.Body1 className='text-foreground/75 mt-paragraph pb-0'>When</T.Body1>
                         <T.H6>
                             {DateRangeAsString(project.startDate, project.endDate)}
                         </T.H6>
 
-                        <T.Body1 className='text-foreground/75 mt-component'>
+                        <T.Body1 className='text-foreground/75 mt-paragraph pb-0'>
                             Who
                         </T.Body1>
                         <T.H6>

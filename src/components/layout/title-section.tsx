@@ -1,6 +1,6 @@
 import * as Container from '@/components/ui/container';
 import * as SlideUp from '@/components/ui/slideup-effect';
-import { twMerge } from 'tailwind-merge';
+import { twMerge } from "@/lib/utils/tw-merge";
 import Divider from '@/components/ui/divider';
 
 export default function TitleSection({ children, className }: {

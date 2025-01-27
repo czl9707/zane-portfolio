@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { useInView } from 'react-intersection-observer'
-import { twMerge } from 'tailwind-merge'
+import { twMerge } from "@/lib/utils/tw-merge";
 
 import * as Container from '@/components/ui/container'
 

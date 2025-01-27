@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { twMerge } from 'tailwind-merge';
+import { twMerge } from "@/lib/utils/tw-merge";
 
 const Divider = React.forwardRef<HTMLSpanElement, React.HTMLProps<HTMLDivElement>>(
     function Divider({ className, ...others }, ref) {

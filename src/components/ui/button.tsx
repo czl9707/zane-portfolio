@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { ColorVariants } from "./tokens.type";
-import { twJoin, twMerge } from 'tailwind-merge';
+import { twJoin } from 'tailwind-merge';
+
+import { twMerge } from "@/lib/utils/tw-merge";
 
 type ButtonColorVariants = typeof ColorVariants[number] | "default";
 

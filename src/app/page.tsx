@@ -9,10 +9,10 @@ import * as Homepage from "@/lib/cms/zane-homepage"
 import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
 import * as ZaneArchProject from "@/lib/cms/zane-arch-project";
 import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
+import { twMerge } from "@/lib/utils/tw-merge";
 
 import "./page.css"
 import Link from "next/link";
-import { twMerge } from "tailwind-merge";
 import React from "react";
 import StyledMarkdown from "@/components/ui/styled-markdown";
 import { DateAsString, MonthAsString } from "@/lib/utils/date";
@@ -63,17 +63,19 @@ function IntroSection() {
 
 function FullWidthName() {
   return (
-    <SlideUp.FullWidth className="bg-background">
-      <svg width={"100%"} viewBox="0 0 45 8">
-        <text x="50%" y="50%"
-          dominantBaseline="middle" textAnchor="middle"
-          className="fill-foreground font-sans font-bold select-none"
-          style={{ fontSize: "8" }}
-        >
-          ZANE CHEN
-        </text>
-      </svg>
-    </SlideUp.FullWidth>
+    <Container.FullWidth className="bg-background">
+      <SlideUp.Div>
+        <svg width={"100%"} viewBox="0 0 45 8">
+          <text x="50%" y="50%"
+            dominantBaseline="middle" textAnchor="middle"
+            className="fill-foreground font-sans font-bold select-none"
+            style={{ fontSize: "8" }}
+          >
+            ZANE CHEN
+          </text>
+        </svg>
+      </SlideUp.Div>
+    </Container.FullWidth>
   )
 }
 

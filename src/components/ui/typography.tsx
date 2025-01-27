@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { twMerge } from 'tailwind-merge';
+import { twMerge } from "@/lib/utils/tw-merge";
 
 const H1 = React.forwardRef<HTMLHeadingElement, React.HTMLProps<HTMLHeadingElement>>(
     function H1({ className, ...others }, ref) {
