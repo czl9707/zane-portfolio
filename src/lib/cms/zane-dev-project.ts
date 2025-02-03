@@ -15,7 +15,7 @@ interface ZaneDevProjectInfo {
 interface ZaneDevProjectDto {
     title: string,
     subTitle: string,
-    tags?: { value: string }[],
+    tags?: string[],
     startDate: number,
     endDate?: number,
     description: string,
@@ -51,7 +51,7 @@ export function fromDto(dto: ZaneDevProjectDto): ZaneDevProjectInfo {
     return {
         title: dto.title as string,
         subTitle: dto.subTitle as string,
-        tags: (dto.tags ?? []).map((t: { value: string }) => t.value),
+        tags: dto.tags ?? [],
         startDate: new Date(dto.startDate),
         endDate: dto.endDate ? new Date(dto.endDate) : undefined,
         description: dto.description,

@@ -7,6 +7,7 @@ interface MultiImageBlockType {
         annotation?: string
     }[],
     catagory?: string,
+    rows: number,
 }
 
 interface ImageAndTextBlockType {
@@ -38,37 +39,3 @@ export type {
     FullTextBlockType,
     FullSizeImageBlockType,
 };
-
-export function FromDtoToCatagories(blocks: BlockType[]): {
-    catagory?: string,
-    blocks: BlockType[]
-}[] {
-    const result: {
-        catagory?: string,
-        blocks: BlockType[]
-    }[] = [];
-
-    for (const block of blocks) {
-        if (result.length === 0) {
-            result.push({
-                catagory: block.catagory,
-                blocks: []
-            })
-            result[result.length - 1].blocks.push(block);
-            continue;
-        }
-
-        if (result[result.length - 1].catagory === block.catagory || block.catagory === undefined) {
-            result[result.length - 1].blocks.push(block);
-        }
-        else {
-            result.push({
-                catagory: block.catagory,
-                blocks: []
-            })
-            result[result.length - 1].blocks.push(block);
-        }
-    }
-
-    return result;
-}

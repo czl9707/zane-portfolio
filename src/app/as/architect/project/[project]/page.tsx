@@ -6,6 +6,7 @@ import * as Container from "@/components/ui/container";
 import Button from '@/components/ui/button';
 import ArchProjectContentBlock from '@/components/arch-project/content-blocks';
 import { DateRangeAsString } from '@/lib/utils/date';
+import React from 'react';
 
 
 export async function generateStaticParams(): Promise<{ project: string }[]> {
@@ -21,13 +22,17 @@ export default async function Page({ params }: { params: Promise<{ project: stri
         <ProjectHead project={project} />
 
         {
-            Object.entries(project.content).map((catagory) =>
-                catagory[1].blocks.map(
-                    (block, i) => (
-                        <ArchProjectContentBlock block={block} key={`${catagory[0]}${i}`} />
+            Object.entries(project.content).map((catagory) => (<React.Fragment key={catagory[0]}>
+                <span className='block my-block' />
+                {
+                    catagory[1].blocks.map(
+                        (block, i) => (
+                            <ArchProjectContentBlock block={block} key={`${catagory[0]}${i}`} />
+                        )
                     )
-                )
-            )
+                }
+            </React.Fragment>
+            ))
         }
     </>
 }
@@ -35,7 +40,7 @@ export default async function Page({ params }: { params: Promise<{ project: stri
 function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
     return (
         <>
-            <Container.FullWidth className='mt-header py-group -mb-block'>
+            <Container.FullWidth className='mt-header py-group'>
                 <Grid.ColFour className='items-end'>
                     <SlideUp.Div className='col-span-2'>
                         <T.H2 >{project.title.toUpperCase()}</T.H2>
@@ -75,7 +80,7 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                 blockType: "fullSizeImage",
                 image: project.cover
             }} />
-
+            <span className='block my-block' />
             <ArchProjectContentBlock block={{
                 blockType: "fullText",
                 title: "Project Overview",

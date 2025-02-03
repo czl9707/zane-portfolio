@@ -54,7 +54,7 @@ export default {
       },
       spacing: {
         header: "6rem",
-        block: "9rem",
+        block: "12rem",
         group: "3rem",
         component: "2rem",
         paragraph: "1rem",

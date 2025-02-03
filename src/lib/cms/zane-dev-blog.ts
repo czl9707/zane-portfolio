@@ -13,7 +13,7 @@ interface ZaneDevBlogInfo {
 interface ZaneDevBlogDto {
     title: string,
     subTitle: string,
-    tags?: { value: string }[],
+    tags?: string[],
     createdDate: number,
     description: string,
     cover: ImageInfo
@@ -47,7 +47,7 @@ export function fromDto(dto: ZaneDevBlogDto): ZaneDevBlogInfo {
     return {
         title: dto.title as string,
         subTitle: dto.subTitle as string,
-        tags: (dto.tags ?? []).map((t: { value: string }) => t.value),
+        tags: dto.tags ?? [],
         createdDate: new Date(dto.createdDate),
         description: dto.description,
         cover: dto.cover,

@@ -12,20 +12,20 @@ interface ZaneArchProjectInfo {
     contributors?: string,
     description: string,
     cover: ImageInfo,
-    content: { blocks: Blocks.Type[], catagory?: string }[],
+    content: { blocks: Blocks.Type[], catagory: string[], visible: boolean }[],
 }
 
 interface ZaneArchProjectDto {
     title: string,
     subTitle: string,
-    tags?: { value: string }[],
+    tags?: string[],
     startDate: number,
     endDate?: number,
     location?: string,
     contributors?: string,
     description: string,
     cover: ImageInfo,
-    content?: Blocks.Type[]
+    content?: { blocks: Blocks.Type[], catagory: string[], visible: boolean }[],
 }
 
 export type {
@@ -73,14 +73,13 @@ export function fromDto(dto: ZaneArchProjectDto): ZaneArchProjectInfo {
     return {
         title: dto.title as string,
         subTitle: dto.subTitle as string,
-        tags: (dto.tags ?? []).map((t: { value: string }) => t.value),
+        tags: dto.tags ?? [],
         startDate: new Date(dto.startDate),
         endDate: dto.endDate ? new Date(dto.endDate) : undefined,
         location: dto.location,
         contributors: dto.contributors,
         description: dto.description,
         cover: dto.cover,
-        content: dto.content === undefined ? [] :
-            Blocks.FromDtoToCatagories(dto.content),
+        content: dto.content ?? [],
     }
 }

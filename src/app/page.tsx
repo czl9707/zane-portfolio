@@ -234,14 +234,14 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
         </Grid.ColTwo>
       </Container.FullWidth>
 
-      <Container.FullWidth className="bg-background flex flex-col items-center">
+      <SlideUp.FullWidth className="bg-background flex flex-col items-center">
         <Link href="/as/architect/project">
           <Button variant="outline">
             <T.Button>View All Projects</T.Button>
           </Button>
         </Link>
         <Spacer />
-      </Container.FullWidth>
+      </SlideUp.FullWidth>
     </>
   )
 }

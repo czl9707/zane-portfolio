@@ -6,9 +6,9 @@ import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
 const HOMEPAGE_ENDPOINT = `${process.env.ADMIN_URL}/api/globals/zaneHomepage`;
 
 interface HomepageDto {
-    featuredBlogs: { blog: { value: ZaneDevBlog.Dto } }[],
-    featuredDevProjects: { project: { value: ZaneDevProject.Dto } }[],
-    featuredArchProjects: { project: { value: ZaneArchProject.Dto } }[],
+    featuredBlogs: { value: ZaneDevBlog.Dto }[],
+    featuredDevProjects: { value: ZaneDevProject.Dto }[],
+    featuredArchProjects: { value: ZaneArchProject.Dto }[],
 }
 
 export async function getContents() {
@@ -25,8 +25,8 @@ export async function getContents() {
     );
 
     return {
-        featuredBlogs: content.featuredBlogs.map(({ blog: { value } }) => ZaneDevBlog.fromDto(value)),
-        featuredDevProjects: content.featuredDevProjects.map(({ project: { value } }) => ZaneDevProject.fromDto(value)),
-        featuredArchProjects: content.featuredArchProjects.map(({ project: { value } }) => ZaneArchProject.fromDto(value)),
-    }
+        featuredBlogs: content.featuredBlogs.map(blog => ZaneDevBlog.fromDto(blog.value)),
+        featuredDevProjects: content.featuredDevProjects.map(project => ZaneDevProject.fromDto(project.value)),
+        featuredArchProjects: content.featuredArchProjects.map(project => ZaneArchProject.fromDto(project.value)),
+    };
 }

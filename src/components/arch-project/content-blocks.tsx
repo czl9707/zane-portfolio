@@ -9,11 +9,18 @@ import StyledMarkdown from '../ui/styled-markdown'
 const PADDING_TEMPLATE = "max-w-7xl w-full mx-auto"
 
 function MultiImageBlock({ block }: { block: ContentBlock.MultiImageBlockType }) {
-    return <SlideUp.FullWidth className="my-block">
-        <div className={`flex flex-row gap-paragraph ${PADDING_TEMPLATE}`}>
+    const maxRowItems = Math.ceil(block.images.length / block.rows)
+    const ContainerType = maxRowItems == 1 ? "div" : (
+        maxRowItems == 2 ? Grid.ColTwo : (
+            maxRowItems == 3 ? Grid.ColThree :
+                Grid.ColFour
+        ));
+
+    return <SlideUp.FullWidth className="my-group">
+        <ContainerType className={`${PADDING_TEMPLATE}`}>
             {
                 block.images.map(image => (
-                    <div className='flex-1' key={image.image.alt}>
+                    <div className='col-span-1' key={image.image.alt}>
                         <img src={image.image.url} alt={image.image.alt}
                             className="object-cover mb-paragraph rounded" />
                         <T.Body2 className='text-foreground/75 text-center'>
@@ -22,13 +29,13 @@ function MultiImageBlock({ block }: { block: ContentBlock.MultiImageBlockType })
                     </div>
                 ))
             }
-        </div>
+        </ContainerType>
     </SlideUp.FullWidth>
 }
 
 function ImageAndTextBlock({ block }: { block: ContentBlock.ImageAndTextBlockType }) {
     return (
-        <SlideUp.FullWidth className="my-block">
+        <SlideUp.FullWidth className="my-group">
             <Grid.ColTwo className={`${PADDING_TEMPLATE}`}>
                 <div className='col-span-1 relative'>
                     <T.H5 className="text-foreground/75 pb-paragraph">{block.title}</T.H5>
@@ -49,7 +56,7 @@ function ImageAndTextBlock({ block }: { block: ContentBlock.ImageAndTextBlockTyp
 
 function FullTextBlock({ block }: { block: ContentBlock.FullTextBlockType }) {
     return (
-        <SlideUp.FullWidth className="my-block">
+        <SlideUp.FullWidth className="my-group">
             <Grid.ColFour className={PADDING_TEMPLATE}>
                 <div className='col-span-1'>
                     <T.H5 className="text-foreground/75">{block.title}</T.H5>
@@ -67,7 +74,7 @@ function FullTextBlock({ block }: { block: ContentBlock.FullTextBlockType }) {
 
 function FullSizeImageBlock({ block }: { block: ContentBlock.FullSizeImageBlockType }) {
     return (
-        <SlideUp.FullWidth className='my-block'>
+        <SlideUp.FullWidth className='my-group'>
             <img src={block.image.url} alt={block.image.alt}
                 className='w-full object-cover rounded' />
         </SlideUp.FullWidth>
