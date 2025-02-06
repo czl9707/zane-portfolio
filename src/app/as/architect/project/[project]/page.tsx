@@ -7,6 +7,12 @@ import Button from '@/components/ui/button';
 import ArchProjectContentBlock from '@/components/arch-project/content-blocks';
 import { DateRangeAsString } from '@/lib/utils/date';
 import React from 'react';
+import TitleSection from '@/components/layout/title-section';
+import Link from 'next/link';
+import ProjectBlogBriefSession from '@/components/layout/project-blog-brief-session';
+import Divider from '@/components/ui/divider';
+import { randomNoRepeats } from '@/lib/utils/random-array';
+import ArchitectureProjectCard from '@/components/arch-project/arch-project-card';
 
 
 export async function generateStaticParams(): Promise<{ project: string }[]> {
@@ -22,18 +28,21 @@ export default async function Page({ params }: { params: Promise<{ project: stri
         <ProjectHead project={project} />
 
         {
-            Object.entries(project.content).map((catagory) => (<React.Fragment key={catagory[0]}>
-                <span className='block my-block' />
-                {
-                    catagory[1].blocks.map(
-                        (block, i) => (
-                            <ArchProjectContentBlock block={block} key={`${catagory[0]}${i}`} />
+            Object.entries(project.content).map((catagory) => (
+                <React.Fragment key={catagory[0]}>
+                    <span className='block my-block' />
+                    {
+                        catagory[1].blocks.map(
+                            (block, i) => (
+                                <ArchProjectContentBlock block={block} key={`${catagory[0]}${i}`} />
+                            )
                         )
-                    )
-                }
-            </React.Fragment>
+                    }
+                </React.Fragment>
             ))
         }
+
+        <OtherProjects current={project} />
     </>
 }
 
@@ -86,6 +95,36 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                 title: "Project Overview",
                 text: project.description
             }} />
+        </>
+    )
+}
+
+async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
+    const allprojects = (await ZaneArchProjects.getAll()).filter(p => p.title != current.title);
+    const getRandom = randomNoRepeats(allprojects);
+    const projects = [...Array(4)].map(() => getRandom());
+
+    return (
+        <>
+            <TitleSection>
+                <div className="flex flex-row w-full">
+                    <T.H2 id="as_an_architect">Other Projects</T.H2>
+                    <Link href={"/as/architect/project"} className="flex-1">
+                        <ProjectBlogBriefSession buttonText="All Projects" withDivider={false} />
+                    </Link>
+                </div>
+            </TitleSection >
+
+            <Container.FullWidth className="bg-background">
+                <Divider />
+                <Grid.ColTwo className="py-group">
+                    {
+                        projects.sort((p1, p2) => (p2.startDate.getTime() - p1.startDate.getTime())).map(project => (
+                            <ArchitectureProjectCard project={project} key={project.title} />
+                        ))
+                    }
+                </Grid.ColTwo>
+            </Container.FullWidth>
         </>
     )
 }

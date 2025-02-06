@@ -1,3 +1,5 @@
+"use client"
+
 import * as Container from "@/components/ui/container";
 import * as T from "@/components/ui/typography";
 import Link from "next/link";
@@ -15,7 +17,7 @@ export default function Header() {
                 <p className="cursor-pointer font-sans text-2xl font-black">ZANE.C</p>
             </Link>
             <div className="flex-1" />
-            <Link href={"/#as_a_developer"}>
+            <Link href={"/as_a_developer/works"}>
                 <Button>
                     <T.Button>Works</T.Button>
                 </Button>

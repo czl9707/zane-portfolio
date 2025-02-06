@@ -16,6 +16,7 @@ interface ImageAndTextBlockType {
     title?: string,
     text: string,
     catagory?: string,
+    annotation?: string
 }
 
 interface FullTextBlockType {

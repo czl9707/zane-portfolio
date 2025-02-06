@@ -5,16 +5,18 @@ import * as T from '@/components/ui/typography'
 import * as SlideUp from '@/components/ui/slideup-effect'
 import * as Grid from '@/components/ui/grid'
 import StyledMarkdown from '../ui/styled-markdown'
+import React from 'react'
 
 const PADDING_TEMPLATE = "max-w-7xl w-full mx-auto"
 
 function MultiImageBlock({ block }: { block: ContentBlock.MultiImageBlockType }) {
     const maxRowItems = Math.ceil(block.images.length / block.rows)
-    const ContainerType = maxRowItems == 1 ? "div" : (
+    const ContainerType = maxRowItems == 1 ? Grid.ColOne : (
         maxRowItems == 2 ? Grid.ColTwo : (
             maxRowItems == 3 ? Grid.ColThree :
                 Grid.ColFour
-        ));
+        )
+    );
 
     return <SlideUp.FullWidth className="my-group">
         <ContainerType className={`${PADDING_TEMPLATE}`}>
@@ -22,10 +24,13 @@ function MultiImageBlock({ block }: { block: ContentBlock.MultiImageBlockType })
                 block.images.map(image => (
                     <div className='col-span-1' key={image.image.alt}>
                         <img src={image.image.url} alt={image.image.alt}
-                            className="object-cover mb-paragraph rounded" />
-                        <T.Body2 className='text-foreground/75 text-center'>
-                            {image.annotation}
-                        </T.Body2>
+                            className="object-cover rounded" />
+                        {
+                            image.annotation &&
+                            <T.Body2 className='text-foreground/75 text-center mt-paragraph'>
+                                {image.annotation}
+                            </T.Body2>
+                        }
                     </div>
                 ))
             }
@@ -48,6 +53,12 @@ function ImageAndTextBlock({ block }: { block: ContentBlock.ImageAndTextBlockTyp
                 <div className='col-span-1 relative'>
                     <img src={block.image.url} alt={block.image.alt}
                         className='w-full object-cover rounded' />
+                    {
+                        block.annotation &&
+                        <T.Body2 className='text-foreground/75 text-center mt-paragraph'>
+                            {block.annotation}
+                        </T.Body2>
+                    }
                 </div>
             </Grid.ColTwo>
         </SlideUp.FullWidth>

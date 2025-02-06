@@ -8,7 +8,7 @@ import * as SlideUp from "@/components/ui/slideup-effect";
 import * as ZaneArchProject from "@/lib/cms/zane-arch-project";
 
 
-export default function ArchitectureProjectCard({ project }: { project: ZaneArchProject.Info, href: string }) {
+export default function ArchitectureProjectCard({ project }: { project: ZaneArchProject.Info }) {
     return (
         <Link href={`/as/architect/project/${project.title.replace(" ", "_")}`}>
             <SlideUp.Div className="group/card relative">

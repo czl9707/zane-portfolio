@@ -4,6 +4,9 @@ import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";
 import Divider from "@/components/ui/divider";
 import ArchitectureProjectCard from "@/components/arch-project/arch-project-card";
+import TitleSection from "@/components/layout/title-section";
+import Button from "@/components/ui/button";
+import ProjectBlogBriefSession from "@/components/layout/project-blog-brief-session";
 
 import * as Homepage from "@/lib/cms/zane-homepage"
 import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
@@ -14,10 +17,8 @@ import { twMerge } from "@/lib/utils/tw-merge";
 import "./page.css"
 import Link from "next/link";
 import React from "react";
-import StyledMarkdown from "@/components/ui/styled-markdown";
-import { DateAsString, MonthAsString } from "@/lib/utils/date";
-import TitleSection from "@/components/layout/title-section";
-import Button from "@/components/ui/button";
+import DevProjectCard from "@/components/dev-project/dev-project-card";
+import DevBlogCard from "@/components/dev-blog/dev-blog-card";
 
 export const revalidate = 14400;
 
@@ -153,32 +154,14 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
         <div className="col-span-3 -mt-group">
           {
             projects.map((project) => (
-              <Link href={project.externalLink} key={project.title}>
-                <ProjectBriefSession buttonText="Take me there">
-                  <T.H4 className={`transition-color duration-500`}>{project.title}</T.H4>
-
-                  <T.Body1 className="text-foreground/75">
-                    {MonthAsString(project.startDate)}
-                    {
-                      (project.tags?.length ?? 0) > 0 ? " · " : ""
-                    }
-                    {
-                      project.tags?.join(" · ")
-                    }
-                  </T.Body1>
-
-                  <div className="text-foreground/75 pt-6">
-                    <StyledMarkdown>
-                      {project.description}
-                    </StyledMarkdown>
-                  </div>
-                </ProjectBriefSession>
-              </Link>
+              <DevProjectCard project={project} key={project.title} />
             ))
           }
-          <ProjectBriefSession buttonText="All Projects" withDivider={false}>
-            <div className={`${ProjCardHeight}`} />
-          </ProjectBriefSession>
+          <Link href={"/as/developer/project"}>
+            <ProjectBlogBriefSession buttonText="All Projects" withDivider={false}>
+              <div className={`${ProjCardHeight}`} />
+            </ProjectBlogBriefSession>
+          </Link>
         </div>
 
       </ContentSection>
@@ -189,25 +172,14 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
         <div className="col-span-3 -mt-group">
           {
             blogs.map((blog) => (
-              <Link href={`/as/developer/blog/${blog.title.replace(" ", "_")}`} key={blog.title}>
-                <ProjectBriefSession buttonText="Read More">
-                  <T.H4 className={`transition-color duration-500`}>{blog.title}</T.H4>
-                  <T.Body1 className="text-foreground/75">
-                    {DateAsString(blog.createdDate)}
-                    {
-                      (blog.tags?.length ?? 0) > 0 ? " · " : ""
-                    }
-                    {
-                      blog.tags?.join(" · ")
-                    }
-                  </T.Body1>
-                </ProjectBriefSession>
-              </Link>
+              <DevBlogCard blog={blog} key={blog.title} />
             ))
           }
-          <ProjectBriefSession buttonText="All Blogs" withDivider={false}>
-            <div className={`${BlogCardHeight}`} />
-          </ProjectBriefSession>
+          <Link href={"/as/developer/blog"}>
+            <ProjectBlogBriefSession buttonText="All Blogs" withDivider={false}>
+              <div className={`${BlogCardHeight}`} />
+            </ProjectBlogBriefSession>
+          </Link>
         </div>
       </ContentSection>
     </>
@@ -219,7 +191,12 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
   return (
     <>
       <TitleSection>
-        <T.H2 id="as_an_architect">ONCE AN ARCHITECT</T.H2>
+        <div className="flex flex-row w-full">
+          <T.H2 id="as_an_architect">ONCE AN ARCHITECT</T.H2>
+          <Link href={"/as/architect/project"} className="flex-1">
+            <ProjectBlogBriefSession buttonText="All Projects" withDivider={false} />
+          </Link>
+        </div>
       </TitleSection >
 
       <Container.FullWidth className="bg-background">
@@ -227,21 +204,22 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
         <Grid.ColTwo className="py-group">
           {
             projects.map(project => (
-              <ArchitectureProjectCard project={project} key={project.title}
-                href={`/as/architect/project/${project.title.replace(" ", "_")}`} />
+              <ArchitectureProjectCard project={project} key={project.title} />
             ))
           }
         </Grid.ColTwo>
       </Container.FullWidth>
 
-      <SlideUp.FullWidth className="bg-background flex flex-col items-center">
-        <Link href="/as/architect/project">
-          <Button variant="outline">
-            <T.Button>View All Projects</T.Button>
-          </Button>
-        </Link>
+      <Container.FullWidth className="bg-background flex flex-col items-center">
+        <SlideUp.Div >
+          <Link href="/as/architect/project">
+            <Button variant="outline">
+              <T.Button>View All Projects</T.Button>
+            </Button>
+          </Link>
+        </SlideUp.Div>
         <Spacer />
-      </SlideUp.FullWidth>
+      </Container.FullWidth>
     </>
   )
 }
@@ -258,7 +236,7 @@ function ContentSection({ children, header, className }: {
       <Divider />
       <Grid.ColFour className="py-group">
         <SlideUp.Div className="col-span-1">
-          <div className="sticky top-header">
+          <div className="sticky top-header pb-group">
             {header}
           </div>
         </SlideUp.Div>
@@ -270,37 +248,6 @@ function ContentSection({ children, header, className }: {
   )
 }
 
-function ProjectBriefSession({ children, buttonText, withDivider = true }: {
-  children?: React.ReactNode,
-  buttonText: string,
-  withDivider?: boolean
-}) {
-  return (
-    <SlideUp.Div className={`group pt-component flex flex-col`}>
-      <div className="flex flex-row gap-component items-end">
-        <div className="flex-1">
-          {children}
-        </div>
-        <span className="block w-group" />
-        <T.Body1 className="group-hover:text-foreground text-foreground/75 transition-colors duration-500 col-span-1">
-          {buttonText}
-          <span className="w-1 group-hover:w-4 inline-block transition-[width] duration-500" />
-          {">>"}
-          <span className="w-4 group-hover:w-1 inline-block transition-[width] duration-500" />
-        </T.Body1>
-      </div>
-
-      <div className="flex-1" />
-      {
-        withDivider &&
-        <>
-          <Spacer />
-          <Divider className="group-hover:bg-foreground transition-colors duration-500" />
-        </>
-      }
-    </SlideUp.Div >
-  )
-}
 
 function Spacer() {
   return <span className="h-group block select-none" />

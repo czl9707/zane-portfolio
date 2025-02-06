@@ -26,8 +26,16 @@ const ColTwoGrid = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivEleme
     }
 )
 
+const ColOneGrid = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
+    function ColOneGrid({ className, ...other }, ref) {
+        return <div {...other} ref={ref} className={
+            twMerge('flex flex-col gap-paragraph relative', className)
+        } />
+    }
+)
 
 export {
+    ColOneGrid as ColOne,
     ColTwoGrid as ColTwo,
     ColThreeGrid as ColThree,
     ColFourGrid as ColFour,

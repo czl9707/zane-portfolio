@@ -4,6 +4,7 @@ import * as React from 'react'
 import * as T from '@/components/ui/typography'
 import Divider from "@/components/ui/divider";
 import QuoteBlock from "@/components/ui/quote-block";
+import { twMerge } from "@/lib/utils/tw-merge";
 
 export default function StyledMarkdown({ children }: { children: string }) {
     return (
@@ -19,8 +20,31 @@ export default function StyledMarkdown({ children }: { children: string }) {
             // code:,
             // pre:,
             blockquote: QuoteBlock,
+            ol: Ol,
+            ul: Ul
         }}>
             {children}
         </Markdown>
     )
 }
+
+
+const Ol = React.forwardRef<HTMLOListElement, React.OlHTMLAttributes<HTMLOListElement>>(
+    function Ol({ className, ...other }, ref) {
+        return (
+            <T.Body1>
+                <ol ref={ref} {...other} className={twMerge("list-decimal pl-component", className)} />
+            </T.Body1>
+        )
+    }
+)
+
+const Ul = React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLOListElement>>(
+    function Ul({ className, ...other }, ref) {
+        return (
+            <T.Body1>
+                <ul ref={ref} {...other} className={twMerge("pl-component", className)} />
+            </T.Body1>
+        )
+    }
+)

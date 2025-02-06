@@ -33,12 +33,12 @@ const H6 = React.forwardRef<HTMLHeadingElement, React.HTMLProps<HTMLHeadingEleme
 )
 const Body1 = React.forwardRef<HTMLParagraphElement, React.HTMLProps<HTMLParagraphElement>>(
     function Body1({ className, ...others }, ref) {
-        return <p className={twMerge('font-sans text-base/normal font-normal pb-paragraph', className)} {...others} ref={ref} />
+        return <span className={twMerge('font-sans text-base/normal font-normal pb-paragraph block', className)} {...others} ref={ref} />
     }
 )
 const Body2 = React.forwardRef<HTMLParagraphElement, React.HTMLProps<HTMLParagraphElement>>(
     function Body2({ className, ...others }, ref) {
-        return <p className={twMerge('font-sans text-sm/normal font-normal pb-paragraph', className)} {...others} ref={ref} />
+        return <span className={twMerge('font-sans text-sm/normal font-normal pb-paragraph block', className)} {...others} ref={ref} />
     }
 )
 const Button = React.forwardRef<HTMLParagraphElement, React.HTMLProps<HTMLParagraphElement>>(
