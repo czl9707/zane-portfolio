@@ -7,6 +7,7 @@ import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
 import Divider from '@/components/ui/divider';
 import ArchitectureProjectCard from '@/components/arch-project/arch-project-card';
 
+export const revalidate = 14400;
 
 export async function generateStaticParams(): Promise<object[]> {
     return [{}]

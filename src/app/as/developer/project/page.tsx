@@ -1,10 +1,11 @@
 import TitleSection from '@/components/layout/title-section';
 import * as T from "@/components/ui/typography";
-import * as Container from "@/components/ui/container";
 
 import * as ZaneDevProject from '@/lib/cms/zane-dev-project'
-import Divider from '@/components/ui/divider';
+import ContentSection from '@/components/layout/content-section';
+import DevProjectCard from '@/components/dev-project/dev-project-card';
 
+export const revalidate = 14400;
 
 export async function generateStaticParams(): Promise<object[]> {
     return [{}]
@@ -20,17 +21,21 @@ export default async function Page() {
                 <T.H2>Dev Projects</T.H2>
             </TitleSection>
 
-            <Container.FullWidth className="bg-background">
-                <Divider />
-                {/* <Grid.ColTwo className="py-group">
+
+            <ContentSection className="group/section"
+                header={
+                    <T.H5 className="text-foreground/75">All Projects</T.H5>
+                }
+            >
+                <div className="col-span-3 -mt-group">
                     {
-                        projects.sort((p1, p2) => (p2.startDate.getTime() - p1.startDate.getTime())).map(project => (
-                            <ArchitectureProjectCard project={project} key={project.title}
-                                href={`/as/architect/project/${project.title.replace(" ", "_")}`} />
+                        projects.map((project) => (
+                            <DevProjectCard project={project} key={project.title} />
                         ))
                     }
-                </Grid.ColTwo> */}
-            </Container.FullWidth>
+                </div>
+
+            </ContentSection>
         </>
     )
 }

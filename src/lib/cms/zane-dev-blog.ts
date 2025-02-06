@@ -30,7 +30,7 @@ export async function getAll(): Promise<ZaneDevBlogInfo[]> {
     const user = await UserToken.get()
 
     return await fetch(
-        `${DEVBLOG_ENDPOINT}`,
+        `${DEVBLOG_ENDPOINT}?select[content]=false`,
         {
             headers: {
                 Authorization: `JWT ${user.token}`,
@@ -40,6 +40,23 @@ export async function getAll(): Promise<ZaneDevBlogInfo[]> {
         async req => await req.json()
     ).then(
         data => data.docs.map(fromDto)
+    );
+}
+
+export async function getByTitle(title: string): Promise<ZaneDevBlogInfo> {
+    const user = await UserToken.get()
+
+    return await fetch(
+        `${DEVBLOG_ENDPOINT}?where[title][equals]=${title}`,
+        {
+            headers: {
+                Authorization: `JWT ${user.token}`,
+            }
+        }
+    ).then(
+        async req => await req.json()
+    ).then(
+        data => fromDto(data.docs[0])
     );
 }
 

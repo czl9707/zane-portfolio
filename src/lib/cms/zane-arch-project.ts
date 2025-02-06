@@ -48,7 +48,7 @@ export async function getAll(): Promise<ZaneArchProjectInfo[]> {
     ).then(
         async req => await req.json()
     ).then(
-        data => data.docs.map((d: ZaneArchProjectDto) => fromDto(d))
+        data => data.docs.map(fromDto)
     );
 }
 

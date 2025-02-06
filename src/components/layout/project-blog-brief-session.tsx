@@ -15,7 +15,7 @@ export default function ProjectBlogBriefSession({ children, buttonText, withDivi
         <div className="flex-1">
           {children}
         </div>
-        <T.Body1 className="group-hover:text-foreground text-foreground/75 transition-colors duration-500 col-span-1 w-1/4 text-right">
+        <T.Body1 className="group-hover:text-foreground text-foreground/75 transition-colors duration-500 col-span-1 min-w-[25%] text-right">
           {buttonText}
           <span className="w-2 group-hover:w-6 inline-block transition-[width] duration-500" />
           {">>"}

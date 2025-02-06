@@ -17,12 +17,12 @@ export default function Header() {
                 <p className="cursor-pointer font-sans text-2xl font-black">ZANE.C</p>
             </Link>
             <div className="flex-1" />
-            <Link href={"/as_a_developer/works"}>
+            <Link href={"/as/developer/project"}>
                 <Button>
                     <T.Button>Works</T.Button>
                 </Button>
             </Link>
-            <Link href={"/blogs"}>
+            <Link href={"/as/developer/blog"}>
                 <Button >
                     <T.Button>Blogs</T.Button>
                 </Button>

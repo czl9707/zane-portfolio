@@ -12,13 +12,13 @@ import * as Homepage from "@/lib/cms/zane-homepage"
 import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
 import * as ZaneArchProject from "@/lib/cms/zane-arch-project";
 import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
-import { twMerge } from "@/lib/utils/tw-merge";
 
 import "./page.css"
 import Link from "next/link";
 import React from "react";
 import DevProjectCard from "@/components/dev-project/dev-project-card";
 import DevBlogCard from "@/components/dev-blog/dev-blog-card";
+import ContentSection from "@/components/layout/content-section";
 
 export const revalidate = 14400;
 
@@ -191,7 +191,7 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
   return (
     <>
       <TitleSection>
-        <div className="flex flex-row w-full">
+        <div className="flex lg:flex-row flex-col w-full">
           <T.H2 id="as_an_architect">ONCE AN ARCHITECT</T.H2>
           <Link href={"/as/architect/project"} className="flex-1">
             <ProjectBlogBriefSession buttonText="All Projects" withDivider={false} />
@@ -221,30 +221,6 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
         <Spacer />
       </Container.FullWidth>
     </>
-  )
-}
-
-function ContentSection({ children, header, className }: {
-  children?: React.ReactNode,
-  header: React.ReactNode,
-  className?: string
-}) {
-  return (
-    <Container.FullWidth className={
-      twMerge("bg-background", className)
-    }>
-      <Divider />
-      <Grid.ColFour className="py-group">
-        <SlideUp.Div className="col-span-1">
-          <div className="sticky top-header pb-group">
-            {header}
-          </div>
-        </SlideUp.Div>
-
-        {children}
-      </Grid.ColFour>
-
-    </Container.FullWidth >
   )
 }
 
