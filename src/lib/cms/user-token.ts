@@ -32,10 +32,10 @@ async function FetchUserToken(): Promise<UserToken> {
 }
 
 
-export async function get() {
+export async function get(): Promise<UserToken> {
     if ((tokenCache?.exp ?? 0) < (Date.now() / 1000)) {
         tokenCache = await FetchUserToken();
     }
 
-    return tokenCache;
+    return tokenCache!;
 }

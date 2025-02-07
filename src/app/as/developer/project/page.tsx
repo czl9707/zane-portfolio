@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import TitleSection from '@/components/layout/title-section';
 import * as T from "@/components/ui/typography";
 
