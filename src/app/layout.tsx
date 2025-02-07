@@ -3,6 +3,7 @@ import { Geist, Red_Hat_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import ScollToTopOnNavigate from "@/components/layout/scroll-to-top";
 import { twJoin } from "tailwind-merge";
 
 const redHatDisplay = Geist({
@@ -50,6 +51,7 @@ export default function RootLayout({
           {children}
         </div>
         <Footer />
+        <ScollToTopOnNavigate />
       </body>
     </html>
   );
