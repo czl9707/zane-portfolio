@@ -1,18 +1,21 @@
-import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
 import * as SlideUp from "@/components/ui/slideup-effect";
 import * as T from "@/components/ui/typography";
 import * as Grid from "@/components/ui/grid";
 import * as Container from "@/components/ui/container";
 import Button from '@/components/ui/button';
 import ArchProjectContentBlock from '@/components/arch-project/content-blocks';
-import { DateRangeAsString } from '@/lib/utils/date';
-import React from 'react';
 import TitleSection from '@/components/layout/title-section';
-import Link from 'next/link';
 import ProjectBlogBriefSession from '@/components/layout/project-blog-brief-session';
-import Divider from '@/components/ui/divider';
-import { randomNoRepeats } from '@/lib/utils/random-array';
 import ArchitectureProjectCard from '@/components/arch-project/arch-project-card';
+import Divider from '@/components/ui/divider';
+
+import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
+import { randomNoRepeats } from '@/lib/utils/random-array';
+import { DateRangeAsString } from '@/lib/utils/date';
+
+import React from 'react';
+import Link from 'next/link';
+import { Metadata } from 'next';
 
 
 export async function generateStaticParams(): Promise<{ project: string }[]> {
@@ -127,4 +130,16 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
             </Container.FullWidth>
         </>
     )
+}
+
+export async function generateMetadata(
+    { params }: { params: Promise<{ project: string }> },
+): Promise<Metadata> {
+    const title = (await params).project.replace("_", " ");
+    const project = await ZaneArchProjects.getByTitle(title);
+
+    return {
+        title: `Zane Chen - ${project.title}`,
+        description: project.subTitle,
+    }
 }

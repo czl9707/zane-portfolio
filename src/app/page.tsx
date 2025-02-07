@@ -125,7 +125,7 @@ function WhoAmISection() {
           </T.H5>
 
           <T.Body1 className="group-hover/section:text-foreground/50 transition-colors duration-500">
-            Being an architect turned developer is a rewarding journey—architecture nurtured my systematic and aesthetic thinking,
+            Being an architect turned developer is a rewarding journey, architecture nurtured my systematic and aesthetic thinking,
             while coding empowers me to bring those ideas to life and make a broader impact efficiently.
           </T.Body1>
         </SlideUp.Div>

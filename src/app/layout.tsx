@@ -16,10 +16,19 @@ const redHatMono = Red_Hat_Mono({
   weight: ["300", "400", "500", "600", "700",]
 });
 
+const description = `\
+I am Zane Chen. a full-stack software engineer at Bloomberg LP. I enjoy building solutions one block at a time. As I self-taught developer, I share my learning process through personal projects and blogs.
+Before joining tech industry, I was an architect, and some personal projects archived here.`;
+
 export const metadata: Metadata = {
   title: "Zane Chen",
+  applicationName: "Zane Chen",
   icons: "/favicon.svg",
-  description: "",
+  description: description,
+  openGraph: {
+    title: "Zane Chen",
+    description: description,
+  }
 };
 
 export default function RootLayout({

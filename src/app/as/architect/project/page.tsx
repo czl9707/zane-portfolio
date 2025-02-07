@@ -6,6 +6,7 @@ import * as Grid from "@/components/ui/grid";
 import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
 import Divider from '@/components/ui/divider';
 import ArchitectureProjectCard from '@/components/arch-project/arch-project-card';
+import { Metadata } from 'next';
 
 export const revalidate = 14400;
 
@@ -36,3 +37,8 @@ export default async function Page() {
         </>
     )
 }
+
+export const metadata: Metadata = {
+    title: "Zane Chen - Architecture Projects",
+    description: "Although no longer doing architecture, the past experience deeply shapes my mindset when doing things.",
+};

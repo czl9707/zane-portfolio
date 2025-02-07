@@ -4,6 +4,7 @@ import * as T from "@/components/ui/typography";
 import * as ZaneDevBlog from '@/lib/cms/zane-dev-blog'
 import ContentSection from '@/components/layout/content-section';
 import DevBlogCard from '@/components/dev-blog/dev-blog-card';
+import { Metadata } from 'next';
 
 export const revalidate = 14400;
 
@@ -35,3 +36,8 @@ export default async function Page() {
         </>
     )
 }
+
+export const metadata: Metadata = {
+    title: "Zane Chen - Dev Projects",
+    description: "As a self-taught software engineer, I document my learning path through blogs.",
+};

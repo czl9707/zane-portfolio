@@ -38,3 +38,8 @@ export default async function Page() {
         </>
     )
 }
+
+export const metadata: Metadata = {
+    title: "Zane Chen - Dev Projects",
+    description: "I thrive on building seamless solutions, bridging gaps in technologies with innovative ideas.",
+};

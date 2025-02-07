@@ -7,6 +7,7 @@ import React from "react";
 import TitleSection from "@/components/layout/title-section";
 import ContentSection from "@/components/layout/content-section";
 import StyledMarkdown from "@/components/ui/styled-markdown";
+import { Metadata } from "next";
 
 
 const experience = [
@@ -86,3 +87,8 @@ export default function Page() {
 
     </>
 }
+
+export const metadata: Metadata = {
+    title: "Zane Chen - About Me",
+    description: "Zane Chen is a self-taught architect turned Software Engineer working for Bloomberg LP, who enjoy building solutions one block at a time.",
+};

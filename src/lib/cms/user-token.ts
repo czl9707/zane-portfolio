@@ -33,7 +33,7 @@ async function FetchUserToken(): Promise<UserToken> {
 
 
 export async function get() {
-    if (tokenCache === undefined || tokenCache.exp < (Date.now() / 1000)) {
+    if ((tokenCache?.exp ?? 0) < (Date.now() / 1000)) {
         tokenCache = await FetchUserToken();
     }
 
