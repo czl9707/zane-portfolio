@@ -17,7 +17,7 @@ export default async function Page() {
 
     return (
         <>
-            <TitleSection>
+            <TitleSection noDivider>
                 <T.H2>Blogs</T.H2>
             </TitleSection>
 

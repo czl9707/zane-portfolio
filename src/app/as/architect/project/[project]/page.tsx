@@ -110,7 +110,7 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
                 <div className="flex lg:flex-row flex-col w-full">
                     <T.H2 id="as_an_architect">Other Projects</T.H2>
                     <Link href={"/as/architect/project"} className="flex-1">
-                        <ProjectBlogBriefSession buttonText="All Projects" withDivider={false} />
+                        <ProjectBlogBriefSession buttonText="All Projects" noDivider />
                     </Link>
                 </div>
             </TitleSection >

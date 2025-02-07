@@ -158,7 +158,7 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
             ))
           }
           <Link href={"/as/developer/project"}>
-            <ProjectBlogBriefSession buttonText="All Projects" withDivider={false}>
+            <ProjectBlogBriefSession buttonText="All Projects" noDivider>
               <div className={`${ProjCardHeight}`} />
             </ProjectBlogBriefSession>
           </Link>
@@ -176,7 +176,7 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
             ))
           }
           <Link href={"/as/developer/blog"}>
-            <ProjectBlogBriefSession buttonText="All Blogs" withDivider={false}>
+            <ProjectBlogBriefSession buttonText="All Blogs" noDivider>
               <div className={`${BlogCardHeight}`} />
             </ProjectBlogBriefSession>
           </Link>
@@ -194,7 +194,7 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
         <div className="flex lg:flex-row flex-col w-full">
           <T.H2 id="as_an_architect">ONCE AN ARCHITECT</T.H2>
           <Link href={"/as/architect/project"} className="flex-1">
-            <ProjectBlogBriefSession buttonText="All Projects" withDivider={false} />
+            <ProjectBlogBriefSession buttonText="All Projects" noDivider />
           </Link>
         </div>
       </TitleSection >

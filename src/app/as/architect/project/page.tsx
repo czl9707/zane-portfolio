@@ -19,7 +19,7 @@ export default async function Page() {
 
     return (
         <>
-            <TitleSection>
+            <TitleSection noDivider>
                 <T.H2>Architecture Projects</T.H2>
             </TitleSection>
 

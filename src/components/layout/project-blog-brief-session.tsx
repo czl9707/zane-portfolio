@@ -4,10 +4,10 @@ import Divider from "@/components/ui/divider";
 
 
 
-export default function ProjectBlogBriefSession({ children, buttonText, withDivider = true }: {
+export default function ProjectBlogBriefSession({ children, buttonText, noDivider = false }: {
   children?: React.ReactNode,
   buttonText: string,
-  withDivider?: boolean
+  noDivider?: boolean
 }) {
   return (
     <SlideUp.Div className={`group pt-component flex flex-col`}>
@@ -23,13 +23,9 @@ export default function ProjectBlogBriefSession({ children, buttonText, withDivi
         </T.Body1>
       </div>
 
-      <div className="flex-1" />
       {
-        withDivider &&
-        <>
-          <span className="h-group block select-none" />
-          <Divider className="group-hover:bg-foreground transition-colors duration-500" />
-        </>
+        !noDivider &&
+        <Divider className="group-hover:bg-foreground transition-colors duration-500 mt-group" />
       }
     </SlideUp.Div >
   )

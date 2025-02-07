@@ -17,10 +17,9 @@ export default async function Page() {
 
     return (
         <>
-            <TitleSection>
+            <TitleSection noDivider>
                 <T.H2>Dev Projects</T.H2>
             </TitleSection>
-
 
             <ContentSection className="group/section"
                 header={

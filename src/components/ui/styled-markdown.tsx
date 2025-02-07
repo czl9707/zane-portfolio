@@ -43,7 +43,7 @@ const Ul = React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLOListElem
     function Ul({ className, ...other }, ref) {
         return (
             <T.Body1>
-                <ul ref={ref} {...other} className={twMerge("pl-component", className)} />
+                <ul ref={ref} {...other} className={twMerge("pl-component list-disc", className)} />
             </T.Body1>
         )
     }

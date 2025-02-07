@@ -10,7 +10,7 @@ import React from "react";
 
 export default function ContentSection({ children, header, className }: {
     children?: React.ReactNode,
-    header: React.ReactNode,
+    header?: React.ReactNode,
     className?: string
 }) {
     return (
@@ -20,7 +20,7 @@ export default function ContentSection({ children, header, className }: {
             <Divider />
             <Grid.ColFour className="py-group">
                 <SlideUp.Div className="col-span-1">
-                    <div className="sticky top-header pb-group">
+                    <div className="sticky top-header pb-paragraph">
                         {header}
                     </div>
                 </SlideUp.Div>
