@@ -10,7 +10,7 @@ import * as ZaneArchProject from "@/lib/cms/zane-arch-project";
 
 export default function ArchitectureProjectCard({ project }: { project: ZaneArchProject.Info }) {
     return (
-        <Link href={`/as/architect/project/${project.title.replace(" ", "_")}`}>
+        <Link href={`/as/architect/project/${project.title.replaceAll(" ", "_")}`}>
             <SlideUp.Div className="group/card relative">
                 <div className={"overflow-hidden rounded aspect-[4/3] w-full flex-1 relative"}>
                     <img src={project.cover.url} alt={project.cover.alt}

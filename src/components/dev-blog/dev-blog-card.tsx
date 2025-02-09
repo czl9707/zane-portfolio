@@ -10,7 +10,7 @@ export default function DevBlogCard({ blog }: {
     blog: ZaneDevBlog.Info,
 }) {
     return (
-        <Link href={`/as/developer/blog/${blog.title.replace(" ", "_")}`} key={blog.title}>
+        <Link href={`/as/developer/blog/${blog.title.replaceAll(" ", "_")}`} key={blog.title}>
             <ProjectBlogBriefSession buttonText="Read More">
                 <T.H4 className={`transition-color duration-500`}>{blog.title}</T.H4>
                 <T.Body1 className="text-foreground/75">

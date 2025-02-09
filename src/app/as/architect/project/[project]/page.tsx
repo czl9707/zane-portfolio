@@ -20,12 +20,12 @@ import { Metadata } from 'next';
 
 export async function generateStaticParams(): Promise<{ project: string }[]> {
     const result = (await ZaneArchProjects.getAll())
-    return result.map(t => ({ project: t.title.replace(" ", "_") }));
+    return result.map(t => ({ project: t.title.replaceAll(" ", "_") }));
 }
 
 
 export default async function Page({ params }: { params: Promise<{ project: string }> }) {
-    const title = (await params).project.replace("_", " ");
+    const title = (await params).project.replaceAll("_", " ");
     const project = await ZaneArchProjects.getByTitle(title);
     return <>
         <ProjectHead project={project} />
@@ -135,7 +135,7 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
 export async function generateMetadata(
     { params }: { params: Promise<{ project: string }> },
 ): Promise<Metadata> {
-    const title = (await params).project.replace("_", " ");
+    const title = (await params).project.replaceAll("_", " ");
     const project = await ZaneArchProjects.getByTitle(title);
 
     return {
