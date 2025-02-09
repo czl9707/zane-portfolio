@@ -20,6 +20,8 @@ import Link from "next/link";
 import React from "react";
 import DevProjectCard from "@/components/dev-project/dev-project-card";
 import DevBlogCard from "@/components/dev-blog/dev-blog-card";
+import { twMerge } from "tailwind-merge";
+import SlidingDownIcon from "@/components/ui/sliding-down-icon";
 
 export const revalidate = 14400;
 
@@ -44,7 +46,7 @@ export default async function Page() {
 
 function IntroSection() {
   return (
-    <div className="h-screen flex flex-col pt-header sticky top-0">
+    <div className="h-screen pt-header sticky top-0 flex flex-col">
       <Container.FullWidth>
         <Grid.ColThree>
           <SlideUp.Div className="col-span-2">
@@ -56,16 +58,16 @@ function IntroSection() {
         </Grid.ColThree>
       </Container.FullWidth>
 
-      <div className="flex-1" />
-
-      <FullWidthName />
+      <span className="flex-1 block" />
+      <SlidingDownIcon className="mb-group" />
+      <FullWidthName className="sticky bottom-0 top-auto" />
     </div>
   )
 }
 
-function FullWidthName() {
+function FullWidthName({ className }: { className?: string }) {
   return (
-    <Container.FullWidth className="bg-background">
+    <Container.FullWidth className={twMerge("bg-background", className)}>
       <SlideUp.Div>
         <svg width={"100%"} viewBox="0 0 45 8">
           <text x="50%" y="50%"
@@ -189,19 +191,4 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
 
 function Spacer() {
   return <span className="h-group block select-none" />
-}
-
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function SlidingIcon({ className }: { className?: string }) {
-  return (
-    <Container.FullWidth className={className}>
-      <svg viewBox="0 0 100 300" width="2rem" height="6rem"
-        className="m-auto stroke-foreground/50 stroke-[10]"
-        strokeLinecap="square" strokeLinejoin="miter">
-        <polyline points="0,100 50,130 100,100" className="animate-[icon-scroll-down_3s_.3s_ease-in-out_infinite_backwards]" />
-        <polyline points="0,150 50,180 100,150" className="animate-[icon-scroll-down_3s_ease-in-out_infinite_backwards]" />
-      </svg>
-    </Container.FullWidth>
-  )
 }

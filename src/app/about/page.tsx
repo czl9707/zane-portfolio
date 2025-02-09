@@ -10,6 +10,7 @@ import React from "react";
 import TitleSection from "@/components/layout/title-section";
 import ContentSection from "@/components/layout/content-section";
 import { Metadata } from "next";
+import SlidingDownIcon from "@/components/ui/sliding-down-icon";
 
 
 export const revalidate = 14400;
@@ -24,6 +25,8 @@ export default async function Page() {
     return <>
         <Container.FullWidth className="pt-header pb-component h-screen flex flex-col top-0 sticky">
             <span className="block select-none flex-1" />
+
+            <SlidingDownIcon className="mb-group" />
 
             <Grid.ColThree>
                 <SlideUp.Div className="col-span-2">
