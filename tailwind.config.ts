@@ -44,7 +44,6 @@ export default {
 
         shade: {
           fade: "rgb(var(--color-shade-fade))",
-          neutral: "rgb(var(--color-shade-neutral))",
           contrast: "rgb(var(--color-shade-contrast))",
         }
       },
@@ -58,6 +57,20 @@ export default {
         group: "3rem",
         component: "2rem",
         paragraph: "1rem",
+      },
+      keyframes: {
+        slideUp: {
+          from: { transform: "translateY(min(5rem, 100%))", opacity: "0", },
+          to: { transform: "none", opacity: "1", },
+        },
+        slideDown: {
+          from: { transform: "translateY(-100%)", opacity: "0", },
+          to: { transform: "none", opacity: "1", },
+        }
+      },
+      animation: {
+        slideUp: "slideUp 1s ease-out both",
+        slideDown: "slideDown 1s ease-out forwards"
       }
     },
   },

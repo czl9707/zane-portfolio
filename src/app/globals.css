@@ -6,12 +6,11 @@
   body {
     --color-background: 255 255 255;
     --color-foreground: 0 0 0;
-    --color-neutral: 128 128 128;
+    --color-neutral: 192 192 192;
 
     --color-panel: 215 215 215;
     --color-panel-foreground: 0 0 0;
 
-    --color-shade-neutral: 128 128 128;
     --color-shade-fade: 255 255 255;
     --color-shade-contrast: 0 0 0;
 
@@ -32,6 +31,8 @@
   body.black {
     --color-background: 0 0 0;
     --color-foreground: 255 255 255;
+    --color-neutral: 64 64 64;
+
     --color-panel: 45 45 45;
     --color-panel-foreground: 255 255 255;
 
@@ -42,32 +43,6 @@
     --color-star-foreground: 0 0 0;
     --color-galaxy-foreground: 0 0 0;
     --color-solar-foreground: 0 0 0;
-  }
-}
-
-/* the one for header */
-@keyframes slide-down {
-  0% {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-
-  100% {
-    transform: none;
-    opacity: 1;
-  }
-}
-
-/* the one for container/div */
-@keyframes slide-up {
-  0% {
-    transform: translateY(min(5rem, 100%));
-    opacity: 0
-  }
-
-  100% {
-    transform: none;
-    opacity: 1;
   }
 }
 
