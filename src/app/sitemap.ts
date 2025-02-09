@@ -20,7 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 1,
         })) as MetadataRoute.Sitemap),
         ...(archProjects.map((p) => ({
-            url: `/as/architect/project/${p.title.replace(" ", "_")}`,
+            url: `/as/architect/project/${p.title.replaceAll(" ", "_")}`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
         })) as MetadataRoute.Sitemap)
