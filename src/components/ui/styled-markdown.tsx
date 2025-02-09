@@ -33,6 +33,11 @@ const Ul = React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLOListElem
 
 const LinkUnderLine = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttributes<HTMLAnchorElement>>(
     function LinkUnderLine({ className, href, ...other }, ref) {
+        if (href?.startsWith("http")) {
+            return (
+                <Link ref={ref} href={href as string} target="_blank" {...other} className={twMerge("underline", className)} />
+            )
+        }
         return (
             <Link ref={ref} href={href as string} {...other} className={twMerge("underline", className)} />
         )

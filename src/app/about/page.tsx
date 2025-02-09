@@ -52,7 +52,7 @@ export default async function Page() {
         {
             content.timeline.sort((ex1, ex2) => ex2.year[0] - ex1.year[0]).map((ex, i) => (
                 <ContentSection key={i} header={
-                    <T.H5 className="text-foreground/75">{ex.year}</T.H5>
+                    <T.H5 className="text-foreground/75">{ex.year.join(" - ")}</T.H5>
                 }>
                     <SlideUp.Div className={"col-span-2"}>
                         <StyledMarkdown.LinkHighlight>
