@@ -4,7 +4,7 @@ import * as ContentBlock from '@/lib/cms/content-blocks'
 import * as T from '@/components/ui/typography'
 import * as SlideUp from '@/components/ui/slideup-effect'
 import * as Grid from '@/components/ui/grid'
-import StyledMarkdown from '../ui/styled-markdown'
+import * as StyledMarkdown from '../ui/styled-markdown'
 import React from 'react'
 
 const PADDING_TEMPLATE = "max-w-7xl w-full mx-auto"
@@ -45,9 +45,9 @@ function ImageAndTextBlock({ block }: { block: ContentBlock.ImageAndTextBlockTyp
                 <div className='col-span-1 relative'>
                     <T.H5 className="text-foreground/75 pb-paragraph">{block.title}</T.H5>
                     <div className='w-3/4'>
-                        <StyledMarkdown>
+                        <StyledMarkdown.Default>
                             {block.text}
-                        </StyledMarkdown>
+                        </StyledMarkdown.Default>
                     </div>
                 </div>
                 <div className='col-span-1 relative'>
@@ -74,9 +74,9 @@ function FullTextBlock({ block }: { block: ContentBlock.FullTextBlockType }) {
                 </div>
                 <span className='col-span-1' />
                 <div className='col-span-2'>
-                    <StyledMarkdown>
+                    <StyledMarkdown.Default>
                         {block.text}
-                    </StyledMarkdown>
+                    </StyledMarkdown.Default>
                 </div>
             </Grid.ColFour>
         </SlideUp.FullWidth>

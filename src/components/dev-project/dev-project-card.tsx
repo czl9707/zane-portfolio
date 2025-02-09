@@ -3,8 +3,8 @@ import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
 import { MonthAsString } from "@/lib/utils/date";
 
 import * as T from "@/components/ui/typography";
+import * as StyledMarkdown from "@/components/ui/styled-markdown";
 import ProjectBlogBriefSession from "@/components/layout/project-blog-brief-session";
-import StyledMarkdown from "@/components/ui/styled-markdown";
 
 
 export default function DevProjectCard({ project }: {
@@ -26,9 +26,9 @@ export default function DevProjectCard({ project }: {
                 </T.Body1>
 
                 <div className="text-foreground/75 pt-6">
-                    <StyledMarkdown>
+                    <StyledMarkdown.Default>
                         {project.description}
-                    </StyledMarkdown>
+                    </StyledMarkdown.Default>
                 </div>
             </ProjectBlogBriefSession>
         </Link>

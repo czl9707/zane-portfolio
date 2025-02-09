@@ -9,6 +9,7 @@ interface HomepageDto {
     featuredBlogs: { value: ZaneDevBlog.Dto }[],
     featuredDevProjects: { value: ZaneDevProject.Dto }[],
     featuredArchProjects: { value: ZaneArchProject.Dto }[],
+    whoAmI: string,
 }
 
 export async function getContents() {
@@ -28,5 +29,6 @@ export async function getContents() {
         featuredBlogs: content.featuredBlogs.map(blog => ZaneDevBlog.fromDto(blog.value)),
         featuredDevProjects: content.featuredDevProjects.map(project => ZaneDevProject.fromDto(project.value)),
         featuredArchProjects: content.featuredArchProjects.map(project => ZaneArchProject.fromDto(project.value)),
+        whoAmI: content.whoAmI,
     };
 }

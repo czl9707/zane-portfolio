@@ -5,8 +5,10 @@ import * as SlideUp from "@/components/ui/slideup-effect";
 import Divider from "@/components/ui/divider";
 import ArchitectureProjectCard from "@/components/arch-project/arch-project-card";
 import TitleSection from "@/components/layout/title-section";
+import ContentSection from "@/components/layout/content-section";
 import Button from "@/components/ui/button";
 import ProjectBlogBriefSession from "@/components/layout/project-blog-brief-session";
+import * as StyledMarkdown from "@/components/ui/styled-markdown";
 
 import * as Homepage from "@/lib/cms/zane-homepage"
 import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
@@ -18,7 +20,6 @@ import Link from "next/link";
 import React from "react";
 import DevProjectCard from "@/components/dev-project/dev-project-card";
 import DevBlogCard from "@/components/dev-blog/dev-blog-card";
-import ContentSection from "@/components/layout/content-section";
 
 export const revalidate = 14400;
 
@@ -32,7 +33,7 @@ export default async function Page() {
   return (
     <>
       <IntroSection />
-      <WhoAmISection />
+      <WhoAmISection content={content.whoAmI} />
       <DeveloperSection projects={content.featuredDevProjects} blogs={content.featuredBlogs} />
       <ArchitectSection projects={content.featuredArchProjects} />
       <FullWidthName />
@@ -80,57 +81,18 @@ function FullWidthName() {
   )
 }
 
-function WhoAmISection() {
+function WhoAmISection({ content }: { content: string }) {
   return (
-    <ContentSection className="group/section"
+    <ContentSection
       header={
         <T.H5 className="text-foreground/75" id="who_am_i">Who am I?</T.H5>
       }
     >
-      <div className={"col-span-2"}>
-        <SlideUp.Div>
-          <T.H4 className="group-hover/section:text-foreground/50 transition-colors duration-500">
-            Once an
-            <Link className="text-foreground" href="#as_an_architect"> <u>Architect</u></Link>, now a self-taught
-            <Link className="text-foreground" href="#as_a_developer"> <u>Software Engineer</u></Link>, I enjoy building solutions.
-          </T.H4>
-          <Spacer />
-          <T.Body1 className="group-hover/section:text-foreground/50 transition-colors duration-500">
-            Currently I am working at
-            <Link className="text-foreground" href="https://www.bloomberg.com/professional"> <u>Bloomberg</u> </Link> as a software engineer, while I keep building
-            side projects outside of work to keep myself sharp. Before transitioning into tech, I received 7-year architect training,
-            worked on projects spanning from individual housing designs to large-scale urban planning.
-            Living at the crossroads of diverse cultures and domains, I embrace the richness of multiple perspectives.
-          </T.Body1>
-        </SlideUp.Div>
-
-        <Spacer />
-
-        <SlideUp.Div>
-          <T.H5>
-            As a Software Engineer
-          </T.H5>
-
-          <T.Body1 className="group-hover/section:text-foreground/50 transition-colors duration-500">
-            I thrive on building seamless solutions, bridging gaps in technologies with innovative ideas.
-            My side projects and blogs serve as platforms to explore new tools, document what I learn, and share solutions to challenges.
-          </T.Body1>
-        </SlideUp.Div>
-
-        <Spacer />
-
-        <SlideUp.Div>
-          <T.H5>
-            Once an Architect
-          </T.H5>
-
-          <T.Body1 className="group-hover/section:text-foreground/50 transition-colors duration-500">
-            Being an architect turned developer is a rewarding journey, architecture nurtured my systematic and aesthetic thinking,
-            while coding empowers me to bring those ideas to life and make a broader impact efficiently.
-          </T.Body1>
-        </SlideUp.Div>
-      </div>
-
+      <SlideUp.Div className={"col-span-2"}>
+        <StyledMarkdown.LinkHighlight>
+          {content}
+        </StyledMarkdown.LinkHighlight>
+      </SlideUp.Div>
     </ContentSection>
   )
 }

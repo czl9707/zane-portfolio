@@ -11,7 +11,7 @@ type DelayVariant = 0 | 75 | 100 | 150 | 200 | 300 | 500 | 700 | 1000;
 export function SlideUpFactory(Comp: React.ElementType<React.HTMLProps<HTMLDivElement>>) {
     return React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { delay?: DelayVariant }>(
         function SlideUpContainer({ className, delay = 0, children, ...other }, ref) {
-            const { ref: inviewRef, inView, entry } = useInView({ threshold: 0.05 })
+            const { ref: inviewRef, inView, entry } = useInView({ threshold: 0 })
             React.useEffect(
                 () => {
                     if (inView) {
@@ -42,11 +42,9 @@ export function SlideUpFactory(Comp: React.ElementType<React.HTMLProps<HTMLDivEl
 
 
 const SlideUpFullWidthContainer = SlideUpFactory(Container.FullWidth);
-const SlideUpDefaultContainer = SlideUpFactory(Container.Default);
 const SlideUpDiv = SlideUpFactory('div');
 
 export {
     SlideUpFullWidthContainer as FullWidth,
-    SlideUpDefaultContainer as Container,
     SlideUpDiv as Div,
 }

@@ -27,7 +27,6 @@ export default function ContentSection({ children, header, className }: {
 
                 {children}
             </Grid.ColFour>
-
         </Container.FullWidth >
     )
 }

@@ -15,7 +15,7 @@ export default function TitleSection({ children, className, noDivider = false }:
             {
                 !noDivider && <Divider />
             }
-            <SlideUp.Div className='pb-paragraph mt-64'>
+            <SlideUp.Div className='pb-paragraph pt-64'>
                 {children}
             </SlideUp.Div>
         </Container.FullWidth>

@@ -11,11 +11,11 @@ export default function ProjectBlogBriefSession({ children, buttonText, noDivide
 }) {
   return (
     <SlideUp.Div className={`group pt-component flex flex-col`}>
-      <div className="flex flex-row gap-component items-end">
+      <div className="flex lg:flex-row flex-col gap-component items-end">
         <div className="flex-1">
           {children}
         </div>
-        <T.Body1 className="group-hover:text-foreground text-foreground/75 transition-colors duration-500 col-span-1 min-w-[25%] text-right">
+        <T.Body1 className="group-hover:text-foreground text-foreground/75 transition-colors duration-500 col-span-1 min-w-[33%] text-right">
           {buttonText}
           <span className="w-2 group-hover:w-6 inline-block transition-[width] duration-500" />
           {">>"}

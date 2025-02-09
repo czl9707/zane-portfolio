@@ -61,7 +61,7 @@
 /* the one for container/div */
 @keyframes slide-up {
   0% {
-    transform: translateY(5rem);
+    transform: translateY(min(5rem, 100%));
     opacity: 0
   }
 
@@ -77,6 +77,6 @@
   }
 
   .animate-running {
-    animation-play-state: paused;
+    animation-play-state: running;
   }
 }
