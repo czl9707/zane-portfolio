@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
 import { Geist, Red_Hat_Mono } from "next/font/google";
-import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import ScollToTopOnNavigate from "@/components/layout/scroll-to-top";
-import { twJoin } from "tailwind-merge";
+import { css } from "@pigment-css/react";
 
 const redHatDisplay = Geist({
-  variable: "--font-family-sans",
+  variable: "--font-sans",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"]
 });
 const redHatMono = Red_Hat_Mono({
-  variable: "--font-family-mono",
+  variable: "--font-mono",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700",]
 });
@@ -32,6 +31,12 @@ export const metadata: Metadata = {
   }
 };
 
+const globalClass = css(({ theme }) => ({
+  width: "100%", minHeight: "100vh",
+  backgroundColor: `rgb(${theme.vars.colors.default.background})`,
+  color: `rgb(${theme.vars.colors.default.foreground})`,
+}));
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,19 +45,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={twJoin(
-          `${redHatDisplay.variable} ${redHatMono.variable} antialiased`,
-          "w-full min-h-screen bg-background text-foreground black"
-        )
+        className={
+          [globalClass, redHatDisplay.variable, redHatMono.variable].join(" ")
         }
       >
         <Header />
-        <div className="min-h-screen">
+        <div style={{ minHeight: "100vh" }}>
           {children}
         </div>
         <Footer />
         <ScollToTopOnNavigate />
       </body>
-    </html>
+    </html >
   );
 }

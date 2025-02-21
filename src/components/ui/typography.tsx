@@ -1,60 +1,25 @@
-import * as React from 'react';
-import { twMerge } from "@/lib/utils/tw-merge";
+import { CSSPropertiesWithCallback, styled } from "@pigment-css/react";
+import { ThemeArgs, TypographyVairation } from "@pigment-css/react/theme";
 
-const H1 = React.forwardRef<HTMLHeadingElement, React.HTMLProps<HTMLHeadingElement>>(
-    function H1({ className, ...others }, ref) {
-        return <h1 className={twMerge('font-sans text-8xl/tight font-medium', className)} {...others} ref={ref} />
-    }
-)
-const H2 = React.forwardRef<HTMLHeadingElement, React.HTMLProps<HTMLHeadingElement>>(
-    function H2({ className, ...others }, ref) {
-        return <h2 className={twMerge('font-sans text-6xl/tight font-medium', className)} {...others} ref={ref} />
-    }
-)
-const H3 = React.forwardRef<HTMLHeadingElement, React.HTMLProps<HTMLHeadingElement>>(
-    function H3({ className, ...others }, ref) {
-        return <h3 className={twMerge('font-sans text-5xl/tight font-medium', className)} {...others} ref={ref} />
-    }
-)
-const H4 = React.forwardRef<HTMLHeadingElement, React.HTMLProps<HTMLHeadingElement>>(
-    function H4({ className, ...others }, ref) {
-        return <h4 className={twMerge('font-sans text-4xl/tight font-medium', className)} {...others} ref={ref} />
-    }
-)
-const H5 = React.forwardRef<HTMLHeadingElement, React.HTMLProps<HTMLHeadingElement>>(
-    function H5({ className, ...others }, ref) {
-        return <h5 className={twMerge('font-sans text-2xl/snug font-medium', className)} {...others} ref={ref} />
-    }
-)
-const H6 = React.forwardRef<HTMLHeadingElement, React.HTMLProps<HTMLHeadingElement>>(
-    function H6({ className, ...others }, ref) {
-        return <h6 className={twMerge('font-sans text-xl/relaxed font-medium', className)} {...others} ref={ref} />
-    }
-)
-const Body1 = React.forwardRef<HTMLParagraphElement, React.HTMLProps<HTMLParagraphElement>>(
-    function Body1({ className, ...others }, ref) {
-        return <span className={twMerge('font-sans text-base/normal font-normal pb-paragraph block', className)} {...others} ref={ref} />
-    }
-)
-const Body2 = React.forwardRef<HTMLParagraphElement, React.HTMLProps<HTMLParagraphElement>>(
-    function Body2({ className, ...others }, ref) {
-        return <span className={twMerge('font-sans text-sm/normal font-normal pb-paragraph block', className)} {...others} ref={ref} />
-    }
-)
-const Button = React.forwardRef<HTMLParagraphElement, React.HTMLProps<HTMLParagraphElement>>(
-    function Button({ className, ...others }, ref) {
-        return <p className={twMerge('font-sans text-sm/relaxed font-bold', className)} {...others} ref={ref} />
-    }
-)
 
-export {
-    H1,
-    H2,
-    H3,
-    H4,
-    H5,
-    H6,
-    Body1,
-    Body2,
-    Button,
+function styledTypographyPropsFactory(
+    typographyVariation: TypographyVairation
+): ((themeArgs: ThemeArgs) => CSSPropertiesWithCallback<object>) {
+    return ({ theme }: ThemeArgs) => ({
+        margin: 0, padding: 0, whiteSpace: "nowrap", textWrap: "wrap",
+        fontFamily: theme.typographies[typographyVariation].fontFamily,
+        fontSize: theme.typographies[typographyVariation].fontSize,
+        fontWeight: theme.typographies[typographyVariation].fontWeight,
+        lineHeight: theme.typographies[typographyVariation].lineHeight,
+    });
 }
+
+export const H1 = styled("h1")(styledTypographyPropsFactory("h1"));
+export const H2 = styled("h2")(styledTypographyPropsFactory("h2"));
+export const H3 = styled("h3")(styledTypographyPropsFactory("h3"));
+export const H4 = styled("h4")(styledTypographyPropsFactory("h4"));
+export const H5 = styled("h5")(styledTypographyPropsFactory("h5"));
+export const H6 = styled("h6")(styledTypographyPropsFactory("h6"));
+export const Body1 = styled("p")(styledTypographyPropsFactory("body1"));
+export const Body2 = styled("p")(styledTypographyPropsFactory("body2"));
+export const Button = styled("p")(styledTypographyPropsFactory("button"));

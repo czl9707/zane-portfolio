@@ -20,8 +20,8 @@ import Link from "next/link";
 import React from "react";
 import DevProjectCard from "@/components/dev-project/dev-project-card";
 import DevBlogCard from "@/components/dev-blog/dev-blog-card";
-import { twMerge } from "tailwind-merge";
 import SlidingDownIcon from "@/components/ui/sliding-down-icon";
+import { styled } from "@pigment-css/react";
 
 export const revalidate = 14400;
 
@@ -44,12 +44,17 @@ export default async function Page() {
 }
 
 
+const IntroSectionContainer = styled("div")(({ theme }) => ({
+  height: "100vh", paddingTOp: theme.size.header, position: "sticky", top: 0,
+  display: "flex", flexDirection: "column",
+}))
+
 function IntroSection() {
   return (
-    <div className="h-screen pt-header sticky top-0 flex flex-col">
+    <IntroSectionContainer>
       <Container.FullWidth>
         <Grid.ColThree>
-          <SlideUp.Div className="col-span-2">
+          <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
             <T.H4>
               Precision in detail, vision in design, <br />
               building things one block at a time.
@@ -61,7 +66,7 @@ function IntroSection() {
       <span className="flex-1 block" />
       <SlidingDownIcon className="mb-group" />
       <FullWidthName className="sticky bottom-0 top-auto" />
-    </div>
+    </IntroSectionContainer>
   )
 }
 
