@@ -1,16 +1,10 @@
-import * as React from "react";
-import { twMerge } from "@/lib/utils/tw-merge";
+import { styled } from "@pigment-css/react";
 
-
-const QuoteBlock = React.forwardRef<HTMLQuoteElement, React.HTMLProps<HTMLQuoteElement>>(
-    function QuoteBlock({ className, children, ...others }, ref) {
-        return <blockquote className={twMerge("border-l-4 border-foreground/25 pt-paragraph pl-component mb-paragraph", className)}
-            {...others} ref={ref}>
-            <i>
-                {children}
-            </i>
-        </blockquote>
-    }
-)
+const QuoteBlock = styled("blockquote")(({ theme }) => ({
+    borderLeft: `4px solid rgb(${theme.vars.color.default.foreground} / 0.25)`,
+    paddingLeft: theme.spacing.component,
+    paddingTop: theme.spacing.paragraph, paddingBottom: theme.spacing.paragraph,
+    fontStyle: "italic",
+}));
 
 export default QuoteBlock;

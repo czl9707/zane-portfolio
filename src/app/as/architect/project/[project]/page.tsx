@@ -1,6 +1,6 @@
 import * as SlideUp from "@/components/ui/slideup-effect";
 import * as T from "@/components/ui/typography";
-import * as Grid from "@/components/ui/grid";
+import Grid from "@/components/ui/grid";
 import * as Container from "@/components/ui/container";
 import Button from '@/components/ui/button';
 import ArchProjectContentBlock from '@/components/arch-project/content-blocks';
@@ -53,7 +53,7 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
     return (
         <>
             <Container.FullWidth className='mt-header py-group'>
-                <Grid.ColFour className='items-end'>
+                <Grid columns={4} className='items-end'>
                     <SlideUp.Div className='col-span-2'>
                         <T.H2 >{project.title.toUpperCase()}</T.H2>
                         <T.H5 className='text-pretty text-foreground/75'>{project.subTitle}</T.H5>
@@ -85,7 +85,7 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                         </T.H6>
                     </SlideUp.Div>
 
-                </Grid.ColFour>
+                </Grid>
             </Container.FullWidth>
 
             <ArchProjectContentBlock block={{
@@ -120,13 +120,13 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
 
             <Container.FullWidth className="bg-background">
                 <Divider />
-                <Grid.ColTwo className="py-group">
+                <Grid columns={2} className="py-group">
                     {
                         projects.sort((p1, p2) => (p2.startDate.getTime() - p1.startDate.getTime())).map(project => (
                             <ArchitectureProjectCard project={project} key={project.title} />
                         ))
                     }
-                </Grid.ColTwo>
+                </Grid>
             </Container.FullWidth>
         </>
     )

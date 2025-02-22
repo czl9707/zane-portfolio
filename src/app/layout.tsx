@@ -33,8 +33,8 @@ export const metadata: Metadata = {
 
 const globalClass = css(({ theme }) => ({
   width: "100%", minHeight: "100vh",
-  backgroundColor: `rgb(${theme.vars.colors.default.background})`,
-  color: `rgb(${theme.vars.colors.default.foreground})`,
+  backgroundColor: `rgb(${theme.vars.color.default.background})`,
+  color: `rgb(${theme.vars.color.default.foreground})`,
 }));
 
 export default function RootLayout({

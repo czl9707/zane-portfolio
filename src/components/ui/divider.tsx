@@ -1,10 +1,7 @@
-import * as React from 'react';
-import { twMerge } from "@/lib/utils/tw-merge";
+import { styled } from '@pigment-css/react';
 
-const Divider = React.forwardRef<HTMLSpanElement, React.HTMLProps<HTMLDivElement>>(
-    function Divider({ className, ...others }, ref) {
-        return <span className={twMerge('block w-full border-t border-foreground/50', className)} {...others} ref={ref} />
-    }
-)
+const Divider = styled("span")(({ theme }) => ({
+    display: "block", width: "100%", borderTop: `1px solid rgb(${theme.vars.color.default.foreground} / 0.5)`,
+}))
 
 export default Divider;

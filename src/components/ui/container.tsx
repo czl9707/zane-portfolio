@@ -1,14 +1,13 @@
-import * as React from 'react'
-import { twMerge } from "@/lib/utils/tw-merge";
+import { styled } from "@pigment-css/react";
 
-const FullContainer = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
-    function FullContainer({ className, ...other }, ref) {
-        return <div {...other} ref={ref} className={
-            twMerge('sm:px-group px-component relative', className)
-        } />
-    }
-)
+const FullWidthContainer = styled("div")(({ theme }) => ({
+    [`@media(max-width: ${theme.breakpoint.sm})`]: {
+        paddingLeft: theme.spacing.group, paddingRight: theme.spacing.group,
+    },
+    paddingLeft: theme.spacing.component, paddingRight: theme.spacing.component,
+    display: "relative",
+}))
 
 export {
-    FullContainer as FullWidth,
+    FullWidthContainer as FullWidth,
 };

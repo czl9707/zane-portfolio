@@ -22,7 +22,7 @@ export default async function Page() {
                 <T.H2>Blogs</T.H2>
             </TitleSection>
 
-            <ContentSection className="group/section"
+            <ContentSection
                 header={<T.H5 className="text-foreground/75">All Blogs</T.H5>}
             >
                 <div className="col-span-3 -mt-group">

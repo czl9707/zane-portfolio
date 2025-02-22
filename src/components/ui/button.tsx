@@ -1,57 +1,86 @@
 import * as React from 'react';
-import { ColorVariants } from "./tokens.type";
-import { twJoin } from 'tailwind-merge';
 
-import { twMerge } from "@/lib/utils/tw-merge";
+import { ColorVariation, ExtendTheme, ThemeToken } from "@pigment-css/react/theme"
+import { styled } from '@pigment-css/react';
 
-type ButtonColorVariants = typeof ColorVariants[number] | "default";
+type ButtonColorVariants = Exclude<ColorVariation, "shade">;
 
 interface ButtonProps {
     variant?: "outline" | "filled",
     color?: ButtonColorVariants,
 };
 
+const ButtonActiveMask = styled("span")(({ theme }) => ({
+    display: "block", position: "absolute", inset: 0, pointerEvents: "none",
+    backgroundColor: "transparent",
+    transition: `backgroundColor ${theme.transition.short}`,
+}));
+
+const ButtonBase = styled("div")<ButtonProps>(({ theme }) => ({
+    color: ({ variant = "filled", color = "default" }) => `rgb(${resolveTextColor(color, variant, theme)})`,
+    backgroundColor: ({ variant = "filled", color = "default" }) => `rgb(${resolveBackgroundColor(color, variant, theme)})`,
+    border: ({ variant = "filled", color = "default" }) => variant === "filled" ?
+        `1px solid rbg(${resolveBackgroundColor(color, variant, theme)})` : `1px solid rgb(${resolveTextColor(color, variant, theme)})`,
+    borderRadius: theme.size.border.radius,
+
+    display: "relative", cursor: "pointer", userSelect: "none", overflow: "hidden",
+    paddingLeft: "1rem", paddingRight: "1rem", paddingTop: ".5rem", paddingBottom: ".5rem", margin: "0",
+
+    "&:hover": {
+        [`${ButtonActiveMask}`]: {
+            backgroundColor: ({ variant = "filled", color = "default" }) => (variant === "filled" && color !== "default") ?
+                `rgb(${theme.vars.color.shade.background} / 0.4)` : `rgb(${theme.vars.color.shade.foreground} / 0.2)`
+        },
+    },
+    "&:active": {
+        [`${ButtonActiveMask}`]: {
+            backgroundColor: ({ variant = "filled", color = "default" }) => (variant === "filled" && color !== "default") ?
+                `rgb(${theme.vars.color.shade.background} / 0.6)` : `rgb(${theme.vars.color.shade.foreground} / 0.4)`
+        },
+    },
+}))
+
+
 const Button = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & ButtonProps>(
-    function Button({ className, children, variant = "filled", color = "default", ...other }, ref) {
-        return (<div ref={ref} {...other} className={twMerge(
-            twJoin(
-                resolveTextColorClass(color, variant),
-                resolveBackgroundColorClass(color, variant),
-                (color === "default" && variant === "filled") ?
-                    "" : `border border-${color === "default" ? "foreground" : color} border-solid`,
-                'relative rounded cursor-pointer select-none px-4 py-2 m-0 text-opacity-0 text-red overflow-hidden',
-                "group/button",
-            ),
-            className,
-        )} >
-            <div className={twMerge(
-                "absolute inset-0 bg-transparent pointer-events-none",
-                "transition-colors duration-300",
-                variant === "filled" && color !== "default" ? "group-hover/button:bg-shade-fade/40 group-active/button:bg-shade-fade/60" :
-                    "group-hover/button:bg-shade-contrast/20 group-active/button:bg-shade-contrast/40"
-            )} />
+    function Button({ children, variant = "filled", color = "default", ...other }, ref) {
+        return (<ButtonBase {...other} variant={variant} color={color} ref={ref}>
+            <ButtonActiveMask />
             {children}
-        </div>)
+        </ButtonBase>)
     }
 )
 
 
-function resolveTextColorClass(color: ButtonColorVariants, variant: "outline" | "filled") {
+function resolveTextColor(
+    color: ButtonColorVariants,
+    variant: "outline" | "filled",
+    theme: ExtendTheme<{
+        colorScheme: "light" | "dark";
+        tokens: ThemeToken;
+    }>,
+): string {
     if (color === "default") {
-        return "text-foreground";
+        return theme.vars.color.default.foreground;
     }
     else {
-        if (variant === "outline") return color;
-        else return `text-${color}-foreground`;
+        if (variant === "outline") return theme.vars.color[color].background;
+        else return theme.vars.color[color].foreground;
     }
 }
 
-function resolveBackgroundColorClass(color: ButtonColorVariants, variant: "outline" | "filled") {
+function resolveBackgroundColor(
+    color: ButtonColorVariants,
+    variant: "outline" | "filled",
+    theme: ExtendTheme<{
+        colorScheme: "light" | "dark";
+        tokens: ThemeToken;
+    }>,
+) {
     if (color === "default" || variant === "outline") {
-        return 'bg-transparent';
+        return "transparent";
     }
     else {
-        return `bg-${color}`
+        return theme.vars.color[color].background;
     }
 }
 

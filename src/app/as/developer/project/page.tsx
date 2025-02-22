@@ -23,7 +23,7 @@ export default async function Page() {
                 <T.H2>Dev Projects</T.H2>
             </TitleSection>
 
-            <ContentSection className="group/section"
+            <ContentSection
                 header={
                     <T.H5 className="text-foreground/75">All Projects</T.H5>
                 }

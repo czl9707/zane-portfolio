@@ -1,5 +1,5 @@
 import * as Container from "@/components/ui/container";
-import * as Grid from "@/components/ui/grid";
+import Grid from "@/components/ui/grid";
 import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";
 import * as StyledMarkdown from "@/components/ui/styled-markdown";
@@ -28,14 +28,14 @@ export default async function Page() {
 
             <SlidingDownIcon className="mb-group" />
 
-            <Grid.ColThree>
+            <Grid columns={3}>
                 <SlideUp.Div className="col-span-2">
                     <T.H4>
                         Hi, I am Zane Chen! <br />
                         A Self-Taught Software Engineer.
                     </T.H4>
                 </SlideUp.Div>
-            </Grid.ColThree>
+            </Grid>
         </Container.FullWidth>
 
         <ContentSection header={

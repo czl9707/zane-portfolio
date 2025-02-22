@@ -13,13 +13,13 @@ declare module '@pigment-css/react/theme' {
     }
 
     interface ThemeToken {
-        colors: {
+        color: {
             default: ColorToken,
             nebular: ColorToken,
             star: ColorToken,
             galaxy: ColorToken,
             solar: ColorToken,
-            fade: ColorToken,
+            shade: ColorToken,
         },
         breakpoint: {
             sm: string,
@@ -50,11 +50,14 @@ declare module '@pigment-css/react/theme' {
         size: {
             header: {
                 height: string,
+            },
+            border: {
+                radius: string,
             }
         },
     }
 
-    type ColorVariation = keyof ThemeToken["colors"];
+    type ColorVariation = keyof ThemeToken["color"];
     type TypographyVairation = keyof ThemeToken["typographies"]
 
     interface ThemeArgs {

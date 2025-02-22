@@ -8,7 +8,7 @@ const theme = extendTheme({
   getSelector: () => 'body',
   colorSchemes: {
     light: {
-      colors: {
+      color: {
         default: {
           background: "255 255 255",
           foreground: "0 0 0",
@@ -20,7 +20,7 @@ const theme = extendTheme({
       }
     },
     dark: {
-      colors: {
+      color: {
         default: {
           background: "0 0 0",
           foreground: "255 255 255",
@@ -32,7 +32,7 @@ const theme = extendTheme({
       }
     }
   },
-  colors: {
+  color: {
     nebular: {
       background: "94 190 115",
       foreground: "255 255 255",
@@ -79,7 +79,10 @@ const theme = extendTheme({
   size: {
     header: {
       header: "6rem",
-    }
+    },
+    border: {
+      radius: ".25rem",
+    },
   },
 })
 

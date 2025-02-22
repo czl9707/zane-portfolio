@@ -2,11 +2,8 @@
 
 import * as React from 'react'
 import { useInView } from 'react-intersection-observer'
-import { twMerge } from "@/lib/utils/tw-merge";
 
 import * as Container from '@/components/ui/container'
-
-type DelayVariant = 0 | 75 | 100 | 150 | 200 | 300 | 500 | 700 | 1000;
 
 export function SlideUpFactory(Comp: React.ElementType<React.HTMLProps<HTMLDivElement>>) {
     return React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { delay?: DelayVariant }>(
