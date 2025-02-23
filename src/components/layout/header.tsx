@@ -2,73 +2,92 @@
 
 import * as Container from "@/components/ui/container";
 import * as T from "@/components/ui/typography";
-import Link from "next/link";
-import Button from "../ui/button";
-import { twJoin } from "tailwind-merge";
+import { solidBackground } from "@/components/ui/util";
+import Button from "@/components/ui/button";
+import * as SlideUp from "@/components/ui/slideup-effect";
+
+
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
+import { css, keyframes, styled } from "@pigment-css/react";
+
+const slideDownEffect = keyframes({
+    from: { transform: "translateY(-100%)", opacity: "0", },
+    to: { transform: "none", opacity: "1", },
+})
+
+const HeaderContainer = styled(Container.FullWidth)(({ theme }) => ({
+    position: "fixed", top: 0, left: 0, right: 0, height: theme.size.header.height,
+    paddingTop: "auto", paddingBottom: "auto",
+    zIndex: 50,
+    display: "flex", flexDirection: "row", alignItems: "center", gap: theme.spacing.paragraph,
+    animation: `${slideDownEffect} ${theme.transition.long} ease-out forwards`,
+}));
+
+const MenuContainer = styled("div")(({ theme }) => ({
+    display: "relative", animation: `${SlideUp.effect} 300ms ease-out both`,
+    "&>div": {
+        display: "flex", position: "absolute",
+        flexDirection: "column", alignItems: "stretch", borderRadius: theme.size.border.radius,
+        paddingTop: ".5rem", paddingBottom: ".5rem", top: ".5rem", right: 0, width: "max-content",
+        backgroundColor: "grey",
+    }
+}))
 
 export default function Header() {
     return (
-        <Container.FullWidth className={twJoin(
-            "fixed top-0 left-0 right-0 z-50 h-header",
-            "py-auto flex flex-row items-center gap-paragraph",
-            "bg-background animate-slideDown",
-        )}>
-            <Link href={""}>
-                <p className="cursor-pointer font-sans text-2xl font-black">ZANE.C</p>
+        <HeaderContainer className={solidBackground}>
+            <Link href={"/"}>
+                <T.H4 style={{ cursor: "pointer", fontWeight: 900 }}>
+                    ZANE.C
+                </T.H4>
             </Link>
 
-            <div className="flex-1" />
+            <div style={{ flex: "1 1" }} />
 
-            <NavigationMenu.Root className="hidden sm:block">
+            <NavigationMenu.Root className={css(({ theme }) => ({
+                display: "block",
+                [`@media(max-width: ${theme.breakpoint.sm})`]: { display: "hidden", }
+            }))}>
                 <NavigationMenu.List className="flex flex-row gap-paragraph items-center">
                     <NavigationMenu.Item>
                         <NavigationMenu.Trigger asChild className="group/trigger">
-                            <Button className="flex flex-row gap-2 items-center">
-                                <T.Button>Works</T.Button>
+                            <Button style={{ display: "flex", flexDirection: "row", gap: ".5rem", alignItems: "center" }}>
+                                <span>Works</span>
                                 <CaretDownIcon className="group-data-[state=open]/trigger:-rotate-180 duration-150" />
                             </Button>
                         </NavigationMenu.Trigger>
                         <NavigationMenu.Content asChild>
-                            <div className="relative animate-slideUp [animation-duration:300ms]">
-                                <div className={twJoin(
-                                    "flex flex-col items-stretch rounded bg-neutral py-2 absolute top-2 w-max",
-                                )}>
-                                    <Link href={"/as/developer/project"}>
-                                        <Button>
-                                            <T.Button>Now a Software Engineer</T.Button>
-                                        </Button>
-                                    </Link>
-                                    <Link href={"/as/architect/project"}>
-                                        <Button>
-                                            <T.Button>Once an Architect</T.Button>
-                                        </Button>
-                                    </Link>
-                                </div>
-                            </div>
+                            <MenuContainer><div>
+                                <Link href={"/as/developer/project"}>
+                                    <Button>Now a Software Engineer</Button>
+                                </Link>
+                                <Link href={"/as/architect/project"}>
+                                    <Button>Once an Architect</Button>
+                                </Link>
+                            </div></MenuContainer>
                         </NavigationMenu.Content>
                     </NavigationMenu.Item>
 
                     <NavigationMenu.Item asChild>
                         <Link href={"/as/developer/blog"}>
-                            <Button >
-                                <T.Button>Blogs</T.Button>
-                            </Button>
+                            <Button>Blogs</Button>
                         </Link>
                     </NavigationMenu.Item>
 
                     <NavigationMenu.Item asChild>
                         <Link href={"/about"}>
-                            <Button >
-                                <T.Button>About</T.Button>
-                            </Button>
+                            <Button>About</Button>
                         </Link>
                     </NavigationMenu.Item>
                 </NavigationMenu.List>
             </NavigationMenu.Root>
 
-            <NavigationMenu.Root className="sm:hidden block">
+            <NavigationMenu.Root className={css(({ theme }) => ({
+                display: "block",
+                [`@media(min-width: ${theme.breakpoint.sm})`]: { display: "hidden", }
+            }))}>
                 <NavigationMenu.List>
                     <NavigationMenu.Item>
                         <NavigationMenu.Trigger asChild>
@@ -76,37 +95,24 @@ export default function Header() {
                         </NavigationMenu.Trigger>
 
                         <NavigationMenu.Content asChild>
-                            <div className="relative w-full animate-slideUp [animation-duration:300ms]">
-                                <div className={twJoin(
-                                    "flex flex-col items-stretch rounded bg-neutral py-2 absolute top-2 right-0 w-max",
-                                )}>
-                                    <Link href={"/as/developer/project"}>
-                                        <Button>
-                                            <T.Button>Work - Software Engineer</T.Button>
-                                        </Button>
-                                    </Link>
-                                    <Link href={"/as/architect/project"}>
-                                        <Button>
-                                            <T.Button>Work - Architect</T.Button>
-                                        </Button>
-                                    </Link>
-                                    <Link href={"/as/developer/blog"}>
-                                        <Button >
-                                            <T.Button>Blogs</T.Button>
-                                        </Button>
-                                    </Link>
-                                    <Link href={"/about"}>
-                                        <Button >
-                                            <T.Button>About</T.Button>
-                                        </Button>
-                                    </Link>
-                                </div>
-                            </div>
+                            <MenuContainer><div>
+                                <Link href={"/as/developer/project"}>
+                                    <Button>Work - Software Engineer</Button>
+                                </Link>
+                                <Link href={"/as/architect/project"}>
+                                    <Button>Work - Architect</Button>
+                                </Link>
+                                <Link href={"/as/developer/blog"}>
+                                    <Button>Blogs</Button>
+                                </Link>
+                                <Link href={"/about"}>
+                                    <Button>About</Button>
+                                </Link>
+                            </div></MenuContainer>
                         </NavigationMenu.Content>
                     </NavigationMenu.Item>
                 </NavigationMenu.List>
             </NavigationMenu.Root>
-
-        </Container.FullWidth>
+        </HeaderContainer >
     )
 }

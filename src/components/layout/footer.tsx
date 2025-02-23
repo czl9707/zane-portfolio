@@ -1,16 +1,28 @@
 import * as Container from "@/components/ui/container";
 import Grid from "@/components/ui/grid";
 import * as T from "@/components/ui/typography";
-import Link from "next/link";
 import Divider from "@/components/ui/divider";
+import Spacer from "@/components/ui/spacer";
+
+import Link from "next/link";
+import { css } from "@pigment-css/react";
 
 export default function Footer() {
     return (
-        <Container.FullWidth className="py-group">
+        <Container.FullWidth className={css(({ theme }) => ({
+            paddingBottom: theme.spacing.group, paddingTop: theme.spacing.group,
+        }))}>
             <Divider />
-            <Grid columns={3} className="mt-group">
-                <T.Body2 className="text-foreground/50 col-span-1">© 2024-present Zane Chen. All Rights Reserved.</T.Body2>
-                <div className="w-full flex flex-row align-baseline gap-group -col-end-1">
+            <Spacer spacing="group" />
+            <Grid columns={3}>
+                <T.Body2 style={{ opacity: .5, gridColumn: "span 1 / span 1" }}>
+                    © 2024-present Zane Chen. All Rights Reserved.
+                </T.Body2>
+
+                <div className={css(({ theme }) => ({
+                    width: "100%", display: "flex", flexDirection: "row",
+                    verticalAlign: "baseline", gap: theme.spacing.group, gridColumnEnd: -1
+                }))}>
                     <span style={{ flex: "1 1" }} />
                     <Link href={"mailto:czl970721@gmail.com"}>
                         <T.Body1><u>Email</u></T.Body1>
@@ -23,6 +35,6 @@ export default function Footer() {
                     </Link>
                 </div>
             </Grid>
-        </Container.FullWidth>
+        </Container.FullWidth >
     )
 }

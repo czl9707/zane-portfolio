@@ -26,6 +26,11 @@ const ButtonBase = styled("div")<ButtonProps>(({ theme }) => ({
     display: "relative", cursor: "pointer", userSelect: "none", overflow: "hidden",
     paddingLeft: "1rem", paddingRight: "1rem", paddingTop: ".5rem", paddingBottom: ".5rem", margin: "0",
 
+    fontFamily: theme.typographies.button.fontFamily,
+    fontSize: theme.typographies.button.fontSize,
+    fontWeight: theme.typographies.button.fontWeight,
+    lineHeight: theme.typographies.button.lineHeight,
+
     "&:hover": {
         [`${ButtonActiveMask}`]: {
             backgroundColor: ({ variant = "filled", color = "default" }) => (variant === "filled" && color !== "default") ?

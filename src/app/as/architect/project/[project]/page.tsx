@@ -64,7 +64,7 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                                 project.tags?.map(t => (
                                     <Button className='pointer-events-none'
                                         variant='outline' key={t}>
-                                        <T.Button>{t}</T.Button>
+                                        {t}
                                     </Button>
                                 ))
                             }

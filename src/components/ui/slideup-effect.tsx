@@ -50,4 +50,5 @@ const SlideUpDiv = SlideUpFactory('div');
 export {
     SlideUpFullWidthContainer as FullWidth,
     SlideUpDiv as Div,
+    slideUpEffect as effect
 }

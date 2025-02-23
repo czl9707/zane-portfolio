@@ -197,7 +197,7 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
         <SlideUp.Div >
           <Link href="/as/architect/project">
             <Button variant="outline">
-              <T.Button>View All Projects</T.Button>
+              View All Projects
             </Button>
           </Link>
         </SlideUp.Div>
