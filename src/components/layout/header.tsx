@@ -35,6 +35,17 @@ const MenuContainer = styled("div")(({ theme }) => ({
     }
 }))
 
+const NavigationTriggerWithChildren = styled(NavigationMenu.Trigger)(({ theme }) => ({
+    svg: { transitionDuration: theme.transition.short },
+    "&[state=open]": {
+        svg: { transform: "rotate(180deg)" }
+    },
+}));
+const NavigationList = styled(NavigationMenu.List)(({ theme }) => ({
+    display: "flex", flexDirection: "row",
+    gap: theme.spacing.paragraph, alignItems: "center"
+}))
+
 export default function Header() {
     return (
         <HeaderContainer className={solidBackground}>
@@ -50,14 +61,14 @@ export default function Header() {
                 display: "block",
                 [`@media(max-width: ${theme.breakpoint.sm})`]: { display: "hidden", }
             }))}>
-                <NavigationMenu.List className="flex flex-row gap-paragraph items-center">
+                <NavigationList>
                     <NavigationMenu.Item>
-                        <NavigationMenu.Trigger asChild className="group/trigger">
+                        <NavigationTriggerWithChildren>
                             <Button style={{ display: "flex", flexDirection: "row", gap: ".5rem", alignItems: "center" }}>
                                 <span>Works</span>
-                                <CaretDownIcon className="group-data-[state=open]/trigger:-rotate-180 duration-150" />
+                                <CaretDownIcon />
                             </Button>
-                        </NavigationMenu.Trigger>
+                        </NavigationTriggerWithChildren>
                         <NavigationMenu.Content asChild>
                             <MenuContainer><div>
                                 <Link href={"/as/developer/project"}>
@@ -81,14 +92,14 @@ export default function Header() {
                             <Button>About</Button>
                         </Link>
                     </NavigationMenu.Item>
-                </NavigationMenu.List>
+                </NavigationList>
             </NavigationMenu.Root>
 
             <NavigationMenu.Root className={css(({ theme }) => ({
                 display: "block",
                 [`@media(min-width: ${theme.breakpoint.sm})`]: { display: "hidden", }
             }))}>
-                <NavigationMenu.List>
+                <NavigationList>
                     <NavigationMenu.Item>
                         <NavigationMenu.Trigger asChild>
                             <Button><HamburgerMenuIcon /></Button>
@@ -111,7 +122,7 @@ export default function Header() {
                             </div></MenuContainer>
                         </NavigationMenu.Content>
                     </NavigationMenu.Item>
-                </NavigationMenu.List>
+                </NavigationList>
             </NavigationMenu.Root>
         </HeaderContainer >
     )

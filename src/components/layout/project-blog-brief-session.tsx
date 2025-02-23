@@ -1,6 +1,45 @@
 import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";
 import Divider from "@/components/ui/divider";
+import { styled } from "@pigment-css/react";
+
+const ExtendingButtonMark = styled("span")(({ theme }) => ({
+  width: "2rem", diaplay: "inline-block",
+  "&:before": {
+    content: ">>", transform: "translateX(.5rem)",
+    transitionDuration: theme.transition.short,
+    transitionProperty: "transform",
+  }
+}));
+
+const ExtendingButton = styled(T.Body1)(({ theme }) => ({
+  color: `rgb(${theme.vars.color.default.foreground} / 0.75)`,
+  transitionDuration: theme.transition.short,
+  transitionProperty: "color",
+
+  textAlign: "right", minWidth: "33%",
+}));
+
+const BriefContainer = styled("div")(({ theme }) => ({
+  display: "flex", alignItems: "flex-end",
+  flexDirection: "column",
+  [`@media(min-width: ${theme.breakpoint.lg})`]: { flexDirection: "row", },
+  gap: theme.spacing.component,
+
+  [`& + ${Divider}`]: {
+    marginTop: theme.spacing.group,
+    transitionDuration: theme.transition.short,
+    transitionProperty: "border-top-color",
+  },
+  [`&:hover + ${Divider}`]: {
+    borderTopColor: `rgb(${theme.vars.color.default.foreground})`
+  },
+
+  "&:hover": {
+    [`${ExtendingButton}`]: { color: `rgb(${theme.vars.color.default.foreground})`, },
+    [`${ExtendingButtonMark}:before`]: { transform: "translateX(1.5rem)" }
+  },
+}));
 
 
 
@@ -10,23 +49,17 @@ export default function ProjectBlogBriefSession({ children, buttonText, noDivide
   noDivider?: boolean
 }) {
   return (
-    <SlideUp.Div className={`group pt-component flex flex-col`}>
-      <div className="flex lg:flex-row flex-col gap-component items-end">
-        <div className="flex-1">
+    <SlideUp.Div>
+      <BriefContainer>
+        <div style={{ flex: "1 1" }}>
           {children}
         </div>
-        <T.Body1 className="group-hover:text-foreground text-foreground/75 transition-colors duration-500 col-span-1 min-w-[33%] text-right">
+        <ExtendingButton>
           {buttonText}
-          <span className="w-2 group-hover:w-6 inline-block transition-[width] duration-500" />
-          {">>"}
-          <span className="w-6 group-hover:w-2 inline-block transition-[width] duration-500" />
-        </T.Body1>
-      </div>
-
-      {
-        !noDivider &&
-        <Divider className="group-hover:bg-foreground transition-colors duration-500 mt-group" />
-      }
+          <ExtendingButtonMark />
+        </ExtendingButton>
+      </BriefContainer>
+      {!noDivider && <Divider />}
     </SlideUp.Div >
   )
 }
