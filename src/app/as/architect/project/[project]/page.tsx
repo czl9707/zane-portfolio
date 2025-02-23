@@ -8,6 +8,8 @@ import TitleSection from '@/components/layout/title-section';
 import ProjectBlogBriefSession from '@/components/layout/project-blog-brief-session';
 import ArchitectureProjectCard from '@/components/arch-project/arch-project-card';
 import Divider from '@/components/ui/divider';
+import { solidBackground } from '@/components/ui/util';
+
 
 import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
 import { randomNoRepeats } from '@/lib/utils/random-array';
@@ -118,7 +120,7 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
                 </div>
             </TitleSection >
 
-            <Container.FullWidth className="bg-background">
+            <Container.FullWidth className={solidBackground}>
                 <Divider />
                 <Grid columns={2} className="py-group">
                     {

@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { twJoin } from "tailwind-merge";
 
 import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";

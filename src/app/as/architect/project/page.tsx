@@ -1,12 +1,14 @@
+import { Metadata } from 'next';
+
 import TitleSection from '@/components/layout/title-section';
 import * as T from "@/components/ui/typography";
 import * as Container from "@/components/ui/container";
 import Grid from "@/components/ui/grid";
+import { solidBackground } from '@/components/ui/util';
 
 import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
 import Divider from '@/components/ui/divider';
 import ArchitectureProjectCard from '@/components/arch-project/arch-project-card';
-import { Metadata } from 'next';
 
 export const revalidate = 14400;
 
@@ -24,7 +26,7 @@ export default async function Page() {
                 <T.H2>Architecture Projects</T.H2>
             </TitleSection>
 
-            <Container.FullWidth className="bg-background">
+            <Container.FullWidth className={solidBackground}>
                 <Divider />
                 <Grid columns={2} className="py-group">
                     {

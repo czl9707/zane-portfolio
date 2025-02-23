@@ -9,6 +9,7 @@ import ContentSection from "@/components/layout/content-section";
 import Button from "@/components/ui/button";
 import ProjectBlogBriefSession from "@/components/layout/project-blog-brief-session";
 import * as StyledMarkdown from "@/components/ui/styled-markdown";
+import { solidBackground } from "@/components/ui/util";
 
 import * as Homepage from "@/lib/cms/zane-homepage"
 import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
@@ -17,10 +18,11 @@ import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
 
 import Link from "next/link";
 import React from "react";
+import { styled } from "@pigment-css/react";
+
 import DevProjectCard from "@/components/dev-project/dev-project-card";
 import DevBlogCard from "@/components/dev-blog/dev-blog-card";
 import SlidingDownIcon from "@/components/ui/sliding-down-icon";
-import { css, styled } from "@pigment-css/react";
 
 export const revalidate = 14400;
 
@@ -28,7 +30,6 @@ export async function generateStaticParams(): Promise<object[]> {
   return [{}];
 }
 
-const SolidBackground = css(({ theme }) => ({ background: `rgb(${theme.vars.color.default.background})` }));
 
 export default async function Page() {
   const content = await Homepage.getContents();
@@ -82,7 +83,7 @@ const FullWidthText = styled("text")(({ theme }) => ({
 const FullWidthName = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
   function FullWidthName({ className, ...others }, ref) {
     return (
-      <Container.FullWidth {...others} ref={ref} className={[SolidBackground, className].join(" ")}>
+      <Container.FullWidth {...others} ref={ref} className={[solidBackground, className].join(" ")}>
         <SlideUp.Div>
           <svg width={"100%"} viewBox="0 0 45 8">
             <FullWidthText x="50%" y="50%"
@@ -180,7 +181,7 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
         </div>
       </TitleSection >
 
-      <Container.FullWidth className={SolidBackground}>
+      <Container.FullWidth className={solidBackground}>
         <Divider />
         <Grid columns={2} className="py-group">
           {
@@ -191,7 +192,7 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
         </Grid>
       </Container.FullWidth>
 
-      <Container.FullWidth className={SolidBackground}
+      <Container.FullWidth className={solidBackground}
         style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <SlideUp.Div >
           <Link href="/as/architect/project">

@@ -4,33 +4,38 @@ import * as React from 'react'
 import { useInView } from 'react-intersection-observer'
 
 import * as Container from '@/components/ui/container'
+import { css, keyframes } from '@pigment-css/react'
+
+const slideUpEffect = keyframes({
+    from: { transform: "translateY(min(5rem, 100%))", opacity: "0", },
+    to: { transform: "none", opacity: "1", },
+})
+
+const slideUp = css(({ theme }) => ({
+    animation: `${slideUpEffect} ${theme.transition.long}`,
+
+    animationPlayState: "paused",
+    "&[data-entered=true]": { animationPlayState: "running" },
+}));
 
 export function SlideUpFactory(Comp: React.ElementType<React.HTMLProps<HTMLDivElement>>) {
-    return React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { delay?: DelayVariant }>(
+    return React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { delay?: number }>(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         function SlideUpContainer({ className, delay = 0, children, ...other }, ref) {
-            const { ref: inviewRef, inView, entry } = useInView({ threshold: 0 })
-            React.useEffect(
-                () => {
-                    if (inView) {
-                        entry?.target.classList.remove("animate-paused");
-                    }
-                },
-                // eslint-disable-next-line react-hooks/exhaustive-deps
-                [inView]
-            );
+            const { ref: inviewRef, inView } = useInView({ threshold: 0, triggerOnce: true })
 
             return (
-                <Comp ref={(node: HTMLDivElement | null) => {
-                    inviewRef(node);
-                    if (ref != null) {
-                        if (typeof ref === 'function') ref(node);
-                        else ref.current = node;
-                    }
-                }} className={twMerge(
-                    `animate-slideUp animate-paused`,
-                    className
-                )} {...other}>
+                <Comp
+                    ref={(node: HTMLDivElement | null) => {
+                        inviewRef(node);
+                        if (ref != null) {
+                            if (typeof ref === 'function') ref(node);
+                            else ref.current = node;
+                        }
+                    }}
+                    className={[slideUp, className].join(" ")}
+                    data-entered={inView}
+                    {...other}>
                     {children}
                 </Comp>
             )

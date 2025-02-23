@@ -59,6 +59,7 @@ declare module '@pigment-css/react/theme' {
 
     type ColorVariation = keyof ThemeToken["color"];
     type TypographyVairation = keyof ThemeToken["typographies"]
+    type SpacingVairation = keyof ThemeToken["spacing"]
 
     interface ThemeArgs {
         theme: ExtendTheme<{

@@ -1,7 +1,7 @@
 import * as Container from '@/components/ui/container';
 import * as SlideUp from '@/components/ui/slideup-effect';
-import { twMerge } from "@/lib/utils/tw-merge";
 import Divider from '@/components/ui/divider';
+import { solidBackground } from '@/components/ui/util';
 
 export default function TitleSection({ children, className, noDivider = false }: {
     children?: React.ReactNode,
@@ -9,9 +9,7 @@ export default function TitleSection({ children, className, noDivider = false }:
     noDivider?: boolean,
 }) {
     return (
-        <Container.FullWidth className={
-            twMerge("bg-background", className)
-        }>
+        <Container.FullWidth className={[solidBackground, className].join(" ")}>
             {
                 !noDivider && <Divider />
             }

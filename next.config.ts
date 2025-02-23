@@ -74,7 +74,7 @@ const theme = extendTheme({
   },
   transition: {
     short: ".3s",
-    long: ".6s",
+    long: ".9s",
   },
   size: {
     header: {
