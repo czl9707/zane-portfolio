@@ -1,9 +1,13 @@
-import type { Metadata } from "next";
-import { Geist, Red_Hat_Mono } from "next/font/google";
+import '@pigment-css/react/styles.css';
+
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import ScollToTopOnNavigate from "@/components/layout/scroll-to-top";
+import ThemeCorrector from "@/components/layout/theme-corrector";
+
+import { Geist, Red_Hat_Mono } from "next/font/google";
 import { css } from "@pigment-css/react";
+import type { Metadata } from "next";
 
 const redHatDisplay = Geist({
   variable: "--font-sans",
@@ -35,6 +39,9 @@ const globalClass = css(({ theme }) => ({
   width: "100%", minHeight: "100vh",
   backgroundColor: `rgb(${theme.vars.color.default.background})`,
   color: `rgb(${theme.vars.color.default.foreground})`,
+
+  "a": { color: "inherit", textDecoration: "inherit" },
+  "menu,ol,ul": { listStyle: "none" },
 }));
 
 export default function RootLayout({
@@ -50,11 +57,14 @@ export default function RootLayout({
         }
       >
         <Header />
-        <div style={{ minHeight: "100vh" }}>
+        <div className={css(({ theme }) => ({
+          paddingTop: theme.size.header.height, minHeight: "100vh"
+        }))}>
           {children}
         </div>
         <Footer />
         <ScollToTopOnNavigate />
+        <ThemeCorrector />
       </body>
     </html >
   );

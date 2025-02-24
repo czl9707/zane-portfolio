@@ -16,7 +16,7 @@ const CardInformationMask = styled("div")(({ theme }) => ({
 
 const CardContainer = styled("div")(({ theme }) => ({
     overflow: "hidden", borderRadius: theme.size.border.radius, aspectRatio: "4/3",
-    width: "100%", display: "relative",
+    width: "100%", position: "relative",
 
     "img": {
         position: "absolute", objectFit: "cover", height: "100%", width: "100%",

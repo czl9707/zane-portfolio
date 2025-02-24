@@ -23,7 +23,7 @@ const ButtonBase = styled("div")<ButtonProps>(({ theme }) => ({
         `1px solid rgb(${resolveBackgroundColor(color, variant, theme)})` : `1px solid rgb(${resolveTextColor(color, variant, theme)})`,
     borderRadius: theme.size.border.radius,
 
-    display: "relative", cursor: "pointer", userSelect: "none", overflow: "hidden",
+    position: "relative", cursor: "pointer", userSelect: "none", overflow: "hidden",
     paddingLeft: "1rem", paddingRight: "1rem", paddingTop: ".5rem", paddingBottom: ".5rem", margin: "0",
 
     fontFamily: theme.typographies.button.fontFamily,

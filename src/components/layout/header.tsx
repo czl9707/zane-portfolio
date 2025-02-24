@@ -26,7 +26,7 @@ const HeaderContainer = styled(Container.FullWidth)(({ theme }) => ({
 }));
 
 const MenuContainer = styled("div")(({ theme }) => ({
-    display: "relative", animation: `${SlideUp.effect} 300ms ease-out both`,
+    position: "relative", animation: `${SlideUp.effect} 300ms ease-out both`,
     "&>div": {
         display: "flex", position: "absolute",
         flexDirection: "column", alignItems: "stretch", borderRadius: theme.size.border.radius,
@@ -50,17 +50,19 @@ export default function Header() {
     return (
         <HeaderContainer className={solidBackground}>
             <Link href={"/"}>
-                <T.H4 style={{ cursor: "pointer", fontWeight: 900 }}>
+                <T.H5 style={{ cursor: "pointer", fontWeight: 900 }}>
                     ZANE.C
-                </T.H4>
+                </T.H5>
             </Link>
 
             <div style={{ flex: "1 1" }} />
 
-            <NavigationMenu.Root className={css(({ theme }) => ({
-                display: "block",
-                [`@media(max-width: ${theme.breakpoint.sm})`]: { display: "hidden", }
-            }))}>
+            <NavigationMenu.Root className={css(({ theme }) => {
+                return ({
+                    display: "block",
+                    [`@media(max-width: ${theme.breakpoint.sm})`]: { display: "none", }
+                })
+            })}>
                 <NavigationList>
                     <NavigationMenu.Item>
                         <NavigationTriggerWithChildren>
@@ -97,7 +99,7 @@ export default function Header() {
 
             <NavigationMenu.Root className={css(({ theme }) => ({
                 display: "block",
-                [`@media(min-width: ${theme.breakpoint.sm})`]: { display: "hidden", }
+                [`@media(min-width: ${theme.breakpoint.sm})`]: { display: "none", }
             }))}>
                 <NavigationList>
                     <NavigationMenu.Item>

@@ -76,8 +76,8 @@ function IntroSection() {
 
 const FullWidthText = styled("text")(({ theme }) => ({
   fill: `rgb(${theme.vars.color.default.foreground})`,
-  fontFamily: theme.typographies.h1.fontFamily,
-  fontSize: "8",
+  fontFamily: theme.typographies.h1.fontFamily, fontWeight: 700,
+  fontSize: "8px",
   userSelect: "none",
 }))
 

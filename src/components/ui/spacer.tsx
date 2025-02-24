@@ -6,8 +6,8 @@ const Spacer = styled("span")<{
     spacing?: SpacingVairation
 }>(({ theme }) => ({
     display: "block", userSelect: "none",
-    width: ({ direction = 'horizontal', spacing = "group" }) => direction === 'vertical' ? theme.spacing[spacing] : undefined,
-    height: ({ direction = 'horizontal', spacing = "group" }) => direction === 'horizontal' ? theme.spacing[spacing] : undefined,
+    width: ({ direction = 'horizontal', spacing = "group" }) => direction === 'vertical' ? theme.vars.spacing[spacing] : undefined,
+    height: ({ direction = 'horizontal', spacing = "group" }) => direction === 'horizontal' ? theme.vars.spacing[spacing] : undefined,
 }));
 
 export default Spacer;
