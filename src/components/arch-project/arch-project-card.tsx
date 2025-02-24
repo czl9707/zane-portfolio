@@ -1,37 +1,55 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { styled } from "@pigment-css/react";
 
 import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";
 
 import * as ZaneArchProject from "@/lib/cms/zane-arch-project";
 
+const CardInformationMask = styled("div")(({ theme }) => ({
+    position: "absolute", inset: 0, backgroundColor: `rgb(${theme.vars.color.default.background} / 75%)`,
+    color: `rgb(${theme.vars.color.default.foreground})`, padding: theme.spacing.component,
+    display: "flex", flexDirection: "column",
+    transition: `opacity ${theme.transition.short}`,
+}));
+
+const CardContainer = styled("div")(({ theme }) => ({
+    overflow: "hidden", borderRadius: theme.size.border.radius, aspectRatio: "4/3",
+    width: "100%", display: "relative",
+
+    "img": {
+        position: "absolute", objectFit: "cover", height: "100%", width: "100%",
+        transition: `transform ${theme.transition.short}`,
+    },
+    [`${CardInformationMask}`]: { opacity: 0 },
+    [`${T.H3}, ${T.H6}, ${T.Body1}`]: { textAlign: "center" },
+
+    "&:hover": {
+        "img": {
+            transition: "scaleX(105%) scaleY(105%)",
+        },
+        [`${CardInformationMask}`]: { opacity: 1 }
+    },
+}))
 
 export default function ArchitectureProjectCard({ project }: { project: ZaneArchProject.Info }) {
     return (
         <Link href={`/as/architect/project/${project.title.replaceAll(" ", "_")}`}>
-            <SlideUp.Div className="group/card relative">
-                <div className={"overflow-hidden rounded aspect-[4/3] w-full flex-1 relative"}>
-                    <img src={project.cover.url} alt={project.cover.alt}
-                        className={twJoin(
-                            "w-full h-full object-cover absolute",
-                            "group-hover/card:scale-105 duration-500"
-                        )} />
+            <SlideUp.Div>
+                <CardContainer>
+                    <img src={project.cover.url} alt={project.cover.alt} />
 
-                    <div className={twJoin(
-                        "absolute inset-0 opacity-0 bg-background/75 text-foreground p-component",
-                        "flex flex-col",
-                        "group-hover/card:opacity-100 duration-500"
-                    )} >
-                        <div className="flex-1" />
+                    <CardInformationMask>
+                        <div style={{ flex: "1 1" }} />
 
-                        <T.H3 className="text-center">{project.title.toUpperCase()}</T.H3>
-                        <T.Body1 className="text-foreground/75 text-center">{project.tags.join(" · ")}</T.Body1>
-                        <T.H6 className="text-foreground/75 text-center">{project.subTitle}</T.H6>
+                        <T.H3>{project.title.toUpperCase()}</T.H3>
+                        <T.Body1 style={{ opacity: 0.75 }}>{project.tags.join(" · ")}</T.Body1>
+                        <T.H6 style={{ opacity: 0.75 }}>{project.subTitle}</T.H6>
 
-                        <div className="flex-1" />
-                    </div>
-                </div>
+                        <div style={{ flex: "1 1" }} />
+                    </CardInformationMask>
+                </CardContainer>
             </SlideUp.Div>
         </Link>
     )

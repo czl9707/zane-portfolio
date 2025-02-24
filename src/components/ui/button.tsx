@@ -20,7 +20,7 @@ const ButtonBase = styled("div")<ButtonProps>(({ theme }) => ({
     color: ({ variant = "filled", color = "default" }) => `rgb(${resolveTextColor(color, variant, theme)})`,
     backgroundColor: ({ variant = "filled", color = "default" }) => `rgb(${resolveBackgroundColor(color, variant, theme)})`,
     border: ({ variant = "filled", color = "default" }) => variant === "filled" ?
-        `1px solid rbg(${resolveBackgroundColor(color, variant, theme)})` : `1px solid rgb(${resolveTextColor(color, variant, theme)})`,
+        `1px solid rgb(${resolveBackgroundColor(color, variant, theme)})` : `1px solid rgb(${resolveTextColor(color, variant, theme)})`,
     borderRadius: theme.size.border.radius,
 
     display: "relative", cursor: "pointer", userSelect: "none", overflow: "hidden",

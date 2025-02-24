@@ -13,7 +13,7 @@ export default function Footer() {
             paddingBottom: theme.spacing.group, paddingTop: theme.spacing.group,
         }))}>
             <Divider />
-            <Spacer spacing="group" />
+            <Spacer />
             <Grid columns={3}>
                 <T.Body2 style={{ opacity: .5, gridColumn: "span 1 / span 1" }}>
                     © 2024-present Zane Chen. All Rights Reserved.

@@ -3,6 +3,7 @@ import Grid from "@/components/ui/grid";
 import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";
 import Divider from "@/components/ui/divider";
+import Spacer from "@/components/ui/spacer";
 import ArchitectureProjectCard from "@/components/arch-project/arch-project-card";
 import TitleSection from "@/components/layout/title-section";
 import ContentSection from "@/components/layout/content-section";
@@ -18,7 +19,7 @@ import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
 
 import Link from "next/link";
 import React from "react";
-import { styled } from "@pigment-css/react";
+import { styled, css } from "@pigment-css/react";
 
 import DevProjectCard from "@/components/dev-project/dev-project-card";
 import DevBlogCard from "@/components/dev-blog/dev-blog-card";
@@ -126,13 +127,12 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
         <T.H2 id="as_a_developer">NOW A SOFTWARE ENGINEER</T.H2>
       </TitleSection>
 
-      <ContentSection
+      <ContentSection style={{ paddingTop: 0 }}
         header={
           <T.H5 style={{ opacity: 0.75 }}>Featured Projects</T.H5>
         }
       >
-        <div style={{ gridColumn: "span 3 / span 3" }}
-          className="-mt-group">
+        <div style={{ gridColumn: "span 3 / span 3" }}>
           {
             projects.map((project) => (
               <DevProjectCard project={project} key={project.title} />
@@ -147,11 +147,10 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
 
       </ContentSection>
 
-      <ContentSection
+      <ContentSection style={{ paddingTop: 0 }}
         header={<T.H5 style={{ opacity: 0.75 }}>Featured Blogs</T.H5>}
       >
-        <div style={{ gridColumn: "span 3 / span 3" }}
-          className="-mt-group">
+        <div style={{ gridColumn: "span 3 / span 3" }}>
           {
             blogs.map((blog) => (
               <DevBlogCard blog={blog} key={blog.title} />
@@ -173,9 +172,13 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
   return (
     <>
       <TitleSection>
-        <div className="flex lg:flex-row flex-col w-full">
+        <div className={css(({ theme }) => ({
+          display: "flex", flexDirection: "column", width: "100%",
+          [`@media(min-width: ${theme.breakpoint.lg})`]: { flexDirection: "row" },
+        }))}>
           <T.H2 id="as_an_architect">ONCE AN ARCHITECT</T.H2>
-          <Link href={"/as/architect/project"} className="flex-1">
+          <Link href={"/as/architect/project"} style={{ flex: "1 1" }}>
+            {/* working around the button, should seperate button with main components later */}
             <ProjectBlogBriefSession buttonText="All Projects" noDivider />
           </Link>
         </div>
@@ -183,13 +186,15 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
 
       <Container.FullWidth className={solidBackground}>
         <Divider />
-        <Grid columns={2} className="py-group">
+        <Spacer />
+        <Grid columns={2}>
           {
             projects.map(project => (
               <ArchitectureProjectCard project={project} key={project.title} />
             ))
           }
         </Grid>
+        <Spacer />
       </Container.FullWidth>
 
       <Container.FullWidth className={solidBackground}
@@ -206,8 +211,3 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
     </>
   )
 }
-
-const Spacer = styled('span')(({ theme }) => ({
-  height: theme.spacing.group, display: "block", userSelect: "none",
-}));
-

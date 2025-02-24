@@ -32,9 +32,9 @@ export default async function Page() {
 
     return <>
         <Container.FullWidth className={headerContainer}>
-            <Spacer spacing="paragraph" style={{ flex: "1 1" }} />
+            <Spacer style={{ flex: "1 1" }} />
             <SlidingDownIcon />
-            <Spacer spacing="group" />
+            <Spacer />
 
             <Grid columns={3}>
                 <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>

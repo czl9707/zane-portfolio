@@ -1,6 +1,7 @@
 import Markdown from "react-markdown";
 import type { Components } from "react-markdown";
 import * as React from 'react'
+import { styled, css } from '@pigment-css/react'
 
 import * as T from '@/components/ui/typography'
 import Divider from "@/components/ui/divider";
@@ -8,36 +9,34 @@ import QuoteBlock from "@/components/ui/quote-block";
 import Link from "next/link";
 
 
+const Ol = styled("ol")(({ theme }) => ({
+    listStyleType: "decimal", paddingLeft: theme.spacing.component,
+    fontFamily: theme.typographies.body1.fontFamily,
+    fontSize: theme.typographies.body1.fontSize,
+    fontWeight: theme.typographies.body1.fontWeight,
+    lineHeight: theme.typographies.body1.lineHeight,
+}));
 
-const Ol = React.forwardRef<HTMLOListElement, React.OlHTMLAttributes<HTMLOListElement>>(
-    function Ol({ className, ...other }, ref) {
-        return (
-            <T.Body1>
-                <ol ref={ref} {...other} className={twMerge("list-decimal pl-component", className)} />
-            </T.Body1>
-        )
-    }
-)
+const Ul = styled("ol")(({ theme }) => ({
+    listStyleType: "disc", paddingLeft: theme.spacing.component,
+    fontFamily: theme.typographies.body1.fontFamily,
+    fontSize: theme.typographies.body1.fontSize,
+    fontWeight: theme.typographies.body1.fontWeight,
+    lineHeight: theme.typographies.body1.lineHeight,
+}));
 
-const Ul = React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLOListElement>>(
-    function Ul({ className, ...other }, ref) {
-        return (
-            <T.Body1>
-                <ul ref={ref} {...other} className={twMerge("pl-component list-disc", className)} />
-            </T.Body1>
-        )
-    }
-)
-
+const underLine = css({ textDecorationLine: "underline" })
 const LinkUnderLine = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttributes<HTMLAnchorElement>>(
     function LinkUnderLine({ className, href, ...other }, ref) {
         if (href?.startsWith("http")) {
             return (
-                <Link ref={ref} href={href as string} target="_blank" {...other} className={twMerge("underline", className)} />
+                <Link ref={ref} href={href as string} target="_blank" {...other}
+                    className={[underLine, className].join(" ")} />
             )
         }
         return (
-            <Link ref={ref} href={href as string} {...other} className={twMerge("underline", className)} />
+            <Link ref={ref} href={href as string} {...other}
+                className={[underLine, className].join(" ")} />
         )
     }
 )
@@ -69,19 +68,15 @@ function StyledMarkdown({ children }: { children: string }) {
 
 function StyledMarkdownHighlightLink({ children }: { children: string }) {
     return (
-        <div className={twJoin(
-            "[&_*]:transition-colors [&_*]:ease-linear [&_*]:duration-300",
-            "[&_a]:text-foreground",
-            "[&:hover_span]:text-foreground/50",
-            "[&:hover_li]:text-foreground/50",
-            "[&:hover_p]:text-foreground/50",
-            "[&:hover_h1]:text-foreground/50",
-            "[&:hover_h2]:text-foreground/50",
-            "[&:hover_h3]:text-foreground/50",
-            "[&:hover_h4]:text-foreground/50",
-            "[&:hover_h5]:text-foreground/50",
-            "[&:hover_h6]:text-foreground/50",
-        )}>
+        <div className={css(({ theme }) => ({
+            "*": { transition: `color ${theme.transition.short} linear` },
+            'a': { color: `rgb(${theme.vars.color.default.foreground})` },
+            "&:hover": {
+                "span, li, p, h1, h2, h3, h4, h5, h6": {
+                    color: `rgb(${theme.vars.color.default.foreground} / 50%)`
+                }
+            }
+        }))}>
             <Markdown components={components} >
                 {children}
             </Markdown>
