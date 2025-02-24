@@ -8,6 +8,7 @@ import { solidBackground } from '@/components/ui/util';
 
 import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
 import Divider from '@/components/ui/divider';
+import Spacer from '@/components/ui/spacer';
 import ArchitectureProjectCard from '@/components/arch-project/arch-project-card';
 
 export const revalidate = 14400;
@@ -28,7 +29,8 @@ export default async function Page() {
 
             <Container.FullWidth className={solidBackground}>
                 <Divider />
-                <Grid columns={2} className="py-group">
+                <Spacer />
+                <Grid columns={2}>
                     {
                         projects.sort((p1, p2) => (p2.startDate.getTime() - p1.startDate.getTime())).map(project => (
                             <ArchitectureProjectCard project={project} key={project.title} />

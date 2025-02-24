@@ -23,9 +23,10 @@ export default async function Page() {
             </TitleSection>
 
             <ContentSection
-                header={<T.H5 className="text-foreground/75">All Blogs</T.H5>}
+                style={{ paddingTop: 0 }}
+                header={<T.H5 style={{ opacity: 0.75 }}>All Blogs</T.H5>}
             >
-                <div className="col-span-3 -mt-group">
+                <div style={{ gridColumn: "span 3 / span 3" }}>
                     {
                         blogs.map((blog) => (
                             <DevBlogCard blog={blog} key={blog.title} />

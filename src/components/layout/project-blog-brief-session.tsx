@@ -7,16 +7,13 @@ const ExtendingButtonMark = styled("span")(({ theme }) => ({
   width: "2rem", diaplay: "inline-block",
   "&:before": {
     content: ">>", transform: "translateX(.5rem)",
-    transitionDuration: theme.transition.short,
-    transitionProperty: "transform",
+    transition: `transform ${theme.transition.short}`,
   }
 }));
 
 const ExtendingButton = styled(T.Body1)(({ theme }) => ({
   color: `rgb(${theme.vars.color.default.foreground} / 0.75)`,
-  transitionDuration: theme.transition.short,
-  transitionProperty: "color",
-
+  transition: `color ${theme.transition.short}`,
   textAlign: "right", minWidth: "33%",
 }));
 
@@ -28,8 +25,7 @@ const BriefContainer = styled("div")(({ theme }) => ({
 
   [`& + ${Divider}`]: {
     marginTop: theme.spacing.group,
-    transitionDuration: theme.transition.short,
-    transitionProperty: "border-top-color",
+    transition: `border-top-color ${theme.transition.short}`,
   },
   [`&:hover + ${Divider}`]: {
     borderTopColor: `rgb(${theme.vars.color.default.foreground})`
