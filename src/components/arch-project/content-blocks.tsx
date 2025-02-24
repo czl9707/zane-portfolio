@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import * as ContentBlock from '@/lib/cms/content-blocks'
 
 import * as T from '@/components/ui/typography'
