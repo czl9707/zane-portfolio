@@ -65,7 +65,7 @@ export default function Header() {
             })}>
                 <NavigationList>
                     <NavigationMenu.Item>
-                        <NavigationTriggerWithChildren>
+                        <NavigationTriggerWithChildren asChild>
                             <Button style={{ display: "flex", flexDirection: "row", gap: ".5rem", alignItems: "center" }}>
                                 <span>Works</span>
                                 <CaretDownIcon />

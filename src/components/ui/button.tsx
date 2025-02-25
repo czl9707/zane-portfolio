@@ -13,7 +13,7 @@ interface ButtonProps {
 const ButtonActiveMask = styled("span")(({ theme }) => ({
     display: "block", position: "absolute", inset: 0, pointerEvents: "none",
     backgroundColor: "transparent",
-    transition: `backgroundColor ${theme.transition.short}`,
+    transition: `background-color ${theme.transition.short}`,
 }));
 
 const ButtonBase = styled("div")<ButtonProps>(({ theme }) => ({

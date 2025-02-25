@@ -11,6 +11,7 @@ function styledTypographyPropsFactory(
         fontSize: theme.typographies[typographyVariation].fontSize,
         fontWeight: theme.typographies[typographyVariation].fontWeight,
         lineHeight: theme.typographies[typographyVariation].lineHeight,
+        paddingBlockEnd: typographyVariation.startsWith("body") ? theme.spacing.paragraph : undefined,
     });
 }
 

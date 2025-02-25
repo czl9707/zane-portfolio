@@ -2,7 +2,8 @@ import * as SlideUp from '@/components/ui/slideup-effect';
 import { keyframes, styled } from '@pigment-css/react';
 
 const SlidingDownIconSVG = styled("svg")(({ theme }) => ({
-    margin: "auto", stroke: `rgb(${theme.vars.color.default.foreground} / 50)`, strokeWidth: "10",
+    margin: "auto", display: "block",
+    stroke: `rgb(${theme.vars.color.default.foreground} / 50)`, strokeWidth: "10",
 }))
 
 const SlidingDown = keyframes({

@@ -48,8 +48,8 @@ export default async function Page() {
 
 
 const IntroSectionContainer = styled("div")(({ theme }) => ({
-  height: "100vh", paddingTop: theme.size.header, position: "sticky", top: 0,
-  display: "flex", flexDirection: "column",
+  height: "100vh", paddingTop: theme.size.header.height, position: "sticky", top: 0,
+  display: "flex", flexDirection: "column", boxSizing: "border-box"
 }))
 
 function IntroSection() {
@@ -116,11 +116,11 @@ function WhoAmISection({ content }: { content: string }) {
   )
 }
 
+const BriefsContainer = styled("div")(({ theme }) => ({
+  gridColumn: "span 3 / span 3", display: "flex", flexDirection: "column", gap: theme.spacing.group
+}));
 
 function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.Info[], blogs: ZaneDevBlog.Info[] }) {
-  const BlogCardHeight = "min-h-20";
-  const ProjCardHeight = "min-h-28";
-
   return (
     <>
       <TitleSection>
@@ -132,7 +132,7 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
           <T.H5 style={{ opacity: 0.75 }}>Featured Projects</T.H5>
         }
       >
-        <div style={{ gridColumn: "span 3 / span 3" }}>
+        <BriefsContainer>
           {
             projects.map((project) => (
               <DevProjectCard project={project} key={project.title} />
@@ -140,17 +140,17 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
           }
           <Link href={"/as/developer/project"}>
             <ProjectBlogBriefSession buttonText="All Projects" noDivider>
-              <div className={`${ProjCardHeight}`} />
+              <Spacer style={{ minHeight: "8rem" }} />
             </ProjectBlogBriefSession>
           </Link>
-        </div>
+        </BriefsContainer>
 
       </ContentSection>
 
       <ContentSection style={{ paddingTop: 0 }}
         header={<T.H5 style={{ opacity: 0.75 }}>Featured Blogs</T.H5>}
       >
-        <div style={{ gridColumn: "span 3 / span 3" }}>
+        <BriefsContainer>
           {
             blogs.map((blog) => (
               <DevBlogCard blog={blog} key={blog.title} />
@@ -158,10 +158,10 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
           }
           <Link href={"/as/developer/blog"}>
             <ProjectBlogBriefSession buttonText="All Blogs" noDivider>
-              <div className={`${BlogCardHeight}`} />
+              <Spacer style={{ minHeight: "5rem" }} />
             </ProjectBlogBriefSession>
           </Link>
-        </div>
+        </BriefsContainer>
       </ContentSection>
     </>
   )
@@ -173,7 +173,7 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
     <>
       <TitleSection>
         <div className={css(({ theme }) => ({
-          display: "flex", flexDirection: "column", width: "100%",
+          display: "flex", flexDirection: "column", width: "100%", alignItems: "flex-end",
           [`@media(min-width: ${theme.breakpoint.lg})`]: { flexDirection: "row" },
         }))}>
           <T.H2 id="as_an_architect">ONCE AN ARCHITECT</T.H2>

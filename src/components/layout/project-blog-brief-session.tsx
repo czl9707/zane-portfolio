@@ -4,11 +4,9 @@ import Divider from "@/components/ui/divider";
 import { styled } from "@pigment-css/react";
 
 const ExtendingButtonMark = styled("span")(({ theme }) => ({
-  width: "2rem", diaplay: "inline-block",
-  "&:before": {
-    content: ">>", transform: "translateX(.5rem)",
-    transition: `transform ${theme.transition.short}`,
-  }
+  width: "3rem", display: "inline-block", textAlign: "left",
+  content: ">>", transform: "translateX(.5rem)",
+  transition: `transform ${theme.transition.short}`,
 }));
 
 const ExtendingButton = styled(T.Body1)(({ theme }) => ({
@@ -19,21 +17,20 @@ const ExtendingButton = styled(T.Body1)(({ theme }) => ({
 
 const BriefContainer = styled("div")(({ theme }) => ({
   display: "flex", alignItems: "flex-end",
+  gap: theme.spacing.component,
+
   flexDirection: "column",
   [`@media(min-width: ${theme.breakpoint.lg})`]: { flexDirection: "row", },
-  gap: theme.spacing.component,
 
   [`& + ${Divider}`]: {
     marginTop: theme.spacing.group,
     transition: `border-top-color ${theme.transition.short}`,
   },
-  [`&:hover + ${Divider}`]: {
-    borderTopColor: `rgb(${theme.vars.color.default.foreground})`
-  },
 
   "&:hover": {
+    [`+ ${Divider}`]: { borderTopColor: `rgb(${theme.vars.color.default.foreground})` },
     [`${ExtendingButton}`]: { color: `rgb(${theme.vars.color.default.foreground})`, },
-    [`${ExtendingButtonMark}:before`]: { transform: "translateX(1.5rem)" }
+    [`${ExtendingButtonMark}`]: { transform: "translateX(1.5rem)" }
   },
 }));
 
@@ -52,7 +49,7 @@ export default function ProjectBlogBriefSession({ children, buttonText, noDivide
         </div>
         <ExtendingButton>
           {buttonText}
-          <ExtendingButtonMark />
+          <ExtendingButtonMark>{">>"}</ExtendingButtonMark>
         </ExtendingButton>
       </BriefContainer>
       {!noDivider && <Divider />}
