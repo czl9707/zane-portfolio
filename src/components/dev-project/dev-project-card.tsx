@@ -14,7 +14,7 @@ export default function DevProjectCard({ project }: {
     return (
         <Link href={project.externalLink}>
             <ProjectBlogBriefSession buttonText="Take me there">
-                <T.H4 className={`transition-color duration-500`}>{project.title}</T.H4>
+                <T.H4>{project.title}</T.H4>
 
                 <T.Body1 style={{ opacity: 0.75 }}>
                     {MonthAsString(project.startDate)}
