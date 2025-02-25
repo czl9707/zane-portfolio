@@ -24,7 +24,7 @@ export async function generateStaticParams(): Promise<object[]> {
 
 const headerContainer = css(({ theme }) => ({
     paddingTop: theme.size.header.height, paddingBottom: theme.spacing.component, height: "100vh",
-    display: "flex", flexDirection: "column", top: 0, position: "sticky",
+    display: "flex", flexDirection: "column", top: 0, position: "sticky", boxSizing: "border-box",
 }))
 
 export default async function Page() {
