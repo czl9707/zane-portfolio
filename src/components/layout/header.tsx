@@ -13,9 +13,10 @@ import Link from "next/link";
 import { css, keyframes, styled } from "@pigment-css/react";
 
 const slideDownEffect = keyframes({
-    from: { transform: "translateY(-100%)", opacity: "0", },
-    to: { transform: "none", opacity: "1", },
+    from: { transform: "translateY(-100%)", },
+    to: { transform: "none", },
 })
+
 
 const HeaderContainer = styled(Container.FullWidth)(({ theme }) => ({
     position: "fixed", top: 0, left: 0, right: 0, height: theme.size.header.height,
@@ -26,13 +27,15 @@ const HeaderContainer = styled(Container.FullWidth)(({ theme }) => ({
 }));
 
 const MenuContainer = styled("div")(({ theme }) => ({
-    position: "relative", animation: `${SlideUp.effect} 300ms ease-out both`,
+    position: "relative",
     "&>div": {
+        animation: `${SlideUp.effect} ${theme.transition.short} ease-out both`,
         display: "flex", position: "absolute",
         flexDirection: "column", alignItems: "stretch", borderRadius: theme.size.border.radius,
         paddingTop: ".5rem", paddingBottom: ".5rem", top: ".5rem", right: 0, width: "max-content",
-        backgroundColor: "grey",
-    }
+        backgroundColor: `rgb(${theme.vars.color.default.foreground} / 15% )`,
+        backdropFilter: "blur(1rem)"
+    },
 }))
 
 const NavigationTriggerWithChildren = styled(NavigationMenu.Trigger)(({ theme }) => ({

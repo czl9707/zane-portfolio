@@ -3,6 +3,8 @@ import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
 import { DateAsString } from "@/lib/utils/date";
 
 import * as T from "@/components/ui/typography";
+import Spacer from "@/components/ui/spacer";
+import * as StyledMarkdown from "@/components/ui/styled-markdown";
 import ProjectBlogBriefSession from "@/components/layout/project-blog-brief-session";
 
 
@@ -22,6 +24,12 @@ export default function DevBlogCard({ blog }: {
                         blog.tags?.join(" · ")
                     }
                 </T.Body1>
+                <Spacer spacing="component" />
+                <div style={{ opacity: 0.75 }}>
+                    <StyledMarkdown.Default>
+                        {blog.description}
+                    </StyledMarkdown.Default>
+                </div>
             </ProjectBlogBriefSession>
         </Link>
     )
