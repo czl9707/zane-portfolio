@@ -12,7 +12,7 @@ interface ZaneArchProjectInfo {
     contributors?: string,
     description: string,
     cover: ImageInfo,
-    content: { blocks: Blocks.Type[], catagory: string[], visible: boolean }[],
+    content: { blocks: Blocks.ArchProjectType[], catagory: string[], visible: boolean }[],
 }
 
 interface ZaneArchProjectDto {
@@ -25,7 +25,7 @@ interface ZaneArchProjectDto {
     contributors?: string,
     description: string,
     cover: ImageInfo,
-    content?: { blocks: Blocks.Type[], catagory: string[], visible: boolean }[],
+    content?: { blocks: Blocks.ArchProjectType[], catagory: string[], visible: boolean }[],
 }
 
 export type {

@@ -6,7 +6,6 @@ interface MultiImageBlockType {
         image: ImageInfo,
         annotation?: string
     }[],
-    catagory?: string,
     rows: number,
 }
 
@@ -15,7 +14,6 @@ interface ImageAndTextBlockType {
     image: ImageInfo,
     title?: string,
     text: string,
-    catagory?: string,
     annotation?: string
 }
 
@@ -23,20 +21,28 @@ interface FullTextBlockType {
     blockType: "fullText",
     title?: string,
     text: string,
-    catagory?: string,
 }
 
 interface FullSizeImageBlockType {
     blockType: "fullSizeImage",
     image: ImageInfo,
-    catagory?: string,
 }
 
-type BlockType = MultiImageBlockType | ImageAndTextBlockType | FullTextBlockType | FullSizeImageBlockType;
+interface MarkdownBlockType {
+    blockType: "markdown",
+    markdown: string,
+}
+
+
+type ArchProjectBlockType = MultiImageBlockType | ImageAndTextBlockType | FullTextBlockType | FullSizeImageBlockType;
+type DevBlogBlockType = MultiImageBlockType | MarkdownBlockType;
+
 export type {
-    BlockType as Type,
+    ArchProjectBlockType as ArchProjectType,
+    DevBlogBlockType as DevBlogType,
     MultiImageBlockType,
     ImageAndTextBlockType,
     FullTextBlockType,
     FullSizeImageBlockType,
+    MarkdownBlockType
 };

@@ -10,7 +10,7 @@ import React from 'react'
 import { styled } from '@pigment-css/react'
 
 const GridBase = styled(Grid)(({ theme }) => ({
-    maxWidth: "80rem", width: "100%", marginLeft: "auto", marginRight: "auto",
+    maxWidth: "72rem", width: "100%", marginLeft: "auto", marginRight: "auto",
     marginTop: theme.spacing.group, marginBottom: theme.spacing.group
 }));
 
@@ -98,7 +98,7 @@ function FullSizeImageBlock({ block }: { block: ContentBlock.FullSizeImageBlockT
 }
 
 
-export default function ArchProjectContentBlock({ block }: { block: ContentBlock.Type }) {
+export default function ArchProjectContentBlock({ block }: { block: ContentBlock.ArchProjectType }) {
     if (block.blockType === "fullSizeImage") {
         return <FullSizeImageBlock block={block} />
     }

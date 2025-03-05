@@ -13,6 +13,7 @@ import Spacer from "@/components/ui/spacer";
 
 
 import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
+import * as ContentBlock from '@/lib/cms/content-blocks'
 import { randomNoRepeats } from '@/lib/utils/random-array';
 import { DateRangeAsString } from '@/lib/utils/date';
 
@@ -22,30 +23,22 @@ import { Metadata } from 'next';
 import { css } from "@pigment-css/react";
 
 
-export async function generateStaticParams(): Promise<{ project: string }[]> {
+export async function generateStaticParams(): Promise<{ projectSlug: string }[]> {
     const result = (await ZaneArchProjects.getAll())
-    return result.map(t => ({ project: t.title.replaceAll(" ", "_") }));
+    return result.map(t => ({ projectSlug: t.title.replaceAll(" ", "_") }));
 }
 
 
-export default async function Page({ params }: { params: Promise<{ project: string }> }) {
-    const title = (await params).project.replaceAll("_", " ");
+export default async function Page({ params }: { params: Promise<{ projectSlug: string }> }) {
+    const title = (await params).projectSlug.replaceAll("_", " ");
     const project = await ZaneArchProjects.getByTitle(title);
     return <>
         <ProjectHead project={project} />
 
         {
-            Object.entries(project.content).map((catagory) => (
-                <React.Fragment key={catagory[0]}>
-                    <Spacer spacing="block" />
-                    {
-                        catagory[1].blocks.map(
-                            (block, i) => (
-                                <ArchProjectContentBlock block={block} key={`${catagory[0]}${i}`} />
-                            )
-                        )
-                    }
-                </React.Fragment>
+            project.content.map((sec) => (
+                <Section blocks={sec.blocks} sectionName={sec.catagory[sec.catagory.length - 1]}
+                    headerVisible={sec.visible} key={sec.catagory.join("")} />
             ))
         }
 
@@ -107,6 +100,22 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
     )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function Section({ sectionName, blocks, headerVisible }: {
+    blocks: ContentBlock.ArchProjectType[],
+    sectionName: string,
+    headerVisible: boolean,
+}) {
+    return <>
+        <Spacer spacing="block" />
+        {
+            blocks.map((block, i) => (
+                <ArchProjectContentBlock block={block} key={`${sectionName}${i}`} />
+            ))
+        }
+    </>
+}
+
 async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
     const allprojects = (await ZaneArchProjects.getAll()).filter(p => p.title != current.title);
     const getRandom = randomNoRepeats(allprojects);
@@ -142,9 +151,9 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
 }
 
 export async function generateMetadata(
-    { params }: { params: Promise<{ project: string }> },
+    { params }: { params: Promise<{ projectSlug: string }> },
 ): Promise<Metadata> {
-    const title = (await params).project.replaceAll("_", " ");
+    const title = (await params).projectSlug.replaceAll("_", " ");
     const project = await ZaneArchProjects.getByTitle(title);
 
     return {
