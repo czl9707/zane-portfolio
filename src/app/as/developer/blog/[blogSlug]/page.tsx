@@ -1,7 +1,5 @@
 import * as SlideUp from "@/components/ui/slideup-effect";
 import * as T from "@/components/ui/typography";
-import Grid from "@/components/ui/grid";
-import * as Container from "@/components/ui/container";
 import Button from '@/components/ui/button';
 import DevBlogContentBlock from '@/components/dev-blog/content-blocks';
 import TitleSection from '@/components/layout/title-section';
@@ -10,6 +8,7 @@ import DevBlogCard from '@/components/dev-blog/dev-blog-card';
 import Divider from '@/components/ui/divider';
 import { solidBackground } from '@/components/ui/util';
 import Spacer from "@/components/ui/spacer";
+import * as StyledMarkdown from "@/components/ui/styled-markdown";
 
 
 import * as ZaneDevBlog from '@/lib/cms/zane-dev-blog'
@@ -24,12 +23,12 @@ import { css, styled } from "@pigment-css/react";
 
 export default async function Page({ params }: { params: Promise<{ blogSlug: string }> }) {
     const title = (await params).blogSlug.replaceAll("_", " ");
-    const project = await ZaneDevBlog.getByTitle(title);
+    const blog = await ZaneDevBlog.getByTitle(title);
     return <>
-        {/* <ProjectHead project={project} /> */}
+        <BlogHead blog={blog} />
 
         {
-            project.content.map((sec) => (
+            blog.content.map((sec) => (
                 <Section blocks={sec.blocks} sectionName={sec.catagory[sec.catagory.length - 1]}
                     headerVisible={sec.visible} key={sec.catagory.join("")} />
             ))
@@ -40,12 +39,37 @@ export default async function Page({ params }: { params: Promise<{ blogSlug: str
 }
 
 
-const SectionContainer = styled(SlideUp.FullWidth)(({ theme }) => ({
+
+const SectionContainer = styled(SlideUp.FullWidth)({
     "&>div": {
         maxWidth: "54rem", width: "100%",
         marginLeft: "auto", marginRight: "auto",
     },
-}));
+});
+
+function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
+    return <SectionContainer className={css(({ theme }) => ({ marginTop: theme.size.header.height }))}>
+        <div>
+            <T.H2>{blog.title}</T.H2>
+            <Spacer spacing="paragraph" />
+
+            <T.H5 style={{ opacity: 0.75 }}>
+                {blog.description}
+            </T.H5>
+
+            <Spacer spacing="component" />
+            <T.Body1>
+                <span style={{ opacity: 0.75 }}>Created On </span>{DateAsString(blog.createdDate)}
+                {
+                    blog.tags &&
+                    <>
+                        <span style={{ opacity: 0.75 }}> With Tags </span>{blog.tags.join(", ")}
+                    </>
+                }
+            </T.Body1>
+        </div>
+    </SectionContainer>
+}
 
 function Section({ sectionName, blocks, headerVisible }: {
     blocks: ContentBlock.DevBlogType[],
@@ -77,4 +101,16 @@ function Section({ sectionName, blocks, headerVisible }: {
 export async function generateStaticParams(): Promise<{ blogSlug: string }[]> {
     const result = (await ZaneDevBlog.getAll())
     return result.map(t => ({ blogSlug: t.title.replaceAll(" ", "_") }));
+}
+
+export async function generateMetadata(
+    { params }: { params: Promise<{ blogSlug: string }> },
+): Promise<Metadata> {
+    const title = (await params).blogSlug.replaceAll("_", " ");
+    const blog = await ZaneDevBlog.getByTitle(title);
+
+    return {
+        title: `Zane Chen - ${blog.title}`,
+        description: blog.description,
+    }
 }
