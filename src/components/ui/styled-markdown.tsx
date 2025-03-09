@@ -7,6 +7,7 @@ import * as T from '@/components/ui/typography'
 import Divider from "@/components/ui/divider";
 import QuoteBlock from "@/components/ui/quote-block";
 import Link from "next/link";
+import CodePanel from '@/components/ui/code-panel';
 
 
 const Ol = styled("ol")(({ theme }) => ({
@@ -42,16 +43,16 @@ const LinkUnderLine = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttrib
 )
 
 const components: Components = {
-    h1: T.H1,
-    h2: T.H2,
-    h3: T.H3,
+    h1: T.H3,
+    h2: T.H3,
+    h3: T.H4,
     h4: T.H4,
     h5: T.H5,
     h6: T.H6,
     p: T.Body1,
     hr: Divider,
     // code:,
-    // pre:,
+    pre: CodePanel,
     blockquote: QuoteBlock,
     ol: Ol,
     ul: Ul,

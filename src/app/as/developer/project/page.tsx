@@ -8,7 +8,6 @@ import ContentSection from '@/components/layout/content-section';
 import DevProjectCard from '@/components/dev-project/dev-project-card';
 
 export const revalidate = 14400;
-
 export async function generateStaticParams(): Promise<object[]> {
     return [{}]
 }

@@ -7,7 +7,6 @@ import DevBlogCard from '@/components/dev-blog/dev-blog-card';
 import { Metadata } from 'next';
 
 export const revalidate = 14400;
-
 export async function generateStaticParams(): Promise<object[]> {
     return [{}]
 }

@@ -8,7 +8,6 @@ import DevBlogCard from '@/components/dev-blog/dev-blog-card';
 import Divider from '@/components/ui/divider';
 import { solidBackground } from '@/components/ui/util';
 import Spacer from "@/components/ui/spacer";
-import * as StyledMarkdown from "@/components/ui/styled-markdown";
 
 
 import * as ZaneDevBlog from '@/lib/cms/zane-dev-blog'
@@ -19,6 +18,13 @@ import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { css, styled } from "@pigment-css/react";
+
+
+export const revalidate = 14400;
+export async function generateStaticParams(): Promise<{ blogSlug: string }[]> {
+    const result = (await ZaneDevBlog.getAll())
+    return result.map(t => ({ blogSlug: t.title.replaceAll(" ", "_") }));
+}
 
 
 export default async function Page({ params }: { params: Promise<{ blogSlug: string }> }) {
@@ -50,6 +56,8 @@ const SectionContainer = styled(SlideUp.FullWidth)({
 function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
     return <SectionContainer className={css(({ theme }) => ({ marginTop: theme.size.header.height }))}>
         <div>
+            <Spacer spacing="group" />
+
             <T.H2>{blog.title}</T.H2>
             <Spacer spacing="paragraph" />
 
@@ -71,22 +79,36 @@ function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
     </SectionContainer>
 }
 
+const SectionHeaderLink = styled(T.H3)(({ theme }) => ({
+    "&::before": {
+        content: "\"#\"", position: "absolute",
+        transform: "translateX(-135%)",
+        transition: `opacity ${theme.transition.short}`,
+        opacity: 0,
+    },
+    "&:hover::before": {
+        opacity: 0.3,
+    }
+}));
+
 function Section({ sectionName, blocks, headerVisible }: {
     blocks: ContentBlock.DevBlogType[],
     sectionName: string,
     headerVisible: boolean,
 }) {
     return <>
-        <Spacer spacing="block" />
+        <Spacer spacing="block" id={sectionName} />
         {
             headerVisible &&
-            <SectionContainer>
-                <div>
-                    <T.H3>{sectionName}</T.H3>
-                    <Spacer spacing="paragraph" />
-                    <Divider />
-                </div>
-            </SectionContainer>
+            <Link href={`#${sectionName}`}>
+                <SectionContainer>
+                    <div>
+                        <SectionHeaderLink>{sectionName}</SectionHeaderLink>
+                        <Spacer spacing="paragraph" />
+                        <Divider />
+                    </div>
+                </SectionContainer>
+            </Link>
         }
         {
             blocks.map((block, i) => (
@@ -98,10 +120,7 @@ function Section({ sectionName, blocks, headerVisible }: {
     </>
 }
 
-export async function generateStaticParams(): Promise<{ blogSlug: string }[]> {
-    const result = (await ZaneDevBlog.getAll())
-    return result.map(t => ({ blogSlug: t.title.replaceAll(" ", "_") }));
-}
+
 
 export async function generateMetadata(
     { params }: { params: Promise<{ blogSlug: string }> },
