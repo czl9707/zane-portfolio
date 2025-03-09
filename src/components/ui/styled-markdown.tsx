@@ -7,7 +7,7 @@ import * as T from '@/components/ui/typography'
 import Divider from "@/components/ui/divider";
 import QuoteBlock from "@/components/ui/quote-block";
 import Link from "next/link";
-import CodePanel from '@/components/ui/code-panel';
+import { CodePanel, CodeBlock } from '@/components/ui/code-panel';
 
 
 const Ol = styled("ol")(({ theme }) => ({
@@ -18,7 +18,7 @@ const Ol = styled("ol")(({ theme }) => ({
     lineHeight: theme.typographies.body1.lineHeight,
 }));
 
-const Ul = styled("ol")(({ theme }) => ({
+const Ul = styled("ul")(({ theme }) => ({
     listStyleType: "disc", paddingLeft: theme.spacing.component,
     fontFamily: theme.typographies.body1.fontFamily,
     fontSize: theme.typographies.body1.fontSize,
@@ -42,6 +42,7 @@ const LinkUnderLine = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttrib
     }
 )
 
+
 const components: Components = {
     h1: T.H3,
     h2: T.H3,
@@ -51,7 +52,7 @@ const components: Components = {
     h6: T.H6,
     p: T.Body1,
     hr: Divider,
-    // code:,
+    code: CodeBlock,
     pre: CodePanel,
     blockquote: QuoteBlock,
     ol: Ol,

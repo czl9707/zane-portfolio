@@ -5,6 +5,11 @@ import * as React from 'react';
 
 import { CopyIcon } from '@radix-ui/react-icons'
 
+const InlineCodeBlock = styled("code")(({ theme }) => ({
+    backgroundColor: `rgb(${theme.vars.color.default.foreground} / 15%)`,
+    borderRadius: theme.size.border.radius, paddingLeft: '.5rem', paddingRight: ".5rem"
+}))
+
 const CodePanelContainer = styled("pre")(({ theme }) => ({
     backgroundColor: `rgb(${theme.vars.color.default.foreground} / 10%)`,
     borderRadius: theme.size.border.radius, position: "relative",
@@ -12,7 +17,7 @@ const CodePanelContainer = styled("pre")(({ theme }) => ({
     padding: theme.spacing.paragraph, margin: 0,
     overflowX: "scroll",
 
-    "code": {
+    [`${InlineCodeBlock}`]: {
         fontFamily: theme.typographies.body2.fontFamily,
         fontSize: theme.typographies.body2.fontSize,
         fontWeight: theme.typographies.body2.fontWeight,
@@ -67,4 +72,4 @@ const CodePanel = React.forwardRef<HTMLPreElement, React.HTMLAttributes<HTMLPreE
     }
 )
 
-export default CodePanel;
+export { CodePanel, InlineCodeBlock as CodeBlock };
