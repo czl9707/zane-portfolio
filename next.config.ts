@@ -60,9 +60,9 @@ export default withPigment(
         paragraph: "1rem",
       },
       breakpoint: {
-        sm: "640px",
-        md: "768px",
-        lg: "1028px",
+        sm: "720px",
+        md: "1080px",
+        lg: "1440px",
       },
       typographies: {
         body1: { fontFamily: "var(--font-sans)", fontWeight: 400, fontSize: "1rem", lineHeight: 1.5, },
@@ -86,6 +86,9 @@ export default withPigment(
         border: {
           radius: ".25rem",
         },
+        sidePanel: {
+          width: "16rem",
+        }
       },
     })
   },

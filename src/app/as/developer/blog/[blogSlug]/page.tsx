@@ -8,6 +8,7 @@ import DevBlogCard from '@/components/dev-blog/dev-blog-card';
 import Divider from '@/components/ui/divider';
 import { solidBackground } from '@/components/ui/util';
 import Spacer from "@/components/ui/spacer";
+import * as SideCatagory from "@/components/layout/side-catagory"
 
 
 import * as ZaneDevBlog from '@/lib/cms/zane-dev-blog'
@@ -15,7 +16,6 @@ import * as ContentBlock from '@/lib/cms/content-blocks'
 import { DateAsString } from '@/lib/utils/date';
 
 import React from 'react';
-import Link from 'next/link';
 import { Metadata } from 'next';
 import { css, styled } from "@pigment-css/react";
 
@@ -32,50 +32,63 @@ export default async function Page({ params }: { params: Promise<{ blogSlug: str
     const blog = await ZaneDevBlog.getByTitle(title);
     return <>
         <BlogHead blog={blog} />
+        <SideCatagory.Context>
+            <div className={css(({ theme }) => ({
+                position: "relative", display: "inline-flex", flexDirection: "column",
+                gap: theme.spacing.block,
+            }))}>
+                <SideCatagory.CatagoryPanel className={SideCatagoryPanelClass} />
+                {
+                    blog.content.map((sec, i) => (
+                        <Section blocks={sec.blocks} catagory={sec.catagory}
+                            headerVisible={sec.visible} key={i} />
+                    ))
+                }
 
-        {
-            blog.content.map((sec) => (
-                <Section blocks={sec.blocks} sectionName={sec.catagory[sec.catagory.length - 1]}
-                    headerVisible={sec.visible} key={sec.catagory.join("")} />
-            ))
-        }
-
-        {/* <OtherProjects current={project} /> */}
+                {/* <OtherProjects current={project} /> */}
+            </div>
+        </SideCatagory.Context >
     </>
 }
 
+const SideCatagoryPanelClass = css(({ theme }) => ({
+    position: "absolute", top: `calc(${theme.size.header.height} + ${theme.spacing.component})`,
+    transition: `transform ${theme.transition.short}`,
+    width: theme.size.sidePanel.width,
 
+    [`@media(max-width: ${theme.breakpoint.lg})`]: {
+        transform: `translateX(calc(${theme.spacing.component} - 100%))`,
+        "&:hover": { transform: "none" }
+    },
+}))
 
-const SectionContainer = styled(SlideUp.FullWidth)({
-    "&>div": {
-        maxWidth: "54rem", width: "100%",
+const SectionContainer = styled(SlideUp.FullWidth)(({ theme }) => ({
+    "&>*": {
+        maxWidth: `calc(${theme.breakpoint.lg} - 2 * ${theme.size.sidePanel.width})`, width: "100%",
         marginLeft: "auto", marginRight: "auto",
     },
-});
+}));
 
 function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
     return <SectionContainer className={css(({ theme }) => ({ marginTop: theme.size.header.height }))}>
-        <div>
-            <Spacer spacing="group" />
+        <Spacer spacing="block" />
 
-            <T.H2>{blog.title}</T.H2>
-            <Spacer spacing="paragraph" />
+        <T.H2>{blog.title}</T.H2>
+        <Spacer spacing="paragraph" />
 
-            <T.H5 style={{ opacity: 0.75 }}>
-                {blog.description}
-            </T.H5>
+        <T.H5 style={{ opacity: 0.75 }}>
+            {blog.description}
+        </T.H5>
 
-            <Spacer spacing="component" />
-            <T.Body1>
-                <span style={{ opacity: 0.75 }}>Created On </span>{DateAsString(blog.createdDate)}
-                {
-                    blog.tags &&
-                    <>
-                        <span style={{ opacity: 0.75 }}> With Tags </span>{blog.tags.join(", ")}
-                    </>
-                }
-            </T.Body1>
-        </div>
+        <Spacer spacing="component" />
+        <T.Body1>
+            <span style={{ opacity: 0.75 }}>Created On </span>{DateAsString(blog.createdDate)}
+            {
+                blog.tags && <>
+                    <span style={{ opacity: 0.75 }}> With Tags </span>{blog.tags.join(", ")}
+                </>
+            }
+        </T.Body1>
     </SectionContainer>
 }
 
@@ -91,24 +104,22 @@ const SectionHeaderLink = styled(T.H3)(({ theme }) => ({
     }
 }));
 
-function Section({ sectionName, blocks, headerVisible }: {
+function Section({ catagory, blocks, headerVisible }: {
     blocks: ContentBlock.DevBlogType[],
-    sectionName: string,
+    catagory: string[],
     headerVisible: boolean,
 }) {
-    return <>
-        <Spacer spacing="block" id={sectionName} />
+    const sectionName = catagory[catagory.length - 1];
+    return <SideCatagory.Container catagory={catagory}>
         {
             headerVisible &&
-            <Link href={`#${sectionName}`}>
+            <SideCatagory.Link catagory={catagory}>
                 <SectionContainer>
-                    <div>
-                        <SectionHeaderLink>{sectionName}</SectionHeaderLink>
-                        <Spacer spacing="paragraph" />
-                        <Divider />
-                    </div>
+                    <SectionHeaderLink>{sectionName}</SectionHeaderLink>
+                    <Spacer spacing="paragraph" />
+                    <Divider />
                 </SectionContainer>
-            </Link>
+            </SideCatagory.Link>
         }
         {
             blocks.map((block, i) => (
@@ -117,7 +128,7 @@ function Section({ sectionName, blocks, headerVisible }: {
                 </SectionContainer>
             ))
         }
-    </>
+    </SideCatagory.Container>
 }
 
 

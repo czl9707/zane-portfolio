@@ -53,6 +53,9 @@ declare module '@pigment-css/react/theme' {
             },
             border: {
                 radius: string,
+            },
+            sidePanel: {
+                width: string,
             }
         },
     }
