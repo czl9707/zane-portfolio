@@ -8,7 +8,7 @@ import React from 'react'
 import { styled } from '@pigment-css/react'
 
 const GridBase = styled(Grid)(({ theme }) => ({
-    maxWidth: "54rem", width: "100%", marginLeft: "auto", marginRight: "auto",
+    maxWidth: "54rem", width: "100%",
     marginTop: theme.spacing.group, marginBottom: theme.spacing.group
 }));
 

@@ -1,5 +1,6 @@
 import * as SlideUp from "@/components/ui/slideup-effect";
 import * as T from "@/components/ui/typography";
+import * as Container from "@/components/ui/container";
 import Button from '@/components/ui/button';
 import DevBlogContentBlock from '@/components/dev-blog/content-blocks';
 import TitleSection from '@/components/layout/title-section';
@@ -31,46 +32,58 @@ export default async function Page({ params }: { params: Promise<{ blogSlug: str
     const title = (await params).blogSlug.replaceAll("_", " ");
     const blog = await ZaneDevBlog.getByTitle(title);
     return <>
-        <BlogHead blog={blog} />
         <SideCatagory.Context>
-            <div className={css(({ theme }) => ({
-                position: "relative", display: "inline-flex", flexDirection: "column",
-                gap: theme.spacing.block,
-            }))}>
-                <SideCatagory.CatagoryPanel className={SideCatagoryPanelClass} />
-                {
-                    blog.content.map((sec, i) => (
-                        <Section blocks={sec.blocks} catagory={sec.catagory}
-                            headerVisible={sec.visible} key={i} />
-                    ))
-                }
-
-                {/* <OtherProjects current={project} /> */}
-            </div>
+            <ContentLayoutGrid>
+                <ContentContainer className={css(({ theme }) => ({ marginTop: theme.size.header.height }))}>
+                    <BlogHead blog={blog} />
+                </ContentContainer>
+                <CatagroryContainer />
+            </ContentLayoutGrid>
+            <Spacer spacing="block" />
+            <ContentLayoutGrid>
+                <ContentContainer>
+                    {
+                        blog.content.map((sec, i) => (
+                            <Section blocks={sec.blocks} catagory={sec.catagory}
+                                headerVisible={sec.visible} key={i} />
+                        ))
+                    }
+                </ContentContainer>
+                <CatagroryContainer>
+                    <T.H6 style={{ marginBottom: "1rem" }}>Table of Content</T.H6>
+                    <SideCatagory.CatagoryPanel />
+                </CatagroryContainer>
+            </ContentLayoutGrid>
         </SideCatagory.Context >
     </>
 }
 
-const SideCatagoryPanelClass = css(({ theme }) => ({
-    position: "absolute", top: `calc(${theme.size.header.height} + ${theme.spacing.component})`,
-    transition: `transform ${theme.transition.short}`,
-    width: theme.size.sidePanel.width,
+const ContentLayoutGrid = styled(Container.FullWidth)(({ theme }) => ({
+    display: "flex", flexDirection: "row", alignItems: "start", gap: theme.spacing.component,
+    maxWidth: theme.breakpoint.lg, width: "100%",
+    marginLeft: "auto", marginRight: "auto",
+    boxSizing: "border-box",
 
+    gridTemplateColumns: "repeat(7, minmax(0, 1fr))",
     [`@media(max-width: ${theme.breakpoint.lg})`]: {
-        transform: `translateX(calc(${theme.spacing.component} - 100%))`,
-        "&:hover": { transform: "none" }
-    },
-}))
-
-const SectionContainer = styled(SlideUp.FullWidth)(({ theme }) => ({
-    "&>*": {
-        maxWidth: `calc(${theme.breakpoint.lg} - 2 * ${theme.size.sidePanel.width})`, width: "100%",
-        marginLeft: "auto", marginRight: "auto",
+        gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
     },
 }));
 
+const ContentContainer = styled("div")({
+    flex: "5 5", position: 'relative'
+});
+const CatagroryContainer = styled("div")(({ theme }) => ({
+    flex: "2 2", position: "sticky",
+    top: `calc(${theme.size.header.height} + ${theme.spacing.component})`,
+    [`@media(max-width: ${theme.breakpoint.md})`]: {
+        display: "none",
+    },
+}));
+
+
 function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
-    return <SectionContainer className={css(({ theme }) => ({ marginTop: theme.size.header.height }))}>
+    return <>
         <Spacer spacing="block" />
 
         <T.H2>{blog.title}</T.H2>
@@ -89,7 +102,7 @@ function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
                 </>
             }
         </T.Body1>
-    </SectionContainer>
+    </>
 }
 
 const SectionHeaderLink = styled(T.H3)(({ theme }) => ({
@@ -113,19 +126,17 @@ function Section({ catagory, blocks, headerVisible }: {
     return <SideCatagory.Container catagory={catagory}>
         {
             headerVisible &&
-            <SideCatagory.Link catagory={catagory}>
-                <SectionContainer>
+            <>
+                <SideCatagory.Link catagory={catagory}>
                     <SectionHeaderLink>{sectionName}</SectionHeaderLink>
-                    <Spacer spacing="paragraph" />
-                    <Divider />
-                </SectionContainer>
-            </SideCatagory.Link>
+                </SideCatagory.Link>
+                <Spacer spacing="paragraph" />
+                <Divider />
+            </>
         }
         {
             blocks.map((block, i) => (
-                <SectionContainer key={`${sectionName}${i}`} >
-                    <DevBlogContentBlock block={block} />
-                </SectionContainer>
+                <DevBlogContentBlock block={block} key={`${sectionName}${i}`} />
             ))
         }
     </SideCatagory.Container>

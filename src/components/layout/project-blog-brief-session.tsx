@@ -20,7 +20,7 @@ const BriefContainer = styled("div")(({ theme }) => ({
   gap: theme.spacing.component,
 
   flexDirection: "column",
-  [`@media(min-width: ${theme.breakpoint.lg})`]: { flexDirection: "row", },
+  [`@media(min-width: ${theme.breakpoint.md})`]: { flexDirection: "row", },
 
   [`& + ${Divider}`]: {
     marginTop: theme.spacing.group,

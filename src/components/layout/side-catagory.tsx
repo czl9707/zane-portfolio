@@ -1,6 +1,6 @@
 "use client"
 
-import { css, styled } from "@pigment-css/react";
+import { styled } from "@pigment-css/react";
 import Link from "next/link";
 import * as React from 'react';
 import { useInView } from 'react-intersection-observer'
@@ -57,9 +57,9 @@ function Catagory({ catagoryItem, depth = 0 }: {
 
 
 const SideCatagoryContainer = styled("div")(({ theme }) => ({
-    borderRadius: theme.size.border.radius,
+    borderRadius: theme.size.border.radius, display: "inline-flex", flexDirection: "column",
     border: `1px solid rgb(${theme.vars.color.default.foreground})`,
-    padding: theme.spacing.paragraph
+    padding: theme.spacing.paragraph, gap: '.5rem'
 }))
 
 const SideCatagory = React.forwardRef<HTMLDivElement, { className?: string }>(

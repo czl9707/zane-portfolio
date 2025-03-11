@@ -71,7 +71,10 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                         </div>
                     </SlideUp.Div>
 
-                    <span style={{ gridColumn: "span 1 / span 1" }} />
+                    <span className={css(({ theme }) => ({
+                        gridColumn: "span 1 / span 1",
+                        [`@media(max-width: ${theme.breakpoint.md})`]: { display: "none" }
+                    }))} />
 
                     <SlideUp.Div style={{ gridColumn: "span 1 / span 1" }}>
                         <T.Body1 style={{ opacity: 0.75, paddingBottom: 0 }}>When</T.Body1>
@@ -126,7 +129,7 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
             <TitleSection>
                 <div className={css(({ theme }) => ({
                     display: "flex", flexDirection: "row", width: "100%", alignItems: "flex-end",
-                    [`@media(max-width: ${theme.breakpoint.lg})`]: { flexDirection: "column" },
+                    [`@media(max-width: ${theme.breakpoint.md})`]: { flexDirection: "column" },
                 }))}>
                     <T.H2 id="as_an_architect">Other Projects</T.H2>
                     <Link href={"/as/architect/project"} style={{ flex: "1 1" }}>
