@@ -1,13 +1,8 @@
-import * as SlideUp from "@/components/ui/slideup-effect";
 import * as T from "@/components/ui/typography";
 import * as Container from "@/components/ui/container";
 import Button from '@/components/ui/button';
 import DevBlogContentBlock from '@/components/dev-blog/content-blocks';
-import TitleSection from '@/components/layout/title-section';
-import ProjectBlogBriefSession from '@/components/layout/project-blog-brief-session';
-import DevBlogCard from '@/components/dev-blog/dev-blog-card';
 import Divider from '@/components/ui/divider';
-import { solidBackground } from '@/components/ui/util';
 import Spacer from "@/components/ui/spacer";
 import * as SideCatagory from "@/components/layout/side-catagory"
 

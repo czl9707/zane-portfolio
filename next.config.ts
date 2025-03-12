@@ -74,6 +74,7 @@ export default withPigment(
         h4: { fontFamily: "var(--font-sans)", fontWeight: 500, fontSize: '2.25rem', lineHeight: 1.25, },
         h5: { fontFamily: "var(--font-sans)", fontWeight: 500, fontSize: '1.5rem', lineHeight: 1.4, },
         h6: { fontFamily: "var(--font-sans)", fontWeight: 500, fontSize: '1.25rem', lineHeight: 1.6, },
+        code: { fontFamily: "var(--font-mono)", fontWeight: 400, fontSize: "0.875rem", lineHeight: 1.5, },
       },
       transition: {
         short: ".3s",

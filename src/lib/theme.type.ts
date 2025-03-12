@@ -36,6 +36,7 @@ declare module '@pigment-css/react/theme' {
             button: TypographyToken,
             body1: TypographyToken,
             body2: TypographyToken,
+            code: TypographyToken,
         },
         spacing: {
             block: string,

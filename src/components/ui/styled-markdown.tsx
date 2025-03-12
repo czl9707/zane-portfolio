@@ -7,7 +7,7 @@ import * as T from '@/components/ui/typography'
 import Divider from "@/components/ui/divider";
 import QuoteBlock from "@/components/ui/quote-block";
 import Link from "next/link";
-import { CodePanel, CodeBlock } from '@/components/ui/code-panel';
+import CodeBlock from '@/components/ui/code-block';
 
 
 const Ol = styled("ol")(({ theme }) => ({
@@ -53,7 +53,6 @@ const components: Components = {
     p: T.Body1,
     hr: Divider,
     code: CodeBlock,
-    pre: CodePanel,
     blockquote: QuoteBlock,
     ol: Ol,
     ul: Ul,
@@ -62,7 +61,7 @@ const components: Components = {
 
 function StyledMarkdown({ children }: { children: string }) {
     return (
-        <Markdown components={components}>
+        <Markdown components={components} disallowedElements={['pre']} unwrapDisallowed >
             {children}
         </Markdown>
     )
