@@ -31,7 +31,7 @@ const Token = styled("span")({
 })
 
 
-const StyledCodeBlock = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const StyledCodeBlock = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
     function StyleCodeBlock({ className, children, ...other }, ref) {
         const lang = className!.split(" ").filter(s => s.includes("language-"))[0].replace("language-", "");
 

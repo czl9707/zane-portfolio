@@ -7,7 +7,7 @@ import * as StyledMarkdown from '@/components/ui/styled-markdown'
 import Spacer from '@/components/ui/spacer'
 
 import React from 'react'
-import { styled } from '@pigment-css/react'
+import { styled, css } from '@pigment-css/react'
 
 const GridBase = styled(Grid)(({ theme }) => ({
     maxWidth: "72rem", width: "100%", marginLeft: "auto", marginRight: "auto",
@@ -30,7 +30,7 @@ function MultiImageBlock({ block }: { block: ContentBlock.MultiImageBlockType })
         <GridBase columns={maxRowItems}>
             {
                 block.images.map(image => (
-                    <div style={{ gridColumn: "span 1 / span 1" }} key={image.image.alt}>
+                    <div style={{ gridColumn: "span 1" }} key={image.image.alt}>
                         <Image src={image.image.url} alt={image.image.alt} />
                         {
                             image.annotation &&
@@ -47,16 +47,16 @@ function ImageAndTextBlock({ block }: { block: ContentBlock.ImageAndTextBlockTyp
     return (
         <SlideUp.FullWidth>
             <GridBase columns={2}>
-                <div style={{ gridColumn: "span 1 / span 1" }}>
+                <div style={{ gridColumn: "span 1" }}>
                     <T.H5 style={{ opacity: 0.75 }}>{block.title}</T.H5>
                     <Spacer spacing="paragraph" />
-                    <div style={{ width: "75%" }}>
+                    <div className={css(({ theme }) => ({ [`@media(min-width: ${theme.breakpoint.md})`]: { width: "85%" } }))}>
                         <StyledMarkdown.Default>
                             {block.text}
                         </StyledMarkdown.Default>
                     </div>
                 </div>
-                <div style={{ gridColumn: "span 1 / span 1" }}>
+                <div style={{ gridColumn: "span 1" }}>
                     <FullSizeImage src={block.image.url} alt={block.image.alt} />
                     {
                         block.annotation &&
@@ -64,7 +64,7 @@ function ImageAndTextBlock({ block }: { block: ContentBlock.ImageAndTextBlockTyp
                     }
                 </div>
             </GridBase>
-        </SlideUp.FullWidth>
+        </SlideUp.FullWidth >
     )
 }
 
@@ -72,10 +72,10 @@ function FullTextBlock({ block }: { block: ContentBlock.FullTextBlockType }) {
     return (
         <SlideUp.FullWidth>
             <GridBase columns={4} >
-                <div style={{ gridColumn: "span 1 / span 1" }}>
+                <div style={{ gridColumn: "span 1" }}>
                     <T.H5 style={{ opacity: 0.75 }}>{block.title}</T.H5>
                 </div>
-                <span style={{ gridColumn: "span 1 / span 1" }} />
+                <span style={{ gridColumn: "span 1" }} />
                 <div style={{ gridColumn: "span 2 / span 2" }}>
                     <StyledMarkdown.Default>
                         {block.text}

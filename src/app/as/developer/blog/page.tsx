@@ -3,7 +3,9 @@ import * as T from "@/components/ui/typography";
 
 import * as ZaneDevBlog from '@/lib/cms/zane-dev-blog'
 import ContentSection from '@/components/layout/content-section';
-import DevBlogCard from '@/components/dev-blog/dev-blog-card';
+import DevBlogBrief from '@/components/dev-blog/dev-blog-brief';
+import BriefsContainer from '@/components/layout/briefs-container'
+
 import { Metadata } from 'next';
 
 export const revalidate = 14400;
@@ -25,13 +27,13 @@ export default async function Page() {
                 style={{ paddingTop: 0 }}
                 header={<T.H5 style={{ opacity: 0.75 }}>All Blogs</T.H5>}
             >
-                <div style={{ gridColumn: "span 3 / span 3" }}>
+                <BriefsContainer style={{ gridColumn: "span 3 / span 3" }}>
                     {
                         blogs.map((blog) => (
-                            <DevBlogCard blog={blog} key={blog.title} />
+                            <DevBlogBrief blog={blog} key={blog.title} />
                         ))
                     }
-                </div>
+                </BriefsContainer>
             </ContentSection>
         </>
     )

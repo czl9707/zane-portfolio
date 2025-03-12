@@ -4,13 +4,18 @@ import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";
 import Divider from "@/components/ui/divider";
 import Spacer from "@/components/ui/spacer";
-import ArchitectureProjectCard from "@/components/arch-project/arch-project-card";
+import ArchitectureProjectCard from "@/components/arch-project/arch-project-brief";
 import TitleSection from "@/components/layout/title-section";
 import ContentSection from "@/components/layout/content-section";
 import Button from "@/components/ui/button";
-import ProjectBlogBriefSession from "@/components/layout/project-blog-brief-session";
+import ProjectBlogBrief from "@/components/layout/project-blog-brief";
+import BriefsContainer from '@/components/layout/briefs-container'
 import * as StyledMarkdown from "@/components/ui/styled-markdown";
 import { solidBackground } from "@/components/ui/util";
+import DevProjectBrief from "@/components/dev-project/dev-project-card";
+import DevBlogBrief from "@/components/dev-blog/dev-blog-brief";
+import SlidingDownIcon from "@/components/ui/sliding-down-icon";
+
 
 import * as Homepage from "@/lib/cms/zane-homepage"
 import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
@@ -21,9 +26,6 @@ import Link from "next/link";
 import React from "react";
 import { styled, css } from "@pigment-css/react";
 
-import DevProjectCard from "@/components/dev-project/dev-project-card";
-import DevBlogCard from "@/components/dev-blog/dev-blog-card";
-import SlidingDownIcon from "@/components/ui/sliding-down-icon";
 
 export const revalidate = 14400;
 export async function generateStaticParams(): Promise<object[]> {
@@ -115,10 +117,6 @@ function WhoAmISection({ content }: { content: string }) {
   )
 }
 
-const BriefsContainer = styled("div")(({ theme }) => ({
-  gridColumn: "span 3 / span 3", display: "flex", flexDirection: "column", gap: theme.spacing.group
-}));
-
 function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.Info[], blogs: ZaneDevBlog.Info[] }) {
   return (
     <>
@@ -131,16 +129,16 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
           <T.H5 style={{ opacity: 0.75 }}>Featured Projects</T.H5>
         }
       >
-        <BriefsContainer>
+        <BriefsContainer style={{ gridColumn: "span 3 / span 3" }}>
           {
             projects.map((project) => (
-              <DevProjectCard project={project} key={project.title} />
+              <DevProjectBrief project={project} key={project.title} />
             ))
           }
           <Link href={"/as/developer/project"}>
-            <ProjectBlogBriefSession buttonText="All Projects" noDivider>
+            <ProjectBlogBrief buttonText="All Projects" noDivider>
               <Spacer style={{ minHeight: "8rem" }} />
-            </ProjectBlogBriefSession>
+            </ProjectBlogBrief>
           </Link>
         </BriefsContainer>
 
@@ -149,16 +147,16 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
       <ContentSection style={{ paddingTop: 0 }}
         header={<T.H5 style={{ opacity: 0.75 }}>Featured Blogs</T.H5>}
       >
-        <BriefsContainer>
+        <BriefsContainer style={{ gridColumn: "span 3 / span 3" }}>
           {
             blogs.map((blog) => (
-              <DevBlogCard blog={blog} key={blog.title} />
+              <DevBlogBrief blog={blog} key={blog.title} />
             ))
           }
           <Link href={"/as/developer/blog"}>
-            <ProjectBlogBriefSession buttonText="All Blogs" noDivider>
+            <ProjectBlogBrief buttonText="All Blogs" noDivider>
               <Spacer style={{ minHeight: "5rem" }} />
-            </ProjectBlogBriefSession>
+            </ProjectBlogBrief>
           </Link>
         </BriefsContainer>
       </ContentSection>
@@ -178,7 +176,7 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
           <T.H2 id="as_an_architect">ONCE AN ARCHITECT</T.H2>
           <Link href={"/as/architect/project"} style={{ flex: "1 1" }}>
             {/* working around the button, should seperate button with main components later */}
-            <ProjectBlogBriefSession buttonText="All Projects" noDivider />
+            <ProjectBlogBrief buttonText="All Projects" noDivider />
           </Link>
         </div>
       </TitleSection >

@@ -36,7 +36,7 @@ const BriefContainer = styled("div")(({ theme }) => ({
 
 
 
-export default function ProjectBlogBriefSession({ children, buttonText, noDivider = false }: {
+export default function ProjectBlogBrief({ children, buttonText, noDivider = false }: {
   children?: React.ReactNode,
   buttonText: string,
   noDivider?: boolean

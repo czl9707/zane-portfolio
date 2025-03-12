@@ -5,8 +5,8 @@ import * as Container from "@/components/ui/container";
 import Button from '@/components/ui/button';
 import ArchProjectContentBlock from '@/components/arch-project/content-blocks';
 import TitleSection from '@/components/layout/title-section';
-import ProjectBlogBriefSession from '@/components/layout/project-blog-brief-session';
-import ArchitectureProjectCard from '@/components/arch-project/arch-project-card';
+import ProjectBlogBrief from '@/components/layout/project-blog-brief';
+import ArchitectureProjectCard from '@/components/arch-project/arch-project-brief';
 import Divider from '@/components/ui/divider';
 import { solidBackground } from '@/components/ui/util';
 import Spacer from "@/components/ui/spacer";
@@ -133,7 +133,7 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
                 }))}>
                     <T.H2 id="as_an_architect">Other Projects</T.H2>
                     <Link href={"/as/architect/project"} style={{ flex: "1 1" }}>
-                        <ProjectBlogBriefSession buttonText="All Projects" noDivider />
+                        <ProjectBlogBrief buttonText="All Projects" noDivider />
                     </Link>
                 </div>
             </TitleSection >

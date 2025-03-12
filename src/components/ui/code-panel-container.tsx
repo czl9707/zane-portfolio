@@ -12,7 +12,7 @@ const CodePanelContainer = styled("div")(({ theme }) => ({
     padding: theme.spacing.paragraph, margin: 0,
 }))
 
-const CodeContainer = styled("div")(({ theme }) => ({
+const CodeContainer = styled("code")(({ theme }) => ({
     overflowX: "scroll",
     paddingBottom: theme.spacing.paragraph,
 
@@ -50,15 +50,15 @@ const IconContainer = styled("div")(({ theme }) => ({
 }));
 
 
-const CodePanel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { copiableText: string }>(
+const CodePanel = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement> & { copiableText: string }>(
     function CodePanel({ children, copiableText, ...other }, ref) {
         const handleCopy = () => {
             navigator.clipboard.writeText(copiableText);
         }
 
         return (
-            <CodePanelContainer {...other} ref={ref} >
-                <CodeContainer>
+            <CodePanelContainer>
+                <CodeContainer {...other} ref={ref}>
                     {children}
                 </CodeContainer>
                 <IconContainer onClick={handleCopy}>

@@ -9,7 +9,7 @@ import { solidBackground } from '@/components/ui/util';
 import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
 import Divider from '@/components/ui/divider';
 import Spacer from '@/components/ui/spacer';
-import ArchitectureProjectCard from '@/components/arch-project/arch-project-card';
+import ArchitectureProjectCard from '@/components/arch-project/arch-project-brief';
 
 export const revalidate = 14400;
 export async function generateStaticParams(): Promise<object[]> {

@@ -5,15 +5,15 @@ import { MonthAsString } from "@/lib/utils/date";
 import * as T from "@/components/ui/typography";
 import Spacer from "@/components/ui/spacer";
 import * as StyledMarkdown from "@/components/ui/styled-markdown";
-import ProjectBlogBriefSession from "@/components/layout/project-blog-brief-session";
+import ProjectBlogBrief from "@/components/layout/project-blog-brief";
 
 
-export default function DevProjectCard({ project }: {
+export default function DevProjectBrief({ project }: {
     project: ZaneDevProject.Info
 }) {
     return (
         <Link href={project.externalLink}>
-            <ProjectBlogBriefSession buttonText="Take me there">
+            <ProjectBlogBrief buttonText="Take me there">
                 <T.H4>{project.title}</T.H4>
 
                 <T.Body1 style={{ opacity: 0.75 }}>
@@ -32,7 +32,7 @@ export default function DevProjectCard({ project }: {
                         {project.description}
                     </StyledMarkdown.Default>
                 </div>
-            </ProjectBlogBriefSession>
+            </ProjectBlogBrief>
         </Link>
     )
 }

@@ -5,15 +5,15 @@ import { DateAsString } from "@/lib/utils/date";
 import * as T from "@/components/ui/typography";
 import Spacer from "@/components/ui/spacer";
 import * as StyledMarkdown from "@/components/ui/styled-markdown";
-import ProjectBlogBriefSession from "@/components/layout/project-blog-brief-session";
+import ProjectBlogBrief from "@/components/layout/project-blog-brief";
 
 
-export default function DevBlogCard({ blog }: {
+export default function DevBlogBrief({ blog }: {
     blog: ZaneDevBlog.Info,
 }) {
     return (
         <Link href={`/as/developer/blog/${blog.title.replaceAll(" ", "_")}`} key={blog.title}>
-            <ProjectBlogBriefSession buttonText="Read More">
+            <ProjectBlogBrief buttonText="Read More">
                 <T.H4>{blog.title}</T.H4>
                 <T.Body1 style={{ opacity: 0.75 }}>
                     {DateAsString(blog.createdDate)}
@@ -30,7 +30,7 @@ export default function DevBlogCard({ blog }: {
                         {blog.description}
                     </StyledMarkdown.Default>
                 </div>
-            </ProjectBlogBriefSession>
+            </ProjectBlogBrief>
         </Link>
     )
 }

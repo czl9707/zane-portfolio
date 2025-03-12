@@ -5,7 +5,8 @@ import * as T from "@/components/ui/typography";
 
 import * as ZaneDevProject from '@/lib/cms/zane-dev-project'
 import ContentSection from '@/components/layout/content-section';
-import DevProjectCard from '@/components/dev-project/dev-project-card';
+import DevProjectBrief from '@/components/dev-project/dev-project-card';
+import BriefsContainer from '@/components/layout/briefs-container'
 
 export const revalidate = 14400;
 export async function generateStaticParams(): Promise<object[]> {
@@ -26,14 +27,13 @@ export default async function Page() {
                 style={{ paddingTop: 0 }}
                 header={<T.H5 style={{ opacity: 0.75 }}>All Projects</T.H5>}
             >
-                <div style={{ gridColumn: "span 3 / span 3" }}>
+                <BriefsContainer style={{ gridColumn: "span 3 / span 3", }}>
                     {
                         projects.map((project) => (
-                            <DevProjectCard project={project} key={project.title} />
+                            <DevProjectBrief project={project} key={project.title} />
                         ))
                     }
-                </div>
-
+                </BriefsContainer>
             </ContentSection>
         </>
     )
