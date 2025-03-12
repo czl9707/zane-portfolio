@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
-import * as ZaneDebBlogs from '@/lib/cms/zane-dev-blog'
+import * as ZaneDevBlogs from '@/lib/cms/zane-dev-blog'
 
 const ROOT = "https://zane-portfolio.kiyo-n-zane.com/";
 
@@ -13,8 +13,10 @@ const singlePages = [
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const archProjects = (await ZaneArchProjects.getAll())
-    const devBlogs = (await ZaneDebBlogs.getAll())
+    const archProjects = await ZaneArchProjects.getAll();
+    const devBlogs = await ZaneDevBlogs.getAll();
+    console.log(devBlogs);
+    console.log(archProjects);
 
     return [
         ...(singlePages.map(p => ({
