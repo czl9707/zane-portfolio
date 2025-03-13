@@ -15,8 +15,6 @@ const singlePages = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const archProjects = await ZaneArchProjects.getAll();
     const devBlogs = await ZaneDevBlogs.getAll();
-    console.warn(devBlogs);
-    console.warn(archProjects);
 
     return [
         ...(singlePages.map(p => ({

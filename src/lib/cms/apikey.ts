@@ -41,5 +41,5 @@ import "server-only";
 // }
 
 export async function get() {
-    return process.env.AMDMIN_APIKEY as string;
+    return process.env.ADMIN_APIKEY as string;
 }
