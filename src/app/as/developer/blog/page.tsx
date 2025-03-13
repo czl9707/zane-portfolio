@@ -15,7 +15,7 @@ export async function generateStaticParams(): Promise<object[]> {
 
 
 export default async function Page() {
-    const blogs = (await ZaneDevBlog.getAll());
+    const blogs = await ZaneDevBlog.getAll();
 
     return (
         <>

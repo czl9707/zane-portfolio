@@ -1,4 +1,4 @@
-import * as UserToken from "@/lib/cms/user-token"
+import * as ApiKey from "@/lib/cms/apikey"
 import { ImageInfo } from "@/lib/cms/common.type";
 import * as Blocks from "@/lib/cms/content-blocks";
 
@@ -36,13 +36,13 @@ export type {
 const ARCHPROJECT_ENDPOINT = `${process.env.ADMIN_URL}/api/zaneArchProject`;
 
 export async function getAll(): Promise<ZaneArchProjectInfo[]> {
-    const user = await UserToken.get()
+    const apikey = await ApiKey.get()
 
     return await fetch(
         `${ARCHPROJECT_ENDPOINT}?select[content]=false`,
         {
             headers: {
-                Authorization: `JWT ${user.token}`,
+                Authorization: `users API-Key ${apikey}`,
             }
         }
     ).then(
@@ -53,13 +53,13 @@ export async function getAll(): Promise<ZaneArchProjectInfo[]> {
 }
 
 export async function getByTitle(title: string): Promise<ZaneArchProjectInfo> {
-    const user = await UserToken.get()
+    const apikey = await ApiKey.get()
 
     return await fetch(
         `${ARCHPROJECT_ENDPOINT}?where[title][equals]=${title}`,
         {
             headers: {
-                Authorization: `JWT ${user.token}`,
+                Authorization: `users API-Key ${apikey}`,
             }
         }
     ).then(

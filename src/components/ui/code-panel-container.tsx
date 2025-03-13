@@ -13,7 +13,7 @@ const CodePanelContainer = styled("div")(({ theme }) => ({
 }))
 
 const CodeContainer = styled("code")(({ theme }) => ({
-    overflowX: "scroll",
+    overflowX: "scroll", display: "block",
     paddingBottom: theme.spacing.paragraph,
 
     fontFamily: theme.typographies.code.fontFamily,

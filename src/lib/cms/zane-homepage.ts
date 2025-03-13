@@ -1,4 +1,4 @@
-import * as UserToken from "@/lib/cms/user-token"
+import * as ApiKey from "@/lib/cms/apikey"
 import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
 import * as ZaneArchProject from "@/lib/cms/zane-arch-project";
 import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
@@ -13,12 +13,12 @@ interface HomepageDto {
 }
 
 export async function getContents() {
-    const user = await UserToken.get()
+    const apikey = await ApiKey.get()
     const content: HomepageDto = await fetch(
         `${HOMEPAGE_ENDPOINT}`,
         {
             headers: {
-                Authorization: `JWT ${user.token}`,
+                Authorization: `users API-Key ${apikey}`,
             }
         }
     ).then(

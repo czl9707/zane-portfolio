@@ -1,4 +1,4 @@
-import * as UserToken from "@/lib/cms/user-token"
+import * as ApiKey from "@/lib/cms/apikey"
 
 const HOMEPAGE_ENDPOINT = `${process.env.ADMIN_URL}/api/globals/zaneAboutMe`;
 
@@ -8,12 +8,12 @@ interface ZaneAboutMe {
 }
 
 export async function getContents() {
-    const user = await UserToken.get()
+    const apikey = await ApiKey.get();
     const content: ZaneAboutMe = await fetch(
         `${HOMEPAGE_ENDPOINT}`,
         {
             headers: {
-                Authorization: `JWT ${user.token}`,
+                Authorization: `users API-Key ${apikey}`,
             }
         }
     ).then(

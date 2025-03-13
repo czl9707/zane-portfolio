@@ -1,4 +1,4 @@
-import * as UserToken from "@/lib/cms/user-token"
+import * as ApiKey from "@/lib/cms/apikey"
 import { ImageInfo } from "@/lib/cms/common.type";
 import * as Blocks from "@/lib/cms/content-blocks";
 
@@ -31,13 +31,13 @@ export type {
 const DEVBLOG_ENDPOINT = `${process.env.ADMIN_URL}/api/zaneDevBlog`;
 
 export async function getAll(): Promise<ZaneDevBlogInfo[]> {
-    const user = await UserToken.get()
+    const apikey = await ApiKey.get();
 
     return await fetch(
         `${DEVBLOG_ENDPOINT}?select[content]=false`,
         {
             headers: {
-                Authorization: `JWT ${user.token}`,
+                Authorization: `users API-Key ${apikey}`,
             }
         }
     ).then(
@@ -48,13 +48,13 @@ export async function getAll(): Promise<ZaneDevBlogInfo[]> {
 }
 
 export async function getByTitle(title: string): Promise<ZaneDevBlogInfo> {
-    const user = await UserToken.get()
+    const apikey = await ApiKey.get()
 
     return await fetch(
         `${DEVBLOG_ENDPOINT}?where[title][equals]=${title}`,
         {
             headers: {
-                Authorization: `JWT ${user.token}`,
+                Authorization: `users API-Key ${apikey}`,
             }
         }
     ).then(

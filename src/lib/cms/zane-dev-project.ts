@@ -1,4 +1,4 @@
-import * as UserToken from "@/lib/cms/user-token"
+import * as ApiKey from "@/lib/cms/apikey"
 import { ImageInfo } from "@/lib/cms/common.type";
 
 interface ZaneDevProjectInfo {
@@ -31,13 +31,13 @@ export type {
 const DEVPROJECT_ENDPOINT = `${process.env.ADMIN_URL}/api/zaneDevProject`;
 
 export async function getAll(): Promise<ZaneDevProjectInfo[]> {
-    const user = await UserToken.get()
+    const apikey = await ApiKey.get()
 
     return await fetch(
         `${DEVPROJECT_ENDPOINT}`,
         {
             headers: {
-                Authorization: `JWT ${user.token}`,
+                Authorization: `users API-Key ${apikey}`,
             }
         }
     ).then(
