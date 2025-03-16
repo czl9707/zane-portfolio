@@ -23,7 +23,7 @@ export default async function Page() {
     return (
         <>
             <TitleSection noDivider>
-                <T.H2>Architecture Projects</T.H2>
+                <TitleSection.Heading>Architecture Projects</TitleSection.Heading>
             </TitleSection>
 
             <Container.FullWidth className={solidBackground}>

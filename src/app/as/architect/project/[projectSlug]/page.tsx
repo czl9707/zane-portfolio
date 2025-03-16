@@ -131,7 +131,7 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
                     display: "flex", flexDirection: "row", width: "100%", alignItems: "flex-end",
                     [`@media(max-width: ${theme.breakpoint.md})`]: { flexDirection: "column" },
                 }))}>
-                    <T.H2 id="as_an_architect">Other Projects</T.H2>
+                    <TitleSection.Heading>Other Projects</TitleSection.Heading>
                     <Link href={"/as/architect/project"} style={{ flex: "1 1" }}>
                         <ProjectBlogBrief buttonText="All Projects" noDivider />
                     </Link>

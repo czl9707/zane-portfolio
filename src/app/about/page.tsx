@@ -57,7 +57,7 @@ export default async function Page() {
 
 
         <TitleSection noDivider>
-            <T.H2>My Timeline</T.H2>
+            <TitleSection.Heading>My Timeline</TitleSection.Heading>
         </TitleSection>
         {
             content.timeline.sort((ex1, ex2) => ex2.year[0] - ex1.year[0]).map((ex, i) => (

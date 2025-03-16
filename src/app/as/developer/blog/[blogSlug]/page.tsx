@@ -5,6 +5,7 @@ import DevBlogContentBlock from '@/components/dev-blog/content-blocks';
 import Divider from '@/components/ui/divider';
 import Spacer from "@/components/ui/spacer";
 import * as SideCatagory from "@/components/layout/side-catagory"
+import TitleSection from "@/components/layout/title-section";
 
 
 import * as ZaneDevBlog from '@/lib/cms/zane-dev-blog'
@@ -100,7 +101,7 @@ function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
     </>
 }
 
-const SectionHeaderLink = styled(T.H3)(({ theme }) => ({
+const SectionHeaderLink = styled(TitleSection.Heading)(({ theme }) => ({
     "&::before": {
         content: "\"#\"", position: "absolute",
         transform: "translateX(-135%)",
@@ -122,9 +123,11 @@ function Section({ catagory, blocks, headerVisible }: {
         {
             headerVisible &&
             <>
-                <SideCatagory.Link catagory={catagory}>
-                    <SectionHeaderLink>{sectionName}</SectionHeaderLink>
-                </SideCatagory.Link>
+                <TitleSection noDivider className={css({ padding: 0 })}>
+                    <SideCatagory.Link catagory={catagory}>
+                        <SectionHeaderLink>{sectionName}</SectionHeaderLink>
+                    </SideCatagory.Link>
+                </TitleSection>
                 <Spacer spacing="paragraph" />
                 <Divider />
             </>
