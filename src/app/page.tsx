@@ -25,6 +25,7 @@ import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
 import Link from "next/link";
 import React from "react";
 import { styled, css } from "@pigment-css/react";
+import ExtendingButton from "@/components/ui/extending-button";
 
 
 export const revalidate = 14400;
@@ -137,9 +138,9 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
             ))
           }
           <Link href={"/as/developer/project"}>
-            <ProjectBlogBrief buttonText="All Projects" noDivider>
-              <Spacer style={{ minHeight: "8rem" }} />
-            </ProjectBlogBrief>
+            <div style={{ paddingTop: "6rem" }} className={ExtendingButton.hoverContext}>
+              <ExtendingButton label="All Projects" />
+            </div>
           </Link>
         </BriefsContainer>
 
@@ -155,9 +156,9 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
             ))
           }
           <Link href={"/as/developer/blog"}>
-            <ProjectBlogBrief buttonText="All Blogs" noDivider>
-              <Spacer style={{ minHeight: "5rem" }} />
-            </ProjectBlogBrief>
+            <div style={{ paddingTop: "3rem" }} className={ExtendingButton.hoverContext}>
+              <ExtendingButton label="All Blogs" />
+            </div>
           </Link>
         </BriefsContainer>
       </ContentSection>
@@ -175,9 +176,9 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
           [`@media(min-width: ${theme.breakpoint.md})`]: { flexDirection: "row", alignItems: "flex-end" },
         }))}>
           <TitleSection.Heading id="as_an_architect" >ONCE AN ARCHITECT</TitleSection.Heading>
-          <Link href={"/as/architect/project"} style={{ flex: "1 1" }}>
-            {/* working around the button, should seperate button with main components later */}
-            <ProjectBlogBrief buttonText="All Projects" noDivider />
+          <Link href={"/as/architect/project"} style={{ flex: "1 1" }}
+            className={ExtendingButton.hoverContext}>
+            <ExtendingButton label="All Projects" />
           </Link>
         </div>
       </TitleSection >

@@ -21,6 +21,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { css } from "@pigment-css/react";
+import ExtendingButton from "@/components/ui/extending-button";
 
 export const revalidate = 14400;
 export async function generateStaticParams(): Promise<{ projectSlug: string }[]> {
@@ -132,8 +133,9 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
                     [`@media(max-width: ${theme.breakpoint.md})`]: { flexDirection: "column" },
                 }))}>
                     <TitleSection.Heading>Other Projects</TitleSection.Heading>
-                    <Link href={"/as/architect/project"} style={{ flex: "1 1" }}>
-                        <ProjectBlogBrief buttonText="All Projects" noDivider />
+                    <Link href={"/as/architect/project"} style={{ flex: "1 1" }}
+                        className={ExtendingButton.hoverContext}>
+                        <ExtendingButton label="All Projects" />
                     </Link>
                 </div>
             </TitleSection >
