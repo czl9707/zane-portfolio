@@ -117,11 +117,26 @@ function WhoAmISection({ content }: { content: string }) {
   )
 }
 
+
+const RespondingSectionTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+  function RespondingSectionTitle({ className, ...others }, ref) {
+    return <>
+      <T.H2 {...others} ref={ref} className={css(({ theme }) => ({
+        [`@media(max-width: ${theme.breakpoint.xs})`]: { display: "none" },
+      }
+      ))} />
+      <T.H3 {...others} ref={ref} className={css(({ theme }) => ({
+        [`@media(min-width: ${theme.breakpoint.xs})`]: { display: "none" },
+      }))} />
+    </>
+  }
+);
+
 function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.Info[], blogs: ZaneDevBlog.Info[] }) {
   return (
     <>
       <TitleSection>
-        <T.H2 id="as_a_developer">NOW A SOFTWARE ENGINEER</T.H2>
+        <RespondingSectionTitle id="as_a_developer">NOW A SOFTWARE ENGINEER</RespondingSectionTitle>
       </TitleSection>
 
       <ContentSection style={{ paddingTop: 0 }}
@@ -170,10 +185,10 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
     <>
       <TitleSection>
         <div className={css(({ theme }) => ({
-          display: "flex", flexDirection: "column", width: "100%", alignItems: "flex-end",
+          display: "flex", flexDirection: "column", width: "100%", alignItems: "stretch",
           [`@media(min-width: ${theme.breakpoint.md})`]: { flexDirection: "row" },
         }))}>
-          <T.H2 id="as_an_architect">ONCE AN ARCHITECT</T.H2>
+          <RespondingSectionTitle id="as_an_architect">ONCE AN ARCHITECT</RespondingSectionTitle>
           <Link href={"/as/architect/project"} style={{ flex: "1 1" }}>
             {/* working around the button, should seperate button with main components later */}
             <ProjectBlogBrief buttonText="All Projects" noDivider />

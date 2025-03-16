@@ -22,7 +22,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { css } from "@pigment-css/react";
 
-
+export const revalidate = 14400;
 export async function generateStaticParams(): Promise<{ projectSlug: string }[]> {
     const result = (await ZaneArchProjects.getAll())
     return result.map(t => ({ projectSlug: t.title.replaceAll(" ", "_") }));

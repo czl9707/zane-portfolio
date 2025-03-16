@@ -5,7 +5,7 @@ const FullWidthContainer = styled("div")(({ theme }) => ({
         paddingLeft: theme.spacing.group, paddingRight: theme.spacing.group,
     },
     paddingLeft: theme.spacing.component, paddingRight: theme.spacing.component,
-    position: "relative",
+    position: "relative", overflowX: "visible", width: "100%", boxSizing: "border-box",
 }))
 
 export {

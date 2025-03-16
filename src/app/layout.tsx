@@ -43,10 +43,10 @@ globalCss({
 })
 
 const Body = styled("body")(({ theme }) => ({
-  width: "100%", minHeight: "100vh", margin: 0,
+  width: "100%", minHeight: "100vh", boxSizing: "border-box",
+  margin: 0, overflowX: "visible", position: "relative",
   backgroundColor: `rgb(${theme.vars.color.default.background})`,
   color: `rgb(${theme.vars.color.default.foreground})`,
-
 }));
 
 export default function RootLayout({
@@ -56,6 +56,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
       <Body
         className={
           [redHatDisplay.variable, redHatMono.variable].join(" ")
