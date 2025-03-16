@@ -4,19 +4,32 @@ import * as T from '@/components/ui/typography';
 import Divider from '@/components/ui/divider';
 import { solidBackground } from '@/components/ui/util';
 import { css } from '@pigment-css/react';
-import React from 'react';
+import * as React from 'react';
 
 const titleContainer = css(({ theme }) => ({
-    paddingBottom: theme.spacing.paragraph, paddingTop: "16rem"
-}))
+    paddingBottom: theme.spacing.paragraph, paddingTop: theme.spacing.block,
+}));
 
-export default function TitleSection({ children, className, noDivider = false }: {
+const linkTagged = css(({ theme }) => ({
+    "&::before": {
+        content: "\"#\"", position: "absolute",
+        transform: "translateX(-125%)",
+        transition: `opacity ${theme.transition.short}`,
+        opacity: 0,
+    },
+    "&:hover::before": {
+        opacity: 0.3,
+    }
+}));
+
+export default function TitleSection({ children, className, noDivider = false, style = {} }: {
     children?: React.ReactNode,
     className?: string,
     noDivider?: boolean,
+    style?: React.CSSProperties,
 }) {
     return (
-        <Container.FullWidth className={[solidBackground, className].join(" ")}>
+        <Container.FullWidth className={[solidBackground, className].join(" ")} style={style}>
             {
                 !noDivider && <Divider />
             }
@@ -34,13 +47,15 @@ TitleSection.Heading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes
                 css(({ theme }) => ({
                     [`@media(max-width: ${theme.breakpoint.xs})`]: { display: "none" },
                 })),
-                className
+                linkTagged,
+                className,
             ].join(" ")} />
             <T.H3 {...others} ref={ref} className={[
                 css(({ theme }) => ({
                     [`@media(min-width: ${theme.breakpoint.xs})`]: { display: "none" },
                 })),
-                className
+                linkTagged,
+                className,
             ].join(" ")} />
         </>
     }

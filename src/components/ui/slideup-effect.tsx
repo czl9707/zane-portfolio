@@ -18,7 +18,7 @@ const slideUp = css(({ theme }) => ({
     "&[data-entered=true]": { animationPlayState: "running" },
 }));
 
-export function SlideUpFactory(Comp: React.ElementType<React.HTMLProps<HTMLDivElement>>) {
+function slideUpFactory(Comp: React.ElementType<React.HTMLProps<HTMLDivElement>>) {
     return React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { delay?: number }>(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         function SlideUpContainer({ className, delay = 0, children, ...other }, ref) {
@@ -44,11 +44,12 @@ export function SlideUpFactory(Comp: React.ElementType<React.HTMLProps<HTMLDivEl
 }
 
 
-const SlideUpFullWidthContainer = SlideUpFactory(Container.FullWidth);
-const SlideUpDiv = SlideUpFactory('div');
+const SlideUpFullWidthContainer = slideUpFactory(Container.FullWidth);
+const SlideUpDiv = slideUpFactory('div');
 
 export {
     SlideUpFullWidthContainer as FullWidth,
     SlideUpDiv as Div,
-    slideUpEffect as effect
+    slideUpEffect as effect,
+    slideUpFactory as factory,
 }

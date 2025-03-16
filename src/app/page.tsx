@@ -172,7 +172,7 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
       <TitleSection>
         <div className={css(({ theme }) => ({
           display: "flex", flexDirection: "column", width: "100%", alignItems: "stretch",
-          [`@media(min-width: ${theme.breakpoint.md})`]: { flexDirection: "row" },
+          [`@media(min-width: ${theme.breakpoint.md})`]: { flexDirection: "row", alignItems: "flex-end" },
         }))}>
           <TitleSection.Heading id="as_an_architect" >ONCE AN ARCHITECT</TitleSection.Heading>
           <Link href={"/as/architect/project"} style={{ flex: "1 1" }}>
