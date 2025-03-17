@@ -45,14 +45,14 @@ TitleSection.Heading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes
         return <>
             <T.H2 {...others} ref={ref} className={[
                 css(({ theme }) => ({
-                    [`@media(max-width: ${theme.breakpoint.xs})`]: { display: "none" },
+                    [`@media(max-width: ${theme.breakpoint.sm})`]: { display: "none" },
                 })),
                 linkTagged,
                 className,
             ].join(" ")} />
             <T.H3 {...others} ref={ref} className={[
                 css(({ theme }) => ({
-                    [`@media(min-width: ${theme.breakpoint.xs})`]: { display: "none" },
+                    [`@media(min-width: ${theme.breakpoint.sm})`]: { display: "none" },
                 })),
                 linkTagged,
                 className,

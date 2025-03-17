@@ -1,13 +1,13 @@
 import * as ContentBlock from '@/lib/cms/content-blocks'
 
 import * as T from '@/components/ui/typography'
-import Grid from '@/components/ui/grid'
+import * as SlideUp from '@/components/ui/slideup-effect'
 import * as StyledMarkdown from '@/components/ui/styled-markdown'
 
 import React from 'react'
 import { styled } from '@pigment-css/react'
 
-const GridBase = styled(Grid)(({ theme }) => ({
+const GridBase = styled(SlideUp.Grid)(({ theme }) => ({
     maxWidth: "54rem", width: "100%",
     marginTop: theme.spacing.group, marginBottom: theme.spacing.group
 }));

@@ -48,20 +48,38 @@ export default async function Page({ params }: { params: Promise<{ blogSlug: str
     )
 }
 
+function RespondingText({ BigComp, SmallComp, children, style }: {
+    BigComp: React.ElementType<React.HTMLProps<HTMLDivElement>>,
+    SmallComp: React.ElementType<React.HTMLProps<HTMLDivElement>>,
+    children: string, style?: React.CSSProperties
+}) {
+    return <>
+        <BigComp style={style} className={
+            css(({ theme }) => ({
+                [`@media(max-width: ${theme.breakpoint.sm})`]: { display: "none" },
+            }))}>{children}</BigComp>
+        <SmallComp style={style} className={
+            css(({ theme }) => ({
+                [`@media(min-width: ${theme.breakpoint.sm})`]: { display: "none" },
+            }))}>{children}</SmallComp>
+    </>
+}
 
 function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
     return <>
         <BlogPageLayout.Layout className={css(({ theme }) => ({
             paddingTop: `calc(${theme.size.header.height} + ${theme.spacing.group})`,
-            position: "sticky", top: "0", height: "100vh",
+            position: "sticky", top: "0", minHeight: "100vh",
         }))}>
             <BlogPageLayout.Content >
-                <T.H2>{blog.title}</T.H2>
+                <RespondingText BigComp={T.H2} SmallComp={T.H3}>
+                    {blog.title}
+                </RespondingText>
                 <Spacer spacing="paragraph" />
 
-                <T.H5 style={{ opacity: 0.75 }}>
+                <RespondingText BigComp={T.H5} SmallComp={T.H6} style={{ opacity: 0.75 }}>
                     {blog.description}
-                </T.H5>
+                </RespondingText>
 
                 <Spacer spacing="component" />
                 <T.Body1>

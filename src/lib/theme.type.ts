@@ -22,7 +22,6 @@ declare module '@pigment-css/react/theme' {
             shade: ColorToken,
         },
         breakpoint: {
-            xs: string,
             sm: string,
             md: string,
             lg: string,

@@ -60,7 +60,6 @@ export default withPigment(
         paragraph: "1rem",
       },
       breakpoint: {
-        xs: "420px",
         sm: "720px",
         md: "1080px",
         lg: "1440px",

@@ -2,9 +2,10 @@
 
 import * as React from 'react'
 import { useInView } from 'react-intersection-observer'
+import { css, keyframes } from '@pigment-css/react'
 
 import * as Container from '@/components/ui/container'
-import { css, keyframes } from '@pigment-css/react'
+import Grid from '@/components/ui/grid'
 
 const slideUpEffect = keyframes({
     from: { transform: "translateY(min(5rem, 100%))", opacity: "0", },
@@ -18,8 +19,8 @@ const slideUp = css(({ theme }) => ({
     "&[data-entered=true]": { animationPlayState: "running" },
 }));
 
-function slideUpFactory(Comp: React.ElementType<React.HTMLProps<HTMLDivElement>>) {
-    return React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { delay?: number }>(
+function slideUpFactory<Props = object>(Comp: React.ElementType<React.HTMLProps<HTMLDivElement>>) {
+    return React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { delay?: number } & Props>(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         function SlideUpContainer({ className, delay = 0, children, ...other }, ref) {
             const { ref: inviewRef, inView } = useInView({ threshold: 0, triggerOnce: true })
@@ -46,10 +47,12 @@ function slideUpFactory(Comp: React.ElementType<React.HTMLProps<HTMLDivElement>>
 
 const SlideUpFullWidthContainer = slideUpFactory(Container.FullWidth);
 const SlideUpDiv = slideUpFactory('div');
+const SlideUpGrid = slideUpFactory<{ columns: number }>(Grid);
 
 export {
     SlideUpFullWidthContainer as FullWidth,
     SlideUpDiv as Div,
+    SlideUpGrid as Grid,
     slideUpEffect as effect,
     slideUpFactory as factory,
 }
