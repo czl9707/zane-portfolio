@@ -55,8 +55,8 @@ export default withPigment(
       },
       spacing: {
         block: "12rem",
-        group: "3rem",
-        component: "2rem",
+        group: "4rem",
+        component: "2.5rem",
         paragraph: "1rem",
       },
       breakpoint: {

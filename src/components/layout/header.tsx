@@ -19,9 +19,8 @@ const slideDownEffect = keyframes({
 
 
 const HeaderContainer = styled(Container.FullWidth)(({ theme }) => ({
-    position: "fixed", top: 0, left: 0, right: 0, height: theme.size.header.height,
-    paddingTop: "auto", paddingBottom: "auto",
-    zIndex: 50,
+    position: "fixed", top: 0, height: theme.size.header.height,
+    zIndex: 50, width: "100vw",
     display: "flex", flexDirection: "row", alignItems: "center", gap: theme.spacing.paragraph,
     animation: `${slideDownEffect} ${theme.transition.long} ease-out forwards`,
 }));

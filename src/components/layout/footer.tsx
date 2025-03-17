@@ -20,10 +20,9 @@ export default function Footer() {
                 </T.Body2>
 
                 <div className={css(({ theme }) => ({
-                    width: "100%", display: "flex", flexDirection: "row",
+                    width: "100%", display: "flex", flexDirection: "row", justifyContent: "flex-end",
                     verticalAlign: "baseline", gap: theme.spacing.group, gridColumnEnd: -1
                 }))}>
-                    <span style={{ flex: "1 1" }} />
                     <Link href={"mailto:czl970721@gmail.com"}>
                         <T.Body1><u>Email</u></T.Body1>
                     </Link>

@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 
 import TitleSection from '@/components/layout/title-section';
-import * as T from "@/components/ui/typography";
 import * as Container from "@/components/ui/container";
 import Grid from "@/components/ui/grid";
 import { solidBackground } from '@/components/ui/util';
@@ -23,7 +22,7 @@ export default async function Page() {
     return (
         <>
             <TitleSection noDivider>
-                <T.H2>Architecture Projects</T.H2>
+                <TitleSection.Heading>Architecture Projects</TitleSection.Heading>
             </TitleSection>
 
             <Container.FullWidth className={solidBackground}>

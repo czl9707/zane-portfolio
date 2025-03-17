@@ -21,7 +21,7 @@ interface CatagoryItemType {
 };
 
 const CatagoryLinkItem = styled(T.Body1)<{ depth: number }>(({ theme }) => ({
-    padding: ({ depth }) => `.25rem calc(${depth}rem + ${theme.vars.spacing.paragraph}) .25rem ${theme.vars.spacing.paragraph}`,
+    padding: ({ depth }) => `.25rem ${theme.vars.spacing.paragraph} .25rem  calc(${depth * 1.5}rem + ${theme.vars.spacing.paragraph})`,
     backgroundColor: "transparent", borderRadius: theme.size.border.radius,
     transition: `background-color ${theme.transition.short}`,
 

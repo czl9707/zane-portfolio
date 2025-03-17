@@ -8,7 +8,6 @@ import ArchitectureProjectCard from "@/components/arch-project/arch-project-brie
 import TitleSection from "@/components/layout/title-section";
 import ContentSection from "@/components/layout/content-section";
 import Button from "@/components/ui/button";
-import ProjectBlogBrief from "@/components/layout/project-blog-brief";
 import BriefsContainer from '@/components/layout/briefs-container'
 import * as StyledMarkdown from "@/components/ui/styled-markdown";
 import { solidBackground } from "@/components/ui/util";
@@ -25,6 +24,7 @@ import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
 import Link from "next/link";
 import React from "react";
 import { styled, css } from "@pigment-css/react";
+import ExtendingButton from "@/components/ui/extending-button";
 
 
 export const revalidate = 14400;
@@ -117,11 +117,12 @@ function WhoAmISection({ content }: { content: string }) {
   )
 }
 
+
 function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.Info[], blogs: ZaneDevBlog.Info[] }) {
   return (
     <>
       <TitleSection>
-        <T.H2 id="as_a_developer">NOW A SOFTWARE ENGINEER</T.H2>
+        <TitleSection.Heading id="as_a_developer">NOW A SOFTWARE ENGINEER</TitleSection.Heading>
       </TitleSection>
 
       <ContentSection style={{ paddingTop: 0 }}
@@ -136,9 +137,9 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
             ))
           }
           <Link href={"/as/developer/project"}>
-            <ProjectBlogBrief buttonText="All Projects" noDivider>
-              <Spacer style={{ minHeight: "8rem" }} />
-            </ProjectBlogBrief>
+            <div style={{ paddingTop: "6rem" }} className={ExtendingButton.hoverContext}>
+              <ExtendingButton label="All Projects" />
+            </div>
           </Link>
         </BriefsContainer>
 
@@ -154,9 +155,9 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
             ))
           }
           <Link href={"/as/developer/blog"}>
-            <ProjectBlogBrief buttonText="All Blogs" noDivider>
-              <Spacer style={{ minHeight: "5rem" }} />
-            </ProjectBlogBrief>
+            <div style={{ paddingTop: "3rem" }} className={ExtendingButton.hoverContext}>
+              <ExtendingButton label="All Blogs" />
+            </div>
           </Link>
         </BriefsContainer>
       </ContentSection>
@@ -170,13 +171,13 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
     <>
       <TitleSection>
         <div className={css(({ theme }) => ({
-          display: "flex", flexDirection: "column", width: "100%", alignItems: "flex-end",
-          [`@media(min-width: ${theme.breakpoint.md})`]: { flexDirection: "row" },
+          display: "flex", flexDirection: "column", width: "100%", alignItems: "stretch",
+          [`@media(min-width: ${theme.breakpoint.md})`]: { flexDirection: "row", alignItems: "flex-end" },
         }))}>
-          <T.H2 id="as_an_architect">ONCE AN ARCHITECT</T.H2>
-          <Link href={"/as/architect/project"} style={{ flex: "1 1" }}>
-            {/* working around the button, should seperate button with main components later */}
-            <ProjectBlogBrief buttonText="All Projects" noDivider />
+          <TitleSection.Heading id="as_an_architect" >ONCE AN ARCHITECT</TitleSection.Heading>
+          <Link href={"/as/architect/project"} style={{ flex: "1 1" }}
+            className={ExtendingButton.hoverContext}>
+            <ExtendingButton label="All Projects" />
           </Link>
         </div>
       </TitleSection >

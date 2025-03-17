@@ -5,4 +5,3 @@ export const paddingTopGroup = css(({ theme }) => ({ paddingTop: theme.spacing.g
 export const paddingBottomGroup = css(({ theme }) => ({ paddingBottom: theme.spacing.group }));
 export const marginTopGroup = css(({ theme }) => ({ marginTop: theme.spacing.group }));
 export const marginBottomGroup = css(({ theme }) => ({ marginBottom: theme.spacing.group }));
-

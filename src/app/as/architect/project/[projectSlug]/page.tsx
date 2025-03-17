@@ -5,7 +5,6 @@ import * as Container from "@/components/ui/container";
 import Button from '@/components/ui/button';
 import ArchProjectContentBlock from '@/components/arch-project/content-blocks';
 import TitleSection from '@/components/layout/title-section';
-import ProjectBlogBrief from '@/components/layout/project-blog-brief';
 import ArchitectureProjectCard from '@/components/arch-project/arch-project-brief';
 import Divider from '@/components/ui/divider';
 import { solidBackground } from '@/components/ui/util';
@@ -21,8 +20,9 @@ import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { css } from "@pigment-css/react";
+import ExtendingButton from "@/components/ui/extending-button";
 
-
+export const revalidate = 14400;
 export async function generateStaticParams(): Promise<{ projectSlug: string }[]> {
     const result = (await ZaneArchProjects.getAll())
     return result.map(t => ({ projectSlug: t.title.replaceAll(" ", "_") }));
@@ -131,9 +131,10 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
                     display: "flex", flexDirection: "row", width: "100%", alignItems: "flex-end",
                     [`@media(max-width: ${theme.breakpoint.md})`]: { flexDirection: "column" },
                 }))}>
-                    <T.H2 id="as_an_architect">Other Projects</T.H2>
-                    <Link href={"/as/architect/project"} style={{ flex: "1 1" }}>
-                        <ProjectBlogBrief buttonText="All Projects" noDivider />
+                    <TitleSection.Heading>Other Projects</TitleSection.Heading>
+                    <Link href={"/as/architect/project"} style={{ flex: "1 1" }}
+                        className={ExtendingButton.hoverContext}>
+                        <ExtendingButton label="All Projects" />
                     </Link>
                 </div>
             </TitleSection >

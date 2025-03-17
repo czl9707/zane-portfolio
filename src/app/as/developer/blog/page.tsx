@@ -20,7 +20,7 @@ export default async function Page() {
     return (
         <>
             <TitleSection noDivider>
-                <T.H2>Blogs</T.H2>
+                <TitleSection.Heading>Blogs</TitleSection.Heading>
             </TitleSection>
 
             <ContentSection
