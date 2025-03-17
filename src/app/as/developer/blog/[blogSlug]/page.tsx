@@ -28,14 +28,9 @@ export default async function Page({ params }: { params: Promise<{ blogSlug: str
     const blog = await ZaneDevBlog.getByTitle(title);
     return (
         <SideCatagory.Context>
+            <BlogHead blog={blog} />
             <BlogPageLayout.Layout>
-                <BlogPageLayout.Content className={css(({ theme }) => ({ marginTop: theme.size.header.height }))}>
-                    <BlogHead blog={blog} />
-                </BlogPageLayout.Content>
-                <BlogPageLayout.Catagory />
-            </BlogPageLayout.Layout>
-            <Spacer spacing="block" />
-            <BlogPageLayout.Layout>
+                <Divider style={{ gridColumn: "1 / -1" }} />
                 <BlogPageLayout.Content>
                     {
                         blog.content.map((sec, i) => (
@@ -56,24 +51,30 @@ export default async function Page({ params }: { params: Promise<{ blogSlug: str
 
 function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
     return <>
-        <Spacer spacing="block" />
+        <BlogPageLayout.Layout className={css(({ theme }) => ({
+            paddingTop: `calc(${theme.size.header.height} + ${theme.spacing.group})`,
+            position: "sticky", top: "0", height: "100vh",
+        }))}>
+            <BlogPageLayout.Content >
+                <T.H2>{blog.title}</T.H2>
+                <Spacer spacing="paragraph" />
 
-        <T.H2>{blog.title}</T.H2>
-        <Spacer spacing="paragraph" />
+                <T.H5 style={{ opacity: 0.75 }}>
+                    {blog.description}
+                </T.H5>
 
-        <T.H5 style={{ opacity: 0.75 }}>
-            {blog.description}
-        </T.H5>
-
-        <Spacer spacing="component" />
-        <T.Body1>
-            <span style={{ opacity: 0.75 }}>Created On </span>{DateAsString(blog.createdDate)}
-            {
-                blog.tags && <>
-                    <span style={{ opacity: 0.75 }}> With Tags </span>{blog.tags.join(", ")}
-                </>
-            }
-        </T.Body1>
+                <Spacer spacing="component" />
+                <T.Body1>
+                    <span style={{ opacity: 0.75 }}>Created On </span>{DateAsString(blog.createdDate)}
+                    {
+                        blog.tags && <>
+                            <span style={{ opacity: 0.75 }}> With Tags </span>{blog.tags.join(", ")}
+                        </>
+                    }
+                </T.Body1>
+            </BlogPageLayout.Content>
+            <BlogPageLayout.Catagory />
+        </BlogPageLayout.Layout>
     </>
 }
 

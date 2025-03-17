@@ -8,7 +8,6 @@ import ArchitectureProjectCard from "@/components/arch-project/arch-project-brie
 import TitleSection from "@/components/layout/title-section";
 import ContentSection from "@/components/layout/content-section";
 import Button from "@/components/ui/button";
-import ProjectBlogBrief from "@/components/layout/project-blog-brief";
 import BriefsContainer from '@/components/layout/briefs-container'
 import * as StyledMarkdown from "@/components/ui/styled-markdown";
 import { solidBackground } from "@/components/ui/util";

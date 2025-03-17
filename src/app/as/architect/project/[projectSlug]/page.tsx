@@ -5,7 +5,6 @@ import * as Container from "@/components/ui/container";
 import Button from '@/components/ui/button';
 import ArchProjectContentBlock from '@/components/arch-project/content-blocks';
 import TitleSection from '@/components/layout/title-section';
-import ProjectBlogBrief from '@/components/layout/project-blog-brief';
 import ArchitectureProjectCard from '@/components/arch-project/arch-project-brief';
 import Divider from '@/components/ui/divider';
 import { solidBackground } from '@/components/ui/util';
