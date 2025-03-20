@@ -2,7 +2,12 @@ import type { NextConfig } from "next";
 import { withPigment, extendTheme } from '@pigment-css/nextjs-plugin';
 
 
-const nextConfig: NextConfig = {};
+const nextConfig: NextConfig = {
+  env: {
+    ADMIN_URL: process.env.ADMIN_URL,
+    ADMIN_APIKEY: process.env.ADMIN_APIKEY,
+  }
+};
 
 export default withPigment(
   nextConfig,

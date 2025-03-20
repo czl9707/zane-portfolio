@@ -23,10 +23,10 @@ import { css } from "@pigment-css/react";
 import ExtendingButton from "@/components/ui/extending-button";
 
 export const revalidate = 14400;
-export async function generateStaticParams(): Promise<{ projectSlug: string }[]> {
-    const result = (await ZaneArchProjects.getAll())
-    return result.map(t => ({ projectSlug: t.title.replaceAll(" ", "_") }));
-}
+// export async function generateStaticParams(): Promise<{ projectSlug: string }[]> {
+//     const result = (await ZaneArchProjects.getAll())
+//     return result.map(t => ({ projectSlug: t.title.replaceAll(" ", "_") }));
+// }
 
 
 export default async function Page({ params }: { params: Promise<{ projectSlug: string }> }) {

@@ -11,10 +11,6 @@ import Spacer from '@/components/ui/spacer';
 import ArchitectureProjectCard from '@/components/arch-project/arch-project-brief';
 
 export const revalidate = 14400;
-export async function generateStaticParams(): Promise<object[]> {
-    return [{}]
-}
-
 
 export default async function Page() {
     const projects = (await ZaneArchProjects.getAll());
