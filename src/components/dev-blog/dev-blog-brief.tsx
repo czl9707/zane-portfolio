@@ -15,7 +15,7 @@ export default function DevBlogBrief({ blog }: {
         <Link href={`/as/developer/blog/${blog.title.replaceAll(" ", "_")}`} key={blog.title}>
             <ProjectBlogBrief buttonText="Read More">
                 <T.H4>{blog.title}</T.H4>
-                <T.Body1 style={{ opacity: 0.75 }}>
+                <T.Body1 style={{ opacity: 0.75, paddingTop: ".5rem" }}>
                     {DateAsString(blog.createdDate)}
                     {
                         (blog.tags?.length ?? 0) > 0 ? " · " : ""
@@ -24,7 +24,7 @@ export default function DevBlogBrief({ blog }: {
                         blog.tags?.join(" · ")
                     }
                 </T.Body1>
-                <Spacer spacing="component" />
+                <Spacer spacing="paragraph" />
                 <div style={{ opacity: 0.75 }}>
                     <StyledMarkdown.Default>
                         {blog.description}
