@@ -9,9 +9,6 @@ import BriefsContainer from '@/components/layout/briefs-container'
 import { Metadata } from 'next';
 
 export const revalidate = 14400;
-export async function generateStaticParams(): Promise<object[]> {
-    return [{}]
-}
 
 
 export default async function Page() {

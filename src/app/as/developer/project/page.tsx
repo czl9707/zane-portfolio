@@ -9,10 +9,6 @@ import DevProjectBrief from '@/components/dev-project/dev-project-card';
 import BriefsContainer from '@/components/layout/briefs-container'
 
 export const revalidate = 14400;
-export async function generateStaticParams(): Promise<object[]> {
-    return [{}]
-}
-
 
 export default async function Page() {
     const projects = (await ZaneDevProject.getAll());

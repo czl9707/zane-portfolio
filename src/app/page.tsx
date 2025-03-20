@@ -28,9 +28,6 @@ import ExtendingButton from "@/components/ui/extending-button";
 
 
 export const revalidate = 14400;
-export async function generateStaticParams(): Promise<object[]> {
-  return [{}];
-}
 
 
 export default async function Page() {

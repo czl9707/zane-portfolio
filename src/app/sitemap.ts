@@ -12,6 +12,7 @@ const singlePages = [
     `${ROOT}as/developer/blog`,
 ]
 
+export const revalidate = 14400;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const archProjects = await ZaneArchProjects.getAll();
     const devBlogs = await ZaneDevBlogs.getAll();

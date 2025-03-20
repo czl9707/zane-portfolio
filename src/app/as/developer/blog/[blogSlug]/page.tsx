@@ -17,10 +17,10 @@ import { css } from "@pigment-css/react";
 
 
 export const revalidate = 14400;
-export async function generateStaticParams(): Promise<{ blogSlug: string }[]> {
-    const result = await ZaneDevBlog.getAll();
-    return result.map(t => ({ blogSlug: t.title.replaceAll(" ", "_") }));
-}
+// export async function generateStaticParams(): Promise<{ blogSlug: string }[]> {
+//     const result = await ZaneDevBlog.getAll();
+//     return result.map(t => ({ blogSlug: t.title.replaceAll(" ", "_") }));
+// }
 
 
 export default async function Page({ params }: { params: Promise<{ blogSlug: string }> }) {

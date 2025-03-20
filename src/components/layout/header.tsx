@@ -106,7 +106,7 @@ export default function Header() {
                 <NavigationList>
                     <NavigationMenu.Item>
                         <NavigationMenu.Trigger asChild>
-                            <Button><HamburgerMenuIcon /></Button>
+                            <Button style={{ lineHeight: "0" }}><HamburgerMenuIcon /></Button>
                         </NavigationMenu.Trigger>
 
                         <NavigationMenu.Content asChild>

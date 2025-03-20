@@ -17,9 +17,6 @@ import { css } from "@pigment-css/react";
 
 
 export const revalidate = 14400;
-export async function generateStaticParams(): Promise<object[]> {
-    return [{}]
-}
 
 const headerContainer = css(({ theme }) => ({
     paddingTop: theme.size.header.height, paddingBottom: theme.spacing.component, height: "100vh",
