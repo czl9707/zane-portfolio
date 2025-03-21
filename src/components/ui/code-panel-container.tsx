@@ -9,7 +9,7 @@ const CodePanelContainer = styled("div")(({ theme }) => ({
     borderRadius: theme.size.border.radius, position: "relative",
     border: `1px solid rgb(${theme.vars.color.default.foreground})`,
 
-    padding: theme.spacing.paragraph, margin: 0,
+    padding: theme.spacing.paragraph, margin: `0 0 ${theme.spacing.paragraph} 0`,
 }))
 
 const CodeContainer = styled("code")(({ theme }) => ({

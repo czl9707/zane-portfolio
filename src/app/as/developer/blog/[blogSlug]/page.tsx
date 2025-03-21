@@ -17,10 +17,10 @@ import { css } from "@pigment-css/react";
 
 
 export const revalidate = 14400;
-// export async function generateStaticParams(): Promise<{ blogSlug: string }[]> {
-//     const result = await ZaneDevBlog.getAll();
-//     return result.map(t => ({ blogSlug: t.title.replaceAll(" ", "_") }));
-// }
+export async function generateStaticParams(): Promise<{ blogSlug: string }[]> {
+    const result = await ZaneDevBlog.getAll();
+    return result.map(t => ({ blogSlug: t.title.replaceAll(" ", "_") }));
+}
 
 
 export default async function Page({ params }: { params: Promise<{ blogSlug: string }> }) {
@@ -68,16 +68,16 @@ function RespondingText({ BigComp, SmallComp, children, style }: {
 function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
     return <>
         <BlogPageLayout.Layout className={css(({ theme }) => ({
-            paddingTop: `calc(${theme.size.header.height} + ${theme.spacing.group})`,
+            paddingTop: `calc(${theme.size.header.height})`,
             position: "sticky", top: "0", minHeight: "100vh",
         }))}>
-            <BlogPageLayout.Content >
-                <RespondingText BigComp={T.H2} SmallComp={T.H3}>
+            <BlogPageLayout.Content style={{ margin: "auto" }}>
+                <RespondingText BigComp={T.H2} SmallComp={T.H4}>
                     {blog.title}
                 </RespondingText>
                 <Spacer spacing="paragraph" />
 
-                <RespondingText BigComp={T.H5} SmallComp={T.H6} style={{ opacity: 0.75 }}>
+                <RespondingText BigComp={T.H5} SmallComp={T.Body1} style={{ opacity: 0.75 }}>
                     {blog.description}
                 </RespondingText>
 
@@ -114,6 +114,7 @@ function Section({ catagory, blocks, headerVisible }: {
                         <Divider />
                     </SideCatagory.Link>
                 </TitleSection>
+                <Spacer spacing="component" />
             </>
         }
         {

@@ -45,10 +45,10 @@ const LinkUnderLine = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttrib
 
 const components: Components = {
     h1: T.H3,
-    h2: T.H3,
-    h3: T.H4,
-    h4: T.H4,
-    h5: T.H5,
+    h2: T.H4,
+    h3: T.H5,
+    h4: T.H5,
+    h5: T.H6,
     h6: T.H6,
     p: T.Body1,
     hr: Divider,

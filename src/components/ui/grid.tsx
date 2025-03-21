@@ -5,7 +5,7 @@ const Grid = styled("div")<{ columns: number }>(({ theme }) => ({
         gridTemplateColumns: `repeat(1, minmax(0, 1fr))`
     },
     gridTemplateColumns: ({ columns }) => `repeat(${columns}, minmax(0, 1fr))`,
-    display: "grid", columnGap: theme.spacing.paragraph, rowGap: theme.spacing.component,
+    display: "grid", columnGap: theme.spacing.paragraph, rowGap: theme.spacing.paragraph,
     position: "relative",
 }))
 

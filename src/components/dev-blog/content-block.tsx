@@ -9,7 +9,7 @@ import { styled } from '@pigment-css/react'
 
 const GridBase = styled(SlideUp.Grid)(({ theme }) => ({
     maxWidth: "54rem", width: "100%",
-    marginTop: theme.spacing.group, marginBottom: theme.spacing.group
+    marginBottom: theme.spacing.group,
 }));
 
 const Image = styled("img")(({ theme }) => ({
@@ -42,7 +42,7 @@ function MultiImageBlock({ block }: { block: ContentBlock.MultiImageBlockType })
 
 function MarkdownBlock({ block }: { block: ContentBlock.MarkdownBlockType }) {
     return (
-        <GridBase columns={1} >
+        <GridBase columns={1} style={{ rowGap: '0rem' }}>
             <StyledMarkdown.Default>
                 {block.markdown}
             </StyledMarkdown.Default>
