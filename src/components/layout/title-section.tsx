@@ -13,7 +13,7 @@ const titleContainer = css(({ theme }) => ({
 const linkTagged = css(({ theme }) => ({
     "&::before": {
         content: "\"#\"", position: "absolute",
-        transform: "translateX(-125%)",
+        transform: "translateX(-145%)",
         transition: `opacity ${theme.transition.short}`,
         opacity: 0,
     },
@@ -50,7 +50,7 @@ TitleSection.Heading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes
                 linkTagged,
                 className,
             ].join(" ")} />
-            <T.H3 {...others} ref={ref} className={[
+            <T.H4 {...others} ref={ref} className={[
                 css(({ theme }) => ({
                     [`@media(min-width: ${theme.breakpoint.sm})`]: { display: "none" },
                 })),
