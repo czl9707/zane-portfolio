@@ -9,12 +9,13 @@ const CodePanelContainer = styled("div")(({ theme }) => ({
     borderRadius: theme.size.border.radius, position: "relative",
     border: `1px solid rgb(${theme.vars.color.default.foreground})`,
 
-    padding: theme.spacing.paragraph, margin: `0 0 ${theme.spacing.paragraph} 0`,
+    margin: `0 0 ${theme.spacing.paragraph} 0`,
 }))
 
 const CodeContainer = styled("code")(({ theme }) => ({
     overflowX: "scroll", display: "block",
     paddingBottom: theme.spacing.paragraph,
+    margin: `${theme.spacing.paragraph} ${theme.spacing.paragraph} 0 ${theme.spacing.paragraph}`,
 
     fontFamily: theme.typographies.code.fontFamily,
     fontSize: theme.typographies.code.fontSize,
@@ -22,14 +23,14 @@ const CodeContainer = styled("code")(({ theme }) => ({
     lineHeight: theme.typographies.code.lineHeight,
 
     "&::-webkit-scrollbar": {
-        height: ".5rem", margin: ".1rem"
+        height: ".25rem", margin: ".1rem"
     },
     "&::-webkit-scrollbar-track": {
         backgroundColor: "transparent",
     },
     "&::-webkit-scrollbar-thumb": {
-        backgroundColor: `rgb(${theme.vars.color.default.foreground} / 10%)`,
-        borderRadius: ".5rem",
+        backgroundColor: `rgb(${theme.vars.color.default.foreground} / 20%)`,
+        borderRadius: ".25rem",
     },
     "&::-webkit-scrollbar-button": {
         backgroundColor: "transparent", width: 0,
