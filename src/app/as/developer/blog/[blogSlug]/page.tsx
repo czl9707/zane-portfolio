@@ -6,7 +6,6 @@ import * as SideCatagory from "@/components/layout/side-catagory"
 import TitleSection from "@/components/layout/title-section";
 import * as BlogPageLayout from "@/components/dev-blog/page-layout";
 
-
 import * as ZaneDevBlog from '@/lib/cms/zane-dev-blog'
 import * as ContentBlock from '@/lib/cms/content-blocks'
 import { DateAsString } from '@/lib/utils/date';
@@ -14,6 +13,7 @@ import { DateAsString } from '@/lib/utils/date';
 import React from 'react';
 import { Metadata } from 'next';
 import { css } from "@pigment-css/react";
+import { notFound } from "next/navigation";
 
 
 export const revalidate = 14400;
@@ -25,7 +25,11 @@ export async function generateStaticParams(): Promise<{ blogSlug: string }[]> {
 
 export default async function Page({ params }: { params: Promise<{ blogSlug: string }> }) {
     const title = (await params).blogSlug.replaceAll("_", " ");
-    const blog = await ZaneDevBlog.getByTitle(title);
+    const blog = await ZaneDevBlog.getByTitle(title).then(
+        b => b,
+        () => notFound(),
+    );
+
     return (
         <SideCatagory.Context>
             <BlogHead blog={blog} />
@@ -114,7 +118,7 @@ function Section({ catagory, blocks, headerVisible }: {
                         <Divider />
                     </SideCatagory.Link>
                 </TitleSection>
-                <Spacer spacing="component" />
+                <Spacer spacing="paragraph" />
             </>
         }
         {

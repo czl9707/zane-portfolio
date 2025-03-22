@@ -3,10 +3,6 @@ import { withPigment, extendTheme } from '@pigment-css/nextjs-plugin';
 
 
 const nextConfig: NextConfig = {
-  env: {
-    ADMIN_URL: process.env.ADMIN_URL,
-    ADMIN_APIKEY: process.env.ADMIN_APIKEY,
-  }
 };
 
 export default withPigment(
@@ -65,6 +61,7 @@ export default withPigment(
         paragraph: "1rem",
       },
       breakpoint: {
+        xs: "450px",
         sm: "720px",
         md: "1080px",
         lg: "1440px",

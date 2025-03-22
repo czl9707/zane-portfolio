@@ -25,6 +25,7 @@ import Link from "next/link";
 import React from "react";
 import { styled, css } from "@pigment-css/react";
 import ExtendingButton from "@/components/ui/extending-button";
+import StickyHero from "@/components/layout/sticky-hero";
 
 
 export const revalidate = 14400;
@@ -39,60 +40,52 @@ export default async function Page() {
       <WhoAmISection content={content.whoAmI} />
       <DeveloperSection projects={content.featuredDevProjects} blogs={content.featuredBlogs} />
       <ArchitectSection projects={content.featuredArchProjects} />
-      <FullWidthName />
+
+      <Container.FullWidth className={solidBackground}>
+        <FullWidthName />
+      </Container.FullWidth>
     </>
   );
 }
 
 
-const IntroSectionContainer = styled("div")(({ theme }) => ({
-  height: "100vh", paddingTop: theme.size.header.height, position: "sticky", top: 0,
-  display: "flex", flexDirection: "column", boxSizing: "border-box"
-}))
-
 function IntroSection() {
   return (
-    <IntroSectionContainer>
-      <Container.FullWidth>
-        <Grid columns={3}>
-          <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
-            <T.H4>
-              Precision in detail, vision in design, <br />
-              building things one block at a time.
-            </T.H4>
-          </SlideUp.Div>
-        </Grid>
-      </Container.FullWidth>
+    <StickyHero>
+      <Grid columns={3}>
+        <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
+          <T.H4>
+            Precision in detail, vision in design, <br />
+            building things one block at a time.
+          </T.H4>
+        </SlideUp.Div>
+      </Grid>
 
       <Spacer style={{ flex: "1 1" }} />
       <SlidingDownIcon />
       <Spacer />
-      <FullWidthName style={{ display: "sticky", bottom: "0", top: "auto" }} />
-    </IntroSectionContainer>
+      <FullWidthName style={{ bottom: 0, top: "auto" }} />
+    </StickyHero>
   )
 }
 
-const FullWidthText = styled("text")(({ theme }) => ({
+const SVGText = styled("text")(({ theme }) => ({
   fill: `rgb(${theme.vars.color.default.foreground})`,
-  fontFamily: theme.typographies.h1.fontFamily, fontWeight: 700,
-  fontSize: "8px",
-  userSelect: "none",
+  fontFamily: theme.typographies.h1.fontFamily, userSelect: "none",
 }))
 
 const FullWidthName = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
   function FullWidthName({ className, ...others }, ref) {
     return (
-      <Container.FullWidth {...others} ref={ref} className={[solidBackground, className].join(" ")}>
-        <SlideUp.Div>
-          <svg width={"100%"} viewBox="0 0 45 8">
-            <FullWidthText x="50%" y="50%"
-              dominantBaseline="middle" textAnchor="middle"
-            >
-              ZANE CHEN
-            </FullWidthText>
-          </svg>
-        </SlideUp.Div>
-      </Container.FullWidth>
+      <SlideUp.Div {...others} ref={ref} className={[solidBackground, className].join(" ")}>
+        <svg width={"100%"} viewBox="0 0 45 8">
+          <SVGText x="50%" y="50%" width={45} fontSize={"8px"} fontWeight={700}
+            dominantBaseline="middle" textAnchor="middle"
+          >
+            ZANE CHEN
+          </SVGText>
+        </svg>
+      </SlideUp.Div>
     );
   }
 )
@@ -134,9 +127,9 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
             ))
           }
           <Link href={"/as/developer/project"}>
-            <div style={{ paddingTop: "6rem" }} className={ExtendingButton.hoverContext}>
+            <SlideUp.Div style={{ paddingTop: "6rem" }} className={ExtendingButton.hoverContext}>
               <ExtendingButton label="All Projects" />
-            </div>
+            </SlideUp.Div>
           </Link>
         </BriefsContainer>
 
@@ -152,9 +145,9 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
             ))
           }
           <Link href={"/as/developer/blog"}>
-            <div style={{ paddingTop: "3rem" }} className={ExtendingButton.hoverContext}>
+            <SlideUp.Div style={{ paddingTop: "3rem" }} className={ExtendingButton.hoverContext}>
               <ExtendingButton label="All Blogs" />
-            </div>
+            </SlideUp.Div>
           </Link>
         </BriefsContainer>
       </ContentSection>

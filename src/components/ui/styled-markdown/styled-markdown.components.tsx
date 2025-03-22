@@ -7,7 +7,8 @@ import * as T from '@/components/ui/typography'
 import Divider from "@/components/ui/divider";
 import QuoteBlock from "@/components/ui/quote-block";
 import Link from "next/link";
-import CodeBlock from '@/components/ui/code-block';
+import CodeBlock from '@/components/ui/code/code-block';
+import InlineCode from '@/components/ui/code/inline-code';
 
 
 const Ol = styled("ol")(({ theme }) => ({
@@ -42,6 +43,17 @@ const LinkUnderLine = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttrib
     }
 )
 
+const Code = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
+    function StyleCodeBlock({ className, ...other }, ref) {
+        if (className?.includes("language-")) {
+            return <CodeBlock className={className} {...other} ref={ref} />;
+        }
+        else {
+            return <InlineCode className={className} {...other} ref={ref} />;
+        }
+    }
+)
+
 
 const components: Components = {
     h1: T.H3,
@@ -52,41 +64,24 @@ const components: Components = {
     h6: T.H6,
     p: T.Body1,
     hr: Divider,
-    code: CodeBlock,
+    code: Code,
     blockquote: QuoteBlock,
     ol: Ol,
     ul: Ul,
     a: LinkUnderLine,
-}
+};
 
-function StyledMarkdown({ children }: { children: string }) {
-    return (
-        <Markdown components={components} disallowedElements={['pre']} unwrapDisallowed >
-            {children}
-        </Markdown>
-    )
-}
-
-function StyledMarkdownHighlightLink({ children }: { children: string }) {
-    return (
-        <div className={css(({ theme }) => ({
-            "*": { transition: `color ${theme.transition.short} linear` },
-            'a': { color: `rgb(${theme.vars.color.default.foreground})` },
-            "&:hover": {
-                "span, li, p, h1, h2, h3, h4, h5, h6": {
-                    color: `rgb(${theme.vars.color.default.foreground} / 50%)`
-                }
-            }
-        }))}>
-            <Markdown components={components} >
+const StyledMarkdown = React.forwardRef<
+    HTMLDivElement,
+    Omit<React.HTMLAttributes<HTMLDivElement>, "children"> & { children: string }
+>(
+    function StyledMarkdown({ children, ...others }, ref) {
+        return (<div ref={ref} {...others}>
+            <Markdown components={components} disallowedElements={['pre']} unwrapDisallowed >
                 {children}
             </Markdown>
-        </div>
-    )
-}
+        </div>)
+    }
+);
 
-
-export {
-    StyledMarkdown as Default,
-    StyledMarkdownHighlightLink as LinkHighlight,
-}
+export default StyledMarkdown;

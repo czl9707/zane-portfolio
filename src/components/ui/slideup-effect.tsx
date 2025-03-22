@@ -13,7 +13,7 @@ const slideUpEffect = keyframes({
 })
 
 const slideUp = css(({ theme }) => ({
-    animation: `${slideUpEffect} ${theme.transition.long}`,
+    animation: `${slideUpEffect} ${theme.transition.long} cubic-bezier(0.75, 0, 0.25, 1)`,
 
     animationPlayState: "paused",
     "&[data-entered=true]": { animationPlayState: "running" },

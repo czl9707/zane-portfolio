@@ -44,7 +44,7 @@ export default function ArchitectureProjectCard({ project }: { project: ZaneArch
                         <div style={{ flex: "1 1" }} />
 
                         <T.H3>{project.title.toUpperCase()}</T.H3>
-                        <T.Body1 style={{ opacity: 0.75, paddingTop: ".5rem" }}>{project.tags.join(" · ")}</T.Body1>
+                        <T.Body1 style={{ opacity: 0.75, paddingBottom: ".5rem" }}>{project.tags.join(" · ")}</T.Body1>
                         <T.H6 style={{ opacity: 0.75 }}>{project.subTitle}</T.H6>
 
                         <div style={{ flex: "1 1" }} />
