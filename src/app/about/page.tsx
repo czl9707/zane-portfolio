@@ -1,4 +1,3 @@
-import * as Container from "@/components/ui/container";
 import Grid from "@/components/ui/grid";
 import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";
@@ -13,21 +12,16 @@ import SlidingDownIcon from "@/components/ui/sliding-down-icon";
 
 import React from "react";
 import { Metadata } from "next";
-import { css } from "@pigment-css/react";
+import StickyHero from "@/components/layout/sticky-hero";
 
 
 export const revalidate = 14400;
-
-const headerContainer = css(({ theme }) => ({
-    paddingTop: theme.size.header.height, paddingBottom: theme.spacing.component, height: "100vh",
-    display: "flex", flexDirection: "column", top: 0, position: "sticky", boxSizing: "border-box",
-}))
 
 export default async function Page() {
     const content = await AboutMe.getContents();
 
     return <>
-        <Container.FullWidth className={headerContainer}>
+        <StickyHero>
             <Spacer style={{ flex: "1 1" }} />
             <SlidingDownIcon />
             <Spacer />
@@ -40,7 +34,7 @@ export default async function Page() {
                     </T.H4>
                 </SlideUp.Div>
             </Grid>
-        </Container.FullWidth>
+        </StickyHero>
 
         <ContentSection header={
             <T.H5 style={{ opacity: .75 }}>About Zane</T.H5>

@@ -13,6 +13,7 @@ import { DateAsString } from '@/lib/utils/date';
 import React from 'react';
 import { Metadata } from 'next';
 import { css } from "@pigment-css/react";
+import { notFound } from "next/navigation";
 
 
 export const revalidate = 14400;
@@ -24,7 +25,11 @@ export async function generateStaticParams(): Promise<{ blogSlug: string }[]> {
 
 export default async function Page({ params }: { params: Promise<{ blogSlug: string }> }) {
     const title = (await params).blogSlug.replaceAll("_", " ");
-    const blog = await ZaneDevBlog.getByTitle(title);
+    const blog = await ZaneDevBlog.getByTitle(title).then(
+        b => b,
+        () => notFound(),
+    );
+
     return (
         <SideCatagory.Context>
             <BlogHead blog={blog} />
@@ -55,11 +60,11 @@ function RespondingText({ BigComp, SmallComp, children, style }: {
     return <>
         <BigComp style={style} className={
             css(({ theme }) => ({
-                [`@media(max-width: ${theme.breakpoint.xs})`]: { display: "none" },
+                [`@media(max-width: ${theme.breakpoint.sm})`]: { display: "none" },
             }))}>{children}</BigComp>
         <SmallComp style={style} className={
             css(({ theme }) => ({
-                [`@media(min-width: ${theme.breakpoint.xs})`]: { display: "none" },
+                [`@media(min-width: ${theme.breakpoint.sm})`]: { display: "none" },
             }))}>{children}</SmallComp>
     </>
 }
@@ -113,7 +118,7 @@ function Section({ catagory, blocks, headerVisible }: {
                         <Divider />
                     </SideCatagory.Link>
                 </TitleSection>
-                <Spacer spacing="component" />
+                <Spacer spacing="paragraph" />
             </>
         }
         {

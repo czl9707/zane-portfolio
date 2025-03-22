@@ -9,7 +9,7 @@ import ArchitectureProjectCard from '@/components/arch-project/arch-project-brie
 import Divider from '@/components/ui/divider';
 import { solidBackground } from '@/components/ui/util';
 import Spacer from "@/components/ui/spacer";
-
+import ExtendingButton from "@/components/ui/extending-button";
 
 import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
 import * as ContentBlock from '@/lib/cms/content-blocks'
@@ -20,7 +20,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { css } from "@pigment-css/react";
-import ExtendingButton from "@/components/ui/extending-button";
+import { notFound } from "next/navigation";
 
 export const revalidate = 14400;
 export async function generateStaticParams(): Promise<{ projectSlug: string }[]> {
@@ -31,7 +31,10 @@ export async function generateStaticParams(): Promise<{ projectSlug: string }[]>
 
 export default async function Page({ params }: { params: Promise<{ projectSlug: string }> }) {
     const title = (await params).projectSlug.replaceAll("_", " ");
-    const project = await ZaneArchProjects.getByTitle(title);
+    const project = await ZaneArchProjects.getByTitle(title).then(
+        p => p,
+        () => notFound(),
+    );
     return <>
         <ProjectHead project={project} />
 
