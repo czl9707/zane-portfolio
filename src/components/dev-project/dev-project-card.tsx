@@ -16,7 +16,7 @@ export default function DevProjectBrief({ project }: {
             <ProjectBlogBrief buttonText="Take me there">
                 <T.H4>{project.title}</T.H4>
 
-                <T.Body1 style={{ opacity: 0.75 }}>
+                <T.Body1 style={{ opacity: 0.75, paddingTop: ".5rem" }}>
                     {MonthAsString(project.startDate)}
                     {
                         (project.tags?.length ?? 0) > 0 ? " · " : ""

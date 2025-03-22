@@ -1,10 +1,10 @@
 import { styled } from "@pigment-css/react";
 
 const FullWidthContainer = styled("div")(({ theme }) => ({
-    [`@media(min-width: ${theme.breakpoint.sm})`]: {
-        paddingLeft: theme.spacing.group, paddingRight: theme.spacing.group,
+    [`@media(min-width: ${theme.breakpoint.xs})`]: {
+        padding: `0 ${theme.spacing.group}`,
     },
-    paddingLeft: theme.spacing.component, paddingRight: theme.spacing.component,
+    padding: `0 calc(${theme.spacing.group} / 2)`,
     position: "relative", overflowX: "visible", width: "100%", boxSizing: "border-box",
 }))
 

@@ -77,13 +77,13 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                     }))} />
 
                     <SlideUp.Div style={{ gridColumn: "span 1 / span 1" }}>
-                        <T.Body1 style={{ opacity: 0.75, paddingBottom: 0 }}>When</T.Body1>
+                        <T.Body1>When</T.Body1>
                         <T.H6>
                             {DateRangeAsString(project.startDate, project.endDate)}
                         </T.H6>
                         <Spacer spacing="paragraph" />
 
-                        <T.Body1 style={{ opacity: 0.75, paddingBottom: 0 }}>Who</T.Body1>
+                        <T.Body1>Who</T.Body1>
                         <T.H6>{project.contributors}</T.H6>
                     </SlideUp.Div>
                 </Grid>

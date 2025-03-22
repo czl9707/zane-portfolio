@@ -6,7 +6,6 @@ import * as SideCatagory from "@/components/layout/side-catagory"
 import TitleSection from "@/components/layout/title-section";
 import * as BlogPageLayout from "@/components/dev-blog/page-layout";
 
-
 import * as ZaneDevBlog from '@/lib/cms/zane-dev-blog'
 import * as ContentBlock from '@/lib/cms/content-blocks'
 import { DateAsString } from '@/lib/utils/date';
@@ -56,11 +55,11 @@ function RespondingText({ BigComp, SmallComp, children, style }: {
     return <>
         <BigComp style={style} className={
             css(({ theme }) => ({
-                [`@media(max-width: ${theme.breakpoint.sm})`]: { display: "none" },
+                [`@media(max-width: ${theme.breakpoint.xs})`]: { display: "none" },
             }))}>{children}</BigComp>
         <SmallComp style={style} className={
             css(({ theme }) => ({
-                [`@media(min-width: ${theme.breakpoint.sm})`]: { display: "none" },
+                [`@media(min-width: ${theme.breakpoint.xs})`]: { display: "none" },
             }))}>{children}</SmallComp>
     </>
 }

@@ -3,7 +3,8 @@ import { ThemeArgs, TypographyVairation } from "@pigment-css/react/theme";
 
 
 function styledTypographyPropsFactory(
-    typographyVariation: TypographyVairation
+    typographyVariation: TypographyVairation,
+    isParagraph: boolean = false
 ): ((themeArgs: ThemeArgs) => CSSPropertiesWithCallback<object>) {
     return ({ theme }: ThemeArgs) => ({
         margin: 0, padding: 0, whiteSpace: "nowrap", textWrap: "wrap",
@@ -11,7 +12,7 @@ function styledTypographyPropsFactory(
         fontSize: theme.typographies[typographyVariation].fontSize,
         fontWeight: theme.typographies[typographyVariation].fontWeight,
         lineHeight: theme.typographies[typographyVariation].lineHeight,
-        paddingBlockEnd: theme.spacing.paragraph,
+        paddingBlockEnd: isParagraph ? theme.spacing.paragraph : undefined,
     });
 }
 
@@ -24,3 +25,5 @@ export const H6 = styled("h6")(styledTypographyPropsFactory("h6"));
 export const Body1 = styled("p")(styledTypographyPropsFactory("body1"));
 export const Body2 = styled("p")(styledTypographyPropsFactory("body2"));
 export const Button = styled("p")(styledTypographyPropsFactory("button"));
+export const Paragraph1 = styled("p")(styledTypographyPropsFactory("body1", true));
+export const Paragraph2 = styled("p")(styledTypographyPropsFactory("body2", true));

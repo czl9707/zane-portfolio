@@ -1,3 +1,5 @@
+"use server"
+
 import { styled } from '@pigment-css/react';
 import * as React from 'react';
 import { BundledLanguage, createHighlighter } from 'shiki'
