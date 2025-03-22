@@ -22,7 +22,7 @@ const HeaderContainer = styled(Container.FullWidth)(({ theme }) => ({
     position: "fixed", top: 0, height: theme.size.header.height,
     zIndex: 50, width: "100vw",
     display: "flex", flexDirection: "row", alignItems: "center", gap: theme.spacing.paragraph,
-    animation: `${slideDownEffect} ${theme.transition.long} ease-out forwards`,
+    animation: `${slideDownEffect} ${theme.transition.long} cubic-bezier(0.75, 0, 0.25, 1) forwards`,
 }));
 
 const MenuContainer = styled("div")(({ theme }) => ({

@@ -1,22 +1,9 @@
-"use server"
-
 import { styled } from '@pigment-css/react';
 import * as React from 'react';
-import { BundledLanguage, createHighlighter } from 'shiki'
 
-import CodePanelContainer from '@/components/ui/code-panel-container';
+import CodePanelContainer from '@/components/ui/code/code-block.container';
+import { codeToTokensWithThemes, type BundledLanguage, bundledLanguages } from '@/lib/utils/shiki.bundle';
 
-const supportedLangs = ["python", "typescript", "shell"];
-
-const highlighter = await createHighlighter({
-    langs: supportedLangs,
-    themes: ["github-light-default", "github-dark-high-contrast"]
-});
-
-const InlineCodeBlock = styled("code")(({ theme }) => ({
-    backgroundColor: `rgb(${theme.vars.color.default.foreground} / 15%)`,
-    borderRadius: theme.size.border.radius, paddingLeft: '.5rem', paddingRight: ".5rem"
-}))
 
 const Line = styled("span")({
     textWrap: "wrap", display: "block", whiteSpace: "pre",
@@ -35,12 +22,12 @@ const Token = styled("span")({
 
 
 const StyledCodeBlock = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
-    function StyleCodeBlock({ className, children, ...other }, ref) {
+    async function StyleCodeBlock({ className, children, ...other }, ref) {
         const lang = className!.split(" ").filter(s => s.includes("language-"))[0].replace("language-", "");
 
-        const shikiOut = highlighter.codeToTokensWithThemes(children as string,
+        const shikiOut = await codeToTokensWithThemes(children as string,
             {
-                lang: (supportedLangs.includes(lang) ? lang : "none") as BundledLanguage,
+                lang: (Object.hasOwn(bundledLanguages, lang) ? lang : "none") as BundledLanguage,
                 themes: {
                     light: "github-light-default",
                     dark: "github-dark-high-contrast",
@@ -75,18 +62,5 @@ const StyledCodeBlock = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLE
     }
 )
 
-const CodeBlock = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
-    function StyleCodeBlock({ className, ...other }, ref) {
-        let Comp;
-        if (className?.includes("language-")) {
-            Comp = StyledCodeBlock;
-        }
-        else {
-            Comp = InlineCodeBlock;
-        }
-        return <Comp className={className} {...other} ref={ref} />
-    }
-)
 
-
-export default CodeBlock;
+export default StyledCodeBlock;
