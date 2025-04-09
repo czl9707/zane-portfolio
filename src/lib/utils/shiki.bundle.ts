@@ -10,11 +10,13 @@ import {
 } from '@shikijs/core'
 import { createJavaScriptRegexEngine } from '@shikijs/engine-javascript'
 
-type BundledLanguage = 'typescript' | 'ts' | 'javascript' | 'js' | 'python' | 'bash' | 'shell'
+type BundledLanguage = 'typescript' | 'ts' | 'javascript' | 'js' | 'python' | 'bash' | 'shell' | 'tsx' | 'css'
 type BundledTheme = 'github-light-default' | 'github-dark-high-contrast'
 type Highlighter = HighlighterGeneric<BundledLanguage, BundledTheme>
 
 const bundledLanguages = {
+  css: () => import('@shikijs/langs/css'),
+  tsx: () => import('@shikijs/langs/tsx'),
   typescript: () => import('@shikijs/langs/typescript'),
   ts: () => import('@shikijs/langs/typescript'),
   javascript: () => import('@shikijs/langs/javascript'),

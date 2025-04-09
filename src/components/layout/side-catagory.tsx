@@ -35,7 +35,7 @@ const CatagoryLinkItem = styled(T.Body1)<{ depth: number }>(({ theme }) => ({
     },
 }))
 
-function Catagory({ catagoryItem, depth = 0 }: {
+function RecursiveCatagory({ catagoryItem, depth = 0 }: {
     catagoryItem: CatagoryItemType,
     depth?: number
 }) {
@@ -47,8 +47,8 @@ function Catagory({ catagoryItem, depth = 0 }: {
                 </CatagoryLinkItem>
             </Link>
             {
-                (catagoryItem.catagoryChildren ?? []).map(child => (
-                    <Catagory depth={depth + 1} catagoryItem={child} key={catagoryItem.displayName} />
+                (catagoryItem.catagoryChildren ?? []).map((child, i) => (
+                    <RecursiveCatagory depth={depth + 1} catagoryItem={child} key={catagoryItem.displayName + i} />
                 ))
             }
         </>
@@ -69,7 +69,7 @@ const SideCatagory = React.forwardRef<HTMLDivElement, { className?: string }>(
         return (
             <SideCatagoryContainer className={className} ref={ref}>
                 {
-                    catagories.map((cat, i) => (<Catagory catagoryItem={cat} key={i} />))
+                    catagories.map((cat, i) => (<RecursiveCatagory catagoryItem={cat} key={i} />))
                 }
             </SideCatagoryContainer>
         )

@@ -3,13 +3,14 @@ import * as ContentBlock from '@/lib/cms/content-blocks'
 import * as T from '@/components/ui/typography'
 import * as SlideUp from '@/components/ui/slideup-effect'
 import * as StyledMarkdown from '@/components/ui/styled-markdown'
+import { CodePanel, CodeHighLighter } from '@/components/ui/code'
 
 import React from 'react'
 import { styled } from '@pigment-css/react'
 
 const GridBase = styled(SlideUp.Grid)(({ theme }) => ({
     maxWidth: "54rem", width: "100%",
-    marginBottom: theme.spacing.group,
+    marginBottom: theme.spacing.component,
 }));
 
 const Image = styled("img")(({ theme }) => ({
@@ -50,6 +51,30 @@ function MarkdownBlock({ block }: { block: ContentBlock.MarkdownBlockType }) {
     )
 }
 
+function MultiCodeBlock({ block }: { block: ContentBlock.MultiCodeBlockType }) {
+    return (
+        <GridBase columns={1} style={{ rowGap: '0rem' }}>
+            <CodePanel.Root defaultValue={block.codeBlocks[0].fileName}>
+                <CodePanel.List>
+                    {
+                        block.codeBlocks.map(({ fileName }) => (
+                            <CodePanel.Trigger value={fileName} key={fileName}>
+                                {fileName}
+                            </CodePanel.Trigger>
+                        ))
+                    }
+                </CodePanel.List>
+                {
+                    block.codeBlocks.map(({ fileName, content, language }) => (
+                        <CodePanel.Content tabName={fileName} key={fileName} copiableText={content}>
+                            <CodeHighLighter language={language} content={content} />
+                        </CodePanel.Content>
+                    ))
+                }
+            </CodePanel.Root>
+        </GridBase>
+    )
+}
 
 
 export default function DevBlogContentBlock({ block }: { block: ContentBlock.DevBlogType }) {
@@ -58,6 +83,9 @@ export default function DevBlogContentBlock({ block }: { block: ContentBlock.Dev
     }
     if (block.blockType === "markdown") {
         return <MarkdownBlock block={block} />
+    }
+    if (block.blockType === "multiCodeBlock") {
+        return <MultiCodeBlock block={block} />
     }
     else {
         throw new Error("invaid content block type encountered.")
