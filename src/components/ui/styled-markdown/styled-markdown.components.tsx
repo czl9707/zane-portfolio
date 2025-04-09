@@ -1,3 +1,5 @@
+import 'server-only';
+
 import Markdown from "react-markdown";
 import type { Components } from "react-markdown";
 import * as React from 'react'
@@ -7,8 +9,7 @@ import * as T from '@/components/ui/typography'
 import Divider from "@/components/ui/divider";
 import QuoteBlock from "@/components/ui/quote-block";
 import Link from "next/link";
-import CodeBlock from '@/components/ui/code/code-block';
-import InlineCode from '@/components/ui/code/inline-code';
+import { CodeHighLighter, InlineCodeBlock, CodePanel } from '@/components/ui/code';
 
 
 const Ol = styled("ol")(({ theme }) => ({
@@ -44,12 +45,21 @@ const LinkUnderLine = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttrib
 )
 
 const Code = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
-    function StyleCodeBlock({ className, ...other }, ref) {
+    function StyleCodeBlock({ className, children, ...other }, ref) {
+
         if (className?.includes("language-")) {
-            return <CodeBlock className={className} {...other} ref={ref} />;
+            const language = className!.split(" ").filter(s => s.includes("language-"))[0].replace("language-", "");
+            return (
+                <CodePanel.Root value="none">
+                    <CodePanel.Content copiableText={children as string} tabName="none"
+                        className={className} {...other} ref={ref}>
+                        <CodeHighLighter content={children as string} language={language} />
+                    </CodePanel.Content>
+                </CodePanel.Root>
+            )
         }
         else {
-            return <InlineCode className={className} {...other} ref={ref} />;
+            return <InlineCodeBlock className={className} {...other} ref={ref}>{children}</InlineCodeBlock>;
         }
     }
 )
