@@ -38,8 +38,8 @@ export const metadata: Metadata = {
 globalCss({
   "a": { color: "inherit", textDecoration: "inherit" },
   "menu,ol,ul": { listStyle: "none", margin: 0, padding: 0 },
-  "blockquote": { margin: 0 },
-  "code": { fontFamily: 'unset', }
+  "blockquote,pre": { margin: 0 },
+  "code": { fontFamily: 'unset', },
 })
 
 const Body = styled("body")(({ theme }) => ({

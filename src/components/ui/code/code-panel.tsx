@@ -14,11 +14,11 @@ const StyledRoot = styled(Tabs.Root)(({ theme }) => ({
     padding: theme.spacing.paragraph
 }))
 
-const CodePanelRoot = React.forwardRef<HTMLDivElement, Tabs.TabsProps>(
-    function CodePanelContainer(props, ref) {
-        return <StyledRoot {...props} ref={ref} />
-    }
-)
+// const CodePanelRoot = React.forwardRef<HTMLDivElement, Tabs.TabsProps>(
+//     function CodePanelContainer(props, ref) {
+//         return <StyledRoot {...props} ref={ref} />
+//     }
+// )
 
 const StyledCodePanelList = styled(Tabs.List)(({ theme }) => ({
     overflowX: "scroll",
@@ -120,7 +120,7 @@ const CodePanelContent = React.forwardRef<HTMLElement, React.HTMLAttributes<HTML
 )
 
 export {
-    CodePanelRoot as Root,
+    StyledRoot as Root,
     CodePanelContent as Content,
     CodePanelList as List,
     CodePanelTrigger as Trigger,
