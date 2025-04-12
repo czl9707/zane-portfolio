@@ -1,5 +1,5 @@
 import { styled } from '@pigment-css/react'
-import StyledMarkdown from './styled-markdown.components'
+import StyledMarkdown from './styled-markdown.pipeline'
 
 const DefaultMarkdown = styled(StyledMarkdown)(({ theme }) => ({
     display: "flex", flexDirection: "column", gap: theme.spacing.paragraph,
