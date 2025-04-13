@@ -31,7 +31,11 @@ export default async function Page({ params }: { params: Promise<{ blogSlug: str
     const markdownBlocks = DevBlogContentBlock.ToMarkdownBlocks(blog.content);
 
     return (
-        <SideCatagory.Context catagories={markdownBlocks.map(doc => ({ ...doc, markdown: undefined }))}>
+        <SideCatagory.Context catagories={
+            markdownBlocks
+                .filter(b => b.hash != undefined)
+                .map(doc => ({ ...doc, markdown: undefined }))
+        }>
             <BlogHead blog={blog} />
             <BlogPageLayout.Layout>
                 <Divider style={{ gridColumn: "1 / -1" }} />

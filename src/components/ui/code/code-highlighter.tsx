@@ -24,7 +24,7 @@ export default async function CodeHighLighter({ content, language }: {
 }) {
     const shikiOut = await codeToTokensWithThemes(content,
         {
-            lang: (Object.hasOwn(bundledLanguages, language) ? language : "none") as BundledLanguage,
+            lang: (Object.hasOwn(bundledLanguages, language) ? language : "text") as BundledLanguage,
             themes: {
                 light: "github-light-default",
                 dark: "github-dark-high-contrast",

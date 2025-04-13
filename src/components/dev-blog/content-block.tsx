@@ -1,5 +1,6 @@
-import * as ContentBlock from '@/lib/cms/content-blocks'
+import 'server-only'
 
+import * as ContentBlock from '@/lib/cms/content-blocks'
 import * as SlideUp from '@/components/ui/slideup-effect'
 import * as Markdown from '@/components/ui/markdown'
 import * as SideCatagory from '@/components/layout/side-catagory'
@@ -57,6 +58,8 @@ export function MarkdownBlock({ markdown, hash }: {
     )
 }
 
+const markdownProcessor = unified().use(remarkParse);
+
 export function ToMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): ({ markdown: string } & SideCatagory.CatagoryType)[] {
     const markdownDocuments = [];
     for (const block of blocks) {
@@ -69,10 +72,8 @@ export function ToMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): ({ markdow
             }
         }
     }
-
-    const processor = unified().use(remarkParse);
-    const tree = processor.parse(markdownDocuments.join("\n"));
-
+    const tree = markdownProcessor.parse(markdownDocuments.join("\n"));
+    // return [];
     const result: ({ markdowns: RootContent[] } & SideCatagory.CatagoryType)[] = [];
     for (const child of tree.children) {
         if (child.type === "heading") {
@@ -81,16 +82,16 @@ export function ToMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): ({ markdow
             result.push({ depth: child.depth, displayName: catagory, hash: hash, markdowns: [child] })
         }
         else {
-            if (result.length === 0) result.push({ markdowns: [], depth: 1 });
+            if (result.length === 0) result.push({ markdowns: [], depth: 6 });
             result[result.length - 1].markdowns.push(child);
         }
     }
 
-    const resultBlocks = result.map(r => ({
-        displayName: r.displayName,
-        hash: r.hash,
-        depth: r.depth,
-        markdown: toMarkdown({ type: "root", children: r.markdowns })
+    const resultBlocks = result.map(rb => ({
+        displayName: rb.displayName,
+        hash: rb.hash,
+        depth: rb.depth,
+        markdown: toMarkdown({ type: "root", children: rb.markdowns })
     }));
     const minDepth = Math.min(...resultBlocks.map(b => b.depth));
     resultBlocks.forEach(b => b.depth -= minDepth);

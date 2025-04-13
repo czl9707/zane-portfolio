@@ -78,13 +78,15 @@ function SideCatagoryContextProvider({ children, catagories: catagoriesBase }: {
 }
 
 const CatagoryContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { hash?: string }>(
-    function CatagoryContainer({ hash = "", children, ...other }, ref) {
+    function CatagoryContainer({ hash, children, ...other }, ref) {
         const { setCatagories } = React.useContext(catagoriesContext);
 
         const { ref: inviewRef } = useInView({
             threshold: 0, triggerOnce: false,
             onChange: (inView) => {
                 setCatagories((catagories) => {
+                    if (hash == undefined) return catagories;
+
                     const catItem = catagories.find(cat => cat.hash === hash);
                     catItem!.active = inView;
                     return [...catagories];
