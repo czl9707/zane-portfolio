@@ -3,7 +3,7 @@ import * as ContentBlock from '@/lib/cms/content-blocks'
 import * as T from '@/components/ui/typography'
 import * as SlideUp from '@/components/ui/slideup-effect'
 import Grid from '@/components/ui/grid'
-import * as StyledMarkdown from '@/components/ui/styled-markdown'
+import * as Markdown from '@/components/ui/markdown'
 import Spacer from '@/components/ui/spacer'
 
 import React from 'react'
@@ -51,9 +51,9 @@ function ImageAndTextBlock({ block }: { block: ContentBlock.ImageAndTextBlockTyp
                     <T.H5 style={{ opacity: 0.75 }}>{block.title}</T.H5>
                     <Spacer spacing="paragraph" />
                     <div className={css(({ theme }) => ({ [`@media(min-width: ${theme.breakpoint.md})`]: { width: "85%" } }))}>
-                        <StyledMarkdown.Default>
+                        <Markdown.Default>
                             {block.text}
-                        </StyledMarkdown.Default>
+                        </Markdown.Default>
                     </div>
                 </div>
                 <div style={{ gridColumn: "span 1" }}>
@@ -77,9 +77,9 @@ function FullTextBlock({ block }: { block: ContentBlock.FullTextBlockType }) {
                 </div>
                 <span style={{ gridColumn: "span 1" }} />
                 <div style={{ gridColumn: "span 2 / span 2" }}>
-                    <StyledMarkdown.Default>
+                    <Markdown.Default>
                         {block.text}
-                    </StyledMarkdown.Default>
+                    </Markdown.Default>
                 </div>
             </GridBase>
         </SlideUp.FullWidth>

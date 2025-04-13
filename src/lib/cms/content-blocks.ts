@@ -33,18 +33,9 @@ interface MarkdownBlockType {
     markdown: string,
 }
 
-interface MultiCodeBlockType {
-    blockType: "multiCodeBlock",
-    codeBlocks: {
-        fileName: string,
-        language: string,
-        content: string,
-    }[]
-}
-
 
 type ArchProjectBlockType = MultiImageBlockType | ImageAndTextBlockType | FullTextBlockType | FullSizeImageBlockType;
-type DevBlogBlockType = MultiImageBlockType | MarkdownBlockType | MultiCodeBlockType;
+type DevBlogBlockType = MultiImageBlockType | MarkdownBlockType;
 
 export type {
     ArchProjectBlockType as ArchProjectType,
@@ -54,5 +45,4 @@ export type {
     FullTextBlockType,
     FullSizeImageBlockType,
     MarkdownBlockType,
-    MultiCodeBlockType,
 };

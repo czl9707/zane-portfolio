@@ -1,13 +1,11 @@
 import * as T from "@/components/ui/typography";
-import DevBlogContentBlock from '@/components/dev-blog/content-block';
+import * as DevBlogContentBlock from '@/components/dev-blog/content-block';
 import Divider from '@/components/ui/divider';
 import Spacer from "@/components/ui/spacer";
 import * as SideCatagory from "@/components/layout/side-catagory"
-import TitleSection from "@/components/layout/title-section";
 import * as BlogPageLayout from "@/components/dev-blog/page-layout";
 
 import * as ZaneDevBlog from '@/lib/cms/zane-dev-blog'
-import * as ContentBlock from '@/lib/cms/content-blocks'
 import { DateAsString } from '@/lib/utils/date';
 
 import React from 'react';
@@ -30,16 +28,21 @@ export default async function Page({ params }: { params: Promise<{ blogSlug: str
         () => notFound(),
     );
 
+    const markdownBlocks = DevBlogContentBlock.ToMarkdownBlocks(blog.content);
+
     return (
-        <SideCatagory.Context>
+        <SideCatagory.Context catagories={
+            markdownBlocks
+                .filter(b => b.hash != undefined)
+                .map(doc => ({ ...doc, markdown: undefined }))
+        }>
             <BlogHead blog={blog} />
             <BlogPageLayout.Layout>
                 <Divider style={{ gridColumn: "1 / -1" }} />
                 <BlogPageLayout.Content>
                     {
-                        blog.content.map((sec, i) => (
-                            <Section blocks={sec.blocks} catagory={sec.catagory}
-                                headerVisible={sec.visible} key={i} />
+                        markdownBlocks.map((block, i) => (
+                            <DevBlogContentBlock.MarkdownBlock {...block} key={i} />
                         ))
                     }
                 </BlogPageLayout.Content>
@@ -99,36 +102,6 @@ function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
         </BlogPageLayout.Layout>
     </>
 }
-
-
-function Section({ catagory, blocks, headerVisible }: {
-    blocks: ContentBlock.DevBlogType[],
-    catagory: string[],
-    headerVisible: boolean,
-}) {
-    const sectionName = catagory[catagory.length - 1];
-    return <SideCatagory.Container catagory={catagory}>
-        {
-            headerVisible &&
-            <>
-                <TitleSection noDivider style={{ padding: 0 }}>
-                    <SideCatagory.Link catagory={catagory}>
-                        <TitleSection.Heading>{sectionName}</TitleSection.Heading>
-                        <Spacer spacing="paragraph" />
-                        <Divider />
-                    </SideCatagory.Link>
-                </TitleSection>
-                <Spacer spacing="paragraph" />
-            </>
-        }
-        {
-            blocks.map((block, i) => (
-                <DevBlogContentBlock block={block} key={`${sectionName}${i}`} />
-            ))
-        }
-    </SideCatagory.Container>
-}
-
 
 
 export async function generateMetadata(

@@ -68,3 +68,9 @@ export const DivRouter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<H
     }
 )
 
+export const Image = styled("img")(({ theme }) => ({
+    width: "100%", objectFit: "cover", borderRadius: theme.size.border.radius,
+    // [`& + ${T.Body2}`]: {
+    //     opacity: 0.75, textAlign: "center", marginTop: theme.spacing.paragraph
+    // }
+}))

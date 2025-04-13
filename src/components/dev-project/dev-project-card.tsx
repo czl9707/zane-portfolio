@@ -4,7 +4,7 @@ import { MonthAsString } from "@/lib/utils/date";
 
 import * as T from "@/components/ui/typography";
 import Spacer from "@/components/ui/spacer";
-import * as StyledMarkdown from "@/components/ui/styled-markdown";
+import * as StyledMarkdown from "@/components/ui/markdown";
 import ProjectBlogBrief from "@/components/layout/project-blog-brief";
 
 
