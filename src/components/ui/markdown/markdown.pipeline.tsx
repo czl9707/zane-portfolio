@@ -8,7 +8,7 @@ import * as React from 'react'
 import * as T from '@/components/ui/typography'
 import Divider from "@/components/ui/divider";
 import QuoteBlock from "@/components/ui/quote-block";
-import { Code, Ol, Ul, LinkUnderLine, DivRouter } from "./component.common";
+import { Code, Ol, Ul, LinkUnderLine, DivRouter, Image } from "./component.common";
 
 import remarkDirective from 'remark-directive';
 import { multiCodeblockConverter } from './component.multi-codeblock';
@@ -28,6 +28,7 @@ const defaultComponents: Components = {
     ul: Ul,
     a: LinkUnderLine,
     div: DivRouter,
+    img: Image,
 };
 
 const Markdown = React.forwardRef<

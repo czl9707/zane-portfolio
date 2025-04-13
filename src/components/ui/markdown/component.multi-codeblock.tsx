@@ -50,7 +50,6 @@ export const MultiCodeBlock = React.forwardRef<HTMLDivElement, {
     children: React.ReactNode
 }>(
     function MultiCodeBlock({ children }, ref) {
-        console.log(children)
         const contents = (children as React.ReactElement<{
             children: string, filename: string, language: string,
         }>[]).map(child => ({

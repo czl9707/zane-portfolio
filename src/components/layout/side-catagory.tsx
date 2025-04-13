@@ -16,10 +16,10 @@ const catagoriesContext = React.createContext<{
 });
 
 
-interface CatagoryType {
+export interface CatagoryType {
     depth: 1 | 2 | 3 | 4 | 5 | 6,
-    displayName: string,
-    hash: string,
+    displayName?: string,
+    hash?: string,
     active?: boolean,
 };
 
@@ -77,8 +77,8 @@ function SideCatagoryContextProvider({ children, catagories: catagoriesBase }: {
     )
 }
 
-const CatagoryContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { hash: string }>(
-    function CatagoryContainer({ hash, children, ...other }, ref) {
+const CatagoryContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { hash?: string }>(
+    function CatagoryContainer({ hash = "", children, ...other }, ref) {
         const { setCatagories } = React.useContext(catagoriesContext);
 
         const { ref: inviewRef } = useInView({

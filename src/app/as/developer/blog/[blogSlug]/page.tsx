@@ -1,5 +1,5 @@
 import * as T from "@/components/ui/typography";
-import DevBlogContentBlock from '@/components/dev-blog/content-block';
+import * as DevBlogContentBlock from '@/components/dev-blog/content-block';
 import Divider from '@/components/ui/divider';
 import Spacer from "@/components/ui/spacer";
 import * as SideCatagory from "@/components/layout/side-catagory"
@@ -12,7 +12,6 @@ import React from 'react';
 import { Metadata } from 'next';
 import { css } from "@pigment-css/react";
 import { notFound } from "next/navigation";
-import { extractTOC } from "@/components/ui/markdown/component.directory";
 
 
 export const revalidate = 14400;
@@ -29,22 +28,17 @@ export default async function Page({ params }: { params: Promise<{ blogSlug: str
         () => notFound(),
     );
 
-    const toc = []
-    for (const block of blog.content) {
-        if (block.blockType === "markdown") {
-            toc.push(...extractTOC(block.markdown))
-        }
-    }
+    const markdownBlocks = DevBlogContentBlock.ToMarkdownBlocks(blog.content);
 
     return (
-        <SideCatagory.Context catagories={toc}>
+        <SideCatagory.Context catagories={markdownBlocks.map(doc => ({ ...doc, markdown: undefined }))}>
             <BlogHead blog={blog} />
             <BlogPageLayout.Layout>
                 <Divider style={{ gridColumn: "1 / -1" }} />
                 <BlogPageLayout.Content>
                     {
-                        blog.content.map((block, i) => (
-                            <DevBlogContentBlock block={block} key={i} />
+                        markdownBlocks.map((block, i) => (
+                            <DevBlogContentBlock.MarkdownBlock {...block} key={i} />
                         ))
                     }
                 </BlogPageLayout.Content>
