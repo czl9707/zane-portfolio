@@ -1,7 +1,8 @@
 import 'server-only';
 
-import Markdown from "react-markdown";
+import { default as BaseMarkdown } from "react-markdown";
 import type { Components } from "react-markdown";
+import type { PluggableList } from "unified";
 import * as React from 'react'
 
 import * as T from '@/components/ui/typography'
@@ -29,19 +30,18 @@ const defaultComponents: Components = {
     div: DivRouter,
 };
 
-const StyledMarkdown = React.forwardRef<
+const Markdown = React.forwardRef<
     HTMLDivElement,
-    Omit<React.HTMLAttributes<HTMLDivElement>, "children"> & { children: string, components?: Components }
+    Omit<React.HTMLAttributes<HTMLDivElement>, "children"> & { children: string, components?: Components, remarkPlugins?: PluggableList }
 >(
-    function StyledMarkdown({ children, components: componentsOverride, ...others }, ref) {
+    function Markdown({ children, components: componentsOverride, remarkPlugins = [], ...others }, ref) {
         return (<div ref={ref} {...others}>
-            <Markdown components={{ ...defaultComponents, ...componentsOverride }}
-                remarkPlugins={[remarkDirective, multiCodeblockConverter]}
-                unwrapDisallowed disallowedElements={['pre']}>
+            <BaseMarkdown components={{ ...defaultComponents, ...componentsOverride }}
+                remarkPlugins={[remarkDirective, multiCodeblockConverter, ...remarkPlugins]}>
                 {children}
-            </Markdown>
+            </BaseMarkdown>
         </div>)
     }
 );
 
-export default StyledMarkdown;
+export default Markdown;

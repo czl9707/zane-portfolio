@@ -9,7 +9,7 @@ import TitleSection from "@/components/layout/title-section";
 import ContentSection from "@/components/layout/content-section";
 import Button from "@/components/ui/button";
 import BriefsContainer from '@/components/layout/briefs-container'
-import * as StyledMarkdown from "@/components/ui/styled-markdown";
+import * as Markdown from "@/components/ui/markdown";
 import { solidBackground } from "@/components/ui/util";
 import DevProjectBrief from "@/components/dev-project/dev-project-card";
 import DevBlogBrief from "@/components/dev-blog/dev-blog-brief";
@@ -99,9 +99,9 @@ function WhoAmISection({ content }: { content: string }) {
       }
     >
       <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
-        <StyledMarkdown.LinkHighlight>
+        <Markdown.LinkHighlight>
           {content}
-        </StyledMarkdown.LinkHighlight>
+        </Markdown.LinkHighlight>
       </SlideUp.Div>
     </ContentSection>
   )

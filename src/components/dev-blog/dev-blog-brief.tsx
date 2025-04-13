@@ -4,7 +4,7 @@ import { DateAsString } from "@/lib/utils/date";
 
 import * as T from "@/components/ui/typography";
 import Spacer from "@/components/ui/spacer";
-import * as StyledMarkdown from "@/components/ui/styled-markdown";
+import * as Markdown from "@/components/ui/markdown";
 import ProjectBlogBrief from "@/components/layout/project-blog-brief";
 
 
@@ -26,9 +26,9 @@ export default function DevBlogBrief({ blog }: {
                 </T.Body1>
                 <Spacer spacing="paragraph" />
                 <div style={{ opacity: 0.75 }}>
-                    <StyledMarkdown.Default>
+                    <Markdown.Default>
                         {blog.description}
-                    </StyledMarkdown.Default>
+                    </Markdown.Default>
                 </div>
             </ProjectBlogBrief>
         </Link>

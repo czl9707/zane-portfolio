@@ -2,8 +2,7 @@ import * as ContentBlock from '@/lib/cms/content-blocks'
 
 import * as T from '@/components/ui/typography'
 import * as SlideUp from '@/components/ui/slideup-effect'
-import * as StyledMarkdown from '@/components/ui/styled-markdown'
-import { CodePanel, CodeHighLighter } from '@/components/ui/code'
+import * as Markdown from '@/components/ui/markdown'
 
 import React from 'react'
 import { styled } from '@pigment-css/react'
@@ -44,38 +43,12 @@ function MultiImageBlock({ block }: { block: ContentBlock.MultiImageBlockType })
 function MarkdownBlock({ block }: { block: ContentBlock.MarkdownBlockType }) {
     return (
         <GridBase columns={1} style={{ rowGap: '0rem' }}>
-            <StyledMarkdown.Default>
+            <Markdown.Default>
                 {block.markdown}
-            </StyledMarkdown.Default>
+            </Markdown.Default>
         </GridBase>
     )
 }
-
-function MultiCodeBlock({ block }: { block: ContentBlock.MultiCodeBlockType }) {
-    return (
-        <GridBase columns={1} style={{ rowGap: '0rem' }}>
-            <CodePanel.Root defaultValue={block.codeBlocks[0].fileName}>
-                <CodePanel.List>
-                    {
-                        block.codeBlocks.map(({ fileName }) => (
-                            <CodePanel.Trigger value={fileName} key={fileName}>
-                                {fileName}
-                            </CodePanel.Trigger>
-                        ))
-                    }
-                </CodePanel.List>
-                {
-                    block.codeBlocks.map(({ fileName, content, language }) => (
-                        <CodePanel.Content tabName={fileName} key={fileName} copiableText={content}>
-                            <CodeHighLighter language={language} content={content} />
-                        </CodePanel.Content>
-                    ))
-                }
-            </CodePanel.Root>
-        </GridBase>
-    )
-}
-
 
 export default function DevBlogContentBlock({ block }: { block: ContentBlock.DevBlogType }) {
     if (block.blockType === "multiImage") {
@@ -83,9 +56,6 @@ export default function DevBlogContentBlock({ block }: { block: ContentBlock.Dev
     }
     if (block.blockType === "markdown") {
         return <MarkdownBlock block={block} />
-    }
-    if (block.blockType === "multiCodeBlock") {
-        return <MultiCodeBlock block={block} />
     }
     else {
         throw new Error("invaid content block type encountered.")

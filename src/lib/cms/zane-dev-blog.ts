@@ -10,7 +10,7 @@ interface ZaneDevBlogInfo {
     createdDate: Date,
     description: string,
     cover: ImageInfo,
-    content: { blocks: Blocks.DevBlogType[], catagory: string[], visible: boolean }[],
+    content: Blocks.DevBlogType[],
 }
 
 interface ZaneDevBlogDto {
@@ -20,7 +20,7 @@ interface ZaneDevBlogDto {
     createdDate: number,
     description: string,
     cover: ImageInfo,
-    content: { blocks: Blocks.DevBlogType[], catagory: string[], visible: boolean }[],
+    content: Blocks.DevBlogType[],
 }
 
 export type {

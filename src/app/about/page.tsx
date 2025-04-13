@@ -1,7 +1,7 @@
 import Grid from "@/components/ui/grid";
 import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";
-import * as StyledMarkdown from "@/components/ui/styled-markdown";
+import * as Markdown from "@/components/ui/markdown";
 import Spacer from "@/components/ui/spacer";
 
 import * as AboutMe from "@/lib/cms/zane-about-me"
@@ -40,9 +40,9 @@ export default async function Page() {
             <T.H5 style={{ opacity: .75 }}>About Zane</T.H5>
         }>
             <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
-                <StyledMarkdown.LinkHighlight>
+                <Markdown.LinkHighlight>
                     {content.aboutMe}
-                </StyledMarkdown.LinkHighlight>
+                </Markdown.LinkHighlight>
             </SlideUp.Div>
         </ContentSection>
 
@@ -56,9 +56,9 @@ export default async function Page() {
                     <T.H5 style={{ opacity: .75 }}>{ex.year.join(" - ")}</T.H5>
                 }>
                     <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
-                        <StyledMarkdown.LinkHighlight>
+                        <Markdown.LinkHighlight>
                             {ex.experience}
-                        </StyledMarkdown.LinkHighlight>
+                        </Markdown.LinkHighlight>
                     </SlideUp.Div>
                 </ContentSection>
             ))

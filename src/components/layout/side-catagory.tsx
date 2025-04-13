@@ -7,17 +7,20 @@ import { useInView } from 'react-intersection-observer'
 
 import * as T from '@/components/ui/typography';
 
-const catagoriesUpdatorContext = React.createContext<
-    (updator: (cat: CatagoryItemType[]) => CatagoryItemType[]) => void
->(() => { });
+const catagoriesContext = React.createContext<{
+    catagories: CatagoryType[],
+    setCatagories: (updator: (cat: CatagoryType[]) => CatagoryType[]) => void
+}>({
+    catagories: [],
+    setCatagories: () => { }
+});
 
-const catagoriesContext = React.createContext<CatagoryItemType[]>([]);
 
-interface CatagoryItemType {
-    catagoryChildren: CatagoryItemType[],
+interface CatagoryType {
+    depth: 1 | 2 | 3 | 4 | 5 | 6,
     displayName: string,
-    href: string,
-    active: boolean,
+    hash: string,
+    active?: boolean,
 };
 
 const CatagoryLinkItem = styled(T.Body1)<{ depth: number }>(({ theme }) => ({
@@ -35,27 +38,6 @@ const CatagoryLinkItem = styled(T.Body1)<{ depth: number }>(({ theme }) => ({
     },
 }))
 
-function RecursiveCatagory({ catagoryItem, depth = 0 }: {
-    catagoryItem: CatagoryItemType,
-    depth?: number
-}) {
-    return (
-        <>
-            <Link href={`#${catagoryItem.href}`}>
-                <CatagoryLinkItem data-active={catagoryItem.active} depth={depth} >
-                    {catagoryItem.displayName}
-                </CatagoryLinkItem>
-            </Link>
-            {
-                (catagoryItem.catagoryChildren ?? []).map((child, i) => (
-                    <RecursiveCatagory depth={depth + 1} catagoryItem={child} key={catagoryItem.displayName + i} />
-                ))
-            }
-        </>
-    )
-}
-
-
 const SideCatagoryContainer = styled("div")(({ theme }) => ({
     borderRadius: theme.size.border.radius, display: "inline-flex", flexDirection: "column",
     border: `1px solid rgb(${theme.vars.color.default.foreground})`,
@@ -64,12 +46,18 @@ const SideCatagoryContainer = styled("div")(({ theme }) => ({
 
 const SideCatagory = React.forwardRef<HTMLDivElement, { className?: string }>(
     function SideCatagory({ className }, ref) {
-        const catagories = React.useContext(catagoriesContext);
+        const { catagories } = React.useContext(catagoriesContext);
 
         return (
             <SideCatagoryContainer className={className} ref={ref}>
                 {
-                    catagories.map((cat, i) => (<RecursiveCatagory catagoryItem={cat} key={i} />))
+                    catagories.map((cat, i) => (
+                        <Link href={`#${cat.hash}`} key={i}>
+                            <CatagoryLinkItem data-active={cat.active ?? false} depth={cat.depth} >
+                                {cat.displayName}
+                            </CatagoryLinkItem>
+                        </Link>
+                    ))
                 }
             </SideCatagoryContainer>
         )
@@ -77,43 +65,34 @@ const SideCatagory = React.forwardRef<HTMLDivElement, { className?: string }>(
 )
 
 
-function SideCatagoryContextProvider({ children }: { children: React.ReactNode }) {
-    const [content, setContent] = React.useState<CatagoryItemType[]>([]);
+function SideCatagoryContextProvider({ children, catagories: catagoriesBase }: {
+    children: React.ReactNode, catagories: CatagoryType[]
+}) {
+    const [catagories, setCatagories] = React.useState<CatagoryType[]>(catagoriesBase);
 
     return (
-        <catagoriesContext.Provider value={content}>
-            <catagoriesUpdatorContext.Provider value={setContent} >
-                {children}
-            </catagoriesUpdatorContext.Provider>
+        <catagoriesContext.Provider value={{ catagories, setCatagories }}>
+            {children}
         </catagoriesContext.Provider>
     )
 }
 
-const CatagoryContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { catagory: string[] }>(
-    function CatagoryContainer({ catagory, children, ...other }, ref) {
-        const setCatagory = React.useContext(catagoriesUpdatorContext);
-
-        React.useEffect(() => {
-            setCatagory((catagories) => {
-                addToCatagories(catagory, catagories);
-                return [...catagories];
-            })
-        });
+const CatagoryContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { hash: string }>(
+    function CatagoryContainer({ hash, children, ...other }, ref) {
+        const { setCatagories } = React.useContext(catagoriesContext);
 
         const { ref: inviewRef } = useInView({
             threshold: 0, triggerOnce: false,
             onChange: (inView) => {
-                setCatagory((catagories) => {
-                    let catItem = { catagoryChildren: catagories } as CatagoryItemType;
-                    for (const cat of catagory)
-                        catItem = catItem.catagoryChildren.find(c => c.displayName === cat) as CatagoryItemType;
-                    catItem.active = inView;
+                setCatagories((catagories) => {
+                    const catItem = catagories.find(cat => cat.hash === hash);
+                    catItem!.active = inView;
                     return [...catagories];
                 });
             },
         })
 
-        return <div {...other} id={catagoriesToHashTag(catagory)}
+        return <div {...other}
             ref={(node: HTMLDivElement | null) => {
                 inviewRef(node);
                 if (ref != null) {
@@ -126,32 +105,11 @@ const CatagoryContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<
     }
 )
 
-const CatagoryLink = React.forwardRef<HTMLAnchorElement, React.HTMLAttributes<HTMLAnchorElement> & { catagory: string[] }>(
-    function CatagoryLink({ catagory, children, ...other }, ref) {
-        return <Link {...other} href={`#${catagoriesToHashTag(catagory)}`} ref={ref}>{children}</Link>
+const CatagoryLink = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttributes<HTMLAnchorElement>>(
+    function CatagoryLink({ href, children, ...other }, ref) {
+        return <Link {...other} href={href as string} ref={ref}>{children}</Link>
     }
 )
-
-function catagoriesToHashTag(catagory: string[]): string {
-    return catagory.map(s => s.replaceAll(" ", " ")).join("-");
-}
-
-function addToCatagories(catagory: string[], catagoryItems: CatagoryItemType[], prefix: string[] = []): void {
-    let catItem = catagoryItems.find(c => c.displayName === catagory[0]);
-    if (catItem === undefined) {
-        catItem = {
-            catagoryChildren: [],
-            displayName: catagory[0],
-            href: catagoriesToHashTag([...prefix, ...catagory]),
-            active: false,
-        };
-        catagoryItems.push(catItem);
-    }
-
-    if (catagory.length > 1) {
-        addToCatagories(catagory.slice(1), catItem.catagoryChildren, [...prefix, catagory[0]])
-    }
-}
 
 export {
     SideCatagory as CatagoryPanel,
