@@ -1,17 +1,7 @@
 import type { NextConfig } from "next";
 import { withPigment, extendTheme } from '@pigment-css/nextjs-plugin';
 
-const nextConfig: NextConfig = {
-  webpack: (config, { dev }) => {
-    if (dev) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        "node:path": false,
-      }
-    }
-    return config;
-  }
-};
+const nextConfig: NextConfig = {};
 
 export default withPigment(
   nextConfig,

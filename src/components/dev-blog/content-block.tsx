@@ -60,7 +60,7 @@ export function MarkdownBlock({ markdown, hash }: {
 
 
 
-export async function toMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): Promise<({ markdown: string } & SideCatagory.CatagoryType)[]> {
+export function toMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): ({ markdown: string } & SideCatagory.CatagoryType)[] {
     const markdownDocuments = [];
     for (const block of blocks) {
         if (block.blockType === "markdown") {
@@ -113,7 +113,7 @@ function appendIdToHeading() {
     return function (tree: Root) {
         for (const child of tree.children) {
             if (child.type === "heading") {
-                const catagory = "toString(child)";
+                const catagory = toString(child);
                 const hash = catagoryToHash(catagory);
 
                 child.data = child.data ?? {};
