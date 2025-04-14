@@ -1,9 +1,7 @@
 import type { NextConfig } from "next";
 import { withPigment, extendTheme } from '@pigment-css/nextjs-plugin';
 
-
-const nextConfig: NextConfig = {
-};
+const nextConfig: NextConfig = {};
 
 export default withPigment(
   nextConfig,
