@@ -35,7 +35,7 @@ const CardContainer = styled("div")(({ theme }) => ({
 
 export default function ArchitectureProjectCard({ project }: { project: ZaneArchProject.Info }) {
     return (
-        <Link href={`/as/architect/project/${project.title.replaceAll(" ", "_")}`}>
+        <Link href={`/as/architect/project/${project.link}`}>
             <SlideUp.Div>
                 <CardContainer>
                     <img src={project.cover.url} alt={project.cover.alt} />

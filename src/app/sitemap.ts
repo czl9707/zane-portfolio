@@ -25,12 +25,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 1,
         })) as MetadataRoute.Sitemap),
         ...(archProjects.map((p) => ({
-            url: `${ROOT}as/architect/project/${p.title.replaceAll(" ", "_")}`,
+            url: `${ROOT}as/architect/project/${p.link}`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
         })) as MetadataRoute.Sitemap),
         ...(devBlogs.map((p) => ({
-            url: `${ROOT}as/developer/blog/${p.title.replaceAll(" ", "_")}`,
+            url: `${ROOT}as/developer/blog/${p.link}`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
         })) as MetadataRoute.Sitemap)

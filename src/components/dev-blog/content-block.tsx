@@ -1,4 +1,4 @@
-import 'server-only'
+import "server-only"
 
 import * as ContentBlock from '@/lib/cms/content-blocks'
 import * as SlideUp from '@/components/ui/slideup-effect'
@@ -8,16 +8,15 @@ import TitleSection from '@/components/layout/title-section'
 import Spacer from '@/components/ui/spacer'
 import Divider from '@/components/ui/divider'
 
-
 import React from 'react'
 import { styled } from '@pigment-css/react'
 
 import type { Root, RootContent } from 'mdast';
-import { toMarkdown } from 'mdast-util-to-markdown';
 import { toString } from 'mdast-util-to-string';
+// these will crash in dev mode ???
+import { toMarkdown } from 'mdast-util-to-markdown';
 import remarkParse from 'remark-parse';
 import { unified } from 'unified';
-
 
 const Heading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
     function Heading({ id, ...others }, ref) {
@@ -34,7 +33,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHe
     }
 )
 
-const GridBase = styled(SlideUp.Div)(({ theme }) => ({
+const ContentContainer = styled(SlideUp.Div)(({ theme }) => ({
     maxWidth: "54rem", width: "100%",
     marginBottom: theme.spacing.component,
 }));
@@ -44,7 +43,7 @@ export function MarkdownBlock({ markdown, hash }: {
     hash?: string,
 }) {
     return (
-        <GridBase>
+        <ContentContainer>
             <SideCatagory.Container hash={hash}>
                 <Markdown.Default remarkPlugins={[appendIdToHeading]}
                     components={{
@@ -54,13 +53,14 @@ export function MarkdownBlock({ markdown, hash }: {
                     {markdown}
                 </Markdown.Default>
             </SideCatagory.Container>
-        </GridBase>
+        </ContentContainer>
     )
 }
 
-const markdownProcessor = unified().use(remarkParse);
 
-export function ToMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): ({ markdown: string } & SideCatagory.CatagoryType)[] {
+
+
+export async function toMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): Promise<({ markdown: string } & SideCatagory.CatagoryType)[]> {
     const markdownDocuments = [];
     for (const block of blocks) {
         if (block.blockType === "markdown") {
@@ -68,12 +68,18 @@ export function ToMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): ({ markdow
         }
         else if (block.blockType === "multiImage") {
             for (const image of block.images) {
-                markdownDocuments.push(`![${image.image.alt}](${image.image.url})`)
+                markdownDocuments.push(`![${image.image.alt}](${image.image.url})`);
             }
         }
     }
+
+    // const { toMarkdown } = (await import('mdast-util-to-markdown'));
+    // const remarkParse = (await import('remark-parse')).default;
+    // const { unified } = await import('unified');
+
+    const markdownProcessor = unified().use(remarkParse);
     const tree = markdownProcessor.parse(markdownDocuments.join("\n"));
-    // return [];
+
     const result: ({ markdowns: RootContent[] } & SideCatagory.CatagoryType)[] = [];
     for (const child of tree.children) {
         if (child.type === "heading") {
@@ -107,7 +113,7 @@ function appendIdToHeading() {
     return function (tree: Root) {
         for (const child of tree.children) {
             if (child.type === "heading") {
-                const catagory = toString(child);
+                const catagory = "toString(child)";
                 const hash = catagoryToHash(catagory);
 
                 child.data = child.data ?? {};

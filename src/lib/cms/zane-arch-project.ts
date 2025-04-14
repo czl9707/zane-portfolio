@@ -6,6 +6,7 @@ interface ZaneArchProjectInfo {
     title: string,
     subTitle: string,
     tags: string[],
+    link: string,
     startDate: Date,
     endDate?: Date,
     location?: string,
@@ -19,6 +20,7 @@ interface ZaneArchProjectDto {
     title: string,
     subTitle: string,
     tags?: string[],
+    link: string,
     startDate: number,
     endDate?: number,
     location?: string,
@@ -52,11 +54,11 @@ export async function getAll(): Promise<ZaneArchProjectInfo[]> {
     );
 }
 
-export async function getByTitle(title: string): Promise<ZaneArchProjectInfo> {
+export async function getByLink(link: string): Promise<ZaneArchProjectInfo> {
     const apikey = await ApiKey.get()
 
     return await fetch(
-        `${ARCHPROJECT_ENDPOINT}?where[title][equals]=${title}`,
+        `${ARCHPROJECT_ENDPOINT}?where[link][equals]=${link}`,
         {
             headers: {
                 Authorization: `users API-Key ${apikey}`,
@@ -74,6 +76,7 @@ export function fromDto(dto: ZaneArchProjectDto): ZaneArchProjectInfo {
         title: dto.title as string,
         subTitle: dto.subTitle as string,
         tags: dto.tags ?? [],
+        link: dto.link,
         startDate: new Date(dto.startDate),
         endDate: dto.endDate ? new Date(dto.endDate) : undefined,
         location: dto.location,

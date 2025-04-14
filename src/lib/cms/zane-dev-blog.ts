@@ -7,6 +7,7 @@ interface ZaneDevBlogInfo {
     title: string,
     subTitle: string,
     tags?: string[],
+    link: string,
     createdDate: Date,
     description: string,
     cover: ImageInfo,
@@ -17,6 +18,7 @@ interface ZaneDevBlogDto {
     title: string,
     subTitle: string,
     tags?: string[],
+    link: string,
     createdDate: number,
     description: string,
     cover: ImageInfo,
@@ -47,11 +49,11 @@ export async function getAll(): Promise<ZaneDevBlogInfo[]> {
     );
 }
 
-export async function getByTitle(title: string): Promise<ZaneDevBlogInfo> {
+export async function getByLink(link: string): Promise<ZaneDevBlogInfo> {
     const apikey = await ApiKey.get()
 
     return await fetch(
-        `${DEVBLOG_ENDPOINT}?where[title][equals]=${title}`,
+        `${DEVBLOG_ENDPOINT}?where[link][equals]=${link}`,
         {
             headers: {
                 Authorization: `users API-Key ${apikey}`,
@@ -69,6 +71,7 @@ export function fromDto(dto: ZaneDevBlogDto): ZaneDevBlogInfo {
         title: dto.title as string,
         subTitle: dto.subTitle as string,
         tags: dto.tags ?? [],
+        link: dto.link,
         createdDate: new Date(dto.createdDate),
         description: dto.description,
         cover: dto.cover,

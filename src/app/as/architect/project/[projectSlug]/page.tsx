@@ -25,13 +25,13 @@ import { notFound } from "next/navigation";
 export const revalidate = 14400;
 export async function generateStaticParams(): Promise<{ projectSlug: string }[]> {
     const result = (await ZaneArchProjects.getAll())
-    return result.map(t => ({ projectSlug: t.title.replaceAll(" ", "_") }));
+    return result.map(t => ({ projectSlug: t.link }));
 }
 
 
 export default async function Page({ params }: { params: Promise<{ projectSlug: string }> }) {
-    const title = (await params).projectSlug.replaceAll("_", " ");
-    const project = await ZaneArchProjects.getByTitle(title).then(
+    const link = (await params).projectSlug;
+    const project = await ZaneArchProjects.getByLink(link).then(
         p => p,
         () => notFound(),
     );
@@ -160,8 +160,8 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
 export async function generateMetadata(
     { params }: { params: Promise<{ projectSlug: string }> },
 ): Promise<Metadata> {
-    const title = (await params).projectSlug.replaceAll("_", " ");
-    const project = await ZaneArchProjects.getByTitle(title);
+    const link = (await params).projectSlug;
+    const project = await ZaneArchProjects.getByLink(link);
 
     return {
         title: `Zane Chen - ${project.title}`,

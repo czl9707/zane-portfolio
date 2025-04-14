@@ -1,3 +1,5 @@
+import 'server-only'
+
 import * as T from "@/components/ui/typography";
 import * as DevBlogContentBlock from '@/components/dev-blog/content-block';
 import Divider from '@/components/ui/divider';
@@ -17,18 +19,18 @@ import { notFound } from "next/navigation";
 export const revalidate = 14400;
 export async function generateStaticParams(): Promise<{ blogSlug: string }[]> {
     const result = await ZaneDevBlog.getAll();
-    return result.map(t => ({ blogSlug: t.title.replaceAll(" ", "_") }));
+    return result.map(t => ({ blogSlug: t.link }));
 }
 
 
 export default async function Page({ params }: { params: Promise<{ blogSlug: string }> }) {
-    const title = (await params).blogSlug.replaceAll("_", " ");
-    const blog = await ZaneDevBlog.getByTitle(title).then(
+    const link = (await params).blogSlug;
+    const blog = await ZaneDevBlog.getByLink(link).then(
         b => b,
         () => notFound(),
     );
 
-    const markdownBlocks = DevBlogContentBlock.ToMarkdownBlocks(blog.content);
+    const markdownBlocks = await DevBlogContentBlock.toMarkdownBlocks(blog.content);
 
     return (
         <SideCatagory.Context catagories={
@@ -107,8 +109,8 @@ function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
 export async function generateMetadata(
     { params }: { params: Promise<{ blogSlug: string }> },
 ): Promise<Metadata> {
-    const title = (await params).blogSlug.replaceAll("_", " ");
-    const blog = await ZaneDevBlog.getByTitle(title);
+    const link = (await params).blogSlug;
+    const blog = await ZaneDevBlog.getByLink(link);
 
     return {
         title: `Zane Chen - ${blog.title}`,
