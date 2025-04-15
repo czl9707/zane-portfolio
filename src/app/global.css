@@ -1,0 +1,34 @@
+:root {
+    a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+    menu,
+    ol,
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    blockquote,
+    pre {
+        margin: 0
+    }
+
+    code {
+        font-family: unset,
+    }
+
+    body {
+        width: 100%;
+        min-height: 100vh;
+        box-sizing: border-box;
+        margin: 0;
+        overflow-x: visible;
+        position: relative;
+        background-color: rgb(var(--color-default-background));
+        color: rgb(var(--color-default-foreground));
+    }
+}

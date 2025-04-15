@@ -1,0 +1,18 @@
+.line {
+    text-wrap: wrap;
+    display: block;
+    white-space: pre;
+    min-height: 1.25rem;
+}
+
+.token {
+    display: inline-block;
+
+    color: var(--shiki-light);
+    font-weight: var(--shiki-light-font-weight);
+
+    html[data-theme='dark'] & {
+        color: var(--shiki-dark);
+        font-weight: var(--shiki-dark-font-weight);
+    }
+}

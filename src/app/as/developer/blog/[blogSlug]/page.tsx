@@ -30,7 +30,7 @@ export default async function Page({ params }: { params: Promise<{ blogSlug: str
         () => notFound(),
     );
 
-    const markdownBlocks = DevBlogContentBlock.toMarkdownBlocks(blog.content);
+    const markdownBlocks = await DevBlogContentBlock.toMarkdownBlocks(blog.content);
 
     return (
         <SideCatagory.Context catagories={

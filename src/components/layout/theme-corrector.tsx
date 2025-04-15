@@ -9,8 +9,8 @@ const DarkModeClass = css({
 
 export default function ThemeCorrector() {
     React.useEffect(() => {
-        if (!document.documentElement.classList.contains("theme-dark")) {
-            document.documentElement.classList.add("theme-dark");
+        if (document.documentElement.getAttribute("data-theme") !== 'dark') {
+            document.documentElement.setAttribute("data-theme", 'dark')
             document.body.classList.add(DarkModeClass);
         }
     }, [])

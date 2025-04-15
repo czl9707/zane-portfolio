@@ -6,8 +6,10 @@ import ScollToTopOnNavigate from "@/components/layout/scroll-to-top";
 import ThemeCorrector from "@/components/layout/theme-corrector";
 
 import { Geist, Red_Hat_Mono } from "next/font/google";
-import { styled, globalCss } from "@pigment-css/react";
 import type { Metadata } from "next";
+
+import './theme.css'
+import './global.css'
 
 const redHatDisplay = Geist({
   variable: "--font-sans",
@@ -35,20 +37,6 @@ export const metadata: Metadata = {
   }
 };
 
-globalCss({
-  "a": { color: "inherit", textDecoration: "inherit" },
-  "menu,ol,ul": { listStyle: "none", margin: 0, padding: 0 },
-  "blockquote,pre": { margin: 0 },
-  "code": { fontFamily: 'unset', },
-})
-
-const Body = styled("body")(({ theme }) => ({
-  width: "100%", minHeight: "100vh", boxSizing: "border-box",
-  margin: 0, overflowX: "visible", position: "relative",
-  backgroundColor: `rgb(${theme.vars.color.default.background})`,
-  color: `rgb(${theme.vars.color.default.foreground})`,
-}));
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -59,10 +47,9 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <Body
-        className={
-          [redHatDisplay.variable, redHatMono.variable].join(" ")
-        }
+      <body className={
+        [redHatDisplay.variable, redHatMono.variable].join(" ")
+      }
       >
         <Header />
         <div style={{ minHeight: "100vh" }}>
@@ -71,7 +58,7 @@ export default function RootLayout({
         <Footer />
         <ScollToTopOnNavigate />
         <ThemeCorrector />
-      </Body>
+      </body>
     </html >
   );
 }

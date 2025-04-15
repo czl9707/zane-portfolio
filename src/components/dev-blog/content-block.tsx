@@ -14,9 +14,9 @@ import { styled } from '@pigment-css/react'
 import type { Root, RootContent } from 'mdast';
 import { toString } from 'mdast-util-to-string';
 // these will crash in dev mode ???
-import { toMarkdown } from 'mdast-util-to-markdown';
-import remarkParse from 'remark-parse';
-import { unified } from 'unified';
+// import { toMarkdown } from 'mdast-util-to-markdown';
+// import remarkParse from 'remark-parse';
+// import { unified } from 'unified';
 
 const Heading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
     function Heading({ id, ...others }, ref) {
@@ -60,7 +60,7 @@ export function MarkdownBlock({ markdown, hash }: {
 
 
 
-export function toMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): ({ markdown: string } & SideCatagory.CatagoryType)[] {
+export async function toMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): ({ markdown: string } & SideCatagory.CatagoryType)[] {
     const markdownDocuments = [];
     for (const block of blocks) {
         if (block.blockType === "markdown") {
@@ -73,12 +73,12 @@ export function toMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): ({ markdow
         }
     }
 
-    // const { toMarkdown } = (await import('mdast-util-to-markdown'));
-    // const remarkParse = (await import('remark-parse')).default;
-    // const { unified } = await import('unified');
+    const { toMarkdown } = (await import('mdast-util-to-markdown'));
+    const remarkParse = (await import('remark-parse')).default;
+    const { unified } = await import('unified');
 
     const markdownProcessor = unified().use(remarkParse);
-    const tree = markdownProcessor.parse(markdownDocuments.join("\n"));
+    const tree = markdownProcessor.parse(markdownDocuments.join("\n\n"));
 
     const result: ({ markdowns: RootContent[] } & SideCatagory.CatagoryType)[] = [];
     for (const child of tree.children) {
