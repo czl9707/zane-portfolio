@@ -1,20 +1,32 @@
 html {
     --color-default-background: 255 255 255;
     --color-default-foreground: 0 0 0;
-    --color-shade-background: 255 255 255;
-    --color-shade-foreground: 0 0 0;
+
+    --color-nebular-foreground: 94 190 115;
+    --color-nebular-background: 255 255 255;
+    --color-star-foreground: 235 239 98;
+    --color-star-background: 255 255 255;
+    --color-galaxy-foreground: 218 108 251;
+    --color-galaxy-background: 255 255 255;
+    --color-solar-foreground: 246 94 43;
+    --color-solar-background: 255 255 255;
 }
 
-html.theme-dark {
+html[data-theme='dark'] {
     --color-default-background: 0 0 0;
     --color-default-foreground: 255 255 255;
-    --color-shade-background: 0 0 0;
-    --color-shade-foreground: 255 255 255;
+
+    --color-nebular-foreground: 94 190 115;
+    --color-nebular-background: 0 0 0;
+    --color-star-foreground: 235 239 98;
+    --color-star-background: 0 0 0;
+    --color-galaxy-foreground: 218 108 251;
+    --color-galaxy-background: 0 0 0;
+    --color-solar-foreground: 246 94 43;
+    --color-solar-background: 0 0 0;
 }
 
 html {
-    --color-nebular-background: 94 190 115;
-    --color-nebular-foreground: 255 255 255;
 
     --spacing-block: 12rem;
     --spacing-group: 4rem;

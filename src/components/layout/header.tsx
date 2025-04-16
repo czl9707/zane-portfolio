@@ -68,7 +68,8 @@ export default function Header() {
                 <NavigationList>
                     <NavigationMenu.Item>
                         <NavigationTriggerWithChildren asChild>
-                            <Button style={{ display: "flex", flexDirection: "row", gap: ".5rem", alignItems: "center" }}>
+                            <Button variant="filled" color="transparent"
+                                style={{ display: "flex", flexDirection: "row", gap: ".5rem", alignItems: "center" }}>
                                 <span>Works</span>
                                 <CaretDownIcon />
                             </Button>
@@ -76,10 +77,10 @@ export default function Header() {
                         <NavigationMenu.Content asChild>
                             <MenuContainer><div>
                                 <Link href={"/as/developer/project"}>
-                                    <Button>Now a Software Engineer</Button>
+                                    <Button variant="filled" color="transparent">Now a Software Engineer</Button>
                                 </Link>
                                 <Link href={"/as/architect/project"}>
-                                    <Button>Once an Architect</Button>
+                                    <Button variant="filled" color="transparent">Once an Architect</Button>
                                 </Link>
                             </div></MenuContainer>
                         </NavigationMenu.Content>
@@ -87,13 +88,13 @@ export default function Header() {
 
                     <NavigationMenu.Item asChild>
                         <Link href={"/as/developer/blog"}>
-                            <Button>Blogs</Button>
+                            <Button variant="filled" color="transparent">Blogs</Button>
                         </Link>
                     </NavigationMenu.Item>
 
                     <NavigationMenu.Item asChild>
                         <Link href={"/about"}>
-                            <Button>About</Button>
+                            <Button variant="filled" color="transparent">About</Button>
                         </Link>
                     </NavigationMenu.Item>
                 </NavigationList>
@@ -106,22 +107,25 @@ export default function Header() {
                 <NavigationList>
                     <NavigationMenu.Item>
                         <NavigationMenu.Trigger asChild>
-                            <Button style={{ lineHeight: "0" }}><HamburgerMenuIcon /></Button>
+                            <Button variant="filled" color="transparent"
+                                style={{ lineHeight: "0" }}>
+                                <HamburgerMenuIcon />
+                            </Button>
                         </NavigationMenu.Trigger>
 
                         <NavigationMenu.Content asChild>
                             <MenuContainer><div>
                                 <Link href={"/as/developer/project"}>
-                                    <Button>Work - Software Engineer</Button>
+                                    <Button variant="filled" color="transparent">Work - Software Engineer</Button>
                                 </Link>
                                 <Link href={"/as/architect/project"}>
-                                    <Button>Work - Architect</Button>
+                                    <Button variant="filled" color="transparent">Work - Architect</Button>
                                 </Link>
                                 <Link href={"/as/developer/blog"}>
-                                    <Button>Blogs</Button>
+                                    <Button variant="filled" color="transparent">Blogs</Button>
                                 </Link>
                                 <Link href={"/about"}>
-                                    <Button>About</Button>
+                                    <Button variant="filled" color="transparent">About</Button>
                                 </Link>
                             </div></MenuContainer>
                         </NavigationMenu.Content>

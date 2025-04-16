@@ -19,7 +19,6 @@ declare module '@pigment-css/react/theme' {
             star: ColorToken,
             galaxy: ColorToken,
             solar: ColorToken,
-            shade: ColorToken,
         },
         breakpoint: {
             xs: string,

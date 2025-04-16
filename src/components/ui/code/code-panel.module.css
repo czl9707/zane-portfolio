@@ -68,13 +68,13 @@
     overflow-x: scroll;
     display: block;
 
-    font-family: var(--typographies-code-fontFamily);
-    font-size: var(--typographies-code-fontSize);
-    font-weight: var(--typographies-code-fontWeight);
-    line-height: var(--typographies-code-lineHeight);
+    font-family: var(--typography-code-fontFamily);
+    font-size: var(--typography-code-fontSize);
+    font-weight: var(--typography-code-fontWeight);
+    line-height: var(--typography-code-lineHeight);
 
     & span {
-        min-height: var(--typographies-code-fontSize);
+        min-height: var(--typography-code-fontSize);
     }
 
     &::-webkit-scrollbar {

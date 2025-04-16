@@ -14,10 +14,6 @@ export default withPigment(
                         default: {
                             background: "255 255 255",
                             foreground: "0 0 0",
-                        },
-                        shade: {
-                            background: "255 255 255",
-                            foreground: "0 0 0",
                         }
                     }
                 },
@@ -26,31 +22,9 @@ export default withPigment(
                         default: {
                             background: "0 0 0",
                             foreground: "255 255 255",
-                        },
-                        shade: {
-                            background: "0 0 0",
-                            foreground: "255 255 255",
                         }
                     }
                 }
-            },
-            color: {
-                nebular: {
-                    background: "94 190 115",
-                    foreground: "255 255 255",
-                },
-                star: {
-                    background: "235 239 98",
-                    foreground: "255 255 255",
-                },
-                galaxy: {
-                    background: "218 108 251",
-                    foreground: "255 255 255",
-                },
-                solar: {
-                    background: "246 94 43",
-                    foreground: "255 255 255",
-                },
             },
             spacing: {
                 block: "12rem",
