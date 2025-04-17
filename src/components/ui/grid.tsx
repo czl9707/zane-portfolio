@@ -1,12 +1,16 @@
-import { styled } from "@pigment-css/react"
+import * as React from 'react';
+import clsx from "clsx";
 
-const Grid = styled("div")<{ columns: number }>(({ theme }) => ({
-    [`@media(max-width: ${theme.breakpoint.md})`]: {
-        gridTemplateColumns: `repeat(1, minmax(0, 1fr))`
-    },
-    gridTemplateColumns: ({ columns }) => `repeat(${columns}, minmax(0, 1fr))`,
-    display: "grid", columnGap: theme.spacing.paragraph, rowGap: theme.spacing.paragraph,
-    position: "relative",
-}))
+import style from './grid.module.css'
+
+const Grid = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { columns: number }>(
+    function Grid({ className, columns, ...other }, ref) {
+        return (
+            <div className={clsx(className, style.Grid)}
+                style={{ "--grid-columns-count": columns } as React.CSSProperties}
+                ref={ref} {...other} />
+        )
+    }
+)
 
 export default Grid;

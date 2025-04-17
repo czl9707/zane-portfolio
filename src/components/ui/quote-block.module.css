@@ -1,0 +1,7 @@
+.QuoteBlock {
+    border-left: 4px solid rgb(var(--color-default-foreground) / 0.25);
+    padding-left: var(--spacing-component);
+    padding-top: var(--spacing-paragraph);
+    margin-bottom: var(--spacing-paragraph);
+    font-style: italic;
+}

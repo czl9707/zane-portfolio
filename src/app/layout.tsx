@@ -3,12 +3,11 @@ import '@pigment-css/react/styles.css';
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import ScollToTopOnNavigate from "@/components/layout/scroll-to-top";
-import ThemeCorrector from "@/components/layout/theme-corrector";
+// import ThemeCorrector from "@/components/layout/theme-corrector";
 
 import { Geist, Red_Hat_Mono } from "next/font/google";
 import type { Metadata } from "next";
 
-import './theme.css'
 import './global.css'
 import clsx from 'clsx';
 
@@ -45,13 +44,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" style={{ scrollBehavior: "smooth" }}
-      className={clsx(redHatDisplay.variable, redHatMono.variable)}>
+      className={clsx(redHatDisplay.variable, redHatMono.variable, "ThemeRoot")}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={
         [redHatDisplay.variable, redHatMono.variable].join(" ")
-      }
+      } data-theme="dark"
       >
         <Header />
         <div style={{ minHeight: "100vh" }}>
@@ -59,7 +58,7 @@ export default function RootLayout({
         </div>
         <Footer />
         <ScollToTopOnNavigate />
-        <ThemeCorrector />
+        {/* <ThemeCorrector /> */}
       </body>
     </html >
   );

@@ -24,8 +24,8 @@ export default async function CodeHighLighter({ content, language }: {
         {
             shikiOut.map((line, i) => {
                 if (i == shikiOut.length - 1 && line.length == 0) return undefined;
-                return (<span className={style.line} key={`line${i}`}>
-                    {line.map((token, j) => (<span className={style.token} key={`token${i} ${j}`}
+                return (<span className={style.Line} key={`line${i}`}>
+                    {line.map((token, j) => (<span className={style.Token} key={`token${i} ${j}`}
                         style={{
                             "--shiki-light": token.variants.light.color,
                             "--shiki-dark": token.variants.dark.color,

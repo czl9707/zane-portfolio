@@ -1,0 +1,24 @@
+.ExtendingButtonTypography {
+    color: rgb(var(--color-default-foreground) / 0.75);
+    transition: color var(--transition-short);
+    text-align: right;
+}
+
+.ExtendingButtonMark {
+    width: 3rem;
+    display: inline-block;
+    text-align: left;
+    transform: translateX(.5rem);
+    transition: transform var(--transition-short);
+}
+
+.HoverContext {
+    &:hover {
+        .ExtendingButtonTypography { 
+            color: rgb(var(--color-default-foreground));
+        }
+        .ExtendingButtonMark { 
+            transform: translateX(1.5rem);
+        }
+    }
+}
