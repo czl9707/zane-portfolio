@@ -5,13 +5,12 @@ import Divider from "@/components/ui/divider";
 import Spacer from "@/components/ui/spacer";
 
 import Link from "next/link";
-import { css } from "@pigment-css/react";
+
+import style from './footer.module.css'
 
 export default function Footer() {
     return (
-        <Container.FullWidth className={css(({ theme }) => ({
-            paddingBottom: theme.spacing.group, paddingTop: theme.spacing.group,
-        }))}>
+        <Container.FullWidth className={style.FooterContainer}>
             <Divider />
             <Spacer />
             <Grid columns={3}>
@@ -19,10 +18,7 @@ export default function Footer() {
                     © 2024-present Zane Chen. All Rights Reserved.
                 </T.Body2>
 
-                <div className={css(({ theme }) => ({
-                    width: "100%", display: "flex", flexDirection: "row", justifyContent: "flex-end",
-                    verticalAlign: "baseline", gap: theme.spacing.group, gridColumnEnd: -1
-                }))}>
+                <div className={style.LinkContainer}>
                     <Link href={"mailto:czl970721@gmail.com"}>
                         <T.Body1><u>Email</u></T.Body1>
                     </Link>

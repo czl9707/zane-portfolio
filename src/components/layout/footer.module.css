@@ -1,0 +1,14 @@
+.FooterContainer {
+    paddingBottom: var(--spacing-group);
+    paddingTop: var(--spacing-group);
+}
+
+.LinkContainer {
+    width: 100%; 
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    vertical-align: baseline;
+    gap: var(--spacing-group);
+    grid-column-end: -1
+}

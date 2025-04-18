@@ -1,8 +1,8 @@
 .TypographyBase {
     margin: 0;
     padding: 0;
-    whiteSpace: nowrap;
-    textWrap: wrap;
+    white-space: nowrap;
+    text-wrap: wrap;
 }
 
 .TypographyH1 {

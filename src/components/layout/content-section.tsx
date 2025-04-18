@@ -2,29 +2,24 @@ import * as Container from "@/components/ui/container";
 import Grid from "@/components/ui/grid";
 import * as SlideUp from "@/components/ui/slideup-effect";
 import Divider from "@/components/ui/divider";
-import { solidBackground } from "@/components/ui/util";
 
 import React from "react";
-import { css, styled } from "@pigment-css/react";
+import style from './content-section.module.css'
 
-const ContentContainer = styled("div")(({ theme }) => ({
-    position: "sticky", top: theme.size.header.height, paddingBottom: theme.spacing.paragraph
-}))
 
 const ContentSection = React.forwardRef<
     HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { header?: React.ReactNode }
 >(
     function ContentSection({ children, header, className, ...other }, ref) {
         return (
-            <Container.FullWidth {...other} className={[solidBackground, className].join(" ")} ref={ref}>
+            <Container.FullWidth {...other} className={className} ref={ref}
+                style={{ backgroundColor: "rgb(var(--color-default-background))" }}>
                 <Divider />
-                <Grid columns={4} className={css(({ theme }) => ({
-                    paddingBottom: theme.spacing.group, paddingTop: theme.spacing.group,
-                }))}>
+                <Grid columns={4} className={style.ContentGrid}>
                     <SlideUp.Div style={{ gridColumn: "span 1 / span 1" }}>
-                        <ContentContainer>
+                        <div className={style.ContentContainer}>
                             {header}
-                        </ContentContainer>
+                        </div>
                     </SlideUp.Div>
 
                     {children}

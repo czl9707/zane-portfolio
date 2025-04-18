@@ -1,0 +1,10 @@
+.ContentContainer {
+    position: sticky;
+    top: var(--size-header-height);
+    padding-bottom: var(--spacing-paragraph);
+}
+
+.ContentGrid {
+    padding-bottom: var(--spacing-group);
+    padding-top: var(--spacing-group);
+}

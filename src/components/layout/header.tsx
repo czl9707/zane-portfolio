@@ -2,55 +2,36 @@
 
 import * as Container from "@/components/ui/container";
 import * as T from "@/components/ui/typography";
-import { solidBackground } from "@/components/ui/util";
 import Button from "@/components/ui/button";
-import * as SlideUp from "@/components/ui/slideup-effect";
-
 
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
-import { css, keyframes, styled } from "@pigment-css/react";
+import * as React from 'react'
 
-const slideDownEffect = keyframes({
-    from: { transform: "translateY(-100%)", },
-    to: { transform: "none", },
-})
+import style from './header.module.css'
 
+const NavigationList = ({ children }: { children: React.ReactNode }) => {
+    return <NavigationMenu.List className={style.NavigationList}>
+        {children}
+    </NavigationMenu.List>
+}
+const NavigationTriggerWithChildren = ({ children }: { children: React.ReactNode }) => {
+    return <NavigationMenu.Trigger className={style.NavigationTriggerWithChildren} asChild>
+        {children}
+    </NavigationMenu.Trigger>
+}
+const MenuContainer = ({ children }: { children: React.ReactNode }) => {
+    return <div className={style.MenuContainer}>
+        {children}
+    </div>
+}
 
-const HeaderContainer = styled(Container.FullWidth)(({ theme }) => ({
-    position: "fixed", top: 0, height: theme.size.header.height,
-    zIndex: 50, width: "100vw",
-    display: "flex", flexDirection: "row", alignItems: "center", gap: theme.spacing.paragraph,
-    animation: `${slideDownEffect} ${theme.transition.long} cubic-bezier(0.75, 0, 0.25, 1) forwards`,
-}));
-
-const MenuContainer = styled("div")(({ theme }) => ({
-    position: "relative",
-    "&>div": {
-        animation: `${SlideUp.effect} ${theme.transition.short} ease-out both`,
-        display: "flex", position: "absolute",
-        flexDirection: "column", alignItems: "stretch", borderRadius: theme.size.border.radius,
-        paddingTop: ".5rem", paddingBottom: ".5rem", top: ".5rem", right: 0, width: "max-content",
-        backgroundColor: `rgb(${theme.vars.color.default.foreground} / 15% )`,
-        backdropFilter: "blur(1rem)"
-    },
-}))
-
-const NavigationTriggerWithChildren = styled(NavigationMenu.Trigger)(({ theme }) => ({
-    svg: { transitionDuration: theme.transition.short },
-    "&[state=open]": {
-        svg: { transform: "rotate(180deg)" }
-    },
-}));
-const NavigationList = styled(NavigationMenu.List)(({ theme }) => ({
-    display: "flex", flexDirection: "row",
-    gap: theme.spacing.paragraph, alignItems: "center"
-}))
 
 export default function Header() {
     return (
-        <HeaderContainer className={solidBackground}>
+        <Container.FullWidth className={style.HeaderContainer}
+            style={{ backgroundColor: "rgb(var(--color-default-background))" }}>
             <Link href={"/"}>
                 <T.H5 style={{ cursor: "pointer", fontWeight: 900 }}>
                     ZANE.C
@@ -59,15 +40,10 @@ export default function Header() {
 
             <div style={{ flex: "1 1" }} />
 
-            <NavigationMenu.Root className={css(({ theme }) => {
-                return ({
-                    display: "block",
-                    [`@media(max-width: ${theme.breakpoint.sm})`]: { display: "none", }
-                })
-            })}>
+            <NavigationMenu.Root className={style.ShowOnPhone}>
                 <NavigationList>
                     <NavigationMenu.Item>
-                        <NavigationTriggerWithChildren asChild>
+                        <NavigationTriggerWithChildren>
                             <Button variant="filled" color="transparent"
                                 style={{ display: "flex", flexDirection: "row", gap: ".5rem", alignItems: "center" }}>
                                 <span>Works</span>
@@ -100,10 +76,7 @@ export default function Header() {
                 </NavigationList>
             </NavigationMenu.Root>
 
-            <NavigationMenu.Root className={css(({ theme }) => ({
-                display: "block",
-                [`@media(min-width: ${theme.breakpoint.sm})`]: { display: "none", }
-            }))}>
+            <NavigationMenu.Root className={style.NoShowOnPhone}>
                 <NavigationList>
                     <NavigationMenu.Item>
                         <NavigationMenu.Trigger asChild>
@@ -132,6 +105,6 @@ export default function Header() {
                     </NavigationMenu.Item>
                 </NavigationList>
             </NavigationMenu.Root>
-        </HeaderContainer >
+        </Container.FullWidth >
     )
 }

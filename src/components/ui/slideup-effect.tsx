@@ -39,12 +39,9 @@ const SlideUpFullWidthContainer = slideUpFactory(Container.FullWidth);
 const SlideUpDiv = slideUpFactory('div');
 const SlideUpGrid = slideUpFactory<{ columns: number }>(Grid);
 
-const slideUpEffect = style.SlideUpEffect;
-
 export {
     SlideUpFullWidthContainer as FullWidth,
     SlideUpDiv as Div,
     SlideUpGrid as Grid,
-    slideUpEffect as effect,
     slideUpFactory as factory,
 }

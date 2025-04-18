@@ -1,0 +1,66 @@
+@keyframes SlideDown {
+    from { transform: translateY(-100%); }
+    to { transform: none; }
+}
+
+@keyframes SlideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: none; opacity: 1; }
+}
+
+
+.HeaderContainer {
+    position: fixed;
+    top: 0;
+    height: var(--size-header-height);
+    z-index: 50;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-paragraph);
+    animation: SlideDown var(--transition-long) cubic-bezier(0.75,0,0.25,1) forwards;
+}
+
+.MenuContainer {
+    position: relative;
+    &>div {
+        animation: SlideUp var(--transition-short) ease-out both;
+        display: flex;
+        position: absolute;
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: var(--size-border-radius);
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+        top: .5rem;
+        right: 0;
+        width: max-content;
+        background-color: rgb(var(--color-default-foreground) / 15% );
+        backdrop-filter: blur(1rem);
+    }
+}
+
+.NavigationTriggerWithChildren {
+    svg { transition-duration: var(--transition-short) }
+    &[state='open'] {
+        svg { transform: rotate(180deg) }
+    }
+}
+
+.NavigationList {
+    display: flex; 
+    flex-direction: row;
+    gap: var(--spacing-paragraph);
+    align-items: center;
+}
+
+.ShowOnPhone {
+    display: block;
+    @media(--smaller-than-xs) { display: none; }
+}
+
+.NoShowOnPhone {
+    display: block;
+    @media(--larger-than-xs) { display: none; }
+}

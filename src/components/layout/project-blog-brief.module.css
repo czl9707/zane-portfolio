@@ -1,0 +1,23 @@
+.BriefContainer {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--spacing-component);
+    flex-direction: column;
+
+    @media(--larger-than-md) { 
+        flex-direction: row;
+    }
+  
+    /* divider */
+    & + span {
+      margin-top: var(--spacing-group);
+      transition: border-top-color var(--transition-short);
+    };
+
+  
+    &:hover {
+        & + span {
+            border-top-color: rgb(var(--color-default-foreground));
+        }
+    }
+}

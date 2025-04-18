@@ -1,0 +1,27 @@
+.ShowOnSM {
+    display: block;
+    @media(--smaller-than-sm) { display: none; }
+}
+
+.NoShowOnSM {
+    display: block;
+    @media(--larger-than-sm) { display: none; }
+}
+
+.TitleContainer {
+    padding-bottom: var(--spacing-paragraph);
+    padding-top: var(--spacing-block);
+}
+
+.LinkWithTag {
+    &::before {
+        content: "#"; 
+        position: absolute;
+        transform: translateX(-145%);
+        transition: opacity var(--transition-short);
+        opacity: 0;
+    }
+    &:hover::before {
+        opacity: 0.3;
+    }
+}
