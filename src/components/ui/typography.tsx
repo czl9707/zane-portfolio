@@ -1,29 +1,25 @@
-import { CSSPropertiesWithCallback, styled } from "@pigment-css/react";
-import { ThemeArgs, TypographyVairation } from "@pigment-css/react/theme";
+import * as React from 'react';
+import clsx from "clsx";
+import style from './typography.module.css';
 
-
-function styledTypographyPropsFactory(
-    typographyVariation: TypographyVairation,
-    isParagraph: boolean = false
-): ((themeArgs: ThemeArgs) => CSSPropertiesWithCallback<object>) {
-    return ({ theme }: ThemeArgs) => ({
-        margin: 0, padding: 0, whiteSpace: "nowrap", textWrap: "wrap",
-        fontFamily: theme.typographies[typographyVariation].fontFamily,
-        fontSize: theme.typographies[typographyVariation].fontSize,
-        fontWeight: theme.typographies[typographyVariation].fontWeight,
-        lineHeight: theme.typographies[typographyVariation].lineHeight,
-        paddingBlockEnd: isParagraph ? theme.spacing.paragraph : undefined,
-    });
+function styledTypographyFactory(
+    Comp: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p',
+    variantClassName: string
+) {
+    return React.forwardRef<HTMLParagraphElement, React.HTMLProps<HTMLParagraphElement>>(
+        function StyledTypography({ className, ...others }, ref) {
+            return <Comp ref={ref} {...others}
+                className={clsx(style.TypographyBase, variantClassName, className)} />
+        }
+    )
 }
 
-export const H1 = styled("h1")(styledTypographyPropsFactory("h1"));
-export const H2 = styled("h2")(styledTypographyPropsFactory("h2"));
-export const H3 = styled("h3")(styledTypographyPropsFactory("h3"));
-export const H4 = styled("h4")(styledTypographyPropsFactory("h4"));
-export const H5 = styled("h5")(styledTypographyPropsFactory("h5"));
-export const H6 = styled("h6")(styledTypographyPropsFactory("h6"));
-export const Body1 = styled("p")(styledTypographyPropsFactory("body1"));
-export const Body2 = styled("p")(styledTypographyPropsFactory("body2"));
-export const Button = styled("p")(styledTypographyPropsFactory("button"));
-export const Paragraph1 = styled("p")(styledTypographyPropsFactory("body1", true));
-export const Paragraph2 = styled("p")(styledTypographyPropsFactory("body2", true));
+export const H1 = styledTypographyFactory("h1", style.TypographyH1);
+export const H2 = styledTypographyFactory("h2", style.TypographyH2);
+export const H3 = styledTypographyFactory("h3", style.TypographyH3);
+export const H4 = styledTypographyFactory("h4", style.TypographyH4);
+export const H5 = styledTypographyFactory("h5", style.TypographyH5);
+export const H6 = styledTypographyFactory("h6", style.TypographyH6);
+export const Body1 = styledTypographyFactory("p", style.TypographyBody1);
+export const Body2 = styledTypographyFactory("p", style.TypographyBody2);
+export const Button = styledTypographyFactory("p", style.TypographyButton);
