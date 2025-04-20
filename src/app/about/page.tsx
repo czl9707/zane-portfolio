@@ -21,7 +21,7 @@ export default async function Page() {
     const content = await AboutMe.getContents();
 
     return <>
-        <StickyHero>
+        <StickyHero style={{ display: "flex", flexDirection: "column" }}>
             <Spacer style={{ flex: "1 1" }} />
             <SlidingDownIcon />
             <Spacer />

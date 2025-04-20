@@ -12,7 +12,7 @@ export const revalidate = 14400;
 
 export default async function NotFound() {
     return (
-        <StickyHero>
+        <StickyHero style={{ display: "flex", flexDirection: "column" }}>
             <Spacer style={{ flex: "1 1" }} />
 
             <Grid columns={3}>

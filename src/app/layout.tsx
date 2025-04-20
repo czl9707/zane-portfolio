@@ -1,5 +1,3 @@
-import '@pigment-css/react/styles.css';
-
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import ScollToTopOnNavigate from "@/components/layout/scroll-to-top";

@@ -51,7 +51,7 @@ export default async function Page() {
 
 function IntroSection() {
   return (
-    <StickyHero>
+    <StickyHero style={{ display: "flex", flexDirection: "column" }}>
       <Grid columns={3}>
         <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
           <T.H4>
@@ -75,7 +75,9 @@ const FullWidthName = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivEl
       <SlideUp.Div {...props} ref={ref}
         style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
         <svg width={"100%"} viewBox="0 0 45 8">
-          <text className={style.SVGText} x="50%" y="50%" width={45} fontSize={"8px"} fontWeight={700}
+          <text className={style.SVGText} x="50%" y="50%"
+            textLength={45} lengthAdjust="spacingAndGlyphs"
+            fontWeight={700} fontSize="7.2px"
             dominantBaseline="middle" textAnchor="middle"
           >
             ZANE CHEN
