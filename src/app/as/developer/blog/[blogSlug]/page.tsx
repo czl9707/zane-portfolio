@@ -6,13 +6,13 @@ import Divider from '@/components/ui/divider';
 import Spacer from "@/components/ui/spacer";
 import * as SideCatagory from "@/components/layout/side-catagory"
 import * as BlogPageLayout from "@/components/dev-blog/page-layout";
+import StickyHero from '@/components/layout/sticky-hero';
 
 import * as ZaneDevBlog from '@/lib/cms/zane-dev-blog'
 import { DateAsString } from '@/lib/utils/date';
 
 import React from 'react';
 import { Metadata } from 'next';
-import { css } from "@pigment-css/react";
 import { notFound } from "next/navigation";
 
 import style from './page.module.css';
@@ -70,34 +70,33 @@ function RespondingText({ BigComp, SmallComp, children, style: extraStyle }: {
 }
 
 function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
-    return <>
-        <BlogPageLayout.Layout className={css(({ theme }) => ({
-            paddingTop: `calc(${theme.size.header.height})`,
-            position: "sticky", top: "0", minHeight: "100vh",
-        }))}>
-            <BlogPageLayout.Content style={{ margin: "auto" }}>
-                <RespondingText BigComp={T.H2} SmallComp={T.H4}>
-                    {blog.title}
-                </RespondingText>
-                <Spacer spacing="paragraph" />
+    return (
+        <StickyHero asChild>
+            <BlogPageLayout.Layout>
+                <BlogPageLayout.Content style={{ margin: "auto" }}>
+                    <RespondingText BigComp={T.H2} SmallComp={T.H4}>
+                        {blog.title}
+                    </RespondingText>
+                    <Spacer spacing="paragraph" />
 
-                <RespondingText BigComp={T.H5} SmallComp={T.Body1} style={{ opacity: 0.75 }}>
-                    {blog.description}
-                </RespondingText>
+                    <RespondingText BigComp={T.H5} SmallComp={T.Body1} style={{ opacity: 0.75 }}>
+                        {blog.description}
+                    </RespondingText>
 
-                <Spacer spacing="component" />
-                <T.Body1>
-                    <span style={{ opacity: 0.75 }}>Created On </span>{DateAsString(blog.createdDate)}
-                    {
-                        blog.tags && <>
-                            <span style={{ opacity: 0.75 }}> With Tags </span>{blog.tags.join(", ")}
-                        </>
-                    }
-                </T.Body1>
-            </BlogPageLayout.Content>
-            <BlogPageLayout.Catagory />
-        </BlogPageLayout.Layout>
-    </>
+                    <Spacer spacing="component" />
+                    <T.Body1>
+                        <span style={{ opacity: 0.75 }}>Created On </span>{DateAsString(blog.createdDate)}
+                        {
+                            blog.tags && <>
+                                <span style={{ opacity: 0.75 }}> With Tags </span>{blog.tags.join(", ")}
+                            </>
+                        }
+                    </T.Body1>
+                </BlogPageLayout.Content>
+                <BlogPageLayout.Catagory />
+            </BlogPageLayout.Layout>
+        </StickyHero>
+    )
 }
 
 

@@ -46,12 +46,9 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className={
-        [redHatDisplay.variable, redHatMono.variable].join(" ")
-      } data-theme="dark"
-      >
+      <body data-theme="dark">
         <Header />
-        <div style={{ minHeight: "100vh" }}>
+        <div style={{ minHeight: "100vh", isolation: "isolate" }}>
           {children}
         </div>
         <Footer />

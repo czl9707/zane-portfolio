@@ -16,7 +16,7 @@ const ContentLayout = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivEl
 const ContentContainer = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
     function ContentContainer({ className, ...other }, ref) {
         return (
-            <Container.FullWidth className={clsx(style.ContentContainer, className)}
+            <div className={clsx(style.ContentContainer, className)}
                 ref={ref} {...other} />
         )
     }
@@ -24,7 +24,7 @@ const ContentContainer = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDi
 const CatagoryContainer = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
     function CatagoryContainer({ className, ...other }, ref) {
         return (
-            <Container.FullWidth className={clsx(style.CatagoryContainer, className)}
+            <div className={clsx(style.CatagoryContainer, className)}
                 ref={ref} {...other} />
         )
     }

@@ -15,8 +15,9 @@
     }
 
     .ContentContainer {
+        margin-top: var(--spacing-block);
         grid-column: span 5 / span 5;
-        position: 'relative'
+        position: relative;
     }
 
     .CatagoryContainer {

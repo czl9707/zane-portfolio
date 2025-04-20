@@ -51,20 +51,22 @@ export default async function Page() {
 
 function IntroSection() {
   return (
-    <StickyHero style={{ display: "flex", flexDirection: "column" }}>
-      <Grid columns={3}>
-        <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
-          <T.H4>
-            Precision in detail, vision in design, <br />
-            building things one block at a time.
-          </T.H4>
-        </SlideUp.Div>
-      </Grid>
+    <StickyHero asChild style={{ display: "flex", flexDirection: "column" }}>
+      <Container.FullWidth>
+        <Grid columns={3}>
+          <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
+            <T.H4>
+              Precision in detail, vision in design, <br />
+              building things one block at a time.
+            </T.H4>
+          </SlideUp.Div>
+        </Grid>
 
-      <Spacer style={{ flex: "1 1" }} />
-      <SlidingDownIcon />
-      <Spacer />
-      <FullWidthName style={{ bottom: 0, top: "auto" }} />
+        <Spacer style={{ flex: "1 1" }} />
+        <SlidingDownIcon />
+        <Spacer />
+        <FullWidthName style={{ bottom: 0, top: "auto" }} />
+      </Container.FullWidth>
     </StickyHero>
   )
 }

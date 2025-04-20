@@ -1,4 +1,3 @@
-import * as SlideUp from "@/components/ui/slideup-effect";
 import * as T from "@/components/ui/typography";
 import Grid from "@/components/ui/grid";
 import * as Container from "@/components/ui/container";
@@ -19,10 +18,10 @@ import { themeVars } from "@/lib/theme";
 import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { css } from "@pigment-css/react";
 import { notFound } from "next/navigation";
 
 import style from './page.module.css'
+import StickyHero from "@/components/layout/sticky-hero";
 
 export const revalidate = 14400;
 export async function generateStaticParams(): Promise<{ projectSlug: string }[]> {
@@ -40,12 +39,21 @@ export default async function Page({ params }: { params: Promise<{ projectSlug: 
     return <>
         <ProjectHead project={project} />
 
-        {
-            project.content.map((sec) => (
-                <Section blocks={sec.blocks} sectionName={sec.catagory[sec.catagory.length - 1]}
-                    headerVisible={sec.visible} key={sec.catagory.join("")} />
-            ))
-        }
+        <Container.FullWidth style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
+            <Divider />
+
+            <ArchProjectContentBlock block={{
+                blockType: "fullText",
+                title: "Project Overview",
+                text: project.description
+            }} />
+            {
+                project.content.map((sec) => (
+                    <Section blocks={sec.blocks} sectionName={sec.catagory[sec.catagory.length - 1]}
+                        headerVisible={sec.visible} key={sec.catagory.join("")} />
+                ))
+            }
+        </Container.FullWidth>
 
         <OtherProjects current={project} />
     </>
@@ -53,12 +61,11 @@ export default async function Page({ params }: { params: Promise<{ projectSlug: 
 
 function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
     return (
-        <>
-            <Container.FullWidth className={css(({ theme }) => ({
-                marginTop: theme.size.header.height, paddingTop: theme.spacing.group, paddingBottom: theme.spacing.group
-            }))}>
+        <StickyHero>
+            <Container.FullWidth>
+                <Spacer spacing="group" />
                 <Grid columns={4} style={{ alignItems: "flex-end" }}>
-                    <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
+                    <div style={{ gridColumn: "span 2 / span 2" }}>
                         <T.H2 >{project.title.toUpperCase()}</T.H2>
                         <T.H5 style={{ opacity: 0.75, textWrap: "pretty" }}>{project.subTitle}</T.H5>
                         <div className={style.TagContainer}>
@@ -71,11 +78,11 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                                 ))
                             }
                         </div>
-                    </SlideUp.Div>
+                    </div>
 
                     <span className={style.ProjectHeadSpacer} />
 
-                    <SlideUp.Div style={{ gridColumn: "span 1 / span 1" }}>
+                    <div style={{ gridColumn: "span 1 / span 1" }}>
                         <T.Body1>When</T.Body1>
                         <T.H6>
                             {DateRangeAsString(project.startDate, project.endDate)}
@@ -84,21 +91,17 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
 
                         <T.Body1>Who</T.Body1>
                         <T.H6>{project.contributors}</T.H6>
-                    </SlideUp.Div>
+                    </div>
                 </Grid>
-            </Container.FullWidth>
 
-            <ArchProjectContentBlock block={{
-                blockType: "fullSizeImage",
-                image: project.cover
-            }} />
-            <Spacer />
-            <ArchProjectContentBlock block={{
-                blockType: "fullText",
-                title: "Project Overview",
-                text: project.description
-            }} />
-        </>
+                <ArchProjectContentBlock block={{
+                    blockType: "fullSizeImage",
+                    image: project.cover
+                }} />
+                <Spacer />
+
+            </Container.FullWidth>
+        </StickyHero>
     )
 }
 

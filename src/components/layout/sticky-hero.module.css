@@ -4,8 +4,8 @@
     height: 100vh;
     width: 100%;
     z-index: -1;
-    /* display: flex;
-    flex-direction: column; */
+    overflow-y: scroll;
+
     &::-webkit-scrollbar {
         display: none
     }
@@ -15,5 +15,6 @@
     padding-top: var(--size-header-height);
     padding-bottom: var(--spacing-paragraph);
     min-height: 100vh;
+    height: fit-content;
     line-height: 0;
 }

@@ -5,6 +5,7 @@
     margin-right: auto;
     margin-top: var(--spacing-group);
     margin-bottom: var(--spacing-group);
+    background-color: var(--color-default-background);
 }
 
 .Image {

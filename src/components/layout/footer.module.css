@@ -1,6 +1,6 @@
 .FooterContainer {
-    paddingBottom: var(--spacing-group);
-    paddingTop: var(--spacing-group);
+    padding-bottom: var(--spacing-group);
+    padding-top: var(--spacing-group);
 }
 
 .LinkContainer {
