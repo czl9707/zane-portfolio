@@ -15,6 +15,7 @@ import { Metadata } from 'next';
 import { css } from "@pigment-css/react";
 import { notFound } from "next/navigation";
 
+import style from './page.module.css';
 
 export const revalidate = 14400;
 export async function generateStaticParams(): Promise<{ blogSlug: string }[]> {
@@ -30,7 +31,7 @@ export default async function Page({ params }: { params: Promise<{ blogSlug: str
         () => notFound(),
     );
 
-    const markdownBlocks = await DevBlogContentBlock.toMarkdownBlocks(blog.content);
+    const markdownBlocks = DevBlogContentBlock.toMarkdownBlocks(blog.content);
 
     return (
         <SideCatagory.Context catagories={
@@ -57,20 +58,14 @@ export default async function Page({ params }: { params: Promise<{ blogSlug: str
     )
 }
 
-function RespondingText({ BigComp, SmallComp, children, style }: {
+function RespondingText({ BigComp, SmallComp, children, style: extraStyle }: {
     BigComp: React.ElementType<React.HTMLProps<HTMLDivElement>>,
     SmallComp: React.ElementType<React.HTMLProps<HTMLDivElement>>,
     children: string, style?: React.CSSProperties
 }) {
     return <>
-        <BigComp style={style} className={
-            css(({ theme }) => ({
-                [`@media(max-width: ${theme.breakpoint.sm})`]: { display: "none" },
-            }))}>{children}</BigComp>
-        <SmallComp style={style} className={
-            css(({ theme }) => ({
-                [`@media(min-width: ${theme.breakpoint.sm})`]: { display: "none" },
-            }))}>{children}</SmallComp>
+        <BigComp style={extraStyle} className={style.ShowOnMobile}>{children}</BigComp>
+        <SmallComp style={extraStyle} className={style.NoShowOnMobile}>{children}</SmallComp>
     </>
 }
 

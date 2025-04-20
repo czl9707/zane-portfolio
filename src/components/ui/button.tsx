@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import { ColorVariation } from "@pigment-css/react/theme"
 import clsx from 'clsx';
 
 import buttonStyle from './button.module.css';
+import { themeVars, ColorVariation } from '@/lib/theme';
 
 type ButtonColorVariation = ColorVariation | "transparent"
 
@@ -26,10 +26,10 @@ const ButtonBase = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivEleme
 )
 
 const FilledButton = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { color?: ButtonColorVariation }>(
-    function FilledButton({ className, style, color, ...others }, ref) {
-        const textColor = color === "transparent" ? `var(--color-${color}-foreground)` : `var(--color-${color}-background)`;
-        const backgroundColor = color === "transparent" ? "transparent" : `var(--color-${color}-foreground)`;
-        const maskColor = `var(--color-default-${color === "transparent" ? "foreground" : "background"})`;
+    function FilledButton({ className, style, color = 'default', ...others }, ref) {
+        const textColor = color === "transparent" ? themeVars.color.default.foreground : themeVars.color[color].background;
+        const backgroundColor = color === "transparent" ? "transparent" : themeVars.color[color].foreground;
+        const maskColor = themeVars.color.default[color === "transparent" ? "foreground" : "background"];
 
         return (
             <ButtonBase className={clsx(className, buttonStyle.FilledButtonContainer)}
@@ -45,10 +45,10 @@ const FilledButton = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivEle
 );
 
 const OutlineButton = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { color?: ButtonColorVariation }>(
-    function OutlineButton({ className, style, color, ...others }, ref) {
-        const textColor = `var(--color-${color === 'transparent' ? 'default' : color}-foreground)`;
-        const backgroundColor = color === "transparent" ? "transparent" : `var(--color-${color}-background)`;
-        const maskColor = `var(--color-default-foreground)`;
+    function OutlineButton({ className, style, color = 'default', ...others }, ref) {
+        const textColor = themeVars.color[color === 'transparent' ? 'default' : color].foreground;
+        const backgroundColor = color === "transparent" ? "transparent" : themeVars.color[color].background;
+        const maskColor = themeVars.color.default.foreground;
 
         return (
             <ButtonBase className={clsx(className, buttonStyle.OutlineButtonContainer)}

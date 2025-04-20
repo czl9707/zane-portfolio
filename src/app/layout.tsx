@@ -8,7 +8,7 @@ import ScollToTopOnNavigate from "@/components/layout/scroll-to-top";
 import { Geist, Red_Hat_Mono } from "next/font/google";
 import type { Metadata } from "next";
 
-import './global.css'
+import '@/css/global.css'
 import clsx from 'clsx';
 
 const redHatDisplay = Geist({

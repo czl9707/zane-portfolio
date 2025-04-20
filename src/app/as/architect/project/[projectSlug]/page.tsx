@@ -7,7 +7,6 @@ import ArchProjectContentBlock from '@/components/arch-project/content-blocks';
 import TitleSection from '@/components/layout/title-section';
 import ArchitectureProjectCard from '@/components/arch-project/arch-project-brief';
 import Divider from '@/components/ui/divider';
-import { solidBackground } from '@/components/ui/util';
 import Spacer from "@/components/ui/spacer";
 import ExtendingButton from "@/components/ui/extending-button";
 
@@ -15,12 +14,15 @@ import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
 import * as ContentBlock from '@/lib/cms/content-blocks'
 import { randomNoRepeats } from '@/lib/utils/random-array';
 import { DateRangeAsString } from '@/lib/utils/date';
+import { themeVars } from "@/lib/theme";
 
 import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { css } from "@pigment-css/react";
 import { notFound } from "next/navigation";
+
+import style from './page.module.css'
 
 export const revalidate = 14400;
 export async function generateStaticParams(): Promise<{ projectSlug: string }[]> {
@@ -59,10 +61,7 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                     <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
                         <T.H2 >{project.title.toUpperCase()}</T.H2>
                         <T.H5 style={{ opacity: 0.75, textWrap: "pretty" }}>{project.subTitle}</T.H5>
-                        <div className={css(({ theme }) => ({
-                            display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
-                            paddingTop: theme.spacing.paragraph, gap: ".5rem"
-                        }))}>
+                        <div className={style.TagContainer}>
                             {
                                 project.tags?.map(t => (
                                     <Button style={{ pointerEvents: "none" }}
@@ -74,10 +73,7 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                         </div>
                     </SlideUp.Div>
 
-                    <span className={css(({ theme }) => ({
-                        gridColumn: "span 1 / span 1",
-                        [`@media(max-width: ${theme.breakpoint.md})`]: { display: "none" }
-                    }))} />
+                    <span className={style.ProjectHeadSpacer} />
 
                     <SlideUp.Div style={{ gridColumn: "span 1 / span 1" }}>
                         <T.Body1>When</T.Body1>
@@ -130,10 +126,7 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
     return (
         <>
             <TitleSection>
-                <div className={css(({ theme }) => ({
-                    display: "flex", flexDirection: "row", width: "100%", alignItems: "flex-end",
-                    [`@media(max-width: ${theme.breakpoint.md})`]: { flexDirection: "column" },
-                }))}>
+                <div className={style.TitleContainer}>
                     <TitleSection.Heading>Other Projects</TitleSection.Heading>
                     <Link href={"/as/architect/project"} style={{ flex: "1 1" }}
                         className={ExtendingButton.hoverContext}>
@@ -142,7 +135,7 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
                 </div>
             </TitleSection >
 
-            <Container.FullWidth className={solidBackground}>
+            <Container.FullWidth style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
                 <Divider />
                 <Spacer />
                 <Grid columns={2}>

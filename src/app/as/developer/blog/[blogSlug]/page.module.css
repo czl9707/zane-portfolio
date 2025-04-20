@@ -1,0 +1,12 @@
+.ShowOnMobile {
+    @media(--smaller-than-sm) {
+        display: none;
+    }
+
+}
+
+.NoShowOnMobile {
+    @media(--larger-than-sm) {
+        display: none;
+    }
+}

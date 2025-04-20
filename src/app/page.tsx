@@ -10,7 +10,6 @@ import ContentSection from "@/components/layout/content-section";
 import Button from "@/components/ui/button";
 import BriefsContainer from '@/components/layout/briefs-container'
 import * as Markdown from "@/components/ui/markdown";
-import { solidBackground } from "@/components/ui/util";
 import DevProjectBrief from "@/components/dev-project/dev-project-card";
 import DevBlogBrief from "@/components/dev-blog/dev-blog-brief";
 import SlidingDownIcon from "@/components/ui/sliding-down-icon";
@@ -23,10 +22,11 @@ import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
 
 import Link from "next/link";
 import React from "react";
-import { styled, css } from "@pigment-css/react";
 import ExtendingButton from "@/components/ui/extending-button";
 import StickyHero from "@/components/layout/sticky-hero";
 
+import style from './page.module.css';
+import { themeVars } from "@/lib/theme";
 
 export const revalidate = 14400;
 
@@ -41,7 +41,7 @@ export default async function Page() {
       <DeveloperSection projects={content.featuredDevProjects} blogs={content.featuredBlogs} />
       <ArchitectSection projects={content.featuredArchProjects} />
 
-      <Container.FullWidth className={solidBackground}>
+      <Container.FullWidth style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
         <FullWidthName />
       </Container.FullWidth>
     </>
@@ -69,21 +69,17 @@ function IntroSection() {
   )
 }
 
-const SVGText = styled("text")(({ theme }) => ({
-  fill: `rgb(${theme.vars.color.default.foreground})`,
-  fontFamily: theme.typographies.h1.fontFamily, userSelect: "none",
-}))
-
 const FullWidthName = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
-  function FullWidthName({ className, ...others }, ref) {
+  function FullWidthName(props, ref) {
     return (
-      <SlideUp.Div {...others} ref={ref} className={[solidBackground, className].join(" ")}>
+      <SlideUp.Div {...props} ref={ref}
+        style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
         <svg width={"100%"} viewBox="0 0 45 8">
-          <SVGText x="50%" y="50%" width={45} fontSize={"8px"} fontWeight={700}
+          <text className={style.SVGText} x="50%" y="50%" width={45} fontSize={"8px"} fontWeight={700}
             dominantBaseline="middle" textAnchor="middle"
           >
             ZANE CHEN
-          </SVGText>
+          </text>
         </svg>
       </SlideUp.Div>
     );
@@ -160,10 +156,7 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
   return (
     <>
       <TitleSection>
-        <div className={css(({ theme }) => ({
-          display: "flex", flexDirection: "column", width: "100%", alignItems: "stretch",
-          [`@media(min-width: ${theme.breakpoint.md})`]: { flexDirection: "row", alignItems: "flex-end" },
-        }))}>
+        <div className={style.ResponsiveTitle}>
           <TitleSection.Heading id="as_an_architect" >ONCE AN ARCHITECT</TitleSection.Heading>
           <Link href={"/as/architect/project"} style={{ flex: "1 1" }}
             className={ExtendingButton.hoverContext}>
@@ -172,7 +165,7 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
         </div>
       </TitleSection >
 
-      <Container.FullWidth className={solidBackground}>
+      <Container.FullWidth style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
         <Divider />
         <Spacer />
         <Grid columns={2}>
@@ -185,8 +178,10 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
         <Spacer />
       </Container.FullWidth>
 
-      <Container.FullWidth className={solidBackground}
-        style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <Container.FullWidth style={{
+        display: "flex", flexDirection: "column", alignItems: "center",
+        backgroundColor: `rgb(${themeVars.color.default.background})`
+      }}>
         <SlideUp.Div >
           <Link href="/as/architect/project">
             <Button variant="outline">

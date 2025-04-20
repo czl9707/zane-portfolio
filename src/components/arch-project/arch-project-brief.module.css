@@ -1,0 +1,40 @@
+.CardInformationMask {
+    position: absolute;
+    inset: 0;
+    background-color: rgb(var(--color-default-background) / 75%);
+    color: rgb(var(--color-default-foreground));
+    padding: var(--spacing-component);
+    display: flex;
+    flex-direction: column;
+    transition: opacity var(--transition-short);
+}
+
+.CardContainer {
+    overflow: hidden;
+    border-radius: var(--size-border-radius);
+    aspect-ratio: 4/3;
+    width: 100%;
+    position: relative;
+
+    img {
+        position: absolute;
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+        transition: transform var(--transition-short);
+    }
+
+    .CardInformationMask { opacity: 0; }
+
+    & h3,
+    h6,
+    p { text-align: center }
+
+    &:hover {
+        img {
+            transform: scaleX(105%) scaleY(105%);
+        }
+
+        .CardInformationMask { opacity: 1; }
+    }
+}

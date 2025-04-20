@@ -2,6 +2,7 @@ import * as Container from '@/components/ui/container';
 import * as SlideUp from '@/components/ui/slideup-effect';
 import * as T from '@/components/ui/typography';
 import Divider from '@/components/ui/divider';
+import { themeVars } from '@/lib/theme';
 
 import * as React from 'react';
 import style from './title-section.module.css'
@@ -14,7 +15,7 @@ export default function TitleSection({ children, className, noDivider = false }:
 }) {
     return (
         <Container.FullWidth className={className}
-            style={{ backgroundColor: "rgb(var(--color-default-background))" }}>
+            style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
             {
                 !noDivider && <Divider />
             }

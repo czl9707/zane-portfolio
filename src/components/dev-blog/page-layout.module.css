@@ -1,0 +1,32 @@
+.ContentLayout {
+    display: grid;
+    align-items: start;
+    gap: var(--spacing-component);
+    max-width: var(--breakpoint-lg);
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    background-color: rgb(var(--color-default-background));
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+
+    @media(--smaller-than-md) {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .ContentContainer {
+        grid-column: span 5 / span 5;
+        position: 'relative'
+    }
+
+    .CatagoryContainer {
+        grid-column: span 2 / span 2;
+        position: sticky;
+        margin-top: var(--spacing-block);
+        top: calc(var(--size-header-height) + var(--spacing-component));
+
+        @media(--smaller-than-md) {
+            display: none;
+        }
+    }
+}

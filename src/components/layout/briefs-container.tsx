@@ -1,8 +1,7 @@
 import * as React from 'react';
 import clsx from "clsx";
 
-
-import style from './sticky-hero.module.css'
+import style from './briefs-container.module.css'
 
 const BriefsContainer = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
     function BriefsContainer({ className, ...other }, ref) {

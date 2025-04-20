@@ -3,6 +3,7 @@
 import * as Container from "@/components/ui/container";
 import * as T from "@/components/ui/typography";
 import Button from "@/components/ui/button";
+import { themeVars } from "@/lib/theme";
 
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
@@ -31,7 +32,7 @@ const MenuContainer = ({ children }: { children: React.ReactNode }) => {
 export default function Header() {
     return (
         <Container.FullWidth className={style.HeaderContainer}
-            style={{ backgroundColor: "rgb(var(--color-default-background))" }}>
+            style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
             <Link href={"/"}>
                 <T.H5 style={{ cursor: "pointer", fontWeight: 900 }}>
                     ZANE.C

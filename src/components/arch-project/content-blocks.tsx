@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import * as ContentBlock from '@/lib/cms/content-blocks'
 
 import * as T from '@/components/ui/typography'
@@ -6,22 +7,25 @@ import Grid from '@/components/ui/grid'
 import * as Markdown from '@/components/ui/markdown'
 import Spacer from '@/components/ui/spacer'
 
-import React from 'react'
-import { styled, css } from '@pigment-css/react'
+import * as React from 'react'
 
-const GridBase = styled(Grid)(({ theme }) => ({
-    maxWidth: "72rem", width: "100%", marginLeft: "auto", marginRight: "auto",
-    marginTop: theme.spacing.group, marginBottom: theme.spacing.group
-}));
+import style from './content-blocks.module.css';
+import clsx from 'clsx'
 
-const Image = styled("img")(({ theme }) => ({
-    width: "100%", objectFit: "cover", borderRadius: theme.size.border.radius,
-    [`& + ${T.Body2}`]: {
-        opacity: 0.75, textAlign: "center", marginTop: theme.spacing.paragraph
+const Image = React.forwardRef<HTMLImageElement, React.ImgHTMLAttributes<HTMLImageElement>>(
+    function Image({ className, ...others }, ref) {
+        // eslint-disable-next-line jsx-a11y/alt-text
+        return <img {...others} ref={ref} className={clsx(className, style.Image)} />
     }
-}))
+)
 
-const FullSizeImage = styled(Image)({ width: "100%" });
+const GridBase = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { columns: number }>(
+    function GridBase({ className, ...others }, ref) {
+        return (
+            <Grid className={clsx(className, style.GridBase)} ref={ref} {...others} />
+        )
+    }
+)
 
 function MultiImageBlock({ block }: { block: ContentBlock.MultiImageBlockType }) {
     const maxRowItems = Math.ceil(block.images.length / block.rows)
@@ -50,14 +54,14 @@ function ImageAndTextBlock({ block }: { block: ContentBlock.ImageAndTextBlockTyp
                 <div style={{ gridColumn: "span 1" }}>
                     <T.H5 style={{ opacity: 0.75 }}>{block.title}</T.H5>
                     <Spacer spacing="paragraph" />
-                    <div className={css(({ theme }) => ({ [`@media(min-width: ${theme.breakpoint.md})`]: { width: "85%" } }))}>
+                    <div className={style.ShrinkOnMD}>
                         <Markdown.Default>
                             {block.text}
                         </Markdown.Default>
                     </div>
                 </div>
                 <div style={{ gridColumn: "span 1" }}>
-                    <FullSizeImage src={block.image.url} alt={block.image.alt} />
+                    <Image src={block.image.url} alt={block.image.alt} style={{ width: "100%" }} />
                     {
                         block.annotation &&
                         <T.Body2>{block.annotation}</T.Body2>
@@ -91,7 +95,7 @@ function FullSizeImageBlock({ block }: { block: ContentBlock.FullSizeImageBlockT
     return (
         <SlideUp.FullWidth>
             <Spacer />
-            <FullSizeImage src={block.image.url} alt={block.image.alt} />
+            <Image src={block.image.url} alt={block.image.alt} style={{ width: "100%" }} />
             <Spacer />
         </SlideUp.FullWidth>
     )
