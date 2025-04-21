@@ -31,6 +31,10 @@ body {
     color: rgb(var(--color-default-foreground));
 }
 
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--size-header-height) + var(--spacing-group));
+}
 
 :root {
     --spacing-block: 12rem;

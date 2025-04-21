@@ -15,7 +15,7 @@
 .HoverContext {
     &:hover {
         .ExtendingButtonTypography { 
-            color: rgb(var(--color-default-foreground));
+            color: rgb(var(--color-solar-foreground));
         }
         .ExtendingButtonMark { 
             transform: translateX(1.5rem);

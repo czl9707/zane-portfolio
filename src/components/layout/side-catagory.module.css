@@ -1,11 +1,11 @@
 .CatagoryLinkItem {
-    padding: .25rem var(--vars-spacing-paragraph) .25rem  calc(var(--catagory-depth) * 1.5rem + var(--vars-spacing-paragraph));
+    padding: .25rem var(--spacing-paragraph) .25rem calc(var(--catagory-depth) * 1.5rem + var(--spacing-paragraph));
     background-color: transparent; 
     border-radius: var(--size-border-radius);
-    transition: background-color var(--transition.short);
+    transition: background-color var(--transition-short);
 
     &[data-active=true] {
-        background-color: `rgb(var(--color-default-foreground) / 25%);
+        background-color: rgb(var(--color-default-foreground) / 25%);
     }
     &[data-active=false] {
         &:hover {

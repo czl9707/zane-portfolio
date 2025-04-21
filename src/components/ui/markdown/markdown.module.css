@@ -34,6 +34,10 @@
     h6 {
         margin-top: var(--spacing-paragraph);
     }
+
+    & strong {
+        color: rgb(var(--color-solar-foreground));
+    }
 }
 
 .HighLightMarkdown {
@@ -41,12 +45,11 @@
         transition: color var(--transition-short) linear;
     }
 
-    a {
+    a, strong {
         color: rgb(var(--color-default-foreground))
     }
 
     &:hover {
-
         span,
         li,
         p,
@@ -58,5 +61,10 @@
         h6 {
             color: rgb(var(--color-default-foreground) / 50%);
         }
+
+        a, strong {
+            color: rgb(var(--color-solar-foreground))
+        }
+    
     }
 }
