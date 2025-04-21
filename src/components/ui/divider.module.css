@@ -1,0 +1,6 @@
+.Divider {
+    display: block;
+    width: 100%;
+    border-top: 1px solid rgb(var(--color-default-foreground) / 0.5);
+    background-color: rgb(var(--color-default-background));
+}

@@ -9,14 +9,14 @@ import Spacer from '@/components/ui/spacer'
 import Divider from '@/components/ui/divider'
 
 import React from 'react'
-import { styled } from '@pigment-css/react'
 
 import type { Root, RootContent } from 'mdast';
 import { toString } from 'mdast-util-to-string';
-// these will crash in dev mode ???
 import { toMarkdown } from 'mdast-util-to-markdown';
 import remarkParse from 'remark-parse';
 import { unified } from 'unified';
+
+import style from './content-block.module.css';
 
 const Heading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
     function Heading({ id, ...others }, ref) {
@@ -33,17 +33,12 @@ const Heading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHe
     }
 )
 
-const ContentContainer = styled(SlideUp.Div)(({ theme }) => ({
-    maxWidth: "54rem", width: "100%",
-    marginBottom: theme.spacing.component,
-}));
-
 export function MarkdownBlock({ markdown, hash }: {
     markdown: string,
     hash?: string,
 }) {
     return (
-        <ContentContainer>
+        <SlideUp.Div className={style.ContentContainer}>
             <SideCatagory.Container hash={hash}>
                 <Markdown.Default remarkPlugins={[appendIdToHeading]}
                     components={{
@@ -53,11 +48,9 @@ export function MarkdownBlock({ markdown, hash }: {
                     {markdown}
                 </Markdown.Default>
             </SideCatagory.Container>
-        </ContentContainer>
+        </SlideUp.Div>
     )
 }
-
-
 
 
 export function toMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): ({ markdown: string } & SideCatagory.CatagoryType)[] {
@@ -73,12 +66,8 @@ export function toMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): ({ markdow
         }
     }
 
-    // const { toMarkdown } = (await import('mdast-util-to-markdown'));
-    // const remarkParse = (await import('remark-parse')).default;
-    // const { unified } = await import('unified');
-
     const markdownProcessor = unified().use(remarkParse);
-    const tree = markdownProcessor.parse(markdownDocuments.join("\n"));
+    const tree = markdownProcessor.parse(markdownDocuments.join("\n\n"));
 
     const result: ({ markdowns: RootContent[] } & SideCatagory.CatagoryType)[] = [];
     for (const child of tree.children) {

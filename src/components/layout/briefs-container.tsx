@@ -1,7 +1,15 @@
-import { styled } from "@pigment-css/react";
+import * as React from 'react';
+import clsx from "clsx";
 
-const BriefsContainer = styled("div")(({ theme }) => ({
-    display: "flex", flexDirection: "column", gap: theme.spacing.group
-}));
+import style from './briefs-container.module.css'
 
-export default BriefsContainer
+const BriefsContainer = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
+    function BriefsContainer({ className, ...other }, ref) {
+        return (
+            <div className={clsx(style.BriefsContainer, className)}
+                ref={ref} {...other} />
+        )
+    }
+)
+
+export default BriefsContainer;

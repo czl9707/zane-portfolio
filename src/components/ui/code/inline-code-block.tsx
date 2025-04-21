@@ -1,8 +1,15 @@
-import { styled } from '@pigment-css/react';
+import * as React from 'react';
+import clsx from 'clsx';
 
-const InlineCodeBlock = styled("code")(({ theme }) => ({
-    backgroundColor: `rgb(${theme.vars.color.default.foreground} / 15%)`,
-    borderRadius: theme.size.border.radius, paddingLeft: '.5rem', paddingRight: ".5rem"
-}))
+import style from './inline-code-block.module.css'
+
+const InlineCodeBlock = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
+    function InlineCodeBlock({ className, ...other }, ref) {
+        return (
+            <code className={clsx(style.InlineCodeBlock, className)}
+                {...other} ref={ref} />
+        );
+    }
+)
 
 export default InlineCodeBlock;

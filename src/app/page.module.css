@@ -1,0 +1,17 @@
+.SVGText {
+    fill: rgb(var(--color-default-foreground));
+    font-family: var(--typography-h1-fontFamily);
+    user-select: none;
+}
+
+.ResponsiveTitle {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+    
+    @media(--larger-than-md) { 
+        flex-direction: row;
+        align-items: flex-end 
+    }
+}

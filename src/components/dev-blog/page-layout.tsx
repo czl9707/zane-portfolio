@@ -1,34 +1,34 @@
 import * as Container from "@/components/ui/container";
 
-import { styled } from "@pigment-css/react";
+import * as React from 'react'
+import clsx from "clsx";
 
-const ContentContainer = styled("div")({});
-const CatagoryContainer = styled("div")({});
+import style from './page-layout.module.css';
 
-const ContentLayout = styled(Container.FullWidth)(({ theme }) => ({
-    display: "grid", alignItems: "start", gap: theme.spacing.component,
-    maxWidth: theme.breakpoint.lg, width: "100%",
-    marginLeft: "auto", marginRight: "auto",
-    boxSizing: "border-box",
-    backgroundColor: `rgb(${theme.vars.color.default.background})`,
-
-    gridTemplateColumns: "repeat(7, minmax(0, 1fr))",
-    [`@media(max-width: ${theme.breakpoint.md})`]: {
-        gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
-    },
-    [`${ContentContainer}`]: {
-        gridColumn: "span 5 / span 5", position: 'relative'
-    },
-    [`${CatagoryContainer}`]: {
-        gridColumn: "span 2 / span 2", position: "sticky",
-        marginTop: theme.spacing.block,
-        top: `calc(${theme.size.header.height} + ${theme.spacing.component})`,
-        [`@media(max-width: ${theme.breakpoint.md})`]: {
-            display: "none",
-        },
+const ContentLayout = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
+    function ContentLayout({ className, ...other }, ref) {
+        return (
+            <Container.FullWidth className={clsx(style.ContentLayout, className)}
+                ref={ref} {...other} />
+        )
     }
-}));
-
+)
+const ContentContainer = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
+    function ContentContainer({ className, ...other }, ref) {
+        return (
+            <div className={clsx(style.ContentContainer, className)}
+                ref={ref} {...other} />
+        )
+    }
+)
+const CatagoryContainer = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
+    function CatagoryContainer({ className, ...other }, ref) {
+        return (
+            <div className={clsx(style.CatagoryContainer, className)}
+                ref={ref} {...other} />
+        )
+    }
+)
 
 export {
     ContentLayout as Layout,

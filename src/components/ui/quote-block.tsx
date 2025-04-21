@@ -1,11 +1,15 @@
-import { styled } from "@pigment-css/react";
+import * as React from 'react';
+import clsx from "clsx";
 
-const QuoteBlock = styled("blockquote")(({ theme }) => ({
-    borderLeft: `4px solid rgb(${theme.vars.color.default.foreground} / 0.25)`,
-    paddingLeft: theme.spacing.component,
-    paddingTop: theme.spacing.paragraph,
-    marginBottom: theme.spacing.paragraph,
-    fontStyle: "italic",
-}));
+import style from './divider.module.css'
+
+const QuoteBlock = React.forwardRef<HTMLQuoteElement, React.HTMLProps<HTMLQuoteElement>>(
+    function QuoteBlock({ className, ...other }, ref) {
+        return (
+            <blockquote className={clsx(className, style.QuoteBlock)}
+                ref={ref} {...other} />
+        )
+    }
+)
 
 export default QuoteBlock;

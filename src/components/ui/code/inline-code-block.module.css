@@ -1,0 +1,6 @@
+.InlineCodeBlock {
+    background-color: rgb(var(--color-default-foreground) / 15%);
+    border-Radius: var(--size-border-radius);
+    padding-left: .5rem;
+    padding-right: .5rem;
+}

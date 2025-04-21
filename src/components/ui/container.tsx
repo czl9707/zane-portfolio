@@ -1,12 +1,16 @@
-import { styled } from "@pigment-css/react";
+import * as React from 'react';
+import clsx from "clsx";
 
-const FullWidthContainer = styled("div")(({ theme }) => ({
-    [`@media(min-width: ${theme.breakpoint.xs})`]: {
-        padding: `0 ${theme.spacing.group}`,
-    },
-    padding: `0 calc(${theme.spacing.group} / 2)`,
-    position: "relative", overflowX: "visible", width: "100%", boxSizing: "border-box",
-}))
+import style from './container.module.css'
+
+const FullWidthContainer = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
+    function FullWidthContainer({ className, ...other }, ref) {
+        return (
+            <div className={clsx(style.FullWidthContainer, className)}
+                ref={ref} {...other} />
+        )
+    }
+)
 
 export {
     FullWidthContainer as FullWidth,

@@ -1,92 +1,74 @@
 import * as React from 'react';
 
-import { ColorVariation, ExtendTheme, ThemeToken } from "@pigment-css/react/theme"
-import { styled } from '@pigment-css/react';
+import clsx from 'clsx';
 
-type ButtonColorVariants = Exclude<ColorVariation, "shade">;
+import buttonStyle from './button.module.css';
+import { themeVars, ColorVariation } from '@/lib/theme';
+
+type ButtonColorVariation = ColorVariation | "transparent"
 
 interface ButtonProps {
     variant?: "outline" | "filled",
-    color?: ButtonColorVariants,
+    color?: ButtonColorVariation,
 };
 
-const ButtonActiveMask = styled("span")(({ theme }) => ({
-    display: "block", position: "absolute", inset: 0, pointerEvents: "none",
-    backgroundColor: "transparent",
-    transition: `background-color ${theme.transition.short}`,
-}));
 
-const ButtonBase = styled("div")<ButtonProps>(({ theme }) => ({
-    color: ({ variant = "filled", color = "default" }) => `rgb(${resolveTextColor(color, variant, theme)})`,
-    backgroundColor: ({ variant = "filled", color = "default" }) => `rgb(${resolveBackgroundColor(color, variant, theme)})`,
-    border: ({ variant = "filled", color = "default" }) => variant === "filled" ?
-        `1px solid rgb(${resolveBackgroundColor(color, variant, theme)})` : `1px solid rgb(${resolveTextColor(color, variant, theme)})`,
-    borderRadius: theme.size.border.radius,
-
-    position: "relative", cursor: "pointer", userSelect: "none", overflow: "hidden",
-    paddingLeft: "1rem", paddingRight: "1rem", paddingTop: ".5rem", paddingBottom: ".5rem", margin: "0",
-
-    fontFamily: theme.typographies.button.fontFamily,
-    fontSize: theme.typographies.button.fontSize,
-    fontWeight: theme.typographies.button.fontWeight,
-    lineHeight: theme.typographies.button.lineHeight,
-
-    "&:hover": {
-        [`${ButtonActiveMask}`]: {
-            backgroundColor: ({ variant = "filled", color = "default" }) => (variant === "filled" && color !== "default") ?
-                `rgb(${theme.vars.color.shade.background} / 0.4)` : `rgb(${theme.vars.color.shade.foreground} / 0.2)`
-        },
-    },
-    "&:active": {
-        [`${ButtonActiveMask}`]: {
-            backgroundColor: ({ variant = "filled", color = "default" }) => (variant === "filled" && color !== "default") ?
-                `rgb(${theme.vars.color.shade.background} / 0.6)` : `rgb(${theme.vars.color.shade.foreground} / 0.4)`
-        },
-    },
-}))
-
-
-const Button = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & ButtonProps>(
-    function Button({ children, variant = "filled", color = "default", ...other }, ref) {
-        return (<ButtonBase {...other} variant={variant} color={color} ref={ref}>
-            <ButtonActiveMask />
-            {children}
-        </ButtonBase>)
+const ButtonBase = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
+    function ButtonBase({ className, children, ...other }, ref) {
+        return (
+            <div className={clsx(className, buttonStyle.ButtonContainer)}
+                ref={ref} {...other}>
+                <div className={buttonStyle.ButtonMask} />
+                {children}
+            </div>
+        )
     }
 )
 
+const FilledButton = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { color?: ButtonColorVariation }>(
+    function FilledButton({ className, style, color = 'default', ...others }, ref) {
+        const textColor = color === "transparent" ? themeVars.color.default.foreground : themeVars.color[color].background;
+        const backgroundColor = color === "transparent" ? "transparent" : themeVars.color[color].foreground;
+        const maskColor = themeVars.color.default[color === "transparent" ? "foreground" : "background"];
 
-function resolveTextColor(
-    color: ButtonColorVariants,
-    variant: "outline" | "filled",
-    theme: ExtendTheme<{
-        colorScheme: "light" | "dark";
-        tokens: ThemeToken;
-    }>,
-): string {
-    if (color === "default") {
-        return theme.vars.color.default.foreground;
+        return (
+            <ButtonBase className={clsx(className, buttonStyle.FilledButtonContainer)}
+                style={{
+                    ...style,
+                    "--button-text-color": textColor,
+                    "--button-background-color": backgroundColor,
+                    "--button-mask-color": maskColor,
+                } as React.CSSProperties}
+                {...others} ref={ref} />
+        )
     }
-    else {
-        if (variant === "outline") return theme.vars.color[color].background;
-        else return theme.vars.color[color].foreground;
-    }
-}
+);
 
-function resolveBackgroundColor(
-    color: ButtonColorVariants,
-    variant: "outline" | "filled",
-    theme: ExtendTheme<{
-        colorScheme: "light" | "dark";
-        tokens: ThemeToken;
-    }>,
-) {
-    if (color === "default" || variant === "outline") {
-        return "transparent";
+const OutlineButton = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & { color?: ButtonColorVariation }>(
+    function OutlineButton({ className, style, color = 'default', ...others }, ref) {
+        const textColor = themeVars.color[color === 'transparent' ? 'default' : color].foreground;
+        const backgroundColor = color === "transparent" ? "transparent" : themeVars.color[color].background;
+        const maskColor = themeVars.color.default.foreground;
+
+        return (
+            <ButtonBase className={clsx(className, buttonStyle.OutlineButtonContainer)}
+                style={{
+                    ...style,
+                    "--button-text-color": textColor,
+                    "--button-background-color": backgroundColor,
+                    "--button-mask-color": maskColor,
+                } as React.CSSProperties}
+                {...others} ref={ref} />
+        )
     }
-    else {
-        return theme.vars.color[color].background;
+);
+
+export const Button = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement> & ButtonProps>(
+    function Button({ variant = "outlined", color = 'default', ...other }, ref) {
+        return variant === "filled" ?
+            <FilledButton color={color} {...other} ref={ref} /> :
+            <OutlineButton color={color} {...other} ref={ref} />;
     }
-}
+)
 
 export default Button;

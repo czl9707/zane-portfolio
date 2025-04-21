@@ -1,44 +1,23 @@
 import * as React from 'react'
-import { styled, css } from '@pigment-css/react'
 
 import Link from "next/link";
 import { CodeHighLighter, InlineCodeBlock, CodePanel } from '@/components/ui/code';
 import { MultiCodeBlock, multiCodeBlockTypeName } from './component.multi-codeblock';
 
+import style from './component.common.module.css'
+import clsx from 'clsx';
 
-export const Ol = styled("ol")(({ theme }) => ({
-    listStyleType: "decimal", paddingLeft: theme.spacing.component,
-    fontFamily: theme.typographies.body1.fontFamily,
-    fontSize: theme.typographies.body1.fontSize,
-    fontWeight: theme.typographies.body1.fontWeight,
-    lineHeight: theme.typographies.body1.lineHeight,
-}));
-
-export const Ul = styled("ul")(({ theme }) => ({
-    listStyleType: "disc", paddingLeft: theme.spacing.component,
-    fontFamily: theme.typographies.body1.fontFamily,
-    fontSize: theme.typographies.body1.fontSize,
-    fontWeight: theme.typographies.body1.fontWeight,
-    lineHeight: theme.typographies.body1.lineHeight,
-}));
-
-const underLine = css({ textDecorationLine: "underline" })
-export const LinkUnderLine = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttributes<HTMLAnchorElement>>(
-    function LinkUnderLine({ className, href, ...other }, ref) {
-        if (href?.startsWith("http")) {
-            return (
-                <Link ref={ref} href={href as string} target="_blank" {...other}
-                    className={[underLine, className].join(" ")} />
-            )
-        }
+export const LinkRouter = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttributes<HTMLAnchorElement>>(
+    function LinkRouter({ href, className, ...other }, ref) {
         return (
             <Link ref={ref} href={href as string} {...other}
-                className={[underLine, className].join(" ")} />
+                target={href?.startsWith("http") ? "_blank" : undefined}
+                className={clsx(style.LinkUnderline, className)} />
         )
     }
 )
 
-export const Code = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
+export const CodeRouter = React.forwardRef<HTMLElement, React.HTMLAttributes<HTMLElement>>(
     function StyleCodeBlock({ className, children, ...other }, ref) {
         if (className?.includes("language-")) {
             const language = className!.split(" ").filter(s => s.includes("language-"))[0].replace("language-", "");
@@ -67,10 +46,3 @@ export const DivRouter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<H
         }
     }
 )
-
-export const Image = styled("img")(({ theme }) => ({
-    width: "100%", objectFit: "cover", borderRadius: theme.size.border.radius,
-    // [`& + ${T.Body2}`]: {
-    //     opacity: 0.75, textAlign: "center", marginTop: theme.spacing.paragraph
-    // }
-}))

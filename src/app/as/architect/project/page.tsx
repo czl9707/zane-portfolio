@@ -3,9 +3,9 @@ import { Metadata } from 'next';
 import TitleSection from '@/components/layout/title-section';
 import * as Container from "@/components/ui/container";
 import Grid from "@/components/ui/grid";
-import { solidBackground } from '@/components/ui/util';
-
 import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
+import { themeVars } from '@/lib/theme';
+
 import Divider from '@/components/ui/divider';
 import Spacer from '@/components/ui/spacer';
 import ArchitectureProjectCard from '@/components/arch-project/arch-project-brief';
@@ -21,7 +21,8 @@ export default async function Page() {
                 <TitleSection.Heading>Architecture Projects</TitleSection.Heading>
             </TitleSection>
 
-            <Container.FullWidth className={solidBackground}>
+            <Container.FullWidth
+                style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
                 <Divider />
                 <Spacer />
                 <Grid columns={2}>

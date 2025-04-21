@@ -3,16 +3,16 @@ import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";
 import * as Markdown from "@/components/ui/markdown";
 import Spacer from "@/components/ui/spacer";
-
-import * as AboutMe from "@/lib/cms/zane-about-me"
-
 import TitleSection from "@/components/layout/title-section";
 import ContentSection from "@/components/layout/content-section";
 import SlidingDownIcon from "@/components/ui/sliding-down-icon";
+import StickyHero from "@/components/layout/sticky-hero";
+import * as Container from "@/components/ui/container";
+
+import * as AboutMe from "@/lib/cms/zane-about-me"
 
 import React from "react";
 import { Metadata } from "next";
-import StickyHero from "@/components/layout/sticky-hero";
 
 
 export const revalidate = 14400;
@@ -21,19 +21,21 @@ export default async function Page() {
     const content = await AboutMe.getContents();
 
     return <>
-        <StickyHero>
-            <Spacer style={{ flex: "1 1" }} />
-            <SlidingDownIcon />
-            <Spacer />
+        <StickyHero asChild style={{ display: "flex", flexDirection: "column" }}>
+            <Container.FullWidth >
+                <Spacer style={{ flex: "1 1" }} />
+                <SlidingDownIcon />
+                <Spacer />
 
-            <Grid columns={3}>
-                <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
-                    <T.H4>
-                        Hi, I am Zane Chen! <br />
-                        A Self-Taught Software Engineer.
-                    </T.H4>
-                </SlideUp.Div>
-            </Grid>
+                <Grid columns={3}>
+                    <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
+                        <T.H4>
+                            Hi, I am Zane Chen! <br />
+                            A Self-Taught Software Engineer.
+                        </T.H4>
+                    </SlideUp.Div>
+                </Grid>
+            </Container.FullWidth>
         </StickyHero>
 
         <ContentSection header={

@@ -1,7 +1,15 @@
-import { styled } from '@pigment-css/react';
+import * as React from 'react';
+import clsx from "clsx";
 
-const Divider = styled("span")(({ theme }) => ({
-    display: "block", width: "100%", borderTop: `1px solid rgb(${theme.vars.color.default.foreground} / 0.5)`,
-}))
+import style from './divider.module.css'
+
+const Divider = React.forwardRef<HTMLSpanElement, React.HTMLProps<HTMLSpanElement>>(
+    function Divider({ className, ...other }, ref) {
+        return (
+            <span className={clsx(className, style.Divider)}
+                ref={ref} {...other} />
+        )
+    }
+)
 
 export default Divider;

@@ -1,11 +1,29 @@
-import { styled } from "@pigment-css/react";
-import * as Container from '@/components/ui/container';
+"use client"
 
+import * as React from 'react';
+import clsx from "clsx";
+import * as Slot from '@radix-ui/react-slot'
 
-const StickyHero = styled(Container.FullWidth)(({ theme }) => ({
-    paddingTop: theme.size.header.height, paddingBottom: theme.spacing.paragraph,
-    position: "sticky", top: 0, height: "100vh",
-    display: "flex", flexDirection: "column", boxSizing: "border-box"
-}));
+import { forkRefs } from '@/lib/utils/forkRef';
 
-export default StickyHero
+import heroStyle from './sticky-hero.module.css'
+
+const StickyHero = React.forwardRef<HTMLDivElement, Slot.SlotProps & { asChild?: boolean }>(
+    function StickyHero({ className, asChild = false, children, style, ...others }, ref) {
+        const Comp = asChild ? Slot.Root : 'div';
+        const localRef = React.useRef<HTMLDivElement>(undefined);
+
+        return (
+            <Comp className={clsx(heroStyle.StickyHero, className)}
+                style={{
+                    ...style,
+                    "--size-hero-height": `${localRef.current?.clientHeight}px`
+                } as React.CSSProperties}
+                {...others} ref={forkRefs(localRef, ref)}>
+                {children}
+            </Comp>
+        );
+    }
+)
+
+export default StickyHero;

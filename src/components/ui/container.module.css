@@ -1,0 +1,13 @@
+.FullWidthContainer {
+    padding-left: calc(var(--spacing-group) / 2);
+    padding-right: calc(var(--spacing-group) / 2);
+    overflow-x: visible;
+    width: 100%;
+    box-sizing: border-box;
+        
+    @media(--larger-than-xs) {
+        padding-left: var(--spacing-group);
+        padding-right: var(--spacing-group);
+    }
+}
+

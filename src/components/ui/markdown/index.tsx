@@ -1,24 +1,19 @@
-import { styled } from '@pigment-css/react'
-import Markdown from './markdown.pipeline'
+import Markdown, { MarkdownProps } from './markdown.pipeline'
 
-const DefaultMarkdown = styled(Markdown)(({ theme }) => ({
-    display: "flex", flexDirection: "column", gap: theme.spacing.paragraph,
-    "h1, h2, h3, h4, h5, h6": { marginTop: theme.spacing.paragraph }
-}));
+import * as React from 'react'
+import clsx from 'clsx';
 
+import style from './markdown.module.css';
 
-const HighLightMarkdown = styled(DefaultMarkdown)(({ theme }) => ({
-    "*": { transition: `color ${theme.transition.short} linear` },
-    'a': { color: `rgb(${theme.vars.color.default.foreground})` },
-    "&:hover": {
-        "span, li, p, h1, h2, h3, h4, h5, h6": {
-            color: `rgb(${theme.vars.color.default.foreground} / 50%)`
-        }
+const HighLightMarkdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
+    function HighLightMarkdown({ className, ...others }, ref) {
+        return <Markdown {...others} ref={ref}
+            className={clsx(className, style.HighLightMarkdown)} />
     }
-}));
+);
 
 
 export {
-    DefaultMarkdown as Default,
+    Markdown as Default,
     HighLightMarkdown as LinkHighlight,
 }

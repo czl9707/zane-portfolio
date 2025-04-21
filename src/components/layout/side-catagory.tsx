@@ -1,11 +1,13 @@
 "use client"
 
-import { styled } from "@pigment-css/react";
 import Link from "next/link";
 import * as React from 'react';
 import { useInView } from 'react-intersection-observer'
 
 import * as T from '@/components/ui/typography';
+
+import style from './side-catagory.module.css';
+import clsx from "clsx";
 
 const catagoriesContext = React.createContext<{
     catagories: CatagoryType[],
@@ -15,7 +17,6 @@ const catagoriesContext = React.createContext<{
     setCatagories: () => { }
 });
 
-
 export interface CatagoryType {
     depth: 1 | 2 | 3 | 4 | 5 | 6,
     displayName?: string,
@@ -23,43 +24,24 @@ export interface CatagoryType {
     active?: boolean,
 };
 
-const CatagoryLinkItem = styled(T.Body1)<{ depth: number }>(({ theme }) => ({
-    padding: ({ depth }) => `.25rem ${theme.vars.spacing.paragraph} .25rem  calc(${depth * 1.5}rem + ${theme.vars.spacing.paragraph})`,
-    backgroundColor: "transparent", borderRadius: theme.size.border.radius,
-    transition: `background-color ${theme.transition.short}`,
-
-    "&[data-active=true]": {
-        backgroundColor: `rgb(${theme.vars.color.default.foreground} / 25%)`
-    },
-    "&[data-active=false]": {
-        "&:hover": {
-            backgroundColor: `rgb(${theme.vars.color.default.foreground} / 10%)`
-        },
-    },
-}))
-
-const SideCatagoryContainer = styled("div")(({ theme }) => ({
-    borderRadius: theme.size.border.radius, display: "inline-flex", flexDirection: "column",
-    border: `1px solid rgb(${theme.vars.color.default.foreground})`,
-    padding: theme.spacing.paragraph, gap: '.5rem'
-}))
-
 const SideCatagory = React.forwardRef<HTMLDivElement, { className?: string }>(
     function SideCatagory({ className }, ref) {
         const { catagories } = React.useContext(catagoriesContext);
 
         return (
-            <SideCatagoryContainer className={className} ref={ref}>
+            <div className={clsx(className, style.SideCatagoryContainer)} ref={ref}>
                 {
                     catagories.map((cat, i) => (
                         <Link href={`#${cat.hash}`} key={i}>
-                            <CatagoryLinkItem data-active={cat.active ?? false} depth={cat.depth} >
+                            <T.Body1 className={style.CatagoryLinkItem}
+                                data-active={cat.active ?? false}
+                                style={{ "--catagory-depth": cat.depth } as React.CSSProperties}>
                                 {cat.displayName}
-                            </CatagoryLinkItem>
+                            </T.Body1>
                         </Link>
                     ))
                 }
-            </SideCatagoryContainer>
+            </div>
         )
     }
 )

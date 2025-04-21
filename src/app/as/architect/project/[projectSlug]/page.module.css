@@ -1,0 +1,24 @@
+.TagContainer {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: var(--spacing-paragraph);
+    gap: .5rem;
+}
+
+.ProjectHeadSpacer {
+    grid-column: span 1 / span 1;
+    @media(--smaller-than-md) { 
+        display: none;
+    }
+}
+
+.TitleContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: flex-end;
+    @media(--smaller-than-md) { 
+        flex-direction: column;
+     }
+}

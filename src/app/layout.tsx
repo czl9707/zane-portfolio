@@ -1,13 +1,13 @@
-import '@pigment-css/react/styles.css';
-
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import ScollToTopOnNavigate from "@/components/layout/scroll-to-top";
-import ThemeCorrector from "@/components/layout/theme-corrector";
+// import ThemeCorrector from "@/components/layout/theme-corrector";
 
 import { Geist, Red_Hat_Mono } from "next/font/google";
-import { styled, globalCss } from "@pigment-css/react";
 import type { Metadata } from "next";
+
+import '@/css/global.css'
+import clsx from 'clsx';
 
 const redHatDisplay = Geist({
   variable: "--font-sans",
@@ -35,43 +35,26 @@ export const metadata: Metadata = {
   }
 };
 
-globalCss({
-  "a": { color: "inherit", textDecoration: "inherit" },
-  "menu,ol,ul": { listStyle: "none", margin: 0, padding: 0 },
-  "blockquote,pre": { margin: 0 },
-  "code": { fontFamily: 'unset', },
-})
-
-const Body = styled("body")(({ theme }) => ({
-  width: "100%", minHeight: "100vh", boxSizing: "border-box",
-  margin: 0, overflowX: "visible", position: "relative",
-  backgroundColor: `rgb(${theme.vars.color.default.background})`,
-  color: `rgb(${theme.vars.color.default.foreground})`,
-}));
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" style={{ scrollBehavior: "smooth" }}>
+    <html lang="en" style={{ scrollBehavior: "smooth" }}
+      className={clsx(redHatDisplay.variable, redHatMono.variable, "ThemeRoot")}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <Body
-        className={
-          [redHatDisplay.variable, redHatMono.variable].join(" ")
-        }
-      >
+      <body data-theme="dark">
         <Header />
-        <div style={{ minHeight: "100vh" }}>
+        <div style={{ minHeight: "100vh", isolation: "isolate" }}>
           {children}
         </div>
         <Footer />
         <ScollToTopOnNavigate />
-        <ThemeCorrector />
-      </Body>
+        {/* <ThemeCorrector /> */}
+      </body>
     </html >
   );
 }
