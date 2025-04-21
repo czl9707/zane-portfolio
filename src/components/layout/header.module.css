@@ -41,10 +41,15 @@
     }
 }
 
-.NavigationTriggerWithChildren {
+.NavigationTriggerButton {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    align-items: center;
+    
     svg { transition-duration: var(--transition-short) }
-    &[state='open'] {
-        svg { transform: rotate(180deg) }
+    &[data-state='closed'] svg {
+        transform: rotate(180deg);
     }
 }
 
@@ -57,10 +62,10 @@
 
 .ShowOnPhone {
     display: block;
-    @media(--smaller-than-xs) { display: none; }
+    @media(--smaller-than-sm) { display: none; }
 }
 
 .NoShowOnPhone {
     display: block;
-    @media(--larger-than-xs) { display: none; }
+    @media(--larger-than-sm) { display: none; }
 }

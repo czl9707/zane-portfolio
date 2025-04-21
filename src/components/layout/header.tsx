@@ -11,22 +11,20 @@ import Link from "next/link";
 import * as React from 'react'
 
 import style from './header.module.css'
+import clsx from "clsx";
 
 const NavigationList = ({ children }: { children: React.ReactNode }) => {
     return <NavigationMenu.List className={style.NavigationList}>
         {children}
     </NavigationMenu.List>
 }
-const NavigationTriggerWithChildren = ({ children }: { children: React.ReactNode }) => {
-    return <NavigationMenu.Trigger className={style.NavigationTriggerWithChildren} asChild>
-        {children}
-    </NavigationMenu.Trigger>
-}
-const MenuContainer = ({ children }: { children: React.ReactNode }) => {
-    return <div className={style.MenuContainer}>
-        {children}
-    </div>
-}
+const MenuContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+    function MenuContainer({ children, className, ...others }, ref) {
+        return <div className={clsx(style.MenuContainer, className)} {...others} ref={ref}>
+            {children}
+        </div>
+    }
+)
 
 
 export default function Header() {
@@ -44,13 +42,13 @@ export default function Header() {
             <NavigationMenu.Root className={style.ShowOnPhone}>
                 <NavigationList>
                     <NavigationMenu.Item>
-                        <NavigationTriggerWithChildren>
+                        <NavigationMenu.Trigger asChild>
                             <Button variant="filled" color="transparent"
-                                style={{ display: "flex", flexDirection: "row", gap: ".5rem", alignItems: "center" }}>
+                                className={style.NavigationTriggerButton}>
                                 <span>Works</span>
                                 <CaretDownIcon />
                             </Button>
-                        </NavigationTriggerWithChildren>
+                        </NavigationMenu.Trigger>
                         <NavigationMenu.Content asChild>
                             <MenuContainer><div>
                                 <Link href={"/as/developer/project"}>
