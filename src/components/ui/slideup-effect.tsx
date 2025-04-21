@@ -6,6 +6,7 @@ import clsx from 'clsx'
 
 import * as Container from '@/components/ui/container'
 import Grid from '@/components/ui/grid'
+import { forkRefs } from '@/lib/utils/forkRef'
 
 import style from './slideup-effect.module.css'
 
@@ -20,13 +21,8 @@ function slideUpFactory<Props extends object>(
             return (
                 // @ts-expect-error Props issue
                 <Comp className={clsx(style.SlideUpContainer, className)}
-                    ref={(node: HTMLDivElement | null) => {
-                        inviewRef(node);
-                        if (ref != null) {
-                            if (typeof ref === 'function') ref(node);
-                            else ref.current = node;
-                        }
-                    }} data-entered={inView}{...other}>
+                    ref={forkRefs(inviewRef, ref)}
+                    data-entered={inView}{...other}>
                     {children}
                 </Comp>
             )
