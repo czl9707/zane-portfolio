@@ -1,4 +1,4 @@
 a.LinkUnderline {
     text-decoration-line: underline;
-    color: rgb(var(--color-solar-foreground));
+    color: rgb(var(--color-nebular-foreground));
 }
