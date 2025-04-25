@@ -34,10 +34,6 @@
     h6 {
         margin-top: var(--spacing-paragraph);
     }
-
-    & strong {
-        color: rgb(var(--color-nebular-foreground));
-    }
 }
 
 .HighLightMarkdown {
@@ -61,10 +57,5 @@
         h6 {
             color: rgb(var(--color-default-foreground) / 50%);
         }
-
-        a, strong {
-            color: rgb(var(--color-nebular-foreground))
-        }
-    
     }
 }
