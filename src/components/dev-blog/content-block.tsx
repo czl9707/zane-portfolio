@@ -1,6 +1,5 @@
 import "server-only"
 
-import * as ContentBlock from '@/lib/cms/content-blocks'
 import * as SlideUp from '@/components/ui/slideup-effect'
 import * as Markdown from '@/components/ui/markdown'
 import * as SideCatagory from '@/components/layout/side-catagory'
