@@ -35,11 +35,9 @@ interface MarkdownBlockType {
 
 
 type ArchProjectBlockType = MultiImageBlockType | ImageAndTextBlockType | FullTextBlockType | FullSizeImageBlockType;
-type DevBlogBlockType = MultiImageBlockType | MarkdownBlockType;
 
 export type {
     ArchProjectBlockType as ArchProjectType,
-    DevBlogBlockType as DevBlogType,
     MultiImageBlockType,
     ImageAndTextBlockType,
     FullTextBlockType,

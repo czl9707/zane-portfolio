@@ -18,13 +18,28 @@ import { unified } from 'unified';
 
 import style from './content-block.module.css';
 
-const Heading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
-    function Heading({ id, ...others }, ref) {
+const HeadingMajor = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+    function HeadingMajor({ id, ...others }, ref) {
         return (
             <>
                 <Spacer spacing="component" />
                 <SideCatagory.Link href={id == undefined ? "" : `#${id}`}>
                     <TitleSection.Heading ref={ref} id={id} {...others} />
+                    <Spacer spacing="paragraph" />
+                    <Divider />
+                </SideCatagory.Link>
+            </>
+        )
+    }
+)
+
+const HeadingMinor = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+    function HeadingMinor({ id, ...others }, ref) {
+        return (
+            <>
+                <Spacer spacing="component" />
+                <SideCatagory.Link href={id == undefined ? "" : `#${id}`}>
+                    <TitleSection.SubHeading ref={ref} id={id} {...others} />
                     <Spacer spacing="paragraph" />
                     <Divider />
                 </SideCatagory.Link>
@@ -42,8 +57,8 @@ export function MarkdownBlock({ markdown, hash }: {
             <SideCatagory.Container hash={hash}>
                 <Markdown.Default remarkPlugins={[appendIdToHeading]}
                     components={{
-                        h1: Heading, h2: Heading, h3: Heading,
-                        h4: Heading, h5: Heading, h6: Heading,
+                        h1: HeadingMajor, h2: HeadingMajor, h3: HeadingMinor,
+                        h4: HeadingMinor, h5: HeadingMinor, h6: HeadingMinor,
                     }}>
                     {markdown}
                 </Markdown.Default>
@@ -53,21 +68,9 @@ export function MarkdownBlock({ markdown, hash }: {
 }
 
 
-export function toMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): ({ markdown: string } & SideCatagory.CatagoryType)[] {
-    const markdownDocuments = [];
-    for (const block of blocks) {
-        if (block.blockType === "markdown") {
-            markdownDocuments.push(block.markdown);
-        }
-        else if (block.blockType === "multiImage") {
-            for (const image of block.images) {
-                markdownDocuments.push(`![${image.image.alt}](${image.image.url})`);
-            }
-        }
-    }
-
+export function toMarkdownBlocks(content: string): ({ markdown: string } & SideCatagory.CatagoryType)[] {
     const markdownProcessor = unified().use(remarkParse);
-    const tree = markdownProcessor.parse(markdownDocuments.join("\n\n"));
+    const tree = markdownProcessor.parse(content);
 
     const result: ({ markdowns: RootContent[] } & SideCatagory.CatagoryType)[] = [];
     for (const child of tree.children) {
