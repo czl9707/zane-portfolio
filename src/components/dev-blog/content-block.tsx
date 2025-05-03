@@ -68,21 +68,9 @@ export function MarkdownBlock({ markdown, hash }: {
 }
 
 
-export function toMarkdownBlocks(blocks: ContentBlock.DevBlogType[]): ({ markdown: string } & SideCatagory.CatagoryType)[] {
-    const markdownDocuments = [];
-    for (const block of blocks) {
-        if (block.blockType === "markdown") {
-            markdownDocuments.push(block.markdown);
-        }
-        else if (block.blockType === "multiImage") {
-            for (const image of block.images) {
-                markdownDocuments.push(`![${image.image.alt}](${image.image.url})`);
-            }
-        }
-    }
-
+export function toMarkdownBlocks(content: string): ({ markdown: string } & SideCatagory.CatagoryType)[] {
     const markdownProcessor = unified().use(remarkParse);
-    const tree = markdownProcessor.parse(markdownDocuments.join("\n\n"));
+    const tree = markdownProcessor.parse(content);
 
     const result: ({ markdowns: RootContent[] } & SideCatagory.CatagoryType)[] = [];
     for (const child of tree.children) {

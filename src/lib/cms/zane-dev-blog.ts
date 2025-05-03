@@ -1,6 +1,5 @@
 import * as ApiKey from "@/lib/cms/apikey"
 import { ImageInfo } from "@/lib/cms/common.type";
-import * as Blocks from "@/lib/cms/content-blocks";
 
 
 interface ZaneDevBlogInfo {
@@ -11,7 +10,7 @@ interface ZaneDevBlogInfo {
     createdDate: Date,
     description: string,
     cover: ImageInfo,
-    content: Blocks.DevBlogType[],
+    content: string,
 }
 
 interface ZaneDevBlogDto {
@@ -22,7 +21,7 @@ interface ZaneDevBlogDto {
     createdDate: number,
     description: string,
     cover: ImageInfo,
-    content: Blocks.DevBlogType[],
+    content: string,
 }
 
 export type {
