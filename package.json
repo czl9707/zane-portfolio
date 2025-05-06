@@ -14,7 +14,7 @@
     "@radix-ui/react-slot": "^1",
     "@radix-ui/react-tabs": "^1",
     "clsx": "^2.1.1",
-    "mdast-util-to-markdown": "^2.1.2",
+    "mdast-util-to-markdown": "^2.1",
     "next": "^15",
     "react": "^19",
     "react-dom": "^19",
