@@ -17,12 +17,12 @@ export default async function Page() {
     return (
         <>
             <TitleSection noDivider>
-                <TitleSection.Heading>Blogs</TitleSection.Heading>
+                <TitleSection.Heading asElement='h1'>Blogs</TitleSection.Heading>
             </TitleSection>
 
             <ContentSection
                 style={{ paddingTop: 0 }}
-                header={<T.H5 style={{ opacity: 0.75 }}>All Blogs</T.H5>}
+                header={<T.H5 asElement='h2' style={{ opacity: 0.75 }}>All Blogs</T.H5>}
             >
                 <BriefsContainer style={{ gridColumn: "span 3 / span 3" }}>
                     {

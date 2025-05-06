@@ -55,7 +55,7 @@ function IntroSection() {
       <Container.FullWidth>
         <Grid columns={3}>
           <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
-            <T.H4>
+            <T.H4 asElement="h2">
               Precision in detail, vision in design, <br />
               building things one block at a time.
             </T.H4>
@@ -65,7 +65,9 @@ function IntroSection() {
         <Spacer style={{ flex: "1 1" }} />
         <SlidingDownIcon />
         <Spacer />
-        <FullWidthName style={{ bottom: 0, top: "auto" }} />
+        <T.H1>
+          <FullWidthName style={{ bottom: 0, top: "auto" }} />
+        </T.H1>
       </Container.FullWidth>
     </StickyHero>
   )
@@ -77,6 +79,7 @@ const FullWidthName = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivEl
       <SlideUp.Div {...props} ref={ref}
         style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
         <svg width={"100%"} viewBox="0 0 45 8">
+          <title id="ZANE_CHEN">ZANE CHEN</title>
           <text className={style.SVGText} x="50%" y="50%"
             textLength={45} lengthAdjust="spacingAndGlyphs"
             fontWeight={700} fontSize="7.2px"

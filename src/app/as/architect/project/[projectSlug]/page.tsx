@@ -66,8 +66,10 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                 <Spacer spacing="group" />
                 <Grid columns={4} style={{ alignItems: "flex-end" }}>
                     <div style={{ gridColumn: "span 2 / span 2" }}>
-                        <T.H2 >{project.title.toUpperCase()}</T.H2>
-                        <T.H5 style={{ opacity: 0.75, textWrap: "pretty" }}>{project.subTitle}</T.H5>
+                        <T.H2 asElement='h1'>{project.title.toUpperCase()}</T.H2>
+                        <T.H5 asElement='h2' style={{ opacity: 0.75, textWrap: "pretty" }}>
+                            {project.subTitle}
+                        </T.H5>
                         <div className={style.TagContainer}>
                             {
                                 project.tags?.map(t => (

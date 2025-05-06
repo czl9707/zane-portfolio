@@ -18,7 +18,7 @@ export default async function Page() {
     return (
         <>
             <TitleSection noDivider>
-                <TitleSection.Heading>Architecture Projects</TitleSection.Heading>
+                <TitleSection.Heading asElement='h1'>Architecture Projects</TitleSection.Heading>
             </TitleSection>
 
             <Container.FullWidth

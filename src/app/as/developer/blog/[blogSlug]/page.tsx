@@ -58,30 +58,20 @@ export default async function Page({ params }: { params: Promise<{ blogSlug: str
     )
 }
 
-function RespondingText({ BigComp, SmallComp, children, style: extraStyle }: {
-    BigComp: React.ElementType<React.HTMLProps<HTMLDivElement>>,
-    SmallComp: React.ElementType<React.HTMLProps<HTMLDivElement>>,
-    children: string, style?: React.CSSProperties
-}) {
-    return <>
-        <BigComp style={extraStyle} className={style.ShowOnMobile}>{children}</BigComp>
-        <SmallComp style={extraStyle} className={style.NoShowOnMobile}>{children}</SmallComp>
-    </>
-}
-
 function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
     return (
         <StickyHero asChild>
-            <BlogPageLayout.Layout>
+            <BlogPageLayout.Layout style={{ background: "transparent", }}>
                 <BlogPageLayout.Content style={{ margin: "auto" }}>
-                    <RespondingText BigComp={T.H2} SmallComp={T.H4}>
-                        {blog.title}
-                    </RespondingText>
+                    {/* Responsive Header */}
+                    <T.H2 className={style.ShowOnMobile} asElement='h1'>{blog.title}</T.H2>
+                    <T.H4 className={style.NoShowOnMobile} asElement='h1'>{blog.title}</T.H4>
+
                     <Spacer spacing="paragraph" />
 
-                    <RespondingText BigComp={T.H5} SmallComp={T.Body1} style={{ opacity: 0.75 }}>
-                        {blog.description}
-                    </RespondingText>
+                    {/* Responsive Discription */}
+                    <T.H5 className={style.ShowOnMobile} asElement='h2' style={{ opacity: 0.75 }}>{blog.description}</T.H5>
+                    <T.Body1 className={style.NoShowOnMobile} asElement='h2' style={{ opacity: 0.75 }}>{blog.description}</T.Body1>
 
                     <Spacer spacing="component" />
                     <T.Body1>

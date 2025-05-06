@@ -26,7 +26,7 @@ export default function TitleSection({ children, className, noDivider = false }:
     )
 }
 
-TitleSection.Heading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+TitleSection.Heading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement> & { asElement?: T.AsElement }>(
     function RespondingSectionTitle({ className, ...others }, ref) {
         return <>
             <T.H2 {...others} ref={ref} className={clsx(
@@ -43,7 +43,7 @@ TitleSection.Heading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes
     }
 );
 
-TitleSection.SubHeading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+TitleSection.SubHeading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement> & { asElement?: T.AsElement }>(
     function RespondingSectionTitle({ className, ...others }, ref) {
         return <>
             <T.H4 {...others} ref={ref} className={clsx(
