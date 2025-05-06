@@ -6,13 +6,20 @@ function styledTypographyFactory(
     Comp: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p',
     variantClassName: string
 ) {
-    return React.forwardRef<HTMLParagraphElement, React.HTMLProps<HTMLParagraphElement>>(
-        function StyledTypography({ className, ...others }, ref) {
-            return <Comp ref={ref} {...others}
+    return React.forwardRef<HTMLParagraphElement, React.HTMLProps<HTMLParagraphElement> &
+    {
+        asElement?: AsElement
+    }
+    >(
+        function StyledTypography({ className, asElement, ...others }, ref) {
+            const ResolvedComp = asElement ?? Comp;
+            return <ResolvedComp ref={ref} {...others}
                 className={clsx(style.TypographyBase, variantClassName, className)} />
         }
     )
 }
+
+export type AsElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
 
 export const H1 = styledTypographyFactory("h1", style.TypographyH1);
 export const H2 = styledTypographyFactory("h2", style.TypographyH2);

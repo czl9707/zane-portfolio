@@ -29,7 +29,7 @@ export default async function Page() {
 
                 <Grid columns={3}>
                     <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
-                        <T.H4>
+                        <T.H4 asElement="h2">
                             Hi, I am Zane Chen! <br />
                             A Self-Taught Software Engineer.
                         </T.H4>
@@ -39,7 +39,7 @@ export default async function Page() {
         </StickyHero>
 
         <ContentSection header={
-            <T.H5 style={{ opacity: .75 }}>About Zane</T.H5>
+            <T.H5 asElement="h1" style={{ opacity: .75 }}>About Zane</T.H5>
         }>
             <SlideUp.Div style={{ gridColumn: "span 2 / span 2" }}>
                 <Markdown.LinkHighlight>

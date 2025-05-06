@@ -65,15 +65,15 @@ html {
     --typography-code-lineHeight: 1.5;
     --typography-h1-fontFamily: var(--font-sans);
     --typography-h1-fontWeight: 500;
-    --typography-h1-fontSize: 6rem;
+    --typography-h1-fontSize: 4.5rem;
     --typography-h1-lineHeight: 1.25;
     --typography-h2-fontFamily: var(--font-sans);
     --typography-h2-fontWeight: 500;
-    --typography-h2-fontSize: 3.75rem;
+    --typography-h2-fontSize: 3.5rem;
     --typography-h2-lineHeight: 1.25;
     --typography-h3-fontFamily: var(--font-sans);
     --typography-h3-fontWeight: 500;
-    --typography-h3-fontSize: 3rem;
+    --typography-h3-fontSize: 2.75rem;
     --typography-h3-lineHeight: 1.25;
     --typography-h4-fontFamily: var(--font-sans);
     --typography-h4-fontWeight: 500;
