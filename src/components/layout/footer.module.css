@@ -1,6 +1,10 @@
 .FooterContainer {
     padding-bottom: var(--spacing-group);
     padding-top: var(--spacing-group);
+
+    position: sticky;
+    bottom: 0;
+    z-index: -10;
 }
 
 .LinkContainer {
