@@ -1,4 +1,4 @@
-import * as ApiKey from "@/lib/cms/apikey"
+import * as ApiKey from "@/lib/cms/graphql-fetch"
 import { ImageInfo } from "@/lib/cms/common.type";
 
 interface ZaneDevProjectInfo {

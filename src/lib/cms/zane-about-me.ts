@@ -1,4 +1,4 @@
-import * as ApiKey from "@/lib/cms/apikey"
+import * as ApiKey from "@/lib/cms/graphql-fetch"
 
 const HOMEPAGE_ENDPOINT = `${process.env.ADMIN_URL}/api/globals/zaneAboutMe`;
 

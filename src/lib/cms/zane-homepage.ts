@@ -1,9 +1,7 @@
-import * as ApiKey from "@/lib/cms/apikey"
+import { graphqlFetch } from "@/lib/cms/graphql-fetch"
 import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
 import * as ZaneArchProject from "@/lib/cms/zane-arch-project";
 import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
-
-const HOMEPAGE_ENDPOINT = `${process.env.ADMIN_URL}/api/globals/zaneHomepage`;
 
 interface HomepageDto {
     featuredBlogs: { value: ZaneDevBlog.Dto }[],
@@ -12,18 +10,68 @@ interface HomepageDto {
     whoAmI: string,
 }
 
-export async function getContents() {
-    const apikey = await ApiKey.get()
-    const content: HomepageDto = await fetch(
-        `${HOMEPAGE_ENDPOINT}`,
-        {
-            headers: {
-                Authorization: `users API-Key ${apikey}`,
+const GQL_QueryAll = `
+query {
+    ZaneHomepage {
+        whoAmI
+        featuredBlogs {
+            value {
+                ... on ZaneDevBlog {
+                    title
+                    tags
+                    link
+                    createdDate
+                    description
+                    cover { ... ImageInfo }
+                }
             }
         }
+        featuredDevProjects {
+            value {
+                ... on ZaneDevProject {
+                    title
+                    startDate
+                    endDate
+                    description
+                    externalLink
+                    cover { ... ImageInfo }
+                }
+            }
+        }
+        featuredArchProjects {
+            value {
+                ... on ZaneArchProject {
+                    title
+                    subTitle
+                    tags
+                    link
+                    startDate
+                    endDate
+                    location
+                    contributors
+                    description
+                    cover { ... ImageInfo }
+                }
+            }
+        }
+    }
+}
+
+fragment ImageInfo on Media {
+      url
+    width
+    height
+    alt
+}
+`
+
+export async function getContents() {
+    const content: HomepageDto = await graphqlFetch(
+        GQL_QueryAll
     ).then(
-        async req => await req.json()
+        async req => (await req.json()).data["ZaneHomepage"]
     );
+    console.log(content)
 
     return {
         featuredBlogs: content.featuredBlogs.map(blog => ZaneDevBlog.fromDto(blog.value)),
