@@ -1,24 +1,28 @@
-import * as ApiKey from "@/lib/cms/apikey"
-
-const HOMEPAGE_ENDPOINT = `${process.env.ADMIN_URL}/api/globals/zaneAboutMe`;
+import {graphqlFetch} from "@/lib/cms/graphql-fetch"
 
 interface ZaneAboutMe {
     aboutMe: string,
     timeline: { year: number[], experience: string }[],
 }
 
-export async function getContents() {
-    const apikey = await ApiKey.get();
-    const content: ZaneAboutMe = await fetch(
-        `${HOMEPAGE_ENDPOINT}`,
-        {
-            headers: {
-                Authorization: `users API-Key ${apikey}`,
-            }
-        }
+const GQL_Aboutme = `
+query {
+  ZaneAboutMe {
+    aboutMe
+    timeline {
+      year
+      experience
+    }
+  }
+}
+`
+
+export async function getContents(): Promise<ZaneAboutMe> {
+    const content = await graphqlFetch(
+        GQL_Aboutme
     ).then(
         async req => await req.json()
     );
 
-    return content;
+    return content.data["ZaneAboutMe"];
 }
