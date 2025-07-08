@@ -58,7 +58,7 @@ query {
 }
 
 fragment ImageInfo on Media {
-      url
+    url
     width
     height
     alt
@@ -71,7 +71,6 @@ export async function getContents() {
     ).then(
         async req => (await req.json()).data["ZaneHomepage"]
     );
-    console.log(content)
 
     return {
         featuredBlogs: content.featuredBlogs.map(blog => ZaneDevBlog.fromDto(blog.value)),

@@ -47,7 +47,7 @@ query {
 }`;
 
 const GQL_QueryByLink = `
-query {
+query ZaneDevBlogByLink($link: String!) {
     ZaneDevBlogs (
         where: {
             link: {
@@ -61,6 +61,7 @@ query {
         link
         createdDate
         description
+        content
         cover {
             url
             width
