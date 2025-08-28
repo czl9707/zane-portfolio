@@ -26,27 +26,47 @@ export type {
     ZaneDevProjectDto as Dto,
 }
 
+const zaneDevProjectBaseFragment = `
+fragment zaneDevProjectBase on ZaneDevProject {
+    title
+    tags
+    startDate
+    endDate
+    description
+    externalLink
+    cover {
+        url
+        width
+        height
+        alt
+    }
+}
+`;
 
 const GQL_QueryAll = `
 query {
     ZaneDevProjects {
-        docs {
-            title
-            tags
-            startDate
-            endDate
-            description
-            externalLink
-            cover {
-                url
-                width
-                height
-                alt
-            }
-        }
+        docs { ...zaneDevProjectBase }
     }
 }
+
+${zaneDevProjectBaseFragment}
 `;
+
+const GQL_QueryFeatured = `
+query {
+    ZaneDevProjects (
+        where: {
+            featured: { equals: true }
+        }
+    ) {
+        docs { ...zaneDevProjectBase }
+    }
+}
+
+${zaneDevProjectBaseFragment}
+`;
+
 
 
 export async function getAll(): Promise<ZaneDevProjectInfo[]> {
@@ -59,7 +79,17 @@ export async function getAll(): Promise<ZaneDevProjectInfo[]> {
     );
 }
 
-export function fromDto(dto: ZaneDevProjectDto): ZaneDevProjectInfo {
+export async function getFeatured(): Promise<ZaneDevProjectInfo[]> {
+    return await graphqlFetch(
+        GQL_QueryFeatured
+    ).then(
+        async req => await req.json()
+    ).then(
+        data => data.data["ZaneDevProjects"].docs.map(fromDto)
+    );
+}
+
+function fromDto(dto: ZaneDevProjectDto): ZaneDevProjectInfo {
     return {
         title: dto.title as string,
         tags: dto.tags ?? [],

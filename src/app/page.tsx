@@ -4,19 +4,19 @@ import * as T from "@/components/ui/typography";
 import * as SlideUp from "@/components/ui/slideup-effect";
 import Divider from "@/components/ui/divider";
 import Spacer from "@/components/ui/spacer";
-import ArchitectureProjectCard from "@/components/arch-project/arch-project-brief";
+import ArchitectureProjectCard from "@/components/arch-project/card";
 import TitleSection from "@/components/layout/title-section";
 import ContentSection from "@/components/layout/content-section";
 import Button from "@/components/ui/button";
 import BriefsContainer from '@/components/layout/briefs-container'
 import * as Markdown from "@/components/ui/markdown";
-import DevProjectBrief from "@/components/dev-project/dev-project-card";
-import DevBlogBrief from "@/components/dev-blog/dev-blog-brief";
+import DevProjectBrief from "@/components/dev-project/brief";
+import BlogBrief from "@/components/blog/brief";
 import SlidingDownIcon from "@/components/ui/sliding-down-icon";
 
 
 import * as Homepage from "@/lib/cms/zane-homepage"
-import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
+import * as ZaneDevBlog from "@/lib/cms/zane-blog";
 import * as ZaneArchProject from "@/lib/cms/zane-arch-project";
 import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
 
@@ -144,7 +144,7 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
         <BriefsContainer style={{ gridColumn: "span 3 / span 3" }}>
           {
             blogs.map((blog) => (
-              <DevBlogBrief blog={blog} key={blog.title} />
+              <BlogBrief blog={blog} key={blog.title} />
             ))
           }
           <Link href={"/as/developer/blog"}>

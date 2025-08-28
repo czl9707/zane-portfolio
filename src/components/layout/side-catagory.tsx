@@ -32,12 +32,11 @@ const SideCatagory = React.forwardRef<HTMLDivElement, { className?: string }>(
             <div className={clsx(className, style.SideCatagoryContainer)} ref={ref}>
                 {
                     catagories.map((cat, i) => (
-                        <Link href={`#${cat.hash}`} key={i}>
-                            <T.Body1 className={style.CatagoryLinkItem}
-                                data-active={cat.active ?? false}
-                                style={{ "--catagory-depth": cat.depth } as React.CSSProperties}>
-                                {cat.displayName}
-                            </T.Body1>
+                        <Link href={`#${cat.hash}`} key={i} 
+                            className={style.CatagoryLinkItem}
+                            data-active={cat.active ?? false}
+                            style={{ "--catagory-depth": cat.depth } as React.CSSProperties}>
+                            <T.Body1>{cat.displayName}</T.Body1>
                         </Link>
                     ))
                 }

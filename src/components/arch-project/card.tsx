@@ -6,7 +6,7 @@ import * as SlideUp from "@/components/ui/slideup-effect";
 
 import * as ZaneArchProject from "@/lib/cms/zane-arch-project";
 
-import style from './arch-project-brief.module.css'
+import style from './card.module.css'
 
 
 export default function ArchitectureProjectCard({ project }: { project: ZaneArchProject.Info }) {

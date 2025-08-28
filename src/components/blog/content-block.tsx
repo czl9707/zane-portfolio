@@ -75,8 +75,7 @@ export function toMarkdownBlocks(content: string): ({ markdown: string } & SideC
     for (const child of tree.children) {
         if (child.type === "heading") {
             const catagory = toString(child);
-            const hash = catagoryToHash(catagory);
-            result.push({ depth: child.depth, displayName: catagory, hash: hash, markdowns: [child] })
+            result.push({ depth: child.depth, displayName: catagory, hash: catagory, markdowns: [child] })
         }
         else {
             if (result.length === 0) result.push({ markdowns: [], depth: 6 });
@@ -96,20 +95,15 @@ export function toMarkdownBlocks(content: string): ({ markdown: string } & SideC
     return resultBlocks;
 }
 
-function catagoryToHash(heading: string) {
-    return heading.replaceAll(/[^\w]/g, "_").toLowerCase();
-}
-
 function appendIdToHeading() {
     return function (tree: Root) {
         for (const child of tree.children) {
             if (child.type === "heading") {
                 const catagory = toString(child);
-                const hash = catagoryToHash(catagory);
 
                 child.data = child.data ?? {};
                 child.data.hProperties = child.data.hProperties ?? {};
-                child.data.hProperties.id = hash;
+                child.data.hProperties.id = catagory;
             }
         }
     }
