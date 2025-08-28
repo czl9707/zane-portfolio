@@ -1,5 +1,6 @@
 import 'server-only'
 
+import type { RoleType } from '@/lib/constants';
 import * as T from "@/components/ui/typography";
 import * as DevBlogContentBlock from '@/components/blog/content-block';
 import Divider from '@/components/ui/divider';
@@ -15,18 +16,24 @@ import React from 'react';
 import { Metadata } from 'next';
 import { notFound } from "next/navigation";
 
-import style from './page.module.css';
+import style from './content-page.module.css';
 
-export const revalidate = 14400;
-export async function generateStaticParams(): Promise<{ blogSlug: string }[]> {
+export async function generateStaticParams(): Promise<{link:string, role: RoleType}[]> {
     const result = await ZaneDevBlog.getAll();
-    return result.map(t => ({ blogSlug: t.link }));
+    return result.map(b => ({link: b.link, role: b.role}));
 }
 
+export async function generateMetadata(role: RoleType, link: string): Promise<Metadata> {
+    const blog = await ZaneDevBlog.getByRoleAndLink(role, link);
 
-export default async function Page({ params }: { params: Promise<{ blogSlug: string }> }) {
-    const link = (await params).blogSlug;
-    const blog = await ZaneDevBlog.getByRoleAndLink("developer", link).then(
+    return {
+        title: `Zane Chen - ${blog.title}`,
+        description: blog.description,
+    }
+}
+
+export async function Page({link, role}:{link: string, role: RoleType}) {
+    const blog = await ZaneDevBlog.getByRoleAndLink(role, link).then(
         b => b,
         () => notFound(),
     );
@@ -87,17 +94,4 @@ function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
             </BlogPageLayout.Layout>
         </StickyHero>
     )
-}
-
-
-export async function generateMetadata(
-    { params }: { params: Promise<{ blogSlug: string }> },
-): Promise<Metadata> {
-    const link = (await params).blogSlug;
-    const blog = await ZaneDevBlog.getByRoleAndLink("developer", link);
-
-    return {
-        title: `Zane Chen - ${blog.title}`,
-        description: blog.description,
-    }
 }

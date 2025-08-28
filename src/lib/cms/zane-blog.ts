@@ -1,8 +1,7 @@
 import {graphqlFetch} from "@/lib/cms/graphql-fetch"
 import { ImageInfo } from "@/lib/cms/common.type";
 import { cache } from "react";
-
-type RoleType = "developer" | "humanBeing";
+import { RoleType } from "@/lib/constants";
 
 interface ZaneBlogInfo {
     title: string,

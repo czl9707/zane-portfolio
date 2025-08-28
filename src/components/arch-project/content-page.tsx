@@ -20,18 +20,24 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { notFound } from "next/navigation";
 
-import style from './page.module.css'
+import style from './content-page.module.css'
 import StickyHero from "@/components/layout/sticky-hero";
 
-export const revalidate = 14400;
-export async function generateStaticParams(): Promise<{ projectSlug: string }[]> {
+export async function generateStaticParams(): Promise<string[]> {
     const result = (await ZaneArchProjects.getAll())
-    return result.map(t => ({ projectSlug: t.link }));
+    return result.map(t => t.link);
 }
 
+export async function generateMetadata(link: string): Promise<Metadata> {
+    const project = await ZaneArchProjects.getByLink(link);
 
-export default async function Page({ params }: { params: Promise<{ projectSlug: string }> }) {
-    const link = (await params).projectSlug;
+    return {
+        title: `Zane Chen - ${project.title}`,
+        description: project.subTitle,
+    }
+}
+
+export async function Page({ link }: { link: string }) {
     const project = await ZaneArchProjects.getByLink(link).then(
         p => p,
         () => notFound(),
@@ -155,14 +161,3 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
     )
 }
 
-export async function generateMetadata(
-    { params }: { params: Promise<{ projectSlug: string }> },
-): Promise<Metadata> {
-    const link = (await params).projectSlug;
-    const project = await ZaneArchProjects.getByLink(link);
-
-    return {
-        title: `Zane Chen - ${project.title}`,
-        description: project.subTitle,
-    }
-}
