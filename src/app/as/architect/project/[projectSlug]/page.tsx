@@ -4,7 +4,7 @@ import * as Container from "@/components/ui/container";
 import Button from '@/components/ui/button';
 import ArchProjectContentBlock from '@/components/arch-project/content-blocks';
 import TitleSection from '@/components/layout/title-section';
-import ArchitectureProjectCard from '@/components/arch-project/arch-project-brief';
+import ArchitectureProjectCard from '@/components/arch-project/card';
 import Divider from '@/components/ui/divider';
 import Spacer from "@/components/ui/spacer";
 import ExtendingButton from "@/components/ui/extending-button";

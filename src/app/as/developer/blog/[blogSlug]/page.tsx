@@ -1,11 +1,11 @@
 import 'server-only'
 
 import * as T from "@/components/ui/typography";
-import * as DevBlogContentBlock from '@/components/dev-blog/content-block';
+import * as DevBlogContentBlock from '@/components/blog/content-block';
 import Divider from '@/components/ui/divider';
 import Spacer from "@/components/ui/spacer";
 import * as SideCatagory from "@/components/layout/side-catagory"
-import * as BlogPageLayout from "@/components/dev-blog/page-layout";
+import * as BlogPageLayout from "@/components/blog/page-layout";
 import StickyHero from '@/components/layout/sticky-hero';
 
 import * as ZaneDevBlog from '@/lib/cms/zane-blog'

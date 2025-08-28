@@ -5,7 +5,7 @@ import * as T from "@/components/ui/typography";
 
 import * as ZaneDevProject from '@/lib/cms/zane-dev-project'
 import ContentSection from '@/components/layout/content-section';
-import DevProjectBrief from '@/components/dev-project/dev-project-card';
+import DevProjectBrief from '@/components/dev-project/brief';
 import BriefsContainer from '@/components/layout/briefs-container'
 
 export const revalidate = 14400;

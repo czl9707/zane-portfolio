@@ -3,7 +3,7 @@ import * as T from "@/components/ui/typography";
 
 import * as ZaneDevBlog from '@/lib/cms/zane-blog'
 import ContentSection from '@/components/layout/content-section';
-import DevBlogBrief from '@/components/dev-blog/dev-blog-brief';
+import BlogBrief from '@/components/blog/brief';
 import BriefsContainer from '@/components/layout/briefs-container'
 
 import { Metadata } from 'next';
@@ -27,7 +27,7 @@ export default async function Page() {
                 <BriefsContainer style={{ gridColumn: "span 3 / span 3" }}>
                     {
                         blogs.map((blog) => (
-                            <DevBlogBrief blog={blog} key={blog.title} />
+                            <BlogBrief blog={blog} key={blog.title} />
                         ))
                     }
                 </BriefsContainer>

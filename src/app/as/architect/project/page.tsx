@@ -8,7 +8,7 @@ import { themeVars } from '@/lib/theme';
 
 import Divider from '@/components/ui/divider';
 import Spacer from '@/components/ui/spacer';
-import ArchitectureProjectCard from '@/components/arch-project/arch-project-brief';
+import ArchitectureProjectCard from '@/components/arch-project/card';
 
 export const revalidate = 14400;
 
