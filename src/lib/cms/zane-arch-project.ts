@@ -1,6 +1,7 @@
 import { graphqlFetch } from "@/lib/cms/graphql-fetch"
 import { ImageInfo } from "@/lib/cms/common.type";
 import * as Blocks from "@/lib/cms/content-blocks";
+import { cache } from "react"
 
 interface ZaneArchProjectInfo {
     title: string,
@@ -35,116 +36,125 @@ export type {
     ZaneArchProjectDto as Dto,
 }
 
-const GQL_QueryAll = `
-query {
-    ZaneArchProjects {
-        docs {
-            title
-            subTitle
-            tags
-            link
-            startDate
-            endDate
-            location
-            contributors
-            description
-            cover {
-                url
-                width
-                height
-                alt
-            }
-        }
+const zaneArchProjectBaseFragment = `
+fragment zaneArchProjectBase on ZaneArchProject {
+    title
+    subTitle
+    tags
+    link
+    startDate
+    endDate
+    location
+    contributors
+    description
+    cover {
+        url
+        width
+        height
+        alt
     }
 }
 `;
+
+const GQL_QueryAll = `
+query {
+    ZaneArchProjects {
+        docs { ...zaneArchProjectBase }
+    }
+}
+
+${zaneArchProjectBaseFragment}
+`;
+
+const GQL_QueryFeatured = `
+query {
+    ZaneArchProjects (
+        where: {
+            featured: {
+                equals: true
+            }
+        }
+    ) {
+        docs { ...zaneArchProjectBase }
+    }
+}
+
+${zaneArchProjectBaseFragment}
+`;
+
 const GQL_QueryByLink = `
 query ZaneArchProjectsByLink($link: String!) {
     ZaneArchProjects (
         where: {
-            link: {
-                equals: $link
-            }
+            link: { equals: $link }
         }
     ) {
     docs {
-        title
-        subTitle
-        tags
-        link
-        startDate
-        endDate
-        location
-        contributors
-        description
-        cover {
-            url
-            width
-            height
-            alt
-        }
+        ...zaneArchProjectBase
       	content {
           catagory
           visible
           blocks {
-            ... on MultiImage { ...MultiImageFrag }
-            ... on ImageAndText { ...ImageAndTextFrag }
-            ... on FullText { ...FullTextFrag }
-            ... on FullSizeImage { ...FullSizeImageFrag }
+            ... on MultiImage { ...multiImageFrag }
+            ... on ImageAndText { ...imageAndTextFrag }
+            ... on FullText { ...fullTextFrag }
+            ... on FullSizeImage { ...fullSizeImageFrag }
           }
         }
     }
   }
 }
 
-fragment MultiImageFrag on MultiImage {
+fragment multiImageFrag on MultiImage {
   images { 
-    image {...ImageInfo }
+    image {...imageInfo }
     annotation
   }
   rows
   blockType
 }
 
-fragment ImageAndTextFrag on ImageAndText {
+fragment imageAndTextFrag on ImageAndText {
     blockType
-    image { ...ImageInfo }
+    image { ...imageInfo }
     title
     text
     annotation
 }
 
-fragment FullTextFrag on FullText {
+fragment fullTextFrag on FullText {
     blockType
     title
     text
 }
 
-fragment FullSizeImageFrag on FullSizeImage {
+fragment fullSizeImageFrag on FullSizeImage {
     blockType
-    image { ...ImageInfo }
+    image { ...imageInfo }
 }
 
-fragment ImageInfo on Media {
+fragment imageInfo on Media {
     url
     width
     height
     alt
 }
+
+${zaneArchProjectBaseFragment}
 `;
 
-export async function getAll(): Promise<ZaneArchProjectInfo[]> {
+async function getAll(): Promise<ZaneArchProjectInfo[]> {
     return await graphqlFetch(
         GQL_QueryAll
     ).then(
         async req => await req.json()
     ).then(
-        
+
         data => data["data"]["ZaneArchProjects"].docs.map(fromDto)
     );
 }
 
-export async function getByLink(link: string): Promise<ZaneArchProjectInfo> {
+async function getByLink(link: string): Promise<ZaneArchProjectInfo> {
     return await graphqlFetch(
         GQL_QueryByLink, { link: link }
     ).then(
@@ -156,7 +166,17 @@ export async function getByLink(link: string): Promise<ZaneArchProjectInfo> {
     );
 }
 
-export function fromDto(dto: ZaneArchProjectDto): ZaneArchProjectInfo {
+async function getFeatured(): Promise<ZaneArchProjectInfo[]> {
+    return await graphqlFetch(
+        GQL_QueryFeatured
+    ).then(
+        async req => await req.json()
+    ).then(
+        data => data["data"]["ZaneArchProjects"].docs.map(fromDto)
+    );
+}
+
+function fromDto(dto: ZaneArchProjectDto): ZaneArchProjectInfo {
     return {
         title: dto.title as string,
         subTitle: dto.subTitle as string,
@@ -170,4 +190,12 @@ export function fromDto(dto: ZaneArchProjectDto): ZaneArchProjectInfo {
         cover: dto.cover,
         content: dto.content ?? [],
     }
+}
+
+const cached_getByLink = cache(getByLink);
+
+export {
+    getFeatured,
+    getAll,
+    cached_getByLink as getByLink
 }

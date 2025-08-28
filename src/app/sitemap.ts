@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
-import * as ZaneDevBlogs from '@/lib/cms/zane-dev-blog'
+import * as ZaneDevBlogs from '@/lib/cms/zane-blog'
 
 const ROOT = "https://zane-portfolio.kiyo-n-zane.com/";
 

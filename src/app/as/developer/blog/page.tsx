@@ -1,7 +1,7 @@
 import TitleSection from '@/components/layout/title-section';
 import * as T from "@/components/ui/typography";
 
-import * as ZaneDevBlog from '@/lib/cms/zane-dev-blog'
+import * as ZaneDevBlog from '@/lib/cms/zane-blog'
 import ContentSection from '@/components/layout/content-section';
 import DevBlogBrief from '@/components/dev-blog/dev-blog-brief';
 import BriefsContainer from '@/components/layout/briefs-container'

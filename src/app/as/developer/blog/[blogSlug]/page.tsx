@@ -8,7 +8,7 @@ import * as SideCatagory from "@/components/layout/side-catagory"
 import * as BlogPageLayout from "@/components/dev-blog/page-layout";
 import StickyHero from '@/components/layout/sticky-hero';
 
-import * as ZaneDevBlog from '@/lib/cms/zane-dev-blog'
+import * as ZaneDevBlog from '@/lib/cms/zane-blog'
 import { DateAsString } from '@/lib/utils/date';
 
 import React from 'react';
@@ -26,7 +26,7 @@ export async function generateStaticParams(): Promise<{ blogSlug: string }[]> {
 
 export default async function Page({ params }: { params: Promise<{ blogSlug: string }> }) {
     const link = (await params).blogSlug;
-    const blog = await ZaneDevBlog.getByLink(link).then(
+    const blog = await ZaneDevBlog.getByRoleAndLink("developer", link).then(
         b => b,
         () => notFound(),
     );
@@ -94,7 +94,7 @@ export async function generateMetadata(
     { params }: { params: Promise<{ blogSlug: string }> },
 ): Promise<Metadata> {
     const link = (await params).blogSlug;
-    const blog = await ZaneDevBlog.getByLink(link);
+    const blog = await ZaneDevBlog.getByRoleAndLink("developer", link);
 
     return {
         title: `Zane Chen - ${blog.title}`,

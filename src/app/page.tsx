@@ -16,7 +16,7 @@ import SlidingDownIcon from "@/components/ui/sliding-down-icon";
 
 
 import * as Homepage from "@/lib/cms/zane-homepage"
-import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
+import * as ZaneDevBlog from "@/lib/cms/zane-blog";
 import * as ZaneArchProject from "@/lib/cms/zane-arch-project";
 import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
 

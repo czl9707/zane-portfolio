@@ -1,5 +1,5 @@
 import Link from "next/link";
-import * as ZaneDevBlog from "@/lib/cms/zane-dev-blog";
+import * as ZaneDevBlog from "@/lib/cms/zane-blog";
 import { DateAsString } from "@/lib/utils/date";
 
 import * as T from "@/components/ui/typography";
