@@ -139,7 +139,7 @@ async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
             <TitleSection>
                 <div className={style.TitleContainer}>
                     <TitleSection.Heading>Other Projects</TitleSection.Heading>
-                    <Link href={"/as/architect/project"} style={{ flex: "1 1" }}
+                    <Link href={"/project/by/architect"} style={{ flex: "1 1" }}
                         className={ExtendingButton.hoverContext}>
                         <ExtendingButton label="All Projects" />
                     </Link>

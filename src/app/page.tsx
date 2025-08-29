@@ -129,7 +129,7 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
               <DevProjectBrief project={project} key={project.title} />
             ))
           }
-          <Link href={"/as/developer/project"}>
+          <Link href={"/project/by/developer"}>
             <SlideUp.Div style={{ paddingTop: "6rem" }} className={ExtendingButton.hoverContext}>
               <ExtendingButton label="All Projects" />
             </SlideUp.Div>
@@ -147,7 +147,7 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
               <BlogBrief blog={blog} key={blog.title} />
             ))
           }
-          <Link href={"/as/developer/blog"}>
+          <Link href={"/blog/by/developer"}>
             <SlideUp.Div style={{ paddingTop: "3rem" }} className={ExtendingButton.hoverContext}>
               <ExtendingButton label="All Blogs" />
             </SlideUp.Div>
@@ -165,7 +165,7 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
       <TitleSection>
         <div className={style.ResponsiveTitle}>
           <TitleSection.Heading id="as_an_architect" >ONCE AN ARCHITECT</TitleSection.Heading>
-          <Link href={"/as/architect/project"} style={{ flex: "1 1" }}
+          <Link href={"/project/by/architect"} style={{ flex: "1 1" }}
             className={ExtendingButton.hoverContext}>
             <ExtendingButton label="All Projects" />
           </Link>
@@ -190,7 +190,7 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
         backgroundColor: `rgb(${themeVars.color.default.background})`
       }}>
         <SlideUp.Div >
-          <Link href="/as/architect/project">
+          <Link href="/project/by/architect">
             <Button variant="outline">
               View All Projects
             </Button>

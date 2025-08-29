@@ -7,9 +7,9 @@ const ROOT = "https://zane-portfolio.kiyo-n-zane.com/";
 const singlePages = [
     `${ROOT}`,
     `${ROOT}about`,
-    `${ROOT}as/architect/project`,
-    `${ROOT}as/developer/project`,
-    `${ROOT}as/developer/blog`,
+    `${ROOT}project/by/architect/`,
+    `${ROOT}project/by/developer`,
+    `${ROOT}blog/by/developer`,
 ]
 
 export const revalidate = 14400;
@@ -25,12 +25,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 1,
         })) as MetadataRoute.Sitemap),
         ...(archProjects.map((p) => ({
-            url: `${ROOT}as/architect/project/${p.link}`,
+            url: `${ROOT}project/by/architect/${p.link}`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
         })) as MetadataRoute.Sitemap),
         ...(devBlogs.map((p) => ({
-            url: `${ROOT}as/developer/blog/${p.link}`,
+            url: `${ROOT}blog/by/developer/${p.link}`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
         })) as MetadataRoute.Sitemap)

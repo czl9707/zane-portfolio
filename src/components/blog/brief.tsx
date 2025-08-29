@@ -12,7 +12,7 @@ export default function DevBlogBrief({ blog }: {
     blog: ZaneDevBlog.Info,
 }) {
     return (
-        <Link href={`/as/developer/blog/${blog.link}`} key={blog.link}>
+        <Link href={`/blog/by/developer/${blog.link}`} key={blog.link}>
             <ProjectBlogBrief buttonText="Read More">
                 <T.H4>{blog.title}</T.H4>
                 <T.Body1 style={{ opacity: 0.75, paddingTop: ".5rem" }}>

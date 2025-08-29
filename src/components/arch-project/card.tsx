@@ -11,7 +11,7 @@ import style from './card.module.css'
 
 export default function ArchitectureProjectCard({ project }: { project: ZaneArchProject.Info }) {
     return (
-        <Link href={`/as/architect/project/${project.link}`}>
+        <Link href={`/project/by/architect/${project.link}`}>
             <SlideUp.Div>
                 <div className={style.CardContainer}>
                     <img src={project.cover.url} alt={project.cover.alt} />
