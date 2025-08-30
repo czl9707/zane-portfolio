@@ -9,10 +9,7 @@
     cursor: pointer;
     user-select: none;
     overflow: hidden;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
+    padding: .5rem 1rem;
     margin: 0;
 
     color: rgb(var(--button-text-color));

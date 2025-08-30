@@ -21,6 +21,7 @@ interface TypographyToken extends ThemeToken {
 interface Theme extends ThemeToken {
     color: {
         default: ColorToken,
+        secondary: ColorToken,
         nebular: ColorToken,
         star: ColorToken,
         galaxy: ColorToken,
@@ -80,6 +81,7 @@ export type {
 const theme: Theme = {
     color: {
         default: { background: "", foreground: "" },
+        secondary: { background: "", foreground: "" },
         nebular: { background: "", foreground: "" },
         star: { background: "", foreground: "" },
         galaxy: { background: "", foreground: "" },

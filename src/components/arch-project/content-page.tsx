@@ -22,6 +22,7 @@ import { notFound } from "next/navigation";
 
 import style from './content-page.module.css'
 import StickyHero from "@/components/layout/sticky-hero";
+import Chip from "../ui/chip";
 
 export async function generateStaticParams(): Promise<string[]> {
     const result = (await ZaneArchProjects.getAll())
@@ -76,16 +77,15 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                         <T.H5 asElement='h2' style={{ opacity: 0.75, textWrap: "pretty" }}>
                             {project.subTitle}
                         </T.H5>
-                        <div className={style.TagContainer}>
+                        <Chip.Container>
                             {
                                 project.tags?.map(t => (
-                                    <Button style={{ pointerEvents: "none" }}
-                                        variant='outline' key={t}>
-                                        {t}
-                                    </Button>
+                                    <Chip style={{ pointerEvents: "none" }} key={t}>
+                                        <T.Body1>{t}</T.Body1>
+                                    </Chip>
                                 ))
                             }
-                        </div>
+                        </Chip.Container>
                     </div>
 
                     <span className={style.ProjectHeadSpacer} />

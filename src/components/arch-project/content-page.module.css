@@ -1,11 +1,3 @@
-.TagContainer {
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding-top: var(--spacing-paragraph);
-    gap: .5rem;
-}
-
 .ProjectHeadSpacer {
     grid-column: span 1 / span 1;
     @media(--smaller-than-md) { 

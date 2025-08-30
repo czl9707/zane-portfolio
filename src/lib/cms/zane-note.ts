@@ -1,7 +1,7 @@
-import {graphqlFetch} from "@/lib/cms/graphql-fetch"
+import { graphqlFetch } from "@/lib/cms/graphql-fetch"
 import { cache } from "react";
+import type { RoleType } from "@/lib/constants";
 
-type RoleType = "developer" | "humanBeing";
 
 interface ZaneNoteInfo {
     title: string,
