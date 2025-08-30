@@ -6,7 +6,7 @@ import { RoleType } from "@/lib/constants";
 interface ZaneBlogInfo {
     title: string,
     tags?: string[],
-    link: string,
+    id: string,
     role: RoleType
     lastUpdatedDate: Date,
     createdDate: Date,
@@ -18,7 +18,7 @@ interface ZaneBlogInfo {
 interface ZaneBlogDto {
     title: string,
     tags?: string[],
-    link: string,
+    id: string,
     role: RoleType
     createdDate: number,
     lastUpdatedDate: number,
@@ -43,9 +43,9 @@ fragment imageInfo on Media {
 
 const blogBaseFrament = `
 fragment blogBase on ZaneBlog {
+    id
     title
     tags
-    link
     role
     createdDate
     lastUpdatedDate
@@ -66,18 +66,11 @@ query {
 ${blogBaseFrament}
 `;
 
-const GQL_QueryByRoleNLink = `
-query ZaneBlogByRoleNLink($link: String!, $role: ZaneBlog_role_Input!) {
-    ZaneBlogs (
-        where: {
-            link: { equals: $link }
-            role: { equals: $role }
-        }
-    ) {
-        docs {
-            content
-            ...blogBase
-        }
+const GQL_QueryByRoleNId = `
+query ZaneBlogByRoleNLink($id: String!) {
+    ZaneBlog (id: $id) {
+        content
+        ...blogBase
     }
 }
 
@@ -123,16 +116,16 @@ async function getAll(): Promise<ZaneBlogInfo[]> {
     );
 }
 
-async function getByRoleAndLink(
+async function getByRoleAndId(
     role: RoleType, 
-    link: string
+    id: string
 ): Promise<ZaneBlogInfo> {
     return await graphqlFetch(
-        GQL_QueryByRoleNLink, { link, role }
+        GQL_QueryByRoleNId, { id, role }
     ).then(
         async req => await req.json()
     ).then(
-        data => fromDto(data["data"]["ZaneBlogs"].docs[0])
+        data => fromDto(data["data"]["ZaneBlog"])
     );
 }
 
@@ -162,7 +155,7 @@ function fromDto(dto: ZaneBlogDto): ZaneBlogInfo {
     return {
         title: dto.title as string,
         tags: dto.tags ?? [],
-        link: dto.link,
+        id: dto.id,
         role: dto.role,
         createdDate: new Date(dto.createdDate),
         lastUpdatedDate: new Date(dto.lastUpdatedDate),
@@ -172,11 +165,11 @@ function fromDto(dto: ZaneBlogDto): ZaneBlogInfo {
     }
 }
 
-const cached_getByRoleAndLink = cache(getByRoleAndLink);
+const cached_getByRoleAndId = cache(getByRoleAndId);
 
 export {
     getAll,
     getFeatured,
     getByTag,
-    cached_getByRoleAndLink as getByRoleAndLink,
+    cached_getByRoleAndId as getByRoleAndId,
 }

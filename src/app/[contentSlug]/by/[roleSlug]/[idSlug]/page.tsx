@@ -11,19 +11,19 @@ export default async function Page({ params }: {
     params: Promise<{
         roleSlug: RoleType,
         contentSlug: ContentType,
-        linkSlug: string,
+        idSlug: string,
     }>
 }) {
     const {
         roleSlug: role,
         contentSlug: content,
-        linkSlug: link,
+        idSlug: id,
     } = await params;
 
     if (role === "architect" && content === "project")
-        return <ArchProjectContent.Page link={link} />
+        return <ArchProjectContent.Page id={id} />
     else if (content === "blog")
-        return <BlogContent.Page role={role} link={link} />
+        return <BlogContent.Page role={role} id={id} />
     else
         return notFound()
 }
@@ -32,19 +32,19 @@ export async function generateMetadata({ params }: {
     params: Promise<{
         roleSlug: RoleType,
         contentSlug: ContentType,
-        linkSlug: string,
+        idSlug: string,
     }>
 }): Promise<Metadata> {
     const {
         roleSlug: role,
         contentSlug: content,
-        linkSlug: link,
+        idSlug: id,
     } = await params;
 
     if (role === "architect" && content === "project")
-        return ArchProjectContent.generateMetadata(link);
+        return ArchProjectContent.generateMetadata(id);
     else if (content === "blog")
-        return BlogContent.generateMetadata(role, link);
+        return BlogContent.generateMetadata(role, id);
     else
         return notFound()
 }
@@ -52,20 +52,20 @@ export async function generateMetadata({ params }: {
 export async function generateStaticParams(): Promise<{
     roleSlug: RoleType,
     contentSlug: ContentType,
-    linkSlug: string,
+    idSlug: string,
 }[]> {
     const archProjectSlugs = (await ArchProjectContent.generateStaticParams()).map(
-        link => ({
+        id => ({
             roleSlug: "architect" as RoleType,
             contentSlug: "project" as ContentType,
-            linkSlug: link
+            idSlug: id
         })
     )
     const blogSlugs = (await BlogContent.generateStaticParams()).map(
         b => ({
             roleSlug: b.role,
             contentSlug: "blog" as ContentType,
-            linkSlug: b.link
+            idSlug: b.id
         })
     )
 

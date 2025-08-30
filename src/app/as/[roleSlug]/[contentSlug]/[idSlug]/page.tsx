@@ -5,14 +5,14 @@ export default async function Page({ params }: {
     params: Promise<{
         roleSlug: string,
         contentSlug: string,
-        linkSlug: string,
+        idSlug: string,
     }>
 }) {
     const {
         roleSlug: role,
         contentSlug: content,
-        linkSlug: link,
+        idSlug: id,
     } = await params;
 
-    redirect(`/${content}/by/${role}/${link}`)
+    redirect(`/${content}/by/${role}/${id}`)
 }

@@ -7,7 +7,7 @@ interface ZaneArchProjectInfo {
     title: string,
     subTitle: string,
     tags: string[],
-    link: string,
+    id: string,
     startDate: Date,
     endDate?: Date,
     location?: string,
@@ -21,7 +21,7 @@ interface ZaneArchProjectDto {
     title: string,
     subTitle: string,
     tags?: string[],
-    link: string,
+    id: string,
     startDate: number,
     endDate?: number,
     location?: string,
@@ -38,10 +38,10 @@ export type {
 
 const zaneArchProjectBaseFragment = `
 fragment zaneArchProjectBase on ZaneArchProject {
+    id
     title
     subTitle
     tags
-    link
     startDate
     endDate
     location
@@ -82,27 +82,21 @@ query {
 ${zaneArchProjectBaseFragment}
 `;
 
-const GQL_QueryByLink = `
-query ZaneArchProjectsByLink($link: String!) {
-    ZaneArchProjects (
-        where: {
-            link: { equals: $link }
-        }
-    ) {
-    docs {
+const GQL_QueryById = `
+query ZaneArchProjectsByLink($id: String!) {
+    ZaneArchProject (id: $id) {
         ...zaneArchProjectBase
       	content {
-          catagory
-          visible
-          blocks {
-            ... on MultiImage { ...multiImageFrag }
-            ... on ImageAndText { ...imageAndTextFrag }
-            ... on FullText { ...fullTextFrag }
-            ... on FullSizeImage { ...fullSizeImageFrag }
-          }
+            catagory
+            visible
+            blocks {
+                ... on MultiImage { ...multiImageFrag }
+                ... on ImageAndText { ...imageAndTextFrag }
+                ... on FullText { ...fullTextFrag }
+                ... on FullSizeImage { ...fullSizeImageFrag }
+            }
         }
     }
-  }
 }
 
 fragment multiImageFrag on MultiImage {
@@ -154,14 +148,14 @@ async function getAll(): Promise<ZaneArchProjectInfo[]> {
     );
 }
 
-async function getByLink(link: string): Promise<ZaneArchProjectInfo> {
+async function getById(id: string): Promise<ZaneArchProjectInfo> {
     return await graphqlFetch(
-        GQL_QueryByLink, { link: link }
+        GQL_QueryById, { id }
     ).then(
         async req => await req.json()
     ).then(
         data => {
-            return fromDto(data["data"]["ZaneArchProjects"].docs[0])
+            return fromDto(data["data"]["ZaneArchProject"])
         }
     );
 }
@@ -181,7 +175,7 @@ function fromDto(dto: ZaneArchProjectDto): ZaneArchProjectInfo {
         title: dto.title as string,
         subTitle: dto.subTitle as string,
         tags: dto.tags ?? [],
-        link: dto.link,
+        id: dto.id,
         startDate: new Date(dto.startDate),
         endDate: dto.endDate ? new Date(dto.endDate) : undefined,
         location: dto.location,
@@ -192,10 +186,10 @@ function fromDto(dto: ZaneArchProjectDto): ZaneArchProjectInfo {
     }
 }
 
-const cached_getByLink = cache(getByLink);
+const cached_getById = cache(getById);
 
 export {
     getFeatured,
     getAll,
-    cached_getByLink as getByLink
+    cached_getById as getById
 }

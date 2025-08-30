@@ -25,11 +25,11 @@ import StickyHero from "@/components/layout/sticky-hero";
 
 export async function generateStaticParams(): Promise<string[]> {
     const result = (await ZaneArchProjects.getAll())
-    return result.map(t => t.link);
+    return result.map(t => t.id);
 }
 
-export async function generateMetadata(link: string): Promise<Metadata> {
-    const project = await ZaneArchProjects.getByLink(link);
+export async function generateMetadata(id: string): Promise<Metadata> {
+    const project = await ZaneArchProjects.getById(id);
 
     return {
         title: `Zane Chen - ${project.title}`,
@@ -37,8 +37,8 @@ export async function generateMetadata(link: string): Promise<Metadata> {
     }
 }
 
-export async function Page({ link }: { link: string }) {
-    const project = await ZaneArchProjects.getByLink(link).then(
+export async function Page({ id }: { id: string }) {
+    const project = await ZaneArchProjects.getById(id).then(
         p => p,
         () => notFound(),
     );

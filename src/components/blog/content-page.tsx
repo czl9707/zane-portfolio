@@ -18,13 +18,13 @@ import { notFound } from "next/navigation";
 
 import style from './content-page.module.css';
 
-export async function generateStaticParams(): Promise<{link:string, role: RoleType}[]> {
+export async function generateStaticParams(): Promise<{id:string, role: RoleType}[]> {
     const result = await ZaneDevBlog.getAll();
-    return result.map(b => ({link: b.link, role: b.role}));
+    return result.map(b => ({id: b.id, role: b.role}));
 }
 
-export async function generateMetadata(role: RoleType, link: string): Promise<Metadata> {
-    const blog = await ZaneDevBlog.getByRoleAndLink(role, link);
+export async function generateMetadata(role: RoleType, id: string): Promise<Metadata> {
+    const blog = await ZaneDevBlog.getByRoleAndId(role, id);
 
     return {
         title: `Zane Chen - ${blog.title}`,
@@ -32,8 +32,8 @@ export async function generateMetadata(role: RoleType, link: string): Promise<Me
     }
 }
 
-export async function Page({link, role}:{link: string, role: RoleType}) {
-    const blog = await ZaneDevBlog.getByRoleAndLink(role, link).then(
+export async function Page({id, role}:{id: string, role: RoleType}) {
+    const blog = await ZaneDevBlog.getByRoleAndId(role, id).then(
         b => b,
         () => notFound(),
     );
