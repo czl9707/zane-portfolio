@@ -1,0 +1,19 @@
+.Chip {
+    text-decoration: underline;
+    padding: .25rem .5rem;
+    border-radius: var(--size-border-radius);
+
+    transition: background-color var(--transition-short);
+    background-color: rgb(var(--color-default-foreground) / .1);
+    &:hover {
+        background-color: rgb(var(--color-default-foreground) / .2);
+    }
+}
+
+.ChipContainer {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: var(--spacing-paragraph);
+    gap: .5rem;
+}

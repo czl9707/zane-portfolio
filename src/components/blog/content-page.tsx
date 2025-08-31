@@ -1,16 +1,17 @@
 import 'server-only'
 
-import type { RoleType } from '@/lib/constants';
 import * as T from "@/components/ui/typography";
 import * as DevBlogContentBlock from '@/components/blog/content-block';
 import Divider from '@/components/ui/divider';
 import Spacer from "@/components/ui/spacer";
+import Chip from '@/components/ui/chip';
 import * as SideCatagory from "@/components/layout/side-catagory"
 import * as BlogPageLayout from "@/components/blog/page-layout";
 import StickyHero from '@/components/layout/sticky-hero';
 
 import * as ZaneDevBlog from '@/lib/cms/zane-blog'
 import { DateAsString } from '@/lib/utils/date';
+import { displayRole, type RoleType } from '@/lib/constants';
 
 import React from 'react';
 import { Metadata } from 'next';
@@ -18,13 +19,13 @@ import { notFound } from "next/navigation";
 
 import style from './content-page.module.css';
 
-export async function generateStaticParams(): Promise<{link:string, role: RoleType}[]> {
+export async function generateStaticParams(): Promise<{ id: string, role: RoleType }[]> {
     const result = await ZaneDevBlog.getAll();
-    return result.map(b => ({link: b.link, role: b.role}));
+    return result.map(b => ({ id: b.id, role: b.role }));
 }
 
-export async function generateMetadata(role: RoleType, link: string): Promise<Metadata> {
-    const blog = await ZaneDevBlog.getByRoleAndLink(role, link);
+export async function generateMetadata(role: RoleType, id: string): Promise<Metadata> {
+    const blog = await ZaneDevBlog.getByRoleAndId(role, id);
 
     return {
         title: `Zane Chen - ${blog.title}`,
@@ -32,8 +33,8 @@ export async function generateMetadata(role: RoleType, link: string): Promise<Me
     }
 }
 
-export async function Page({link, role}:{link: string, role: RoleType}) {
-    const blog = await ZaneDevBlog.getByRoleAndLink(role, link).then(
+export async function Page({ id, role }: { id: string, role: RoleType }) {
+    const blog = await ZaneDevBlog.getByRoleAndId(role, id).then(
         b => b,
         () => notFound(),
     );
@@ -80,14 +81,20 @@ function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
                     <T.H5 className={style.ShowOnMobile} asElement='h2' style={{ opacity: 0.75 }}>{blog.description}</T.H5>
                     <T.Body1 className={style.NoShowOnMobile} asElement='h2' style={{ opacity: 0.75 }}>{blog.description}</T.Body1>
 
-                    <Spacer spacing="component" />
-                    <T.Body1>
-                        <span style={{ opacity: 0.75 }}>Created On </span>{DateAsString(blog.createdDate)}
+                    <Chip.Container>
                         {
-                            blog.tags && <>
-                                <span style={{ opacity: 0.75 }}> With Tags </span>{blog.tags.join(", ")}
-                            </>
+                            (blog.tags ?? []).map(t => (
+                                <Chip key={t}><T.Body1>#{t}</T.Body1></Chip>
+                            ))
                         }
+                    </Chip.Container>
+                    <Spacer spacing="component" />
+
+                    <T.Body1>
+                        <span style={{ opacity: 0.75 }}>Created on </span>{DateAsString(blog.createdDate)}
+                        <span style={{ opacity: 0.75 }}>, Last Updated on </span>{DateAsString(blog.lastUpdatedDate)}
+                        <span style={{ opacity: 0.75 }}>, By a </span>{displayRole(blog.role)}
+                        <br />
                     </T.Body1>
                 </BlogPageLayout.Content>
                 <BlogPageLayout.Catagory />

@@ -22,14 +22,15 @@ import { notFound } from "next/navigation";
 
 import style from './content-page.module.css'
 import StickyHero from "@/components/layout/sticky-hero";
+import Chip from "../ui/chip";
 
 export async function generateStaticParams(): Promise<string[]> {
     const result = (await ZaneArchProjects.getAll())
-    return result.map(t => t.link);
+    return result.map(t => t.id);
 }
 
-export async function generateMetadata(link: string): Promise<Metadata> {
-    const project = await ZaneArchProjects.getByLink(link);
+export async function generateMetadata(id: string): Promise<Metadata> {
+    const project = await ZaneArchProjects.getById(id);
 
     return {
         title: `Zane Chen - ${project.title}`,
@@ -37,8 +38,8 @@ export async function generateMetadata(link: string): Promise<Metadata> {
     }
 }
 
-export async function Page({ link }: { link: string }) {
-    const project = await ZaneArchProjects.getByLink(link).then(
+export async function Page({ id }: { id: string }) {
+    const project = await ZaneArchProjects.getById(id).then(
         p => p,
         () => notFound(),
     );
@@ -76,16 +77,15 @@ function ProjectHead({ project }: { project: ZaneArchProjects.Info }) {
                         <T.H5 asElement='h2' style={{ opacity: 0.75, textWrap: "pretty" }}>
                             {project.subTitle}
                         </T.H5>
-                        <div className={style.TagContainer}>
+                        <Chip.Container>
                             {
                                 project.tags?.map(t => (
-                                    <Button style={{ pointerEvents: "none" }}
-                                        variant='outline' key={t}>
-                                        {t}
-                                    </Button>
+                                    <Chip style={{ pointerEvents: "none" }} key={t}>
+                                        <T.Body1>{t}</T.Body1>
+                                    </Chip>
                                 ))
                             }
-                        </div>
+                        </Chip.Container>
                     </div>
 
                     <span className={style.ProjectHeadSpacer} />

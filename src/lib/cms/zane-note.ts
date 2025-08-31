@@ -1,12 +1,12 @@
-import {graphqlFetch} from "@/lib/cms/graphql-fetch"
+import { graphqlFetch } from "@/lib/cms/graphql-fetch"
 import { cache } from "react";
+import type { RoleType } from "@/lib/constants";
 
-type RoleType = "developer" | "humanBeing";
 
 interface ZaneNoteInfo {
     title: string,
     tags?: string[],
-    link: string,
+    id: string,
     role: RoleType
     lastUpdatedDate: Date,
     createdDate: Date,
@@ -16,7 +16,7 @@ interface ZaneNoteInfo {
 interface ZaneNoteDto {
     title: string,
     tags?: string[],
-    link: string,
+    id: string,
     role: RoleType
     createdDate: number,
     lastUpdatedDate: number,
@@ -31,9 +31,9 @@ export type {
 
 const noteBaseFrament = `
 fragment noteBase on ZaneNote {
+    id
     title
     tags
-    link
     role
     createdDate
     lastUpdatedDate
@@ -49,18 +49,11 @@ query {
 ${noteBaseFrament}
 `;
 
-const GQL_QueryByRoleNLink = `
-query ZaneNotesByRoleNLink($link: String!, $role: ZaneNote_role_Input!) {
-    ZaneNotes (
-        where: {
-            link: { equals: $link }
-            role: { equals: $role }
-        }
-    ) {
-        docs {
-            content
-            ...noteBase
-        }
+const GQL_QueryByRoleNId = `
+query ZaneNotesByRoleNLink($id: String!) {
+    ZaneNotes ( id: $id ) {
+        content
+        ...noteBase
     }
 }
 
@@ -91,16 +84,16 @@ async function getAll(): Promise<ZaneNoteInfo[]> {
     );
 }
 
-async function getByRoleAndLink(
+async function getByRoleAndId(
     role: RoleType, 
-    link: string
+    id: string
 ): Promise<ZaneNoteInfo> {
     return await graphqlFetch(
-        GQL_QueryByRoleNLink, { link, role }
+        GQL_QueryByRoleNId, { id, role }
     ).then(
         async req => await req.json()
     ).then(
-        data => fromDto(data["data"]["ZaneNotes"].docs[0])
+        data => fromDto(data["data"]["ZaneNote"])
     );
 }
 
@@ -120,7 +113,7 @@ function fromDto(dto: ZaneNoteDto): ZaneNoteInfo {
     return {
         title: dto.title as string,
         tags: dto.tags ?? [],
-        link: dto.link,
+        id: dto.id,
         role: dto.role,
         createdDate: new Date(dto.createdDate),
         lastUpdatedDate: new Date(dto.lastUpdatedDate),
@@ -128,10 +121,10 @@ function fromDto(dto: ZaneNoteDto): ZaneNoteInfo {
     }
 }
 
-const cached_getByRoleAndLink = cache(getByRoleAndLink);
+const cached_getByRoleAndId = cache(getByRoleAndId);
 
 export {
     getAll,
     getByTag,
-    cached_getByRoleAndLink as getByRoleAndLink,
+    cached_getByRoleAndId as getByRoleAndId,
 }
