@@ -59,7 +59,7 @@ export async function Page({ id, role }: { id: string, role: RoleType }) {
                 </BlogPageLayout.Content>
                 <BlogPageLayout.Catagory>
                     <T.H6 style={{ marginBottom: "1rem" }}>Table of Content</T.H6>
-                    <SideCatagory.CatagoryPanel />
+                    <SideCatagory.CatagoryPanel/>
                 </BlogPageLayout.Catagory>
             </BlogPageLayout.Layout>
         </SideCatagory.Context >
@@ -78,7 +78,7 @@ function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
                     <Spacer spacing="paragraph" />
 
                     {/* Responsive Discription */}
-                    <T.H5 className={style.ShowOnMobile} asElement='h2' style={{ opacity: 0.75 }}>{blog.description}</T.H5>
+                    <T.H6 className={style.ShowOnMobile} asElement='h2' style={{ opacity: 0.75 }}>{blog.description}</T.H6>
                     <T.Body1 className={style.NoShowOnMobile} asElement='h2' style={{ opacity: 0.75 }}>{blog.description}</T.Body1>
 
                     <Chip.Container>
@@ -90,7 +90,7 @@ function BlogHead({ blog }: { blog: ZaneDevBlog.Info }) {
                     </Chip.Container>
                     <Spacer spacing="component" />
 
-                    <T.Body1>
+                    <T.Body1 style={{ marginBottom: "var(--spacing-component)" }}>
                         <span style={{ opacity: 0.75 }}>Created on </span>{DateAsString(blog.createdDate)}
                         <span style={{ opacity: 0.75 }}>, Last Updated on </span>{DateAsString(blog.lastUpdatedDate)}
                         <span style={{ opacity: 0.75 }}>, By a </span>{displayRole(blog.role)}

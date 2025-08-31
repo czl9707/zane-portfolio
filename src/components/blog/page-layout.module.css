@@ -25,6 +25,9 @@
         position: sticky;
         margin-top: var(--spacing-block);
         top: calc(var(--size-header-height) + var(--spacing-component));
+        height: calc(100vh - var(--size-header-height) - var(--spacing-component));
+        display: flex;
+        flex-direction: column;
 
         @media(--smaller-than-md) {
             display: none;
