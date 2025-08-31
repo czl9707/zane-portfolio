@@ -4,9 +4,9 @@ import * as SlideUp from '@/components/ui/slideup-effect'
 import * as Markdown from '@/components/ui/markdown'
 import * as T from '@/components/ui/typography'
 import * as SideCatagory from '@/components/layout/side-catagory'
-import TitleSection from '@/components/layout/title-section'
 import Spacer from '@/components/ui/spacer'
 import Divider from '@/components/ui/divider'
+import HeadingWithTag from "@/components/ui/heading-with-tag"
 
 import React from 'react'
 
@@ -24,10 +24,9 @@ const HeadingMajor = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<H
         return (
             <>
                 <SideCatagory.Link href={id == undefined ? "" : `#${id}`}>
-                    <T.H4 {...others} ref={ref} id={id} className={clsx(
-                        style.LinkWithTag,
-                        className
-                    )} />
+                    <HeadingWithTag>
+                        <T.H4 {...others} ref={ref} id={id} className={className} />
+                    </HeadingWithTag>
                     <Spacer spacing="paragraph" />
                     <Divider />
                 </SideCatagory.Link>
@@ -41,10 +40,10 @@ const HeadingMinor = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<H
         return (
             <>
                 <SideCatagory.Link href={id == undefined ? "" : `#${id}`}>
-                    <T.H5 {...others} ref={ref} id={id} className={clsx(
-                        style.LinkWithTag,
-                        className
-                    )} />                    <Spacer spacing="paragraph" />
+                    <HeadingWithTag>
+                        <T.H5 {...others} ref={ref} id={id} className={className} />
+                    </HeadingWithTag>                  
+                    <Spacer spacing="paragraph" />
                     <Divider />
                 </SideCatagory.Link>
             </>

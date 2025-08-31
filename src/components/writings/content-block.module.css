@@ -3,16 +3,3 @@
     width: 100%;
     margin-bottom: var(--spacing-component);
 }
-
-.LinkWithTag {
-    &::before {
-        content: "#"; 
-        position: absolute;
-        transform: translateX(-145%);
-        transition: opacity var(--transition-short);
-        opacity: 0;
-    }
-    &:hover::before {
-        opacity: 0.3;
-    }
-}
