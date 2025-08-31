@@ -85,7 +85,7 @@ async function getAll(): Promise<ZaneNoteInfo[]> {
 }
 
 async function getByRoleAndId(
-    role: RoleType, 
+    role: RoleType,
     id: string
 ): Promise<ZaneNoteInfo> {
     return await graphqlFetch(
@@ -93,7 +93,11 @@ async function getByRoleAndId(
     ).then(
         async req => await req.json()
     ).then(
-        data => fromDto(data["data"]["ZaneNote"])
+        data => {
+            if (data["data"]["ZaneNote"] == null)
+                throw new Error("Not Found");
+            return fromDto(data["data"]["ZaneNote"])
+        }
     );
 }
 
