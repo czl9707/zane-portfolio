@@ -1,5 +1,5 @@
 @keyframes SlideUpEffect {
-    from { transform: translateY(min(5rem, 100%)); opacity: 0; }
+    from { transform: translateY(min(5rem, 90%)); opacity: 0; }
     to { transform: none; opacity: 1; }
 }
 

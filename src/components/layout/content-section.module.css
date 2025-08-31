@@ -5,6 +5,6 @@
 }
 
 .ContentGrid {
-    padding-bottom: var(--spacing-group);
-    padding-top: var(--spacing-group);
+    padding-bottom: var(--spacing-component);
+    padding-top: var(--spacing-component);
 }
