@@ -1,6 +1,6 @@
 .ContentLayout {
     display: grid;
-    align-items: start;
+    align-items: stretch;
     gap: var(--spacing-component);
     max-width: var(--breakpoint-lg);
     width: 100%;
@@ -15,7 +15,7 @@
     }
 
     .ContentContainer {
-        margin-top: var(--spacing-block);
+        width: 100%;
         grid-column: span 5 / span 5;
         position: relative;
     }
@@ -23,7 +23,6 @@
     .CatagoryContainer {
         grid-column: span 2 / span 2;
         position: sticky;
-        margin-top: var(--spacing-block);
         top: calc(var(--size-header-height) + var(--spacing-component));
         height: calc(100vh - var(--size-header-height) - var(--spacing-component));
         display: flex;

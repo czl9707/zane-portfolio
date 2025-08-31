@@ -42,20 +42,3 @@ TitleSection.Heading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes
         </>
     }
 );
-
-TitleSection.SubHeading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement> & { asElement?: T.AsElement }>(
-    function RespondingSectionTitle({ className, ...others }, ref) {
-        return <>
-            <T.H4 {...others} ref={ref} className={clsx(
-                style.ShowOnSM,
-                style.LinkWithTag,
-                className,
-            )} />
-            <T.H5 {...others} ref={ref} className={clsx(
-                style.NoShowOnSM,
-                style.LinkWithTag,
-                className,
-            )} />
-        </>
-    }
-);

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import * as ZaneDevBlog from "@/lib/cms/zane-blog";
+import * as ZaneBlog from "@/lib/cms/zane-blog";
 import { DateAsString } from "@/lib/utils/date";
 
 import * as T from "@/components/ui/typography";
@@ -8,8 +8,8 @@ import * as Markdown from "@/components/ui/markdown";
 import ContentBrief from "@/components/layout/content-brief";
 
 
-export default function DevBlogBrief({ blog, withDescription = false }: {
-    blog: ZaneDevBlog.Info,
+export default function BlogBrief({ blog, withDescription = false }: {
+    blog: ZaneBlog.Info,
     withDescription?: boolean,
 }) {
     return (
@@ -44,4 +44,4 @@ export default function DevBlogBrief({ blog, withDescription = false }: {
     )
 }
 
-DevBlogBrief.Container = ContentBrief.Container;
+BlogBrief.Container = ContentBrief.Container;

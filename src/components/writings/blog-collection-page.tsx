@@ -4,7 +4,7 @@ import * as T from "@/components/ui/typography";
 
 import * as ZaneBlog from '@/lib/cms/zane-blog'
 import ContentSection from '@/components/layout/content-section';
-import BlogBrief from '@/components/blog/brief';
+import BlogBrief from '@/components/writings/blog-brief';
 
 export async function Page() {
     const blogs = await ZaneBlog.getAll();

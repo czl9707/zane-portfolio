@@ -51,7 +51,7 @@ ${noteBaseFrament}
 
 const GQL_QueryByRoleNId = `
 query ZaneNotesByRoleNLink($id: String!) {
-    ZaneNotes ( id: $id ) {
+    ZaneNote ( id: $id ) {
         content
         ...noteBase
     }
@@ -94,7 +94,7 @@ async function getByRoleAndId(
         async req => await req.json()
     ).then(
         data => {
-            if (data["data"]["ZaneNote"] == null)
+            if (data["data"]?.["ZaneNote"] == null)
                 throw new Error("Not Found");
             return fromDto(data["data"]["ZaneNote"])
         }

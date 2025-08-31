@@ -5,7 +5,7 @@ import type { ContentType, RoleType } from "@/lib/constants"
 import TitleSection from '@/components/layout/title-section';
 import * as ArchProjectCollection from "@/components/arch-project/collection-page"
 import * as DevProjectCollection from "@/components/dev-project/collection-page"
-import * as BlogCollection from "@/components/blog/collection-page"
+import * as BlogCollection from "@/components/writings/blog-collection-page"
 
 export const revalidate = 14400;
 

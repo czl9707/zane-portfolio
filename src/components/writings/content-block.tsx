@@ -2,6 +2,7 @@ import "server-only"
 
 import * as SlideUp from '@/components/ui/slideup-effect'
 import * as Markdown from '@/components/ui/markdown'
+import * as T from '@/components/ui/typography'
 import * as SideCatagory from '@/components/layout/side-catagory'
 import TitleSection from '@/components/layout/title-section'
 import Spacer from '@/components/ui/spacer'
@@ -14,16 +15,19 @@ import { toString } from 'mdast-util-to-string';
 import { toMarkdown } from 'mdast-util-to-markdown';
 import remarkParse from 'remark-parse';
 import { unified } from 'unified';
+import clsx from "clsx"
 
 import style from './content-block.module.css';
 
 const HeadingMajor = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
-    function HeadingMajor({ id, ...others }, ref) {
+    function HeadingMajor({ id, className, ...others }, ref) {
         return (
             <>
-                <Spacer spacing="component" />
                 <SideCatagory.Link href={id == undefined ? "" : `#${id}`}>
-                    <TitleSection.Heading ref={ref} id={id} {...others} />
+                    <T.H4 {...others} ref={ref} id={id} className={clsx(
+                        style.LinkWithTag,
+                        className
+                    )} />
                     <Spacer spacing="paragraph" />
                     <Divider />
                 </SideCatagory.Link>
@@ -33,13 +37,14 @@ const HeadingMajor = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<H
 )
 
 const HeadingMinor = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
-    function HeadingMinor({ id, ...others }, ref) {
+    function HeadingMinor({ id, className, ...others }, ref) {
         return (
             <>
-                <Spacer spacing="component" />
                 <SideCatagory.Link href={id == undefined ? "" : `#${id}`}>
-                    <TitleSection.SubHeading ref={ref} id={id} {...others} />
-                    <Spacer spacing="paragraph" />
+                    <T.H5 {...others} ref={ref} id={id} className={clsx(
+                        style.LinkWithTag,
+                        className
+                    )} />                    <Spacer spacing="paragraph" />
                     <Divider />
                 </SideCatagory.Link>
             </>

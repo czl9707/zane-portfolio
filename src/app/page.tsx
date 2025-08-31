@@ -10,12 +10,12 @@ import ContentSection from "@/components/layout/content-section";
 import Button from "@/components/ui/button";
 import * as Markdown from "@/components/ui/markdown";
 import DevProjectBrief from "@/components/dev-project/brief";
-import BlogBrief from "@/components/blog/brief";
+import BlogBrief from "@/components/writings/blog-brief";
 import SlidingDownIcon from "@/components/ui/sliding-down-icon";
 
 
 import * as Homepage from "@/lib/cms/zane-homepage"
-import * as ZaneDevBlog from "@/lib/cms/zane-blog";
+import * as ZaneBlog from "@/lib/cms/zane-blog";
 import * as ZaneArchProject from "@/lib/cms/zane-arch-project";
 import * as ZaneDevProject from "@/lib/cms/zane-dev-project";
 
@@ -110,7 +110,7 @@ function WhoAmISection({ content }: { content: string }) {
 }
 
 
-function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.Info[], blogs: ZaneDevBlog.Info[] }) {
+function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.Info[], blogs: ZaneBlog.Info[] }) {
   return (
     <>
       <TitleSection>

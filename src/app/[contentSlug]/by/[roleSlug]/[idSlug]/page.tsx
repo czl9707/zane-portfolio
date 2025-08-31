@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 
 import type { ContentType, RoleType } from "@/lib/constants"
 import * as ArchProjectContent from "@/components/arch-project/content-page"
-import * as BlogContent from "@/components/blog/content-page"
+import * as BlogContent from "@/components/writings/blog-content-page"
+import * as NoteContent from "@/components/writings/note-content-page"
 
 export const revalidate = 14400;
 export const dynamic = 'auto'
@@ -25,6 +26,8 @@ export default async function Page({ params }: {
         return <ArchProjectContent.Page id={id} />
     else if (content === "blog")
         return <BlogContent.Page role={role} id={id} />
+    else if (content === "note")
+        return <NoteContent.Page role={role} id={id} />
     else
         return notFound()
 }
@@ -46,6 +49,8 @@ export async function generateMetadata({ params }: {
         return ArchProjectContent.generateMetadata(id);
     else if (content === "blog")
         return BlogContent.generateMetadata(role, id);
+    else if (content === "note")
+        return NoteContent.generateMetadata(role, id);
     else
         return notFound()
 }
@@ -69,6 +74,13 @@ export async function generateStaticParams(): Promise<{
             idSlug: b.id
         })
     )
+    const noteSlugs = (await NoteContent.generateStaticParams()).map(
+        n => ({
+            roleSlug: n.role,
+            contentSlug: "note" as ContentType,
+            idSlug: n.id
+        })
+    )
 
-    return [...archProjectSlugs, ...blogSlugs];
+    return [...archProjectSlugs, ...blogSlugs, ...noteSlugs];
 }
