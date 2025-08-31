@@ -5,17 +5,21 @@ import { MonthAsString } from "@/lib/utils/date";
 import * as T from "@/components/ui/typography";
 import Spacer from "@/components/ui/spacer";
 import * as StyledMarkdown from "@/components/ui/markdown";
-import ProjectBlogBrief from "@/components/layout/project-blog-brief";
+import ContentBrief from "@/components/layout/content-brief";
 
 
-export default function DevProjectBrief({ project }: {
+export default function DevProjectBrief({ project, withDescription = false }: {
     project: ZaneDevProject.Info
+    withDescription?: boolean
 }) {
     return (
         <Link href={project.externalLink}>
-            <ProjectBlogBrief buttonText="Take me there">
-                <T.H4>{project.title}</T.H4>
-
+            <ContentBrief buttonText="Take me there">
+                {
+                    withDescription ? 
+                        <T.H5>{project.title}</T.H5> :
+                        <T.H6>{project.title}</T.H6>
+                }
                 <T.Body1 style={{ opacity: 0.75, paddingTop: ".5rem" }}>
                     {MonthAsString(project.startDate)}
                     {
@@ -25,14 +29,19 @@ export default function DevProjectBrief({ project }: {
                         project.tags?.join(" · ")
                     }
                 </T.Body1>
-
-                <Spacer spacing="component" />
-                <div style={{ opacity: 0.75 }}>
-                    <StyledMarkdown.Default>
-                        {project.description}
-                    </StyledMarkdown.Default>
-                </div>
-            </ProjectBlogBrief>
+                {
+                    withDescription && <>
+                        <Spacer spacing="component" />
+                        <div style={{ opacity: 0.75 }}>
+                            <StyledMarkdown.Default>
+                                {project.description}
+                            </StyledMarkdown.Default>
+                        </div>
+                    </>
+                }
+            </ContentBrief>
         </Link>
     )
 }
+
+DevProjectBrief.Container = ContentBrief.Container;

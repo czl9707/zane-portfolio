@@ -1,6 +1,6 @@
 .FullWidthContainer {
-    padding-left: calc(var(--spacing-group) / 2);
-    padding-right: calc(var(--spacing-group) / 2);
+    padding-left: calc(var(--spacing-paragraph));
+    padding-right: calc(var(--spacing-paragraph));
     overflow-x: visible;
     width: 100%;
     box-sizing: border-box;

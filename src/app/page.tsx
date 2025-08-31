@@ -8,7 +8,6 @@ import ArchitectureProjectCard from "@/components/arch-project/card";
 import TitleSection from "@/components/layout/title-section";
 import ContentSection from "@/components/layout/content-section";
 import Button from "@/components/ui/button";
-import BriefsContainer from '@/components/layout/briefs-container'
 import * as Markdown from "@/components/ui/markdown";
 import DevProjectBrief from "@/components/dev-project/brief";
 import BlogBrief from "@/components/blog/brief";
@@ -123,25 +122,25 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
           <T.H5 style={{ opacity: 0.75 }}>Featured Projects</T.H5>
         }
       >
-        <BriefsContainer style={{ gridColumn: "span 3 / span 3" }}>
+        <DevProjectBrief.Container style={{ gridColumn: "span 3 / span 3" }}>
           {
             projects.map((project) => (
               <DevProjectBrief project={project} key={project.title} />
             ))
           }
           <Link href={"/project/by/developer"}>
-            <SlideUp.Div style={{ paddingTop: "6rem" }} className={ExtendingButton.hoverContext}>
+            <SlideUp.Div style={{ paddingTop: "3rem" }} className={ExtendingButton.hoverContext}>
               <ExtendingButton label="All Projects" />
             </SlideUp.Div>
           </Link>
-        </BriefsContainer>
+        </DevProjectBrief.Container>
 
       </ContentSection>
 
       <ContentSection style={{ paddingTop: 0 }}
         header={<T.H5 style={{ opacity: 0.75 }}>Featured Blogs</T.H5>}
       >
-        <BriefsContainer style={{ gridColumn: "span 3 / span 3" }}>
+        <BlogBrief.Container style={{ gridColumn: "span 3 / span 3" }}>
           {
             blogs.map((blog) => (
               <BlogBrief blog={blog} key={blog.title} />
@@ -152,7 +151,7 @@ function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.I
               <ExtendingButton label="All Blogs" />
             </SlideUp.Div>
           </Link>
-        </BriefsContainer>
+        </BlogBrief.Container>
       </ContentSection>
     </>
   )

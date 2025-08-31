@@ -1,4 +1,4 @@
-.BriefContainer {
+.ContentBriefContainer {
     display: flex;
     align-items: flex-end;
     gap: var(--spacing-component);
@@ -10,7 +10,7 @@
   
     /* divider */
     & + span {
-      margin-top: var(--spacing-group);
+      margin-top: var(--spacing-component);
       transition: border-top-color var(--transition-short);
     };
 
@@ -20,4 +20,10 @@
             border-top-color: rgb(var(--color-default-foreground));
         }
     }
+}
+
+.BriefsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-component);
 }

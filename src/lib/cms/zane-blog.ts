@@ -1,4 +1,4 @@
-import {graphqlFetch} from "@/lib/cms/graphql-fetch"
+import { graphqlFetch } from "@/lib/cms/graphql-fetch"
 import { ImageInfo } from "@/lib/cms/common.type";
 import { cache } from "react";
 import { RoleType } from "@/lib/constants";
@@ -117,7 +117,7 @@ async function getAll(): Promise<ZaneBlogInfo[]> {
 }
 
 async function getByRoleAndId(
-    role: RoleType, 
+    role: RoleType,
     id: string
 ): Promise<ZaneBlogInfo> {
     return await graphqlFetch(
@@ -125,7 +125,11 @@ async function getByRoleAndId(
     ).then(
         async req => await req.json()
     ).then(
-        data => fromDto(data["data"]["ZaneBlog"])
+        data => {
+            if (data["data"]["ZaneBlog"] == null)
+                throw new Error("Not Found");
+            return fromDto(data["data"]["ZaneBlog"])
+        }
     );
 }
 

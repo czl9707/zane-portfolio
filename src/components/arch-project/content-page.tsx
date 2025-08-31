@@ -1,7 +1,6 @@
 import * as T from "@/components/ui/typography";
 import Grid from "@/components/ui/grid";
 import * as Container from "@/components/ui/container";
-import Button from '@/components/ui/button';
 import ArchProjectContentBlock from '@/components/arch-project/content-blocks';
 import TitleSection from '@/components/layout/title-section';
 import ArchitectureProjectCard from '@/components/arch-project/card';

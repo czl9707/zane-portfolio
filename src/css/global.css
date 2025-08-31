@@ -91,8 +91,12 @@ html {
     --transition-short: .3s;
     --transition-long: .9s;
 
-    --size-header-height: 6rem;
+    --size-header-height: 4.5rem;
     --size-border-radius: .25rem;
+    
+    @media(--larger-than-xs) {
+        --size-header-height: 6rem;
+    }
 }
 
 body {

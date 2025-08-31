@@ -143,7 +143,6 @@ async function getAll(): Promise<ZaneArchProjectInfo[]> {
     ).then(
         async req => await req.json()
     ).then(
-
         data => data["data"]["ZaneArchProjects"].docs.map(fromDto)
     );
 }
@@ -155,6 +154,8 @@ async function getById(id: string): Promise<ZaneArchProjectInfo> {
         async req => await req.json()
     ).then(
         data => {
+            if (data["data"]["ZaneArchProject"] == null)
+                throw new Error("Not Found");
             return fromDto(data["data"]["ZaneArchProject"])
         }
     );

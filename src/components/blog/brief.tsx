@@ -5,16 +5,21 @@ import { DateAsString } from "@/lib/utils/date";
 import * as T from "@/components/ui/typography";
 import Spacer from "@/components/ui/spacer";
 import * as Markdown from "@/components/ui/markdown";
-import ProjectBlogBrief from "@/components/layout/project-blog-brief";
+import ContentBrief from "@/components/layout/content-brief";
 
 
-export default function DevBlogBrief({ blog }: {
+export default function DevBlogBrief({ blog, withDescription = false }: {
     blog: ZaneDevBlog.Info,
+    withDescription?: boolean,
 }) {
     return (
         <Link href={`/blog/by/developer/${blog.id}`} key={blog.id}>
-            <ProjectBlogBrief buttonText="Read More">
-                <T.H4>{blog.title}</T.H4>
+            <ContentBrief buttonText="Read More">
+                {
+                    withDescription ? 
+                        <T.H5>{blog.title}</T.H5> :
+                        <T.H6>{blog.title}</T.H6>
+                }
                 <T.Body1 style={{ opacity: 0.75, paddingTop: ".5rem" }}>
                     {DateAsString(blog.createdDate)}
                     {
@@ -24,13 +29,19 @@ export default function DevBlogBrief({ blog }: {
                         blog.tags?.join(" · ")
                     }
                 </T.Body1>
-                <Spacer spacing="paragraph" />
-                <div style={{ opacity: 0.75 }}>
-                    <Markdown.Default>
-                        {blog.description}
-                    </Markdown.Default>
-                </div>
-            </ProjectBlogBrief>
+                {
+                    withDescription && <>
+                    <Spacer spacing="paragraph" />
+                    <div style={{ opacity: 0.75 }}>
+                        <Markdown.Default>
+                            {blog.description}
+                        </Markdown.Default>
+                    </div>
+                    </>
+                }
+            </ContentBrief>
         </Link>
     )
 }
+
+DevBlogBrief.Container = ContentBrief.Container;

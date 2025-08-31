@@ -6,6 +6,7 @@ import * as ArchProjectContent from "@/components/arch-project/content-page"
 import * as BlogContent from "@/components/blog/content-page"
 
 export const revalidate = 14400;
+export const dynamic = 'auto'
 
 export default async function Page({ params }: {
     params: Promise<{
