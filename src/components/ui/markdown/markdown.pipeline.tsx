@@ -3,6 +3,7 @@ import 'server-only';
 import { default as BaseMarkdown } from "react-markdown";
 import type { Components } from "react-markdown";
 import type { PluggableList } from "unified";
+import type { Options as RemarkRehypeOptions } from "remark-rehype"
 import remarkDirective from 'remark-directive';
 
 import * as React from 'react'
@@ -32,15 +33,29 @@ const defaultComponents: Components = {
     div: DivRouter,
 };
 
-type MarkdownProps = Omit<React.HTMLAttributes<HTMLDivElement>, "children"> & { children: string, components?: Components, remarkPlugins?: PluggableList };
+type MarkdownProps = Omit<React.HTMLAttributes<HTMLDivElement>, "children"> & {
+    children: string,
+    components?: Components,
+    remarkPlugins?: PluggableList,
+    rehypePlugins?: PluggableList
+    remarkRehypeOptions?: Readonly<RemarkRehypeOptions>
+};
 
 const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
-    function Markdown(
-        { children, className, components: componentsOverride, remarkPlugins = [], ...others }, ref
-    ) {
+    function Markdown({
+        children,
+        className,
+        components: componentsOverride,
+        remarkPlugins = [],
+        rehypePlugins = [],
+        remarkRehypeOptions = {},
+        ...others
+    }, ref) {
         return (<div ref={ref} {...others} className={clsx(className, style.MarkdownBase)}>
             <BaseMarkdown components={{ ...defaultComponents, ...componentsOverride }}
-                remarkPlugins={[remarkDirective, multiCodeblockConverter, ...remarkPlugins]}>
+                remarkPlugins={[ ...remarkPlugins, remarkDirective, multiCodeblockConverter,]}
+                remarkRehypeOptions={{...remarkRehypeOptions}}
+                rehypePlugins={[...rehypePlugins]}>
                 {children}
             </BaseMarkdown>
         </div>)

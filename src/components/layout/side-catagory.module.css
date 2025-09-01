@@ -20,5 +20,12 @@
     flex-direction: column;
     border: 1px solid rgb(var(--color-default-foreground));
     padding: var(--spacing-paragraph); 
+    margin-bottom: var(--spacing-paragraph); 
+    flex: 0 1 content;
     gap: .5rem;
+
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        display: none
+    }
 }

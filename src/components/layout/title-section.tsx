@@ -2,6 +2,7 @@ import * as Container from '@/components/ui/container';
 import * as SlideUp from '@/components/ui/slideup-effect';
 import * as T from '@/components/ui/typography';
 import Divider from '@/components/ui/divider';
+import HeadingWithTag from '@/components/ui/heading-with-tag';
 import { themeVars } from '@/lib/theme';
 
 import * as React from 'react';
@@ -29,33 +30,18 @@ export default function TitleSection({ children, className, noDivider = false }:
 TitleSection.Heading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement> & { asElement?: T.AsElement }>(
     function RespondingSectionTitle({ className, ...others }, ref) {
         return <>
-            <T.H2 {...others} ref={ref} className={clsx(
-                style.ShowOnSM,
-                style.LinkWithTag,
-                className,
-            )} />
-            <T.H4 {...others} ref={ref} className={clsx(
-                style.NoShowOnSM,
-                style.LinkWithTag,
-                className,
-            )} />
-        </>
-    }
-);
-
-TitleSection.SubHeading = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement> & { asElement?: T.AsElement }>(
-    function RespondingSectionTitle({ className, ...others }, ref) {
-        return <>
-            <T.H4 {...others} ref={ref} className={clsx(
-                style.ShowOnSM,
-                style.LinkWithTag,
-                className,
-            )} />
-            <T.H5 {...others} ref={ref} className={clsx(
-                style.NoShowOnSM,
-                style.LinkWithTag,
-                className,
-            )} />
+            <HeadingWithTag>
+                <T.H2 {...others} ref={ref} className={clsx(
+                    style.ShowOnSM,
+                    className,
+                )} />
+            </HeadingWithTag>
+            <HeadingWithTag>
+                <T.H4 {...others} ref={ref} className={clsx(
+                    style.NoShowOnSM,
+                    className,
+                )} />
+            </HeadingWithTag>
         </>
     }
 );

@@ -1,30 +1,36 @@
 .ContentLayout {
     display: grid;
     align-items: start;
+    justify-items: start;
     gap: var(--spacing-component);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+
     max-width: var(--breakpoint-lg);
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     box-sizing: border-box;
     background-color: rgb(var(--color-default-background));
-    grid-template-columns: repeat(7, minmax(0, 1fr));
 
     @media(--smaller-than-md) {
         grid-template-columns: repeat(5, minmax(0, 1fr));
     }
 
     .ContentContainer {
-        margin-top: var(--spacing-block);
+        width: 100%;
         grid-column: span 5 / span 5;
         position: relative;
     }
 
     .CatagoryContainer {
+        width: 100%;
         grid-column: span 2 / span 2;
         position: sticky;
-        margin-top: var(--spacing-block);
         top: calc(var(--size-header-height) + var(--spacing-component));
+        max-height: calc(100vh - var(--size-header-height) - var(--spacing-component));
+
+        display: flex;
+        flex-direction: column;
 
         @media(--smaller-than-md) {
             display: none;
