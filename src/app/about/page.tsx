@@ -49,7 +49,7 @@ export default async function Page() {
         </ContentSection>
 
 
-        <TitleSection noDivider>
+        <TitleSection>
             <TitleSection.Heading>My Timeline</TitleSection.Heading>
         </TitleSection>
         {

@@ -18,6 +18,7 @@ import { Metadata } from 'next';
 import { notFound } from "next/navigation";
 
 import style from './content-page.module.css';
+import { themeVars } from '@/lib/theme';
 
 export async function generateStaticParams(): Promise<{ id: string, role: RoleType }[]> {
     const result = await ZaneBlog.getAll();
@@ -85,7 +86,7 @@ function BlogHead({ blog }: { blog: ZaneBlog.Info }) {
                     </Chip.Container>
                     <Spacer spacing="component" />
 
-                    <T.Body1 style={{ marginBottom: "var(--spacing-component)" }}>
+                    <T.Body1 style={{ marginBottom: `var(${themeVars.spacing.component})` }}>
                         <span style={{ opacity: 0.75 }}>Created on </span>{DateAsString(blog.createdDate)}
                         <span style={{ opacity: 0.75 }}>, Last Updated on </span>{DateAsString(blog.lastUpdatedDate)}
                         <span style={{ opacity: 0.75 }}>, By a </span>{displayRole(blog.role)}

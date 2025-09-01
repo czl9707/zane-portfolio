@@ -10,11 +10,7 @@
 }
 
 .CardContainer {
-    overflow: hidden;
-    border-radius: var(--size-border-radius);
     aspect-ratio: 4/3;
-    width: 100%;
-    position: relative;
 
     img {
         position: absolute;

@@ -1,7 +1,6 @@
 .ExtendingButtonTypography {
     color: rgb(var(--color-default-foreground) / 0.75);
     transition: color var(--transition-short);
-    text-align: right;
 }
 
 .ExtendingButtonMark {

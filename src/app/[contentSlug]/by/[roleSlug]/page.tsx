@@ -19,7 +19,7 @@ export default async function Page({ params }: {
 
     return (
         <>
-            <TitleSection noDivider>
+            <TitleSection omitDivider>
                 <TitleSection.Heading asElement='h1'>
                     {headingText(role, content)}
                 </TitleSection.Heading>
