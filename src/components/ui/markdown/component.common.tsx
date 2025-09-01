@@ -4,19 +4,23 @@ import Link from "next/link";
 import { CodeHighLighter, InlineCodeBlock, CodePanel } from '@/components/ui/code';
 import { MultiCodeBlock, multiCodeBlockTypeName } from './component.multi-codeblock';
 
-import style from './component.common.module.css'
+import compStyle from './component.common.module.css'
 import clsx from 'clsx';
 
 export const LinkRouter = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttributes<HTMLAnchorElement>>(
     function LinkRouter({ href, className, ...other }, ref) {
-        if (!href?.startsWith("/") && !href?.startsWith("http") && !href?.endsWith(".md")) {
+        if (
+            !href?.startsWith("/") && 
+            !href?.startsWith("http") && 
+            href?.endsWith(".md")
+        ) {
             href = `/${href?.replace(".md", "")}`; // relative link support
         }
 
         return (
             <Link ref={ref} href={href as string} {...other}
                 target={href?.startsWith("http") ? "_blank" : undefined}
-                className={clsx(style.LinkUnderline, className)} />
+                className={clsx(compStyle.LinkUnderline, compStyle.LinkDimOnHover, className)} />
         )
     }
 )

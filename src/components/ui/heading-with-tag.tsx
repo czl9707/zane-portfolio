@@ -1,19 +1,17 @@
 
 import * as React from 'react';
 import clsx from "clsx";
-import * as Slot from '@radix-ui/react-slot'
 
 import headingStyle from './heading-with-tag.module.css'
 
-const HeadingWithTag = React.forwardRef<HTMLHeadingElement, Slot.SlotProps>(
-    function HeadingWithTag({ className, children, ...others }, ref) {
-        return (
-            <Slot.Root className={clsx(headingStyle.HeadingWithTag, className)}
-                {...others} ref={ref}>
-                {children}
-            </Slot.Root>
-        );
-    }
-)
+function HeadingWithTag({ className, children}: {className?: string, children: React.ReactElement}) {
+    const childNode =  children as React.ReactElement<React.HTMLAttributes<HTMLHeadingElement>, string>;
+    return React.cloneElement(
+        childNode, {
+            ...childNode.props,
+            className: clsx(headingStyle.HeadingWithTag, childNode.props.className, className),
+        }
+    );
+}
 
 export default HeadingWithTag;

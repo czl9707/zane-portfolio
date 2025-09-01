@@ -5,7 +5,7 @@ import * as BlogContentBlock from '@/components/writings/content-block';
 import Spacer from "@/components/ui/spacer";
 import Chip from '@/components/ui/chip';
 import * as SideCatagory from "@/components/layout/side-catagory"
-import * as BlogPageLayout from "@/components/writings/page-layout";
+import * as WritingsPageLayout from "@/components/writings/page-layout";
 
 import * as ZaneNote from '@/lib/cms/zane-note'
 import { DateAsString } from '@/lib/utils/date';
@@ -37,39 +37,31 @@ export async function Page({ id, role }: { id: string, role: RoleType }) {
         () => notFound(),
     );
 
-    const markdownBlocks = BlogContentBlock.toMarkdownBlocks(note.content);
+    const markdownBlocks = BlogContentBlock.extractCatagories(note.content);
 
     return (
         <SideCatagory.Context catagories={
-            markdownBlocks
-                .filter(b => b.hash != undefined)
-                .map(doc => ({ ...doc, markdown: undefined }))
+            markdownBlocks.filter(b => b.hash != undefined)
         }>
             <NoteHead note={note} />
-            <BlogPageLayout.Layout>
+            <WritingsPageLayout.Layout>
                 <Spacer spacing="group" style={{ gridColumn: "1 / -1" }} />
-                <BlogPageLayout.Content>
-                    {
-                        markdownBlocks.map((block, i) => (
-                            <React.Fragment key={i}>
-                                {i != 0 && <Spacer spacing="component" />}
-                                <BlogContentBlock.MarkdownBlock {...block} />
-                            </React.Fragment>                        ))
-                    }
-                </BlogPageLayout.Content>
-                <BlogPageLayout.Catagory>
+                <WritingsPageLayout.Content>
+                    <BlogContentBlock.MarkdownBlocks markdown={note.content} />
+                </WritingsPageLayout.Content>
+                <WritingsPageLayout.Catagory>
                     <T.H6 style={{ marginBottom: "1rem" }}>Table of Content</T.H6>
-                    <SideCatagory.CatagoryPanel/>
-                </BlogPageLayout.Catagory>
-            </BlogPageLayout.Layout>
+                    <SideCatagory.CatagoryPanel />
+                </WritingsPageLayout.Catagory>
+            </WritingsPageLayout.Layout>
         </SideCatagory.Context >
     )
 }
 
 function NoteHead({ note }: { note: ZaneNote.Info }) {
     return (
-        <BlogPageLayout.Layout style={{ background: "transparent", }}>
-            <BlogPageLayout.Content style={{ margin: "auto" }}>
+        <WritingsPageLayout.Layout style={{ background: "transparent", }}>
+            <WritingsPageLayout.Content style={{ margin: "auto" }}>
                 <Spacer spacing="block" />
 
                 <T.H2 className={style.ShowOnMobile} asElement='h1'>{note.title}</T.H2>
@@ -90,7 +82,7 @@ function NoteHead({ note }: { note: ZaneNote.Info }) {
                     <span style={{ opacity: 0.75 }}>, By a </span>{displayRole(note.role)}
                     <br />
                 </T.Body1>
-            </BlogPageLayout.Content>
-        </BlogPageLayout.Layout>
+            </WritingsPageLayout.Content>
+        </WritingsPageLayout.Layout>
     )
 }

@@ -39,27 +39,18 @@ export async function Page({ id, role }: { id: string, role: RoleType }) {
         () => notFound(),
     );
 
-    const markdownBlocks = BlogContentBlock.toMarkdownBlocks(blog.content);
+    const markdownBlocks = BlogContentBlock.extractCatagories(blog.content);
 
     return (
         <SideCatagory.Context catagories={
-            markdownBlocks
-                .filter(b => b.hash != undefined)
-                .map(doc => ({ ...doc, markdown: undefined }))
+            markdownBlocks.filter(b => b.hash != undefined)
         }>
             <BlogHead blog={blog} />
             <BlogPageLayout.Layout>
                 <Divider style={{ gridColumn: "1 / -1" }} />
                 <Spacer spacing="block" style={{ gridColumn: "1 / -1" }} />
                 <BlogPageLayout.Content>
-                    {
-                        markdownBlocks.map((block, i) => (
-                            <React.Fragment key={i}>
-                                {i != 0 && <Spacer spacing="component" />}
-                                <BlogContentBlock.MarkdownBlock {...block} />
-                            </React.Fragment>
-                        ))
-                    }
+                    <BlogContentBlock.MarkdownBlocks markdown={blog.content} />
                 </BlogPageLayout.Content>
                 <BlogPageLayout.Catagory>
                     <T.H6 style={{ marginBottom: "1rem" }}>Table of Content</T.H6>
