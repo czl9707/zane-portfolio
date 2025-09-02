@@ -10,7 +10,7 @@ import ExtendingButton from "@/components/ui/extending-button";
 
 import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
 import * as ContentBlock from '@/lib/cms/content-blocks'
-import { randomNoRepeats } from '@/lib/utils/random-array';
+import { shuffle } from '@/lib/utils/random-array';
 import { DateRangeAsString } from '@/lib/utils/date';
 import { themeVars } from "@/lib/theme";
 
@@ -130,8 +130,7 @@ function Section({ sectionName, blocks, headerVisible }: {
 
 async function OtherProjects({ current }: { current: ZaneArchProjects.Info }) {
     const allprojects = (await ZaneArchProjects.getAll()).filter(p => p.title != current.title);
-    const getRandom = randomNoRepeats(allprojects);
-    const projects = [...Array(4)].map(() => getRandom());
+    const projects = shuffle(allprojects).slice(0, 4);
 
     return (
         <>

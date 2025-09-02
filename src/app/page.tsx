@@ -119,19 +119,18 @@ function WritingsSection({ blogs = [] }: { blogs: ZaneBlog.Info[] }) {
         <TitleSection.Heading id="writings">WRITINGS</TitleSection.Heading>
       </TitleSection>
 
-      <Container.FullWidth
-        style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
+      <Container.FullWidth style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
         <Divider />
-        <ContentCard.Container style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
+        <ContentCard.Container>
           {
             blogs.map((blog) => (
-              <ContentCard href={`/blog/by/developer/${blog.id}`} key={blog.id} rows={2}
+              <ContentCard href={`/blog/by/${blog.role}/${blog.id}`} key={blog.id} rows={2}
                 date={blog.createdDate} title={blog.title}
                 description={blog.description} tags={blog.tags} />
             ))
           }
-          <NavigationCard href={"/blogs"} label="Posts Collection"/>
-          <NavigationCard href={"/writings"} label="Knowledge Constellations"/>
+          <NavigationCard href={"/blog"} label="Posts Collection"/>
+          <NavigationCard href={"/writing"} label="Knowledge Constellations"/>
         </ContentCard.Container>
       </Container.FullWidth>
     </>
@@ -146,10 +145,9 @@ function DeveloperSection({ projects }: { projects: ZaneDevProject.Info[] }) {
         <TitleSection.Heading id="as_a_developer">NOW A SOFTWARE ENGINEER</TitleSection.Heading>
       </TitleSection>
 
-      <Container.FullWidth
-        style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
+      <Container.FullWidth style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
         <Divider />
-        <ContentCard.Container style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
+        <ContentCard.Container>
           {
             projects.map((project) => (
               <ContentCard href={project.externalLink} target="_blank" key={project.title} rows={2}

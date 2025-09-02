@@ -41,7 +41,7 @@ fragment noteBase on ZaneNote {
 
 const GQL_QueryAll = `
 query {
-    ZaneNotes {
+    ZaneNotes(pagination: false) {
         docs { ...noteBase }
     }
 }

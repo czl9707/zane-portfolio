@@ -1,18 +1,18 @@
 .Card {
-    a {
-        width: 100%;
-        height: 100%;
-    }
-    
     width: 100%;
     height: 100%;
-    overflow: hidden;
-    border-radius: var(--size-border-radius);
     position: relative;
-    box-sizing: border-box;
-
+    
     grid-column: span var(--card-columns);
     grid-row: span var(--card-rows);
+    
+    > div {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        border-radius: var(--size-border-radius);
+        box-sizing: border-box;
+    }
 }
 
 .CardContainerGrid {
@@ -22,6 +22,7 @@
     padding-bottom: var(--spacing-paragraph);
 
     grid-auto-rows: 1fr;
+    grid-auto-flow: dense;
 }
 
 .OutlinedCard {

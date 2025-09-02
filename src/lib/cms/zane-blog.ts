@@ -58,7 +58,7 @@ ${imageFragment}
 
 const GQL_QueryAll = `
 query {
-    ZaneBlogs {
+    ZaneBlogs(pagination: false) {
         docs { ...blogBase }
     }
 }
