@@ -33,6 +33,6 @@
     .ContentCardTags {
         width: 100%;
         pointer-events: none;
-        padding-top: ".5rem";
+        padding-top: .5rem;
     }
 }

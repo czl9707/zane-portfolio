@@ -7,6 +7,8 @@ import ArchitectureProjectCard from '@/components/arch-project/card';
 import Divider from '@/components/ui/divider';
 import Spacer from "@/components/ui/spacer";
 import ExtendingButton from "@/components/ui/extending-button";
+import StickyHero from "@/components/layout/sticky-hero";
+import Chip from "@/components/ui/chip";
 
 import * as ZaneArchProjects from '@/lib/cms/zane-arch-project'
 import * as ContentBlock from '@/lib/cms/content-blocks'
@@ -20,8 +22,6 @@ import { Metadata } from 'next';
 import { notFound } from "next/navigation";
 
 import style from './content-page.module.css'
-import StickyHero from "@/components/layout/sticky-hero";
-import Chip from "../ui/chip";
 
 export async function generateStaticParams(): Promise<string[]> {
     const result = (await ZaneArchProjects.getAll())

@@ -2,22 +2,21 @@ import { Metadata } from 'next';
 
 import * as ZaneBlog from '@/lib/cms/zane-blog'
 import * as ZaneNote from '@/lib/cms/zane-note'
-import { shuffle } from '@/lib/utils/random-array';
 
 import * as Container from "@/components/ui/container";
 import TitleSection from '@/components/layout/title-section';
 import Divider from '@/components/ui/divider';
 import ContentCard from '@/components/layout/content-card';
+import { shuffle } from '@/lib/utils/random-array';
 
 export default async function Page() {
-    const blogs = ZaneBlog.getAll();
-    const notes = ZaneNote.getAll();
+    const blogsP = ZaneBlog.getAll();
+    const notesP = ZaneNote.getAll();
 
-    const writings: ((ZaneBlog.Info | ZaneNote.Info) & { link: string })[] = shuffle([
-        ...(await blogs).map(b => ({ ...b, link: `/blog/by/${b.role}/${b.id}` })),
-        ...(await notes).map(n => ({ ...n, link: `/note/by/${n.role}/${n.id}` })),
-    ])
-
+    const writings = arrangeContent(
+        shuffle(await notesP),
+        (await blogsP).toSorted((b1, b2) => b2.createdDate > b1.createdDate ? 1 : -1)
+    );
 
     return (
         <>
@@ -44,6 +43,28 @@ export default async function Page() {
             </Container.FullWidth>
         </>
     )
+}
+
+function arrangeContent(notes: ZaneNote.Info[], blogs: ZaneBlog.Info[]): ((ZaneBlog.Info | ZaneNote.Info) & { link: string })[]
+{
+    const FACTOR = 3;
+    const writings: ((ZaneBlog.Info | ZaneNote.Info) & { link: string })[] = [];
+    for (let i = 0; i < blogs.length || i * FACTOR < notes.length; i ++)
+    {
+        if (i < blogs.length)
+        {
+            const blog = blogs[i];
+            writings.push({ ...blog, link: `/blog/by/${blog.role}/${blog.id}` });
+        }
+
+        for (let j = 0; j < FACTOR && j + i * FACTOR < notes.length; j ++)
+        {
+            const note = notes[j + i * FACTOR];
+            writings.push({ ...note, link: `/note/by/${note.role}/${note.id}` })
+        }
+    }
+
+    return writings;
 }
 
 export const metadata: Metadata = {

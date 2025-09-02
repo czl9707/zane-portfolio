@@ -30,7 +30,6 @@ import clsx from "clsx";
 
 export const revalidate = 14400;
 
-
 export default async function Page() {
   const content = await Homepage.getContents();
 
@@ -129,8 +128,8 @@ function WritingsSection({ blogs = [] }: { blogs: ZaneBlog.Info[] }) {
                 description={blog.description} tags={blog.tags} />
             ))
           }
-          <NavigationCard href={"/blog"} label="Posts Collection"/>
-          <NavigationCard href={"/writing"} label="Knowledge Constellations"/>
+          <NavigationCard href={"/blog"} label="Blogs"/>
+          <NavigationCard href={"/writing"} label="Constellations"/>
         </ContentCard.Container>
       </Container.FullWidth>
     </>

@@ -22,7 +22,7 @@ export default async function Page() {
                 {
                     blogs.map((blog) => (
                     <ContentCard href={`/blog/by/${blog.role}/${blog.id}`} key={blog.id} rows={2}
-                        date={blog.createdDate} title={blog.title}
+                        date={blog.createdDate} title={blog.title} role={blog.role}
                         description={blog.description} tags={blog.tags} />
                     ))
                 }

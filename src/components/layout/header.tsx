@@ -61,11 +61,26 @@ export default function Header() {
                         </NavigationMenu.Content>
                     </NavigationMenu.Item>
 
-                    <NavigationMenu.Item asChild>
-                        <Link href={"/blog/by/developer"}>
-                            <Button variant="filled" color="transparent">Blogs</Button>
-                        </Link>
+                    <NavigationMenu.Item>
+                        <NavigationMenu.Trigger asChild>
+                            <Button variant="filled" color="transparent"
+                                className={style.NavigationTriggerButton}>
+                                <span>Writings</span>
+                                <CaretDownIcon />
+                            </Button>
+                        </NavigationMenu.Trigger>
+                        <NavigationMenu.Content asChild>
+                            <MenuContainer><div>
+                                <Link href={"/blog"}>
+                                    <Button variant="filled" color="transparent">Blogs</Button>
+                                </Link>
+                                <Link href={"/writing"}>
+                                    <Button variant="filled" color="transparent">Constellations</Button>
+                                </Link>
+                            </div></MenuContainer>
+                        </NavigationMenu.Content>
                     </NavigationMenu.Item>
+
 
                     <NavigationMenu.Item asChild>
                         <Link href={"/about"}>
@@ -93,8 +108,11 @@ export default function Header() {
                                 <Link href={"/project/by/architect"}>
                                     <Button variant="filled" color="transparent">Work - Architect</Button>
                                 </Link>
-                                <Link href={"/blog/by/developer"}>
-                                    <Button variant="filled" color="transparent">Blogs</Button>
+                                <Link href={"/blog"}>
+                                    <Button variant="filled" color="transparent">Writings - Blogs</Button>
+                                </Link>
+                                <Link href={"/writings"}>
+                                    <Button variant="filled" color="transparent">Writings - Constellations</Button>
                                 </Link>
                                 <Link href={"/about"}>
                                     <Button variant="filled" color="transparent">About</Button>

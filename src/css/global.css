@@ -104,9 +104,9 @@ body {
 
 body {
     --color-default-background: 255 255 255;
-    --color-secondary-background: 205 205 205;
+    --color-secondary-background: 180 180 180;
     --color-default-foreground: 0 0 0;
-    --color-secondary-foreground: 50 50 50;
+    --color-secondary-foreground: 75 75 75;
 
     --color-nebular-foreground: 94 190 115;
     --color-nebular-background: 255 255 255;
@@ -120,9 +120,9 @@ body {
 
 body[data-theme='dark'] {
     --color-default-background: 0 0 0;
-    --color-secondary-background: 50 50 50;
+    --color-secondary-background: 75 75 75;
     --color-default-foreground: 255 255 255;
-    --color-secondary-foreground: 205 205 205;
+    --color-secondary-foreground: 180 180 180;
 
     --color-nebular-foreground: 94 190 115;
     --color-nebular-background: 0 0 0;

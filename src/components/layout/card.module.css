@@ -13,6 +13,10 @@
         border-radius: var(--size-border-radius);
         box-sizing: border-box;
     }
+
+    @media(--smaller-than-md) {
+        grid-column: span 1;    
+    }
 }
 
 .CardContainerGrid {

@@ -3,9 +3,9 @@
     border-radius: var(--size-border-radius);
     
     transition: all var(--transition-short);
-    background-color: rgb(var(--color-default-foreground) / .1);
+    background-color: rgb(var(--chip-color) / .2);
     &:hover {
-        background-color: rgb(var(--color-default-foreground) / .2);
+        background-color: rgb(var(--chip-color) / .4);
         text-decoration: underline;
     }
 }
