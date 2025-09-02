@@ -10,7 +10,8 @@ const singlePages = [
     `${ROOT}about`,
     `${ROOT}project/by/architect/`,
     `${ROOT}project/by/developer`,
-    `${ROOT}blog/by/developer`,
+    `${ROOT}blog`,
+    `${ROOT}writing`,
 ]
 
 export const revalidate = 14400;
