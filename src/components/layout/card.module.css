@@ -1,12 +1,12 @@
 .Card {
     width: 100%;
     height: 100%;
-    position: relative;
     
     grid-column: span var(--card-columns);
     grid-row: span var(--card-rows);
     
     > div {
+        position: relative;
         width: 100%;
         height: 100%;
         overflow: hidden;

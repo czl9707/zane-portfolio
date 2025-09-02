@@ -7,7 +7,6 @@ import * as BlogContent from "@/components/writings/blog-content-page"
 import * as NoteContent from "@/components/writings/note-content-page"
 
 export const revalidate = 14400;
-export const dynamic = 'auto'
 
 export default async function Page({ params }: {
     params: Promise<{

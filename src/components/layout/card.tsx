@@ -13,12 +13,12 @@ const CardBase = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
     columns?: number,
     rows?: number,
 }>(
-    function CardBase({ className, children, href, target, columns, rows, ...other }, ref) {
+    function CardBase({ className, children, href, target, columns = 1, rows = 1, ...other }, ref) {
         return (
             <Link href={href} target={target} className={cardStyle.Card}
                 style={{ "--card-columns": columns, "--card-rows": rows, } as React.CSSProperties}>
                 <SlideUp.Div className={className} {...other} ref={ref}>
-                        {children}
+                    {children}
                 </SlideUp.Div>
             </Link>
         )
@@ -40,7 +40,7 @@ const OutlinedCard = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
     }
 )
 
-const CardContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & {columns?: number}>(
+const CardContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { columns?: number }>(
     function CardContainer({ children, columns = 2, ...other }, ref) {
         return (
             <Grid columns={columns} className={cardStyle.CardContainerGrid} {...other} ref={ref}>
