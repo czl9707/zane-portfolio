@@ -5,12 +5,12 @@ import * as SlideUp from "@/components/ui/slideup-effect";
 import Divider from "@/components/ui/divider";
 import Spacer from "@/components/ui/spacer";
 import ArchitectureProjectCard from "@/components/arch-project/card";
+import ContentCard from "@/components/layout/content-card"
+import { Outlined as OutlinedCard } from "@/components/layout/card"
 import TitleSection from "@/components/layout/title-section";
 import ContentSection from "@/components/layout/content-section";
 import Button from "@/components/ui/button";
 import * as Markdown from "@/components/ui/markdown";
-import DevProjectBrief from "@/components/dev-project/brief";
-import BlogBrief from "@/components/writings/blog-brief";
 import SlidingDownIcon from "@/components/ui/sliding-down-icon";
 
 
@@ -26,6 +26,7 @@ import StickyHero from "@/components/layout/sticky-hero";
 
 import style from './page.module.css';
 import { themeVars } from "@/lib/theme";
+import clsx from "clsx";
 
 export const revalidate = 14400;
 
@@ -37,7 +38,8 @@ export default async function Page() {
     <>
       <IntroSection />
       <WhoAmISection content={content.whoAmI} />
-      <DeveloperSection projects={content.featuredDevProjects} blogs={content.featuredBlogs} />
+      <WritingsSection blogs={content.featuredBlogs} />
+      <DeveloperSection projects={content.featuredDevProjects} />
       <ArchitectSection projects={content.featuredArchProjects} />
 
       <Container.FullWidth style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
@@ -110,50 +112,62 @@ function WhoAmISection({ content }: { content: string }) {
 }
 
 
-function DeveloperSection({ projects, blogs = [] }: { projects: ZaneDevProject.Info[], blogs: ZaneBlog.Info[] }) {
+function WritingsSection({ blogs = [] }: { blogs: ZaneBlog.Info[] }) {
+  return (
+    <>
+      <TitleSection>
+        <TitleSection.Heading id="writings">WRITINGS</TitleSection.Heading>
+      </TitleSection>
+
+      <Container.FullWidth style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
+        <Divider />
+        <ContentCard.Container>
+          {
+            blogs.map((blog) => (
+              <ContentCard href={`/blog/by/${blog.role}/${blog.id}`} key={blog.id} rows={2}
+                date={blog.createdDate} title={blog.title}
+                description={blog.description} tags={blog.tags} />
+            ))
+          }
+          <NavigationCard href={"/blog"} label="Posts Collection"/>
+          <NavigationCard href={"/writing"} label="Knowledge Constellations"/>
+        </ContentCard.Container>
+      </Container.FullWidth>
+    </>
+  )
+}
+
+
+function DeveloperSection({ projects }: { projects: ZaneDevProject.Info[] }) {
   return (
     <>
       <TitleSection>
         <TitleSection.Heading id="as_a_developer">NOW A SOFTWARE ENGINEER</TitleSection.Heading>
       </TitleSection>
 
-      <ContentSection style={{ paddingTop: 0 }}
-        header={
-          <T.H5 style={{ opacity: 0.75 }}>Featured Projects</T.H5>
-        }
-      >
-        <DevProjectBrief.Container style={{ gridColumn: "span 3 / span 3" }}>
+      <Container.FullWidth style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
+        <Divider />
+        <ContentCard.Container>
           {
             projects.map((project) => (
-              <DevProjectBrief project={project} key={project.title} />
+              <ContentCard href={project.externalLink} target="_blank" key={project.title} rows={2}
+                date={project.startDate} title={project.title}
+                description={project.description} tags={project.tags} />
             ))
           }
-          <Link href={"/project/by/developer"}>
-            <SlideUp.Div style={{ paddingTop: "3rem" }} className={ExtendingButton.hoverContext}>
-              <ExtendingButton label="All Projects" />
-            </SlideUp.Div>
-          </Link>
-        </DevProjectBrief.Container>
-
-      </ContentSection>
-
-      <ContentSection style={{ paddingTop: 0 }}
-        header={<T.H5 style={{ opacity: 0.75 }}>Featured Blogs</T.H5>}
-      >
-        <BlogBrief.Container style={{ gridColumn: "span 3 / span 3" }}>
-          {
-            blogs.map((blog) => (
-              <BlogBrief blog={blog} key={blog.title} />
-            ))
-          }
-          <Link href={"/blog/by/developer"}>
-            <SlideUp.Div style={{ paddingTop: "3rem" }} className={ExtendingButton.hoverContext}>
-              <ExtendingButton label="All Blogs" />
-            </SlideUp.Div>
-          </Link>
-        </BlogBrief.Container>
-      </ContentSection>
+          {projects.length % 2 === 1 && <span/>}
+          <NavigationCard href={"/project/by/developer"} label="All Projects"/>
+        </ContentCard.Container>
+      </Container.FullWidth>
     </>
+  )
+}
+
+function NavigationCard({ label, href }: { label: string, href: string }) {
+  return (
+    <OutlinedCard href={href} className={clsx(ExtendingButton.hoverContext, style.NavigationCard)}>
+      <ExtendingButton label={label} />
+    </OutlinedCard>
   )
 }
 
@@ -164,30 +178,26 @@ async function ArchitectSection({ projects }: { projects: ZaneArchProject.Info[]
       <TitleSection>
         <div className={style.ResponsiveTitle}>
           <TitleSection.Heading id="as_an_architect" >ONCE AN ARCHITECT</TitleSection.Heading>
-          <Link href={"/project/by/architect"} style={{ flex: "1 1" }}
-            className={ExtendingButton.hoverContext}>
-            <ExtendingButton label="All Projects" />
-          </Link>
         </div>
       </TitleSection >
 
-      <Container.FullWidth style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
+      <Container.FullWidth
+        style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
         <Divider />
-        <Spacer />
-        <Grid columns={2}>
+        <ArchitectureProjectCard.Container>
           {
             projects.map(project => (
               <ArchitectureProjectCard project={project} key={project.title} />
             ))
           }
-        </Grid>
-        <Spacer />
+        </ArchitectureProjectCard.Container>
       </Container.FullWidth>
 
       <Container.FullWidth style={{
         display: "flex", flexDirection: "column", alignItems: "center",
         backgroundColor: `rgb(${themeVars.color.default.background})`
       }}>
+        <Spacer />
         <SlideUp.Div >
           <Link href="/project/by/architect">
             <Button variant="outline">

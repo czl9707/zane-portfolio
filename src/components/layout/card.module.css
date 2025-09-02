@@ -1,0 +1,39 @@
+.Card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    
+    grid-column: span var(--card-columns);
+    grid-row: span var(--card-rows);
+    
+    > div {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        border-radius: var(--size-border-radius);
+        box-sizing: border-box;
+    }
+}
+
+.CardContainerGrid {
+    align-items: stretch;
+    justify-items: stretch;
+    padding-top: var(--spacing-paragraph);
+    padding-bottom: var(--spacing-paragraph);
+
+    grid-auto-rows: 1fr;
+    grid-auto-flow: dense;
+}
+
+.OutlinedCard {
+    padding: var(--spacing-paragraph);
+    border: .5px rgb(var(--color-default-foreground) / .25) solid;
+    background-color: rgb(var(--color-default-foreground) / 0);
+    
+    transition: all var(--transition-short);
+    
+    &:hover {
+        border: .5px rgb(var(--color-default-foreground) / .5) solid;
+        background-color: rgb(var(--color-default-foreground) / .15);
+    }
+}

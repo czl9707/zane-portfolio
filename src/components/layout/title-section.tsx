@@ -9,16 +9,16 @@ import * as React from 'react';
 import style from './title-section.module.css'
 import clsx from 'clsx';
 
-export default function TitleSection({ children, className, noDivider = false }: {
+export default function TitleSection({ children, className, omitDivider = false }: {
     children?: React.ReactNode,
     className?: string,
-    noDivider?: boolean,
+    omitDivider?: boolean,
 }) {
     return (
         <Container.FullWidth className={className}
             style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
             {
-                !noDivider && <Divider />
+                !omitDivider && <Divider />
             }
             <SlideUp.Div className={style.TitleContainer}>
                 {children}

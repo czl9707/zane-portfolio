@@ -15,3 +15,11 @@
         align-items: flex-end 
     }
 }
+
+.NavigationCard {
+    p {
+        position: absolute;
+        bottom: var(--spacing-paragraph);
+        right: var(--spacing-paragraph);
+    }
+}

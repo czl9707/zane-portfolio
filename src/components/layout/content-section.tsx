@@ -17,10 +17,8 @@ const ContentSection = React.forwardRef<
                 style={{ backgroundColor: `rgb(${themeVars.color.default.background})` }}>
                 <Divider />
                 <Grid columns={4} className={style.ContentGrid}>
-                    <SlideUp.Div style={{ gridColumn: "span 1 / span 1" }}>
-                        <div className={style.ContentContainer}>
-                            {header}
-                        </div>
+                    <SlideUp.Div className={style.ContentContainer}>
+                        {header}
                     </SlideUp.Div>
 
                     {children}

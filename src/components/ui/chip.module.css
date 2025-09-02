@@ -1,12 +1,12 @@
 .Chip {
-    text-decoration: underline;
     padding: .25rem .5rem;
     border-radius: var(--size-border-radius);
-
-    transition: background-color var(--transition-short);
+    
+    transition: all var(--transition-short);
     background-color: rgb(var(--color-default-foreground) / .1);
     &:hover {
         background-color: rgb(var(--color-default-foreground) / .2);
+        text-decoration: underline;
     }
 }
 

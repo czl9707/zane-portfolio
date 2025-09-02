@@ -10,14 +10,15 @@ const singlePages = [
     `${ROOT}about`,
     `${ROOT}project/by/architect/`,
     `${ROOT}project/by/developer`,
-    `${ROOT}blog/by/developer`,
+    `${ROOT}blog`,
+    `${ROOT}writing`,
 ]
 
 export const revalidate = 14400;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const archProjects = await ZaneArchProjects.getAll();
-    const blogs = await ZaneBlog.getAll();
-    const notes = await ZaneNote.getAll();
+    const archProjects = ZaneArchProjects.getAll();
+    const blogs = ZaneBlog.getAll();
+    const notes = ZaneNote.getAll();
 
     return [
         ...(singlePages.map(p => ({
@@ -26,15 +27,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'weekly',
             priority: 1,
         })) as MetadataRoute.Sitemap),
-        ...(archProjects.map((project) => ({
+        ...((await archProjects).map((project) => ({
             url: `${ROOT}project/by/architect/${project.id}`,
             changeFrequency: 'monthly',
         })) as MetadataRoute.Sitemap),
-        ...(blogs.map((blog) => ({
+        ...((await blogs).map((blog) => ({
             url: `${ROOT}blog/by/${blog.role}/${blog.id}`,
             changeFrequency: 'monthly',
         })) as MetadataRoute.Sitemap),
-        ...(notes.map((note) => ({
+        ...((await notes).map((note) => ({
             url: `${ROOT}blog/by/${note.role}/${note.id}`,
             changeFrequency: 'monthly',
         })) as MetadataRoute.Sitemap)
