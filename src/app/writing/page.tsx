@@ -27,7 +27,7 @@ export default async function Page() {
             </TitleSection>
             <Container.FullWidth>
                 <Divider />
-                <ContentCard.Container columns={3}>
+                <ContentCard.Container>
                     {
                         writings.map((w) => {
                             const isBlog = w.link.startsWith("/blog")

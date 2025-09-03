@@ -41,9 +41,10 @@ const OutlinedCard = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
 )
 
 const CardContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { columns?: number }>(
-    function CardContainer({ children, columns = 2, ...other }, ref) {
+    function CardContainer({ children, columns = 2, className, ...other }, ref) {
         return (
-            <Grid columns={columns} className={cardStyle.CardContainerGrid} {...other} ref={ref}>
+            <Grid columns={columns} className={clsx(className, cardStyle.CardContainerGrid)}
+                {...other} ref={ref}>
                 {children}
             </Grid>
         )

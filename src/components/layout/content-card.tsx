@@ -2,14 +2,15 @@ import * as T from "@/components/ui/typography";
 import Spacer from "@/components/ui/spacer";
 import * as StyledMarkdown from "@/components/ui/markdown";
 import Chip from "@/components/ui/chip";
-import { Outlined as OutlinedCard, Container } from "@/components/layout/card"
+import { Outlined as OutlinedCard, Container as CardContainer } from "@/components/layout/card"
 
 import { type RoleType, displayRole } from "@/lib/constants";
 import { MonthAsString } from "@/lib/utils/date";
 
-import React from "react";
+import React, { HTMLAttributes } from "react";
 
 import cardStyle from './content-card.module.css'
+import clsx from "clsx";
 
 
 export default function ContentCard(
@@ -55,4 +56,14 @@ export default function ContentCard(
     </OutlinedCard>
 }
 
-ContentCard.Container = Container;
+const ContentCardContainer = React.forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+    function ContentCardContainer({className, children, ...other}, ref)
+    {
+        return <CardContainer className={clsx(className, cardStyle.ContentCardContainer)}
+            {...other} ref={ref}>
+            {children}
+        </CardContainer>
+    }
+)
+
+ContentCard.Container = ContentCardContainer;

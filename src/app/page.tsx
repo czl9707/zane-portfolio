@@ -129,6 +129,7 @@ function WritingsSection({ blogs = [] }: { blogs: ZaneBlog.Info[] }) {
             ))
           }
           <NavigationCard href={"/blog"} label="Blogs"/>
+          {blogs.length % 3 === 0 && <><span/><span/></>}
           <NavigationCard href={"/writing"} label="Constellations"/>
         </ContentCard.Container>
       </Container.FullWidth>
@@ -154,7 +155,7 @@ function DeveloperSection({ projects }: { projects: ZaneDevProject.Info[] }) {
                 description={project.description} tags={project.tags} />
             ))
           }
-          {projects.length % 2 === 1 && <span/>}
+          {projects.length % 3 !== 0 && <span/>}
           <NavigationCard href={"/project/by/developer"} label="All Projects"/>
         </ContentCard.Container>
       </Container.FullWidth>
