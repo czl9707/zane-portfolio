@@ -30,8 +30,16 @@
         color: rgb(var(--color-nebular-foreground));
     }
 
-    p,h1,h2,h3,h4,h5,h6 {
+    p, h1, h2, h3, h4, h5, h6 {
         color: rgb(var(--color-default-foreground));
+    }
+
+    p {
+        mjx-container:only-child {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
     }
 
     & h1:not(:first-child),
