@@ -26,6 +26,14 @@
         list-style-type: disc;
     }
 
+    a, strong {
+        color: rgb(var(--color-nebular-foreground));
+    }
+
+    p,h1,h2,h3,h4,h5,h6 {
+        color: rgb(var(--color-default-foreground));
+    }
+
     & h1:not(:first-child),
     h2:not(:first-child),
     h3:not(:first-child),

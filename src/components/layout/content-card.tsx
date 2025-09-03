@@ -40,7 +40,7 @@ export default function ContentCard(
         <Chip.Container className={cardStyle.ContentCardTags}>
             {
                 role != undefined &&
-                <Chip color="galaxy"><T.Body2>by a {displayRole(role)}</T.Body2></Chip>
+                <Chip color="nebular"><T.Body2>by a {displayRole(role)}</T.Body2></Chip>
             }
             {tags.map(t => <Chip key={t}><T.Body2>{t}</T.Body2></Chip>)}
         </Chip.Container>

@@ -1,7 +1,7 @@
 .InlineCodeBlock {
-    background-color: rgb(var(--color-default-foreground) / 10%);
+    background-color: rgb(var(--color-nebular-foreground) / 25%);
     border-Radius: var(--size-border-radius);
-    border: .5px rgb(var(--color-default-foreground) / 35%) solid;
+    border: .5px rgb(var(--color-nebular-foreground) / 50%) solid;
     padding-left: .5rem;
     padding-right: .5rem;
 }

@@ -111,7 +111,7 @@ export default function Header() {
                                 <Link href={"/blog"}>
                                     <Button variant="filled" color="transparent">Writings - Blogs</Button>
                                 </Link>
-                                <Link href={"/writings"}>
+                                <Link href={"/writing"}>
                                     <Button variant="filled" color="transparent">Writings - Constellations</Button>
                                 </Link>
                                 <Link href={"/about"}>

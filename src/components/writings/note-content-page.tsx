@@ -65,7 +65,7 @@ function NoteHead({ note }: { note: ZaneNote.Info }) {
                 <Spacer spacing="block" />
 
                 <T.H2 className={style.ShowOnMobile} asElement='h1'>{note.title}</T.H2>
-                <T.H4 className={style.NoShowOnMobile} asElement='h1'>{note.title}</T.H4>
+                <T.H3 className={style.NoShowOnMobile} asElement='h1'>{note.title}</T.H3>
 
                 <Chip.Container>
                     {
