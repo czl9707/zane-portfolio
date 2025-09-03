@@ -16,6 +16,7 @@ import { Metadata } from 'next';
 import { notFound } from "next/navigation";
 
 import style from './content-page.module.css';
+import Link from 'next/link';
 
 export async function generateStaticParams(): Promise<{ id: string, role: RoleType }[]> {
     const result = await ZaneNote.getAll();
@@ -69,8 +70,12 @@ function NoteHead({ note }: { note: ZaneNote.Info }) {
 
                 <Chip.Container>
                     {
-                        (note.tags ?? []).map(t => (
-                            <Chip key={t}><T.Body1>#{t}</T.Body1></Chip>
+                        (note.tags ?? []).map(tag => (
+                            <Chip key={tag}>
+                                <Link href={`/writing/tag/${tag}`}>
+                                    <T.Body1>#{tag}</T.Body1>
+                                </Link>
+                            </Chip>
                         ))
                     }
                 </Chip.Container>

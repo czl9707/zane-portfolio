@@ -39,16 +39,6 @@ fragment noteBase on ZaneNote {
     lastUpdatedDate
 }`;
 
-const GQL_QueryAll = `
-query {
-    ZaneNotes(pagination: false) {
-        docs { ...noteBase }
-    }
-}
-
-${noteBaseFrament}
-`;
-
 const GQL_QueryByRoleNId = `
 query ZaneNotesByRoleNLink($id: String!) {
     ZaneNote ( id: $id ) {
@@ -60,10 +50,12 @@ query ZaneNotesByRoleNLink($id: String!) {
 ${noteBaseFrament}
 `;
 
-const GQL_QueryByTag = `
-query ZaneNoteByTag($tag: String!){
-    ZaneNotes (
+const GQL_QueryAll = `
+query ZaneNoteByTag( $role: ZaneNote_role_Input, $tag: String ) {
+    ZaneNotes ( 
+        pagination: false,
         where: {
+            role: { equals: $role },
             tags: { contains: $tag }
         }
     ) {
@@ -74,9 +66,14 @@ query ZaneNoteByTag($tag: String!){
 ${noteBaseFrament}
 `;
 
-async function getAll(): Promise<ZaneNoteInfo[]> {
+
+
+async function getAll(
+    // role: RoleType | undefined = undefined,
+    tag: string | undefined = undefined
+): Promise<ZaneNoteInfo[]> {
     return await graphqlFetch(
-        GQL_QueryAll
+        GQL_QueryAll, { tag }
     ).then(
         async req => await req.json()
     ).then(
@@ -101,17 +98,6 @@ async function getByRoleAndId(
     );
 }
 
-async function getByTag(
-    tag: string
-): Promise<ZaneNoteInfo[]> {
-    return await graphqlFetch(
-        GQL_QueryByTag, { tag }
-    ).then(
-        async req => await req.json()
-    ).then(
-        data => data["data"]["ZaneNotes"].docs.map(fromDto)
-    );
-}
 
 function fromDto(dto: ZaneNoteDto): ZaneNoteInfo {
     return {
@@ -129,6 +115,5 @@ const cached_getByRoleAndId = cache(getByRoleAndId);
 
 export {
     getAll,
-    getByTag,
     cached_getByRoleAndId as getByRoleAndId,
 }

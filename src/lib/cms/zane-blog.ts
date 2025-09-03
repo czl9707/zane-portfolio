@@ -56,16 +56,6 @@ fragment blogBase on ZaneBlog {
 ${imageFragment}
 `;
 
-const GQL_QueryAll = `
-query {
-    ZaneBlogs(pagination: false) {
-        docs { ...blogBase }
-    }
-}
-
-${blogBaseFrament}
-`;
-
 const GQL_QueryByRoleNId = `
 query ZaneBlogByRoleNLink($id: String!) {
     ZaneBlog (id: $id) {
@@ -92,10 +82,12 @@ query {
 ${blogBaseFrament}
 `;
 
-const GQL_QueryByTag = `
-query ZaneBlogByTag($tag: String!){
-    ZaneBlogs (
+const GQL_QueryAll = `
+query ZaneBlogByTag( $role: ZaneBlog_role_Input, $tag: String ) {
+    ZaneBlogs ( 
+        pagination: false,
         where: {
+            role: { equals: $role },
             tags: { contains: $tag }
         }
     ) {
@@ -106,13 +98,20 @@ query ZaneBlogByTag($tag: String!){
 ${blogBaseFrament}
 `;
 
-async function getAll(): Promise<ZaneBlogInfo[]> {
+
+
+async function getAll(
+    // role: RoleType | undefined = undefined,
+    tag: string | undefined = undefined
+): Promise<ZaneBlogInfo[]> {
     return await graphqlFetch(
-        GQL_QueryAll
+        GQL_QueryAll, { tag }
     ).then(
         async req => await req.json()
     ).then(
-        data => data["data"]["ZaneBlogs"].docs.map(fromDto)
+        data => {
+            return data["data"]["ZaneBlogs"].docs.map(fromDto);
+        }
     );
 }
 
@@ -133,17 +132,6 @@ async function getByRoleAndId(
     );
 }
 
-async function getByTag(
-    tag: string
-): Promise<ZaneBlogInfo[]> {
-    return await graphqlFetch(
-        GQL_QueryByTag, { tag }
-    ).then(
-        async req => await req.json()
-    ).then(
-        data => data["data"]["ZaneBlogs"].docs.map(fromDto)
-    );
-}
 
 async function getFeatured(): Promise<ZaneBlogInfo[]> {
     return await graphqlFetch(
@@ -174,6 +162,5 @@ const cached_getByRoleAndId = cache(getByRoleAndId);
 export {
     getAll,
     getFeatured,
-    getByTag,
     cached_getByRoleAndId as getByRoleAndId,
 }

@@ -19,6 +19,7 @@ import { notFound } from "next/navigation";
 
 import style from './content-page.module.css';
 import { themeVars } from '@/lib/theme';
+import Link from 'next/link';
 
 export async function generateStaticParams(): Promise<{ id: string, role: RoleType }[]> {
     const result = await ZaneBlog.getAll();
@@ -79,8 +80,12 @@ function BlogHead({ blog }: { blog: ZaneBlog.Info }) {
 
                     <Chip.Container>
                         {
-                            (blog.tags ?? []).map(t => (
-                                <Chip key={t}><T.Body1>#{t}</T.Body1></Chip>
+                            (blog.tags ?? []).map(tag => (
+                                <Chip key={tag}>
+                                    <Link href={`/writing/tag/${tag}`}>
+                                        <T.Body1>#{tag}</T.Body1>
+                                    </Link>
+                                </Chip>
                             ))
                         }
                     </Chip.Container>
