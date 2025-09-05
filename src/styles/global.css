@@ -1,0 +1,178 @@
+/*
+  The CSS in this style tag is based off of Bear Blog's default CSS.
+  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
+  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
+ */
+
+@font-face {
+	font-family: "Red Hat Mono";
+	src: url("/fonts/RedHatMono-VariableFont_wght.ttf") format("truetype");
+	font-weight: 300,400,500,600,700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Red Hat Mono";
+	src: url("/fonts/RedHatMono-Italic-VariableFont_wght.ttf") format("truetype");
+	font-weight: 300,400,500,600,700;
+	font-style: italic;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Red Hat Text";
+	src: url("/fonts/RedHatText-VariableFont_wght.ttf") format("truetype");
+	font-weight: 300,400,500,600,700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Red Hat Text";
+	src: url("/fonts/RedHatText-Italic-VariableFont_wght.ttf") format("truetype");
+	font-weight: 300,400,500,600,700;
+	font-style: italic;
+	font-display: swap;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+menu,
+ol,
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+blockquote,
+pre {
+    margin: 0
+}
+
+code {
+    font-family: unset;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin: 0;
+    overflow-x: visible;
+    position: relative;
+    background-color: rgb(var(--color-default-background));
+    color: rgb(var(--color-default-foreground));
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--size-header-height) + var(--spacing-group));
+}
+
+:root {
+    --spacing-block: 12rem;
+    --spacing-group: 4rem;
+    --spacing-component: 2.5rem;
+    --spacing-paragraph: 1rem;
+
+    --breakpoint-xs: 450px;
+    --breakpoint-sm: 720px;
+    --breakpoint-md: 1080px;
+    --breakpoint-lg: 1440px;
+
+    --typography-body1-fontFamily: "Red Hat Text";
+    --typography-body1-fontWeight: 400;
+    --typography-body1-fontSize: 1rem;
+    --typography-body1-lineHeight: 1.5;
+    --typography-body2-fontFamily: "Red Hat Text";
+    --typography-body2-fontWeight: 400;
+    --typography-body2-fontSize: 0.875rem;
+    --typography-body2-lineHeight: 1.5;
+    --typography-button-fontFamily: "Red Hat Text";
+    --typography-button-fontWeight: 700;
+    --typography-button-fontSize: 0.875rem;
+    --typography-button-lineHeight: 1.6;
+    --typography-code-fontFamily: "Red Hat Mono";
+    --typography-code-fontWeight: 400;
+    --typography-code-fontSize: 0.875rem;
+    --typography-code-lineHeight: 1.5;
+    --typography-h1-fontFamily: "Red Hat Text";
+    --typography-h1-fontWeight: 500;
+    --typography-h1-fontSize: 4.5rem;
+    --typography-h1-lineHeight: 1.25;
+    --typography-h2-fontFamily: "Red Hat Text";
+    --typography-h2-fontWeight: 500;
+    --typography-h2-fontSize: 3.5rem;
+    --typography-h2-lineHeight: 1.25;
+    --typography-h3-fontFamily: "Red Hat Text";
+    --typography-h3-fontWeight: 500;
+    --typography-h3-fontSize: 2.75rem;
+    --typography-h3-lineHeight: 1.25;
+    --typography-h4-fontFamily: "Red Hat Text";
+    --typography-h4-fontWeight: 500;
+    --typography-h4-fontSize: 2.25rem;
+    --typography-h4-lineHeight: 1.25;
+    --typography-h5-fontFamily: "Red Hat Text";
+    --typography-h5-fontWeight: 500;
+    --typography-h5-fontSize: 1.75rem;
+    --typography-h5-lineHeight: 1.4;
+    --typography-h6-fontFamily: "Red Hat Text";
+    --typography-h6-fontWeight: 500;
+    --typography-h6-fontSize: 1.25rem;
+    --typography-h6-lineHeight: 1.6;
+
+    --transition-short: .3s;
+    --transition-long: .9s;
+
+    --size-border-radius: .25rem;
+    
+}
+body {
+    --size-header-height: 4.5rem;
+    @media(--larger-than-xs) {
+        --size-header-height: 6rem;
+    }
+}
+
+body {
+    --color-default-background: 255 255 255;
+    --color-secondary-background: 180 180 180;
+    --color-default-foreground: 0 0 0;
+    --color-secondary-foreground: 75 75 75;
+
+    --color-nebular-foreground: 94 190 115;
+    --color-nebular-background: 255 255 255;
+    --color-star-foreground: 235 239 98;
+    --color-star-background: 255 255 255;
+    --color-galaxy-foreground: 218 108 251;
+    --color-galaxy-background: 255 255 255;
+    --color-solar-foreground: 246 94 43;
+    --color-solar-background: 255 255 255;
+}
+
+body[data-theme='dark'] {
+    --color-default-background: 0 0 0;
+    --color-secondary-background: 75 75 75;
+    --color-default-foreground: 255 255 255;
+    --color-secondary-foreground: 180 180 180;
+
+    --color-nebular-foreground: 94 190 115;
+    --color-nebular-background: 0 0 0;
+    --color-star-foreground: 235 239 98;
+    --color-star-background: 0 0 0;
+    --color-galaxy-foreground: 218 108 251;
+    --color-galaxy-background: 0 0 0;
+    --color-solar-foreground: 246 94 43;
+    --color-solar-background: 0 0 0;
+}
+
+@custom-media --smaller-than-xs (max-width:450px);
+@custom-media --larger-than-xs (min-width:450px);
+@custom-media --smaller-than-sm (max-width:720px);
+@custom-media --larger-than-sm (min-width:720px);
+@custom-media --smaller-than-md (max-width:1080px);
+@custom-media --larger-than-md (min-width:1080px);
+@custom-media --smaller-than-lg (max-width:1440px);
+@custom-media --larger-than-lg (min-width:1440px);
