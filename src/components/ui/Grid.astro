@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from "astro/types";
+interface Props extends HTMLAttributes<'div'>{
+    columns: number
+};
+
+const { columns, class: className, ...others } = Astro.props;
+---
+
+<style define:vars={{"grid-columns-count": columns}}>
+.Grid {
+    grid-template-columns: repeat(var(--grid-columns-count), minmax(0, 1fr));
+    display: grid;
+    column-gap: var(--spacing-paragraph);
+    row-gap: var(--spacing-paragraph);
+    position: relative;
+    
+    @media(--smaller-than-md) {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+</style>
+
+<div class:list={["Grid", className]} {...others}>
+    <slot/>
+</div>

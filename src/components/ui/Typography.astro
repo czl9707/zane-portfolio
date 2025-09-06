@@ -1,0 +1,128 @@
+---
+import { themeVars, type ColorVariation } from "@/lib/theme";
+import type { Polymorphic } from "astro/types";
+
+const typographyTag = [
+    "p",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "span",
+] as const;
+const typographyVariant = [
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "button",
+    "body1",
+    "body2",
+    "code",
+] as const;
+type TypographyTag = (typeof typographyTag)[number];
+
+type Props<Tag extends TypographyTag> = Polymorphic<{
+    as: Tag;
+}> & {
+    variant: (typeof typographyVariant)[number];
+    color?: ColorVariation;
+};
+
+let {
+    as: Tag,
+    variant,
+    class: className,
+    color = "default",
+    ...others
+} = Astro.props as Props<TypographyTag>;
+
+if (Tag == undefined) {
+    Tag = (variant.startsWith("h") ? variant : "p") as TypographyTag;
+}
+---
+
+<Tag {...others} class:list={["Typography", `Typography_${variant}`, className]}
+    ><slot /></Tag
+>
+
+<style define:vars={{ "t-color": themeVars.color[color].foreground }}>
+    .Typography {
+        white-space: nowrap;
+        text-wrap: wrap;
+        color: var(--t-color);
+    }
+    .Typography_h1 {
+        font-family: var(--typography-h1-fontFamily);
+        font-weight: var(--typography-h1-fontWeight);
+        font-size: var(--typography-h1-fontSize);
+        line-height: var(--typography-h1-lineHeight);
+    }
+
+    .Typography_h2 {
+        font-family: var(--typography-h2-fontFamily);
+        font-weight: var(--typography-h2-fontWeight);
+        font-size: var(--typography-h2-fontSize);
+        line-height: var(--typography-h2-lineHeight);
+    }
+
+    .Typography_h3 {
+        font-family: var(--typography-h3-fontFamily);
+        font-weight: var(--typography-h3-fontWeight);
+        font-size: var(--typography-h3-fontSize);
+        line-height: var(--typography-h3-lineHeight);
+    }
+
+    .Typography_h4 {
+        font-family: var(--typography-h4-fontFamily);
+        font-weight: var(--typography-h4-fontWeight);
+        font-size: var(--typography-h4-fontSize);
+        line-height: var(--typography-h4-lineHeight);
+    }
+
+    .Typography_h5 {
+        font-family: var(--typography-h5-fontFamily);
+        font-weight: var(--typography-h5-fontWeight);
+        font-size: var(--typography-h5-fontSize);
+        line-height: var(--typography-h5-lineHeight);
+    }
+
+    .Typography_h6 {
+        font-family: var(--typography-h6-fontFamily);
+        font-weight: var(--typography-h6-fontWeight);
+        font-size: var(--typography-h6-fontSize);
+        line-height: var(--typography-h6-lineHeight);
+    }
+
+    .Typography_button {
+        font-family: var(--typography-button-fontFamily);
+        font-weight: var(--typography-button-fontWeight);
+        font-size: var(--typography-button-fontSize);
+        line-height: var(--typography-button-lineHeight);
+    }
+
+    .Typography_body1 {
+        font-family: var(--typography-body1-fontFamily);
+        font-weight: var(--typography-body1-fontWeight);
+        font-size: var(--typography-body1-fontSize);
+        line-height: var(--typography-body1-lineHeight);
+    }
+
+    .Typography_body2 {
+        font-family: var(--typography-body2-fontFamily);
+        font-weight: var(--typography-body2-fontWeight);
+        font-size: var(--typography-body2-fontSize);
+        line-height: var(--typography-body2-lineHeight);
+    }
+
+    .Typography_code {
+        font-family: var(--typography-code-fontFamily);
+        font-weight: var(--typography-code-fontWeight);
+        font-size: var(--typography-code-fontSize);
+        line-height: var(--typography-code-lineHeight);
+    }
+</style>

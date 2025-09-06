@@ -1,0 +1,27 @@
+---
+import SectionDiv from "@/components/ui/Section.astro";
+import Divider from "@/components/ui/Divider.astro";
+import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
+
+interface Props {
+    omitDivider?: boolean;
+}
+const { omitDivider = false } = Astro.props;
+---
+
+<SectionDiv class:list={["TitleSection"]}>
+    {!omitDivider && <Divider />}
+    <SlideUpDiv>
+        <slot />
+    </SlideUpDiv>
+</SectionDiv>
+
+<style>
+    .TitleSection {
+        background-color: rgb(var(--color-default-background));
+        & > div {
+            padding-bottom: var(--spacing-paragraph);
+            padding-top: var(--spacing-block);
+        }
+    }
+</style>

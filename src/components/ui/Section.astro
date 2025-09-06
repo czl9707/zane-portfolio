@@ -1,0 +1,25 @@
+---
+import type { HTMLAttributes } from "astro/types";
+interface Props extends HTMLAttributes<'section'>{};
+
+const { class: className, ...others } = Astro.props;
+---
+
+<section class:list={["FullWidthSection", className]} {...others}>
+    <slot/>
+</section>
+
+<style>
+.FullWidthSection {
+    padding-left: calc(2rem);
+    padding-right: calc(2rem);
+    overflow-x: visible;
+    width: 100%;
+    box-sizing: border-box;
+        
+    @media(--larger-than-xs) {
+        padding-left: var(--spacing-group);
+        padding-right: var(--spacing-group);
+    }
+}
+</style>

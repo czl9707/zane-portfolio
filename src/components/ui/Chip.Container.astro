@@ -1,0 +1,21 @@
+---
+import type { HTMLAttributes } from "astro/types";
+interface Props extends HTMLAttributes<'div'>{};
+
+const { class: className, ...others } = Astro.props;
+---
+
+
+<style>
+.ChipContainer {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: var(--spacing-paragraph);
+    gap: .5rem;
+}
+</style>
+
+<div class:list={["ChipContainer", className]} {...others}>
+    <slot/>
+</div>

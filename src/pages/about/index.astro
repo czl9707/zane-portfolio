@@ -1,0 +1,68 @@
+---
+import BaseLayout from "@/components/layouts/Layout.Base.astro";
+import StickyHero from "@/components/layouts/StickyHero.astro";
+import ContentSection from "@/components/layouts/Section.Content.astro";
+import TitleSection from "@/components/layouts/Section.Title.astro";
+import TitleSectionHeading from "@/components/layouts/Section.Title.Heading.astro";
+
+import Grid from "@/components/ui/Grid.astro";
+import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
+import SlidingDownIcon from "@/components/ui/SlidingDownIcon.astro";
+import Spacer from "@/components/ui/Spacer.astro";
+import Typography from "@/components/ui/Typography.astro";
+import MarkdownBlock from "@/components/ui/markdown/Block.astro";
+
+import { getAboutMe } from "@/lib/cms/globals";
+
+const aboutMeGlobes = await getAboutMe();
+---
+
+<BaseLayout
+    title={"Zane Chen - About Me"}
+    description={"Zane Chen is a self-taught architect turned Software Engineer, who enjoy building solutions one block at a time."}
+>
+    <StickyHero>
+        <Spacer style={{ flex: "1 1" }} />
+        <SlidingDownIcon />
+        <Spacer />
+
+        <Grid columns={3}>
+            <SlideUpDiv style={{ gridColumn: "span 2 / span 2" }}>
+                <Typography as="h2" variant="h4">
+                    Hi, I am Zane Chen! <br />
+                    A Self-Taught Software Engineer.
+                </Typography>
+            </SlideUpDiv>
+        </Grid>
+    </StickyHero>
+
+    <ContentSection>
+        <Typography variant="h5" as="h1" color="secondary" slot={"header"}>
+            About Zane
+        </Typography>
+        <SlideUpDiv style={{ gridColumn: "span 2 / span 2" }}>
+            <MarkdownBlock content={aboutMeGlobes.aboutMe} highLightKeywords />
+        </SlideUpDiv>
+    </ContentSection>
+
+    <TitleSection>
+        <TitleSectionHeading tag="h2" tagOnSM="h4" label={"My Timeline"}/>
+    </TitleSection>
+    {
+        aboutMeGlobes.timeline
+            .sort((ex1, ex2) => ex2.year[0] - ex1.year[0])
+            .map((ex, i) => (
+                <ContentSection>
+                    <Typography variant="h5" color="secondary" slot={"header"}>
+                        {ex.year.join(" - ")}
+                    </Typography>
+                    <SlideUpDiv style={{ gridColumn: "span 2 / span 2" }}>
+                        <MarkdownBlock
+                            content={ex.experience}
+                            highLightKeywords
+                        />
+                    </SlideUpDiv>
+                </ContentSection>
+            ))
+    }
+</BaseLayout>

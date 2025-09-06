@@ -1,0 +1,54 @@
+---
+import "@/styles/global.css";
+import '@fontsource-variable/red-hat-mono';
+import '@fontsource-variable/geist';
+
+import BaseHead from "@/components/layouts/BaseHead.astro";
+import Footer from "@/components/layouts/Footer.astro";
+import Header from "@/components/layouts/Header.astro";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body data-theme="dark">
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  main {
+    min-height: 100vh;
+    box-sizing: border-box;
+
+    isolation: isolate;
+  }
+
+  body {
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin: 0;
+    overflow-x: visible;
+    position: relative;
+    background-color: rgb(var(--color-default-background));
+    color: rgb(var(--color-default-foreground));
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--size-header-height) + var(--spacing-group));
+  }
+</style>

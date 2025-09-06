@@ -1,0 +1,91 @@
+---
+import { themeVars, type ColorVariation } from "@/lib/theme";
+import type { HTMLAttributes } from "astro/types";
+
+type ButtonColorVariation = ColorVariation | "transparent";
+
+interface Props extends HTMLAttributes<"div"> {
+  variant?: "outlined" | "filled";
+  color?: ButtonColorVariation;
+}
+
+const { variant = "outlined", color = "default", class: className, ...others } = Astro.props;
+let textColor, backgroundColor, maskColor;
+
+if (variant === "outlined")
+{
+    textColor = themeVars.color[color === 'transparent' ? 'default' : color].foreground;
+    backgroundColor = color === "transparent" ? "transparent" : themeVars.color[color].background;
+    maskColor = themeVars.color.default.foreground;
+}
+else {
+    textColor = color === "transparent" ? themeVars.color.default.foreground : themeVars.color[color].background;
+    backgroundColor = color === "transparent" ? "transparent" : themeVars.color[color].foreground;
+    maskColor = themeVars.color.default[color === "transparent" ? "foreground" : "background"];
+}
+---
+
+<style
+  define:vars={{
+    "button-text-color": textColor,
+    "button-background-color": backgroundColor,
+    "button-mask-color": maskColor,
+  }}
+>
+  .ButtonContainer {
+    border-radius: var(--size-border-radius);
+
+    font-family: var(--typography-button-fontFamily);
+    font-size: var(--typography-button-fontSize);
+    font-weight: var(--typography-button-fontWeight);
+    line-height: var(--typography-button-lineHeight);
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    overflow: hidden;
+    padding: 0.5rem 1rem;
+    margin: 0;
+
+		display: flex;
+		flex-direction: row;
+		gap: 0.5rem;
+		align-items: center;
+
+    color: rgb(var(--button-text-color));
+    background-color: rgb(var(--button-background-color));
+
+    .ButtonMask {
+      display: block;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-color: transparent;
+      transition: background-color var(--transition-short);
+    }
+
+    &:hover {
+      .ButtonMask {
+        background-color: rgb(var(--button-mask-color) / 0.2);
+      }
+    }
+
+    &:active {
+      .ButtonMask {
+        background-color: rgb(var(--button-mask-color) / 0.4);
+      }
+    }
+  }
+
+  .OutlineButtonContainer {
+    border: 1px solid rgb(var(--button-text-color));
+  }
+
+  .FilledButtonContainer {
+    border: 1px solid rgb(var(--button-background-color));
+  }
+</style>
+
+<div class:list={["ButtonContainer", className]} {...others}>
+  <div class:list={["ButtonMask"]}></div>
+  <slot />
+</div>

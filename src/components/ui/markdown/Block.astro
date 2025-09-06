@@ -1,0 +1,42 @@
+---
+import './markdown.common.css'
+import { render as renderMarkdown } from "@/lib/utils/markdown";
+
+interface Props {
+    content: string;
+    highLightKeywords?: boolean;
+}
+
+const { content, highLightKeywords } = Astro.props;
+---
+
+<div class:list={["Markdown", {"Markdown_KeyWordHighLighted": highLightKeywords}]}>
+    <Fragment set:html={renderMarkdown(content)}/>
+</div>
+
+<style>
+    .Markdown_KeyWordHighLighted {
+        * {
+            transition: color var(--transition-short) linear;
+        }
+
+        a,
+        strong {
+            color: rgb(var(--color-default-foreground));
+        }
+
+        &:hover {
+            span,
+            li,
+            p,
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: rgb(var(--color-default-foreground) / 50%);
+            }
+        }
+    }
+</style>
