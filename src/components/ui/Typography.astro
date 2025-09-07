@@ -33,7 +33,7 @@ type Props<Tag extends TypographyTag> = Polymorphic<{
     color?: ColorVariation;
 };
 
-let {
+const {
     as: Tag,
     variant,
     class: className,
@@ -41,20 +41,50 @@ let {
     ...others
 } = Astro.props as Props<TypographyTag>;
 
-if (Tag == undefined) {
-    Tag = (variant.startsWith("h") ? variant : "p") as TypographyTag;
-}
----
 
-<Tag {...others} class:list={["Typography", `Typography_${variant}`, className]}
-    ><slot /></Tag
->
+const Comp = Tag == undefined ? 
+    (variant.startsWith("h") ? variant : "p") as TypographyTag :
+    Tag;
+// duplicating a lot here, `define:vars` not works when using `Comp`.
+---
+{
+    Comp === "span" && 
+    <span {...others} class:list={["Typography", `Typography_${variant}`, className]}><slot /></span>
+}
+{
+    Comp === "p" && 
+    <p {...others} class:list={["Typography", `Typography_${variant}`, className]}><slot /></p>
+}
+{
+    Comp === "h1" && 
+    <h1 {...others} class:list={["Typography", `Typography_${variant}`, className]}><slot /></h1>
+}
+{
+    Comp === "h2" && 
+    <h2 {...others} class:list={["Typography", `Typography_${variant}`, className]}><slot /></h2>
+}
+{
+    Comp === "h3" && 
+    <h3 {...others} class:list={["Typography", `Typography_${variant}`, className]}><slot /></h3>
+}
+{
+    Comp === "h4" && 
+    <h4 {...others} class:list={["Typography", `Typography_${variant}`, className]}><slot /></h4>
+}
+{
+    Comp === "h5" && 
+    <h5 {...others} class:list={["Typography", `Typography_${variant}`, className]}><slot /></h5>
+}
+{
+    Comp === "h6" && 
+    <h6 {...others} class:list={["Typography", `Typography_${variant}`, className]}><slot /></h6>
+}
 
 <style define:vars={{ "t-color": themeVars.color[color].foreground }}>
     .Typography {
         white-space: nowrap;
         text-wrap: wrap;
-        color: var(--t-color);
+        color: rgb(var(--t-color));
     }
     .Typography_h1 {
         font-family: var(--typography-h1-fontFamily);

@@ -2,7 +2,7 @@ import type * as Hast from 'hast';
 import { visit, CONTINUE } from 'unist-util-visit'
 
 
-export default function RehypeReferenceTranslation()
+export function RehypeReferenceTranslation()
 {
     return function(tree: Hast.Root)
     {
@@ -20,8 +20,8 @@ export default function RehypeReferenceTranslation()
                 if (path.endsWith(".md") && !path.startsWith("/"))
                 {
                     (node as Hast.Element).properties!.href = '/' + href;
-                    return CONTINUE;
                 }
+                return CONTINUE;
             },
         )
     }

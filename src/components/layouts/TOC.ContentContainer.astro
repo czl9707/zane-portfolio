@@ -1,0 +1,32 @@
+<style>
+global:(.TOC_ContentContainer) {
+    
+}
+</style>
+
+<script>
+const containers = document.getElementsByClassName("TOC_ContentContainer");
+
+const slug2TOCItem: { [key: string]: HTMLElement | null} = {}
+for (const container of containers)
+{
+    const slug = container.getAttribute("data-slug");
+    if (slug != undefined)
+    slug2TOCItem[slug] = document.getElementById(`${slug}_back`);
+}
+
+
+const ob = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+        const tocItem = slug2TOCItem[entry.target.getAttribute("data-slug")!]
+        tocItem?.setAttribute("data-active", entry.isIntersecting ? 'true' : 'false');
+    }
+},
+{
+    threshold: 0.01
+});
+
+for (const container of containers) {
+    ob.observe(container);
+}
+</script>

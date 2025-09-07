@@ -1,18 +1,22 @@
 ---
-import './markdown.common.css'
-import { render as renderMarkdown } from "@/lib/utils/markdown";
+import { render as renderMarkdown } from "@/lib/markdown/markdown";
+import MarkdownContainer from "@/components/ui/markdown/Container.astro";
 
 interface Props {
     content: string;
-    highLightKeywords?: boolean;
+    variant?: "keywordHighlighted" | "default";
 }
 
-const { content, highLightKeywords } = Astro.props;
+const { content, variant = "default" } = Astro.props;
 ---
 
-<div class:list={["Markdown", {"Markdown_KeyWordHighLighted": highLightKeywords}]}>
-    <Fragment set:html={renderMarkdown(content)}/>
-</div>
+<MarkdownContainer
+    class:list={[
+        { Markdown_KeyWordHighLighted: variant == "keywordHighlighted" },
+    ]}
+>
+    <Fragment set:html={renderMarkdown(content)} />
+</MarkdownContainer>
 
 <style>
     .Markdown_KeyWordHighLighted {

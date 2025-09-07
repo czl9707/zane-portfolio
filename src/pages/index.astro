@@ -4,8 +4,8 @@ import BaseLayout from '@/components/layouts/Layout.Base.astro';
 import StickyHero from '@/components/layouts/StickyHero.astro';
 import ContentSection from '@/components/layouts/Section.Content.astro'
 import TitleSection from '@/components/layouts/Section.Title.astro'
-import TitleSectionHeading from '@/components/layouts/Section.Title.Heading.astro'
-import ArchProjectCard from '@/components/layouts/Card.ArchProject.astro'
+import ResponsiveHeading from '@/components/ui/Heading.Responsive.astro'
+import ArchProjectCard from '@/components/arch-project/Card.astro'
 import ContentCard from '@/components/layouts/Card.Content.astro';
 
 import Grid from '@/components/ui/Grid.astro';
@@ -63,17 +63,17 @@ const devProjects = (await getCollection("devProject")).filter(b => b.data.featu
 
 	<!-- Who Am I -->
     <ContentSection>
-    <Typography variant='h5' color="secondary" id="who_am_i" slot={"header"}>
-        Who am I?
-    </Typography>
+      <Typography variant='h5' color="secondary" id="who_am_i" slot={"header"}>
+          Who am I?
+      </Typography>
       <SlideUpDiv style={{ gridColumn: "span 2 / span 2" }}>
-        <MarkdownBlock content={homepageGlob.whoAmI} highLightKeywords/>
+        <MarkdownBlock content={homepageGlob.whoAmI} variant='keywordHighlighted'/>
       </SlideUpDiv>
     </ContentSection>
 
     <!-- Writings -->
     <TitleSection>
-      <TitleSectionHeading label='WRITINGS' id="writings" tag="h2" tagOnSM="h4"/>
+      <ResponsiveHeading label='WRITINGS' id="writings" variant="h2" variantSM="h4"/>
     </TitleSection>
     <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
       <Divider />
@@ -97,7 +97,7 @@ const devProjects = (await getCollection("devProject")).filter(b => b.data.featu
 
     <!-- Developers -->
     <TitleSection>
-      <TitleSectionHeading label='NOW A SOFTWARE ENGINEER' id="as_a_developer" tag="h2" tagOnSM="h4"/>
+      <ResponsiveHeading label='NOW A SOFTWARE ENGINEER' id="as_a_developer" variant="h2" variantSM="h4"/>
     </TitleSection>
     <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
       <Divider />
@@ -122,7 +122,7 @@ const devProjects = (await getCollection("devProject")).filter(b => b.data.featu
 
     <!-- Architect -->
     <TitleSection>
-      <TitleSectionHeading label='ONCE AN ARCHITECT' id="as_an_architect" tag="h2" tagOnSM="h4"/>
+      <ResponsiveHeading label='ONCE AN ARCHITECT' id="as_an_architect" variant="h2" variantSM="h4"/>
     </TitleSection>
     <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
       <Divider />
@@ -148,6 +148,7 @@ const devProjects = (await getCollection("devProject")).filter(b => b.data.featu
       </SlideUpDiv>
     </Section>
 
+    <!-- Ending -->
     <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
       <SlideUpDiv>
         <Typography variant='h1'>

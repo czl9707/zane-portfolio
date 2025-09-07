@@ -1,8 +1,14 @@
 ---
 import Section from "@/components/ui/Section.astro";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props {
+    class?: HTMLAttributes<'div'>["class"]
+}
+const { class: className } = Astro.props;
 ---
 
-<Section id="StickyHero" >
+<Section id="StickyHero" class:list={[className]}>
     <slot/>
 </Section>
 

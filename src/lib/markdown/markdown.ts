@@ -2,7 +2,7 @@ import { unified, type PluggableList } from "unified";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
-import RehypeReferenceTranslation from "@/components/ui/markdown/rehype-reference-translation";
+import { RehypeReferenceTranslation } from "@/lib/markdown/rehype-reference-translation";
 
 
 async function render(

@@ -6,7 +6,7 @@ import * as DevProject from "@/lib/cms/zane-dev-project";
 const blog = defineCollection({
     loader: glob({
         base: "./src/contents/",
-        pattern: ["blog/**/*.md", "!**/drafts/**"],
+        pattern: ["blog/**/*.md", "!**/drafts/**"]
     }),
     schema: () =>
         z.object({

@@ -3,7 +3,7 @@ import BaseLayout from "@/components/layouts/Layout.Base.astro";
 import StickyHero from "@/components/layouts/StickyHero.astro";
 import ContentSection from "@/components/layouts/Section.Content.astro";
 import TitleSection from "@/components/layouts/Section.Title.astro";
-import TitleSectionHeading from "@/components/layouts/Section.Title.Heading.astro";
+import ResponsiveHeading from "@/components/ui/Heading.Responsive.astro";
 
 import Grid from "@/components/ui/Grid.astro";
 import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
@@ -41,12 +41,12 @@ const aboutMeGlobes = await getAboutMe();
             About Zane
         </Typography>
         <SlideUpDiv style={{ gridColumn: "span 2 / span 2" }}>
-            <MarkdownBlock content={aboutMeGlobes.aboutMe} highLightKeywords />
+            <MarkdownBlock content={aboutMeGlobes.aboutMe} variant='keywordHighlighted' />
         </SlideUpDiv>
     </ContentSection>
 
     <TitleSection>
-        <TitleSectionHeading tag="h2" tagOnSM="h4" label={"My Timeline"}/>
+        <ResponsiveHeading variant="h2" variantSM="h4" label={"My Timeline"}/>
     </TitleSection>
     {
         aboutMeGlobes.timeline
@@ -59,7 +59,7 @@ const aboutMeGlobes = await getAboutMe();
                     <SlideUpDiv style={{ gridColumn: "span 2 / span 2" }}>
                         <MarkdownBlock
                             content={ex.experience}
-                            highLightKeywords
+                            variant='keywordHighlighted'
                         />
                     </SlideUpDiv>
                 </ContentSection>

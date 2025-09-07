@@ -2,6 +2,7 @@
 import { type DataEntryMap } from "astro:content";
 import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
 import Typography from "@/components/ui/Typography.astro";
+import Spacer from "@/components/ui/Spacer.astro";
 type ProjectType = DataEntryMap["archProject"]["string"]
 
 interface Props {
@@ -14,7 +15,7 @@ const { project } = Astro.props;
         <img src={project.data.cover.url} alt={project.data.cover.alt} />
         <div class:list={["CardInformation"]}>
             <Typography variant="h3">{project.data.title.toUpperCase()}</Typography>
-            <Typography variant="body1" color="secondary" style={{ paddingBottom: ".5rem" }}>{project.data.tags.join(" · ")}</Typography>
+            <Typography variant="body1" color="secondary">{project.data.tags.join(" · ")}</Typography>
             <Typography variant="h6" color="secondary">{project.data.subTitle}</Typography>
         </div>
     </SlideUpDiv>
@@ -77,6 +78,10 @@ const { project } = Astro.props;
     h3,
     h6,
     p { text-align: center }
+
+    h3 {
+        padding-bottom: .75rem;
+    }
 }
 
 </style>
