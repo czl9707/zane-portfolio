@@ -1,0 +1,82 @@
+---
+import { type DataEntryMap } from "astro:content";
+import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
+import Typography from "@/components/ui/Typography.astro";
+type ProjectType = DataEntryMap["archProject"]["string"]
+
+interface Props {
+    project: ProjectType
+}
+const { project } = Astro.props;
+---
+<a href={`/project/by/architect/${project.id}`} class:list={["ArchProjectCardWrapper"]}>
+    <SlideUpDiv class:list={["ArchProjectCard"]}>
+        <img src={project.data.cover.url} alt={project.data.cover.alt} />
+        <div class:list={["CardInformation"]}>
+            <Typography variant="h3">{project.data.title.toUpperCase()}</Typography>
+            <Typography variant="body1" color="secondary" style={{ paddingBottom: ".5rem" }}>{project.data.tags.join(" · ")}</Typography>
+            <Typography variant="h6" color="secondary">{project.data.subTitle}</Typography>
+        </div>
+    </SlideUpDiv>
+</a>
+
+
+
+<style>
+.ArchProjectCardWrapper {
+    width: 100%;
+    height: 100%;
+    
+    grid-column: span var(--card-columns);
+    grid-row: span var(--card-rows);
+}
+
+.ArchProjectCard {
+    aspect-ratio: 4/3;
+
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--size-border-radius);
+    box-sizing: border-box;
+
+    .CardInformation { 
+        position: absolute;
+        inset: 0;
+        background-color: rgb(var(--color-default-background) / 75%);
+        color: rgb(var(--color-default-foreground));
+        padding: var(--spacing-component);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        transition: opacity var(--transition-short);
+        
+        opacity: 0;
+    }
+    &:hover {
+        .CardInformation { opacity: 1; }
+    }
+    
+    
+    img {
+        position: absolute;
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+        transition: transform var(--transition-short);
+    }
+
+    &:hover {
+        img {
+            transform: scaleX(105%) scaleY(105%);
+        }
+    }
+
+    h3,
+    h6,
+    p { text-align: center }
+}
+
+</style>

@@ -85,7 +85,11 @@ else {
   }
 </style>
 
-<div class:list={["ButtonContainer", className]} {...others}>
+<div class:list={[
+  "ButtonContainer", 
+  variant === "filled" ? "FilledButtonContainer" : "OutlineButtonContainer",
+  className
+]} {...others}>
   <div class:list={["ButtonMask"]}></div>
   <slot />
 </div>

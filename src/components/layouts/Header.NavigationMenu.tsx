@@ -6,9 +6,9 @@ export default function HeaderNavigationMenu({
     label,
     content,
 }: {
-    content: React.ReactNode;
-    label: React.ReactNode;
-    children: any[]
+    content?: React.ReactNode;
+    label?: React.ReactNode;
+    children: any[] // for astro typescript
 }) {
     return (
         <NavigationMenu.Root>

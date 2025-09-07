@@ -1,11 +1,10 @@
 import { graphqlFetch } from "@/lib/cms/graphql-fetch"
-import { ImageInfo } from "@/lib/cms/common.type";
-import * as Blocks from "@/lib/cms/content-blocks.type";
-import { cache } from "react"
+import type { ImageInfo, Block } from "./common.type";
 
 interface ZaneArchProjectInfo {
     title: string,
     subTitle: string,
+    featured: boolean,
     tags: string[],
     id: string,
     startDate: Date,
@@ -14,12 +13,13 @@ interface ZaneArchProjectInfo {
     contributors?: string,
     description: string,
     cover: ImageInfo,
-    content: { blocks: Blocks.ArchProjectType[], catagory: string[], visible: boolean }[],
+    content: { blocks: Block.ArchProjectBlockType[], catagory: string[], visible: boolean }[],
 }
 
 interface ZaneArchProjectDto {
     title: string,
     subTitle: string,
+    featured: boolean,
     tags?: string[],
     id: string,
     startDate: number,
@@ -28,12 +28,7 @@ interface ZaneArchProjectDto {
     contributors?: string,
     description: string,
     cover: ImageInfo,
-    content?: { blocks: Blocks.ArchProjectType[], catagory: string[], visible: boolean }[],
-}
-
-export type {
-    ZaneArchProjectInfo as Info,
-    ZaneArchProjectDto as Dto,
+    content?: { blocks: Block.ArchProjectBlockType[], catagory: string[], visible: boolean }[],
 }
 
 const zaneArchProjectBaseFragment = `
@@ -41,10 +36,12 @@ fragment zaneArchProjectBase on ZaneArchProject {
     id
     title
     subTitle
+    featured
     tags
     startDate
     endDate
     location
+    featured
     contributors
     description
     cover {
@@ -59,27 +56,9 @@ fragment zaneArchProjectBase on ZaneArchProject {
 const GQL_QueryAll = `
 query {
     ZaneArchProjects {
-        docs { ...zaneArchProjectBase }
+        docs { id }
     }
 }
-
-${zaneArchProjectBaseFragment}
-`;
-
-const GQL_QueryFeatured = `
-query {
-    ZaneArchProjects (
-        where: {
-            featured: {
-                equals: true
-            }
-        }
-    ) {
-        docs { ...zaneArchProjectBase }
-    }
-}
-
-${zaneArchProjectBaseFragment}
 `;
 
 const GQL_QueryById = `
@@ -137,13 +116,15 @@ fragment imageInfo on Media {
 ${zaneArchProjectBaseFragment}
 `;
 
-async function getAll(): Promise<ZaneArchProjectInfo[]> {
+async function getAll(): Promise<string[]> {
     return await graphqlFetch(
         GQL_QueryAll
     ).then(
         async req => await req.json()
     ).then(
-        data => data["data"]["ZaneArchProjects"].docs.map(fromDto)
+        data => data["data"]["ZaneArchProjects"].docs.map(
+            (d: {id:string}) => d.id
+        )
     );
 }
 
@@ -161,21 +142,12 @@ async function getById(id: string): Promise<ZaneArchProjectInfo> {
     );
 }
 
-async function getFeatured(): Promise<ZaneArchProjectInfo[]> {
-    return await graphqlFetch(
-        GQL_QueryFeatured
-    ).then(
-        async req => await req.json()
-    ).then(
-        data => data["data"]["ZaneArchProjects"].docs.map(fromDto)
-    );
-}
-
 function fromDto(dto: ZaneArchProjectDto): ZaneArchProjectInfo {
     return {
         title: dto.title as string,
         subTitle: dto.subTitle as string,
         tags: dto.tags ?? [],
+        featured: dto.featured,
         id: dto.id,
         startDate: new Date(dto.startDate),
         endDate: dto.endDate ? new Date(dto.endDate) : undefined,
@@ -187,10 +159,7 @@ function fromDto(dto: ZaneArchProjectDto): ZaneArchProjectInfo {
     }
 }
 
-const cached_getById = cache(getById);
-
 export {
-    getFeatured,
     getAll,
-    cached_getById as getById
+    getById
 }

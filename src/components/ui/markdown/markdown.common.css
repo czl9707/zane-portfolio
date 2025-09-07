@@ -81,4 +81,12 @@
         margin-bottom: var(--spacing-paragraph);
         font-style: italic;
     }
+
+    p > code {
+        background-color: rgb(var(--color-nebular-foreground) / 25%);
+        border-Radius: var(--size-border-radius);
+        border: .5px rgb(var(--color-nebular-foreground) / 50%) solid;
+        padding-left: .5rem;
+        padding-right: .5rem;
+    }
 }

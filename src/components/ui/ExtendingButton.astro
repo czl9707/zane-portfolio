@@ -1,0 +1,42 @@
+---
+import Typography from "@/components/ui/Typography.astro";
+
+interface Props {
+    label: string
+}
+
+const {label} = Astro.props
+
+export const hoverContext = "ExtendingButtonHoverContext";
+---
+
+<Typography variant="body1" class:list={["ExtendingButtonTypography", "ExtendingButtonHoverContext"]}>
+    {label}
+    <span class:list={["ExtendingButtonMark"]}>{">>"}</span>
+</Typography>
+
+<style>
+    .ExtendingButtonTypography {
+        color: rgb(var(--color-default-foreground) / 0.75);
+        transition: color var(--transition-short);
+    }
+
+    .ExtendingButtonMark {
+        width: 3rem;
+        display: inline-block;
+        text-align: left;
+        transform: translateX(.5rem);
+        transition: transform var(--transition-short);
+    }
+
+    :global(.ExtendingButtonHoverContext) {
+        &:hover {
+            .ExtendingButtonTypography { 
+                color: rgb(var(--color-default-foreground));
+            }
+            .ExtendingButtonMark { 
+                transform: translateX(1.5rem);
+            }
+        }
+    }
+</style>

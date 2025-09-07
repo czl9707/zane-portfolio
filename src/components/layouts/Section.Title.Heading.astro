@@ -2,19 +2,20 @@
 import Typography from "@/components/ui/Typography.astro";
 
 interface Props {
+    id?: string,
     label: string,
     tag: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" ;
     tagOnSM?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" ;
 }
-const { tag, tagOnSM, label } = Astro.props;
+const { tag, tagOnSM, label, id } = Astro.props;
 
 ---
-<Typography variant={tag} class:list={[
+<Typography id={id} variant={tag} class:list={[
     "HeadingWithTag", {"ShowOnSM": tagOnSM !== undefined} 
 ]}>{label}</Typography>
 {
     tagOnSM && 
-    <Typography variant={tagOnSM} class:list={[
+    <Typography id={id} variant={tagOnSM} class:list={[
         "HeadingWithTag", 
         "NoShowOnSM"
     ]}>{label}</Typography>
