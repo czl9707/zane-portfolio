@@ -1,0 +1,48 @@
+---
+import type { DataEntryMap } from "astro:content";
+
+import CardContainer from "@/components/ui/Card.Container.astro";
+import ContentCard from "@/components/layouts/Card.Content.astro";
+
+import Section from "@/components/ui/Section.astro";
+import Divider from "@/components/ui/Divider.astro";
+
+import type { RoleType } from "@/lib/utils/constants";
+
+type ContentType = DataEntryMap["blog"][string] | DataEntryMap["note"][string];
+
+interface Props {
+    writings: ContentType[];
+    hierachical?: boolean;
+}
+const { writings, hierachical = false } = Astro.props;
+---
+
+<Section>
+    <Divider />
+    <CardContainer columns={3} minColumns={2}>
+        {
+            writings.map((writing) => (
+                <ContentCard
+                    href={"/" + writing.id}
+                    data={{
+                        date: writing.data["created-date"],
+                        title: writing.data.title,
+                        tags: writing.data.tags,
+                        role: writing.id.split("/").at(-2) as RoleType,
+                        description:
+                            writing.collection === "blog"
+                                ? writing.data.description
+                                : undefined,
+                    }}
+                    occupiedColumns={hierachical ? (
+                        writing.collection === "blog" ? 2 : 1
+                    ) : undefined}
+                    occupiedRows={hierachical ? (
+                        writing.collection === "blog" ? 2 : 1
+                    ) : undefined}
+                />
+            ))
+        }
+    </CardContainer>
+</Section>
