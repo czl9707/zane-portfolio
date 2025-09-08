@@ -15,7 +15,12 @@ import { rehypeSectionize } from './src/lib/markdown/rehype-sectionize';
 // https://astro.build/config
 export default defineConfig({
     site: 'https://zane-portfolio.kiyo-n-zane.com',
-    integrations: [sitemap(), react()],
+    integrations: [
+        sitemap({
+            filter(path){return !path.includes("/as/")}
+        }), 
+        react()
+    ],
     trailingSlash: "ignore",
     compressHTML: true,
     env: {
@@ -40,5 +45,10 @@ export default defineConfig({
             rehypeSectionize,
             rehypeMathjax
         ],
+    },
+    redirects: {
+        "/as/developer/blog": "/blog",
+        "/as/architect/project": "/project/by/architect",
+        "/as/developer/project": "/project/by/developer",
     },
 });

@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+
+
+export async function getStaticPaths() {
+    const projects = await getCollection("archProject");
+    const blogs = await getCollection("blog");
+    return [
+        ...projects.map(proj => ({
+            params: {idSlug: proj.id, roleSlug: "architect", contentSlug:"project"}
+        })),
+        ...blogs.map(blog => {
+            const role = blog.id.split("/").at(-2)
+            const id = blog.id.split("/").at(-1);
+            return {
+                params: {idSlug: id, roleSlug: role, contentSlug:"blog"}
+            }
+        })
+    ];
+}
+
+const {roleSlug: role, contentSlug: content, idSlug: id} = Astro.params;
+Astro.redirect(`/${content}/by/${role}/${id}`);
+---
