@@ -36,6 +36,11 @@ const {
     
     grid-column: span var(--card-columns);
     grid-row: span var(--card-rows);
+
+    @media(--smaller-than-md) {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
     
     > div {
         position: relative;

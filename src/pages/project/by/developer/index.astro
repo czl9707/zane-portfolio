@@ -21,7 +21,7 @@ const devProjects = await getCollection("devProject");
     </TitleSection>
     <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
       <Divider />
-      <CardContainer columns={3} minColumns={2}>
+      <CardContainer columns={3} minColumns={1}>
         {
           devProjects.map(proj => (
             <ContentCard href={proj.data.externalLink} target='_blank' 
