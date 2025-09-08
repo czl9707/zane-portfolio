@@ -15,7 +15,6 @@ import ChipContainer from "@/components/ui/Chip.Container.astro";
 import { themeVars } from "@/lib/theme";
 import { displayRole, type RoleType } from "@/lib/utils/constants";
 import { DateAsString } from "@/lib/utils/date";
-import Divider from "@/components/ui/Divider.astro";
 import TOC from "@/components/layouts/TOC.astro";
 
 export async function getStaticPaths() {
@@ -31,7 +30,6 @@ export async function getStaticPaths() {
 }
 
 const { idSlug: id, roleSlug: role } = Astro.params;
-console.log(`note/by/${role}/${id}`)
 const noteEntry = await getEntry("note", `note/by/${role}/${id}`)!;
 const { Content, headings } = await render(noteEntry);
 ---
