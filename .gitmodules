@@ -1,3 +1,4 @@
 [submodule "notes-n-writings"]
 	path = src/contents
 	url = https://github.com/czl9707/notes-n-writings.git
+	branch = main

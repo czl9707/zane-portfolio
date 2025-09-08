@@ -19,7 +19,7 @@ export function RehypeReferenceTranslation()
                 const path = href.split("#")[0]
                 if (path.endsWith(".md") && !path.startsWith("/"))
                 {
-                    (node as Hast.Element).properties!.href = '/' + href;
+                    (node as Hast.Element).properties!.href = '/' + href.replace(".md", "");
                 }
                 return CONTINUE;
             },
