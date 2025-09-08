@@ -1,0 +1,91 @@
+---
+import { render } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
+
+import MarkdownContainer from "@/components/ui/markdown/Container.astro";
+import BaseLayout from "@/components/layouts/Layout.Base.astro";
+import StickyHero from '@/components/layouts/StickyHero.astro';
+import PageLayout from '@/components/layouts/writing/Page.Layout.astro'
+
+import ResponsiveHeading from '@/components/ui/Heading.Responsive.astro'
+import Section from "@/components/ui/Section.astro";
+import Spacer from "@/components/ui/Spacer.astro";
+import Typography from "@/components/ui/Typography.astro";
+import Chip from "@/components/ui/Chip.astro";
+import ChipContainer from "@/components/ui/Chip.Container.astro";
+import { themeVars } from "@/lib/theme";
+import { displayRole, type RoleType } from "@/lib/utils/constants";
+import { DateAsString } from "@/lib/utils/date";
+import Divider from "@/components/ui/Divider.astro";
+import TOC from "@/components/layouts/TOC.astro";
+
+export async function getStaticPaths() {
+    const blogs = await getCollection("blog");
+
+    return blogs.map((blog) => {
+        const role = blog.id.split("/").at(-2)
+        const id = blog.id.split("/").at(-1);
+        return {
+            params: { idSlug: id, roleSlug: role },
+        };
+    });
+}
+
+const { idSlug: id, roleSlug: role } = Astro.params;
+
+const blogEntry = await getEntry("blog", `blog/by/${role}/${id}`)!;
+const { Content, headings } = await render(blogEntry);
+---
+<BaseLayout
+    title={blogEntry.data.title}
+    description={blogEntry.data.description}
+>
+    <StickyHero>
+        <PageLayout>
+            <Fragment slot="content">
+                <ResponsiveHeading variant="h2" variantSM="h3" as="h1" 
+                    label={blogEntry.data.title}/>
+                <Spacer spacing="paragraph" />
+                <Typography variant="h6" as="h2" color="secondary">{blogEntry.data.description}</Typography>
+                <ChipContainer>
+                    {
+                        (blogEntry.data.tags ?? []).map(tag => (
+                            <Chip>
+                                <a href={`/writing/tag/${tag}`}>
+                                    <Typography variant="body1">#{tag}</Typography>
+                                </a>
+                            </Chip>
+                        ))
+                    }
+                </ChipContainer>
+                <Spacer spacing="component" />
+                <Typography variant="body1" style={{ marginBottom: `var(${themeVars.spacing.component})` }}>
+                    <Typography variant="body1" as="span" color="secondary">Created on </Typography>{DateAsString(blogEntry.data["created-date"])}
+                    <Typography variant="body1" as="span" color="secondary">, Last Updated on </Typography>{DateAsString(blogEntry.data["last-updated-date"])}
+                    <Typography variant="body1" as="span" color="secondary">, By a </Typography>{displayRole(role as RoleType)}
+                    <br />
+                </Typography>
+            </Fragment>
+        </PageLayout>
+    </StickyHero>
+
+    <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
+        <Divider/>
+        <Spacer spacing="block"/>
+        <PageLayout>
+            <Fragment slot="content">
+                <MarkdownContainer>
+                    <Content />
+                </MarkdownContainer>
+            </Fragment>
+            <Fragment slot="sidePanel">
+                <Typography variant="h6" style={{ marginBottom: "1rem" }}>Table of Content</Typography>
+                <TOC headings={headings}/>
+            </Fragment>
+        </PageLayout>
+    </Section>
+</BaseLayout>
+
+<style>
+
+</style>

@@ -1,0 +1,35 @@
+---
+import { themeVars, type SpacingVariation } from "@/lib/theme";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"span"> {
+    direction?: "vertical" | "horizontal";
+    spacing?: SpacingVariation;
+}
+
+const {
+    direction = "horizontal",
+    spacing = "group",
+    class: className,
+    ...others
+} = Astro.props;
+---
+
+<span class:list={[
+    className, 
+    {"Spacer_Horizontal": direction === "horizontal"},
+    {"Spacer_Vertical": direction === "vertical"},    
+]} {...others}></span>
+
+<style define:vars={{ "spacer-size": themeVars.spacing[spacing] }}>
+    .Spacer_Horizontal {
+        display: block;
+        user-select: none;
+        height: var(--spacer-size);
+    }
+    .Spacer_Vertical {
+        display: block;
+        user-select: none;
+        width: var(--spacer-size);
+    }
+</style>

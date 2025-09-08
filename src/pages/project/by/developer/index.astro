@@ -1,0 +1,38 @@
+---
+import BaseLayout from '@/components/layouts/Layout.Base.astro';
+
+import TitleSection from '@/components/layouts/Section.Title.astro'
+import ContentCard from '@/components/layouts/Card.Content.astro';
+
+import Typography from '@/components/ui/Typography.astro';
+import CardContainer from '@/components/ui/Card.Container.astro';
+
+import { SITE_DESCRIPTION, SITE_TITLE } from '@/lib/utils/constants';
+import { themeVars } from '@/lib/theme';
+import Section from '@/components/ui/Section.astro';
+import Divider from '@/components/ui/Divider.astro';
+import { getCollection } from 'astro:content';
+
+const devProjects = await getCollection("devProject");
+---
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+    <TitleSection>
+      <Typography variant='h3' as="h1">Projects by a Developer</Typography>
+    </TitleSection>
+    <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
+      <Divider />
+      <CardContainer columns={3} minColumns={2}>
+        {
+          devProjects.map(proj => (
+            <ContentCard href={proj.data.externalLink} target='_blank' 
+              data={{
+                date: proj.data.startDate, 
+                title: proj.data.title,
+                tags: proj.data.tags,
+                description: proj.data.description
+            }}/>
+          ))
+        }
+      </CardContainer>
+    </Section>
+</BaseLayout>

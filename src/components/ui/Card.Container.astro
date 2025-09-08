@@ -1,0 +1,28 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+import Grid from '@/components/ui/Grid.astro'
+
+interface Props extends HTMLAttributes<'div'> {
+    columns: number,
+    minColumns?: number,
+}
+const { columns, minColumns = 1, class: className, ...others } = Astro.props;
+---
+
+<Grid columns={columns} minColumns={minColumns} {...others} 
+    class:list={["CardContainerGrid", className]}>
+    <slot/>
+</Grid>
+
+<style>
+.CardContainerGrid {
+    align-items: stretch;
+    justify-items: stretch;
+    padding-top: var(--spacing-paragraph);
+    padding-bottom: var(--spacing-paragraph);
+
+    grid-auto-rows: 1fr;
+    grid-auto-flow: dense;
+}
+</style>

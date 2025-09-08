@@ -1,0 +1,20 @@
+---
+import type { HTMLAttributes } from "astro/types";
+interface Props extends HTMLAttributes<'blockquote'>{};
+
+const { class: className, ...others } = Astro.props;
+---
+
+<style>
+.QuoteBlock {
+    border-left: 4px solid rgb(var(--color-default-foreground) / 0.25);
+    padding-left: var(--spacing-component);
+    padding-top: var(--spacing-paragraph);
+    margin-bottom: var(--spacing-paragraph);
+    font-style: italic;
+}
+</style>
+
+<blockquote class:list={["QuoteBlock", className]} {...others}>
+    <slot/>
+</blockquote>

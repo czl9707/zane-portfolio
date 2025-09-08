@@ -1,0 +1,106 @@
+---
+import { type DataEntryMap } from "astro:content";
+import Spacer from "@/components/ui/Spacer.astro";
+import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
+import Grid from "@/components/ui/Grid.astro";
+import Typography from "@/components/ui/Typography.astro";
+import MarkdownBlock from "@/components/ui/markdown/Block.astro";
+
+type ProjectType = DataEntryMap["archProject"]["string"];
+type BlockType = ProjectType["data"]["content"][number]["blocks"][number];
+
+interface Props {
+    block: BlockType
+}
+const { block } = Astro.props;
+---
+<SlideUpDiv>
+{
+    block.blockType === "fullSizeImage" && 
+    <>
+        <Spacer />
+        <img src={block.image.url} alt={block.image.alt} 
+            style={{ width: "100%" }} class:list={["ArchImage"]} />
+        <Spacer />
+    </>
+}
+{
+    block.blockType === "multiImage" && 
+    <Grid class:list={["ArchGridBase"]} 
+        columns={Math.ceil(block.images.length / block.rows)}>
+        {
+            block.images.map((i) => (
+                <div>
+                    <img src={i.image.url} alt={i.image.alt} 
+                        class:list={["ArchImage"]} />
+                    {
+                        i.annotation &&
+                        <Typography variant="body2">{i.annotation}</Typography>
+                    }
+                </div>
+            ))
+        }
+    </Grid>
+}
+{
+    block.blockType === "imageAndText" && 
+    <Grid columns={2} class:list={["ArchGridBase"]}>
+        <div>
+            <Typography variant="h5" color="secondary">{block.title}</Typography>
+            <Spacer spacing="paragraph" />
+            <div class:list={["ShrinkOnMD"]}>
+                <MarkdownBlock content={block.text}/>
+            </div>
+        </div>
+        <div>
+            <img src={block.image.url} alt={block.image.alt} 
+                class:list={["ArchImage"]} style={{ width: "100%" }}/>
+            {
+                block.annotation &&
+                <Typography variant="body2">{block.annotation}</Typography>
+            }
+
+        </div>
+    </Grid>
+}
+{
+    block.blockType === "fullText" && 
+    <Grid columns={4} class:list={["ArchGridBase"]}>
+        <div>
+            <Typography variant="h5" color="secondary">{block.title}</Typography>
+        </div>
+        <span style={{ gridColumn: "span 1" }} />
+        <div style={{ gridColumn: "span 2 / span 2" }}>
+            <MarkdownBlock content={block.text}/>
+        </div>
+    </Grid>
+}
+<SlideUpDiv/>
+
+<style>
+.ArchGridBase {
+    max-width: 72rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: var(--spacing-group);
+    padding-bottom: var(--spacing-group);
+    background-color: var(--color-default-background);
+}
+
+.ArchImage {
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--size-border-radius);
+
+    & + p {
+        opacity: 0.75;
+        text-align: center;
+        margin-top: var(--spacing-paragraph);
+    }
+}
+
+.ShrinkOnMD {
+    @media(--larger-than-md) { width: 85%; }
+}
+</style>

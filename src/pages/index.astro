@@ -1,0 +1,198 @@
+---
+import BaseLayout from '@/components/layouts/Layout.Base.astro';
+
+import StickyHero from '@/components/layouts/StickyHero.astro';
+import ContentSection from '@/components/layouts/Section.Content.astro'
+import TitleSection from '@/components/layouts/Section.Title.astro'
+import ResponsiveHeading from '@/components/ui/Heading.Responsive.astro'
+import ArchProjectCard from '@/components/arch-project/Card.astro'
+import ContentCard from '@/components/layouts/Card.Content.astro';
+
+import Grid from '@/components/ui/Grid.astro';
+import SlidingDownIcon from '@/components/ui/SlidingDownIcon.astro';
+import Spacer from '@/components/ui/Spacer.astro';
+import Typography from '@/components/ui/Typography.astro';
+import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
+import MarkdownBlock from '@/components/ui/markdown/Block.astro';
+import CardContainer from '@/components/ui/Card.Container.astro';
+
+import { SITE_DESCRIPTION, SITE_TITLE } from '@/lib/utils/constants';
+import { themeVars } from '@/lib/theme';
+import { getHomePage } from '@/lib/cms/globals'
+import Section from '@/components/ui/Section.astro';
+import Divider from '@/components/ui/Divider.astro';
+import { getCollection } from 'astro:content';
+import Button from '@/components/ui/Button.astro';
+import Card from '@/components/ui/Card.astro';
+import ExtendingButton, {hoverContext as buttonHoverContext} from '@/components/ui/ExtendingButton.astro';
+
+const homepageGlob = await getHomePage();
+const blogs = (await getCollection("blog")).filter(b => b.data.featured);
+const archProjects = (await getCollection("archProject")).filter(b => b.data.featured);
+const devProjects = (await getCollection("devProject")).filter(b => b.data.featured);
+---
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+    <StickyHero>
+        <Grid columns={3}>
+          <SlideUpDiv style={{ gridColumn: "span 2 / span 2" }}>
+            <Typography variant='h4' as="h2">
+              Precision in detail, vision in design, <br />
+              building things one block at a time.
+            </Typography>
+          </SlideUpDiv>
+        </Grid>
+
+        <Spacer style={{ flex: "1 1" }} />
+        <SlidingDownIcon />
+        <Spacer />
+        <SlideUpDiv>
+          <Typography variant='h1'>
+            <svg width={"100%"} viewBox="0 0 45 7">
+              <title id="ZANE_CHEN">ZANE CHEN</title>
+              <text class:list={["SVGText"]} x="50%" y="50%"
+                textLength={45} lengthAdjust="spacingAndGlyphs"
+                font-weight={700} font-size="7.2px"
+                dominant-baseline="middle" text-anchor="middle"
+              >
+                ZANE CHEN
+              </text>
+            </svg>
+          </Typography>
+        </SlideUpDiv>	
+    </StickyHero>
+
+	<!-- Who Am I -->
+    <ContentSection>
+      <Typography variant='h5' color="secondary" id="who_am_i" slot={"header"}>
+          Who am I?
+      </Typography>
+      <SlideUpDiv style={{ gridColumn: "span 2 / span 2" }}>
+        <MarkdownBlock content={homepageGlob.whoAmI} variant='keywordHighlighted'/>
+      </SlideUpDiv>
+    </ContentSection>
+
+    <!-- Writings -->
+    <TitleSection>
+      <ResponsiveHeading label='WRITINGS' id="writings" variant="h2" variantSM="h4"/>
+    </TitleSection>
+    <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
+      <Divider />
+      <CardContainer columns={3} minColumns={2}>
+        {
+          blogs.map(blog => (
+            <ContentCard href={"/" + blog.id} data={{
+              date: blog.data['created-date'], 
+              title: blog.data.title,
+              tags: blog.data.tags,
+              description: blog.data.description
+            }}/>
+          ))
+        }
+        <Card class:list={["NavigationCard", buttonHoverContext]}
+          href="/writing">
+          <ExtendingButton label='Writing Constellations'/>
+        </Card> 
+      </CardContainer>
+    </Section>
+
+    <!-- Developers -->
+    <TitleSection>
+      <ResponsiveHeading label='NOW A SOFTWARE ENGINEER' id="as_a_developer" variant="h2" variantSM="h4"/>
+    </TitleSection>
+    <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
+      <Divider />
+      <CardContainer columns={3} minColumns={2}>
+        {
+          devProjects.map(proj => (
+            <ContentCard href={proj.data.externalLink} target='_blank' 
+              data={{
+                date: proj.data.startDate, 
+                title: proj.data.title,
+                tags: proj.data.tags,
+                description: proj.data.description
+            }}/>
+          ))
+        }
+        <Card class:list={["NavigationCard", buttonHoverContext]}
+          href="/project/by/developer">
+          <ExtendingButton label='All projects'/>
+        </Card> 
+      </CardContainer>
+    </Section>
+
+    <!-- Architect -->
+    <TitleSection>
+      <ResponsiveHeading label='ONCE AN ARCHITECT' id="as_an_architect" variant="h2" variantSM="h4"/>
+    </TitleSection>
+    <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
+      <Divider />
+      <CardContainer columns={2}>
+        {
+          archProjects.map(project => (
+            <ArchProjectCard project={project}/>
+          ))
+        }
+      </CardContainer>
+    </Section>
+    <Section style={{
+      backgroundColor: `rgb(${themeVars.color.default.background})`,
+      display: "flex", flexDirection: "column", alignItems: "center",
+      padding:`${themeVars.spacing.group} 0`
+    }}>
+      <SlideUpDiv >
+        <a href="/project/by/architect">
+          <Button variant="outlined">
+            View All Projects
+          </Button>
+        </a>
+      </SlideUpDiv>
+    </Section>
+
+    <!-- Ending -->
+    <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
+      <SlideUpDiv>
+        <Typography variant='h1'>
+          <svg width={"100%"} viewBox="0 0 45 7">
+            <title id="ZANE_CHEN">ZANE CHEN</title>
+            <text class:list={["SVGText"]} x="50%" y="50%"
+              textLength={45} lengthAdjust="spacingAndGlyphs"
+              font-weight={700} font-size="7.2px"
+              dominant-baseline="middle" text-anchor="middle"
+            >
+              ZANE CHEN
+            </text>
+          </svg>
+        </Typography>
+      </SlideUpDiv>	
+    </Section>
+
+</BaseLayout>
+
+
+<style>
+.SVGText {
+    fill: rgb(var(--color-default-foreground));
+    font-family: var(--typography-h1-fontFamily);
+    user-select: none;
+}
+
+.ResponsiveTitle {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+    
+    @media(--larger-than-md) { 
+        flex-direction: row;
+        align-items: flex-end 
+    }
+}
+
+.NavigationCard {
+    p {
+        position: absolute;
+        bottom: var(--spacing-paragraph);
+        right: var(--spacing-paragraph);
+    }
+}
+</style>

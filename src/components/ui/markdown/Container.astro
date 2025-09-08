@@ -1,0 +1,215 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import TOC_ContentContainer from "@/components/layouts/TOC.ContentContainer.astro";
+
+type Props = HTMLAttributes<"div">;
+const { class: className, ...others } = Astro.props;
+---
+
+<TOC_ContentContainer />
+<div class:list={["Markdown", className]} {...others}>
+    <slot />
+</div>
+
+<style>
+    .Markdown {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-paragraph);
+    }
+
+    .Markdown {
+        section {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-paragraph);
+            &:not(:first-child) {
+                margin-top: var(--spacing-group);
+            }
+        }
+    }
+
+    .Markdown {
+        img {
+            width: 100%;
+            object-fit: cover;
+            border-radius: var(--size-border-radius);
+        }
+    }
+
+    .Markdown {
+        ol,
+        ul {
+            font-family: var(--typography-body1-fontFamily);
+            font-size: var(--typography-body1-fontSize);
+            font-weight: var(--typography-body1-fontWeight);
+            line-height: var(--typography-body1-lineHeight);
+            padding-left: 1.75rem;
+        }
+
+        ol {
+            list-style-type: decimal;
+        }
+
+        ul {
+            list-style-type: disc;
+        }
+    }
+
+    .Markdown {
+        strong {
+            color: rgb(var(--color-nebular-foreground));
+        }
+
+        a {
+            color: rgb(var(--color-nebular-foreground));
+            text-decoration-line: underline;
+            transition: opacity 0.3s;
+            &:hover {
+                color: rgb(var(--color-nebular-foreground) / 0.75);
+            }
+        }
+    }
+
+    /* Typography */
+    .Markdown {
+        p {
+            font-family: var(--typography-body1-fontFamily);
+            font-weight: var(--typography-body1-fontWeight);
+            font-size: var(--typography-body1-fontSize);
+            line-height: var(--typography-body1-lineHeight);
+        }
+
+        h1,
+        h2 {
+            font-family: var(--typography-h4-fontFamily);
+            font-weight: var(--typography-h4-fontWeight);
+            font-size: var(--typography-h4-fontSize);
+            line-height: var(--typography-h4-lineHeight);
+        }
+
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--typography-h5-fontFamily);
+            font-weight: var(--typography-h5-fontWeight);
+            font-size: var(--typography-h5-fontSize);
+            line-height: var(--typography-h5-lineHeight);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            /* .HeadingWithTag { */
+            &::before {
+                content: "#";
+                position: absolute;
+                transform: translateX(-145%);
+                transition: opacity var(--transition-short);
+                opacity: 0;
+            }
+            &:hover::before {
+                opacity: 0.3;
+            }
+            /* } */
+        }
+    }
+
+    /* Latex */
+    .Markdown {
+        p {
+            mjx-container:only-child {
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
+
+    /* Callout */
+    .Markdown {
+        blockquote {
+            border-left: 4px solid rgb(var(--color-default-foreground) / 0.25);
+            padding-left: var(--spacing-component);
+            padding-top: var(--spacing-paragraph);
+            margin-bottom: var(--spacing-paragraph);
+            font-style: italic;
+        }
+    }
+
+    /* Inline Code */
+    .Markdown {
+        p > code {
+            background-color: rgb(var(--color-nebular-foreground) / 25%);
+            border-radius: var(--size-border-radius);
+            border: 0.5px rgb(var(--color-nebular-foreground) / 50%) solid;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+    }
+
+    /* hr */
+    .Markdown {
+        hr {
+            display: block;
+            width: 100%;
+            margin: 0;
+            border: 0;
+            border-top: 1px solid rgb(var(--color-default-foreground) / 0.5);
+            background-color: rgb(var(--color-default-background));
+        }
+    }
+
+    /* CodeBlock */
+    .Markdown {
+        pre {
+            background-color: rgb(
+                var(--color-default-foreground) / 0.05
+            ) !important;
+            border-radius: var(--size-border-radius);
+            position: relative;
+            border: 1px solid rgb(var(--color-default-foreground));
+            padding: var(--spacing-paragraph);
+
+            & > code {
+                overflow-x: scroll;
+                display: block;
+                tab-size: 4;
+
+                font-family: var(--typography-code-fontFamily);
+                font-size: var(--typography-code-fontSize);
+                font-weight: var(--typography-code-fontWeight);
+                line-height: var(--typography-code-lineHeight);
+
+                & span {
+                    min-height: var(--typography-code-fontSize);
+                }
+
+                &::-webkit-scrollbar {
+                    height: 0.25rem;
+                    margin: 0.1rem;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background-color: transparent;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: rgb(
+                        var(--color-default-foreground) / 20%
+                    );
+                    border-radius: 0.25rem;
+                }
+
+                &::-webkit-scrollbar-button {
+                    background-color: transparent;
+                    width: 0;
+                }
+            }
+        }
+    }
+</style>

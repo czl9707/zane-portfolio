@@ -1,0 +1,169 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+
+import { DateRangeAsString } from '@/lib/utils/date';
+import { themeVars } from '@/lib/theme';
+import { shuffle } from '@/lib/utils/random-array';
+
+import BaseLayout from "@/components/layouts/Layout.Base.astro";
+import StickyHero from '@/components/layouts/StickyHero.astro';
+import TitleSection from '@/components/layouts/Section.Title.astro'
+
+import ArchProjectCard from "@/components/arch-project/Card.astro";
+import ContentBlock from "@/components/arch-project/ContentBlock.astro";
+
+import Section from '@/components/ui/Section.astro';
+import Divider from '@/components/ui/Divider.astro';
+import Typography from "@/components/ui/Typography.astro";
+import ChipContainer from "@/components/ui/Chip.Container.astro";
+import Spacer from '@/components/ui/Spacer.astro';
+import Chip from '@/components/ui/Chip.astro';
+import Grid from '@/components/ui/Grid.astro';
+import CardContainer from '@/components/ui/Card.Container.astro';
+import SlideUpDiv from '@/components/ui/SlideUpDiv.astro';
+import Button from '@/components/ui/Button.astro';
+
+const { idSlug: id } = Astro.params;
+const project = (await getEntry("archProject", id))!;
+const archProjects = shuffle(
+    (await getCollection("archProject")).filter(proj => proj.id != id)
+).slice(0, 4);
+
+
+export async function getStaticPaths() {
+    const projects = await getCollection("archProject");
+
+    return projects.map(proj => ({
+        params: {idSlug: proj.id}
+    }));
+}
+---
+<BaseLayout
+    title={project.data.title}
+    description={project.data.subTitle}
+>
+    <!-- Project Info -->
+    <StickyHero>
+        <Spacer spacing="group" />
+        <Grid columns={4} class:list={["HeroContainerGrid"]}>
+            <div style={{ gridColumn: "span 2 / span 2" }}>
+                <Typography variant='h2' as='h1'>{project.data.title.toUpperCase()}</Typography>
+                <Typography variant='h5' as='h2' color='secondary' style={{ textWrap: "pretty" }}>
+                    {project.data.subTitle}
+                </Typography>
+                <ChipContainer>
+                    {
+                        project.data.tags.map(t => (
+                            <Chip class:list={["Tag"]}>
+                                <Typography variant='body1'>{t}</Typography>
+                            </Chip>
+                        ))
+                    }
+                </ChipContainer>
+            </div>
+
+            <span class:list={["ProjectHeadSpacer"]} />
+
+            <div style={{ gridColumn: "span 1 / span 1" }}>
+                <Typography variant='body1'>When</Typography>
+                <Typography variant='h6'>{
+                    DateRangeAsString(project.data.startDate, project.data.endDate!)
+                }</Typography>
+                <Spacer spacing="paragraph" />
+
+                <Typography variant='body1'>Who</Typography>
+                <Typography variant='h6'>{project.data.contributors}</Typography>
+            </div>
+        </Grid>
+
+        <ContentBlock block={{
+            blockType: "fullSizeImage",
+            image: project.data.cover
+        }} />
+        <Spacer />
+    </StickyHero>
+
+    <!-- Major Content -->
+    <Section
+        style={{
+            backgroundColor: `rgb(${themeVars.color.default.background})`,
+        }}
+    >
+        <Divider />
+        <ContentBlock block={{
+            blockType: "fullText",
+            title: "Project Overview",
+            text: project.data.description
+        }} />
+
+        {
+            project.data.content.map(cat => (
+                <>
+                    <Spacer spacing="block" />
+                    {
+                        cat.blocks.map(block => (
+                            <ContentBlock block={block}/>
+                        ))
+                    }
+                </>
+            ))
+        }
+        <Spacer spacing="block"/> 
+    </Section>
+    
+    
+    <!-- Other Projects -->
+    <TitleSection omitDivider>
+      <Typography variant='h3'>Other Projects</Typography>
+    </TitleSection>
+    <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
+      <Divider />
+      <CardContainer columns={2}>
+        {
+          archProjects.map(project => (
+            <ArchProjectCard project={project}/>
+          ))
+        }
+      </CardContainer>
+    </Section>
+    <Section style={{
+      backgroundColor: `rgb(${themeVars.color.default.background})`,
+      display: "flex", flexDirection: "column", alignItems: "center",
+      padding:`${themeVars.spacing.group} 0`
+    }}>
+      <SlideUpDiv >
+        <a href="/project/by/architect">
+          <Button variant="outlined">
+            View All Projects
+          </Button>
+        </a>
+      </SlideUpDiv>
+    </Section>
+</BaseLayout>
+
+
+<style>
+.ProjectHeadSpacer {
+    grid-column: span 1 / span 1;
+    @media(--smaller-than-md) { 
+        display: none;
+    }
+}
+
+.TitleContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: flex-end;
+    @media(--smaller-than-md) { 
+        flex-direction: column;
+     }
+}
+
+.HeroContainerGrid {
+    align-items: "flex-end"
+}
+.Tag {
+    pointer-events: "none"
+}
+</style>

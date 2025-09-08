@@ -1,0 +1,50 @@
+---
+import type { HTMLAttributes } from "astro/types";
+interface Props extends HTMLAttributes<"div"> {}
+
+const { class: className, ...others } = Astro.props;
+---
+
+<div class:list={["SlideUpContainer", className]} {...others}>
+    <slot />
+</div>
+
+<style>
+    @keyframes SlideUpEffect {
+        from {
+            transform: translateY(min(5rem, 90%));
+            opacity: 0;
+        }
+        to {
+            transform: none;
+            opacity: 1;
+        }
+    }
+
+    .SlideUpContainer {
+        animation: SlideUpEffect var(--transition-long)
+            cubic-bezier(0.75, 0, 0.25, 1);
+        animation-play-state: paused;
+        &[data-entered="true"] {
+            animation-play-state: running;
+        }
+    }
+</style>
+
+<script>
+    const containers = document.getElementsByClassName("SlideUpContainer");
+    const ob = new IntersectionObserver((entries, observer) => {
+        for (const entry of entries) {
+            if (entry.isIntersecting) {
+                entry.target.setAttribute("data-entered", "true");
+                observer.unobserve(entry.target);
+            }
+        }
+    },
+    {
+        threshold: 0.05
+    });
+    for (const container of containers) {
+        ob.observe(container);
+    }
+</script>

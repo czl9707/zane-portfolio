@@ -1,8 +1,0 @@
-a.LinkUnderline {
-    text-decoration-line: underline;
-}
-
-a.LinkDimOnHover:hover {
-    opacity: 0.75;
-    transition: opacity 0.3s;
-}

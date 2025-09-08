@@ -1,0 +1,46 @@
+---
+import { render as renderMarkdown } from "@/lib/markdown/markdown";
+import MarkdownContainer from "@/components/ui/markdown/Container.astro";
+
+interface Props {
+    content: string;
+    variant?: "keywordHighlighted" | "default";
+}
+
+const { content, variant = "default" } = Astro.props;
+---
+
+<MarkdownContainer
+    class:list={[
+        { Markdown_KeyWordHighLighted: variant == "keywordHighlighted" },
+    ]}
+>
+    <Fragment set:html={renderMarkdown(content)} />
+</MarkdownContainer>
+
+<style>
+    .Markdown_KeyWordHighLighted {
+        * {
+            transition: color var(--transition-short) linear;
+        }
+
+        a,
+        strong {
+            color: rgb(var(--color-default-foreground));
+        }
+
+        &:hover {
+            span,
+            li,
+            p,
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: rgb(var(--color-default-foreground) / 50%);
+            }
+        }
+    }
+</style>

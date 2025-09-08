@@ -1,0 +1,41 @@
+---
+import Section from "@/components/ui/Section.astro";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props {
+    class?: HTMLAttributes<'div'>["class"]
+}
+const { class: className } = Astro.props;
+---
+
+<Section id="StickyHero" class:list={[className]}>
+    <slot/>
+</Section>
+
+<style>
+:global(#StickyHero) {
+    position: sticky;
+    top: calc(100vh - var(--size-hero-height));
+    min-height: 100vh;
+    height: fit-content;
+    width: 100%;
+    z-index: -1;
+    padding-top: var(--size-header-height);
+    padding-bottom: var(--spacing-paragraph);
+    line-height: 0;
+    background-color: rgb(var(--color-default-background));
+
+    display: flex;
+    flex-direction: column;
+}
+</style>
+
+<script>
+const hero = document.getElementById("StickyHero");
+hero?.style?.setProperty("--size-hero-height", `${hero?.clientHeight}px`)
+
+const ob = new ResizeObserver(() => {
+    hero?.style?.setProperty("--size-hero-height", `${hero?.clientHeight}px`)
+})
+ob.observe(hero!);
+</script>

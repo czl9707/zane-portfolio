@@ -1,0 +1,51 @@
+---
+import Typography from "@/components/ui/Typography.astro";
+import type { Polymorphic } from "astro/types";
+
+type TypographyTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
+type Props<Tag extends TypographyTag> = Polymorphic<{
+    as: Tag;
+}> & {
+    id?: string;
+    label: string;
+    as?: TypographyTag;
+    variant: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" ;
+    variantSM?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" ;
+};
+
+let { variant, variantSM, as = variant, label, id } = Astro.props<TypographyTag>;
+---
+<Typography id={id} variant={variant} as={as} class:list={[
+    "HeadingWithTag", {"ShowOnSM": variantSM !== undefined} 
+]}>{label}</Typography>
+{
+    variantSM && 
+    <Typography id={id} variant={variantSM} as={as} class:list={[
+        "HeadingWithTag", 
+        "NoShowOnSM"
+    ]}>{label}</Typography>
+}
+
+
+<style>
+    .HeadingWithTag {
+        &::before {
+            content: "#"; 
+            position: absolute;
+            transform: translateX(-145%);
+            transition: opacity var(--transition-short);
+            opacity: 0;
+        }
+        &:hover::before {
+            opacity: 0.3;
+        }
+    }
+
+    .ShowOnSM {
+        @media(--smaller-than-sm) { display: none; }
+    }
+
+    .NoShowOnSM {
+        @media(--larger-than-sm) { display: none; }
+    }
+</style>

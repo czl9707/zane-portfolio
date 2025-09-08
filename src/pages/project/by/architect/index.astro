@@ -1,0 +1,40 @@
+---
+import BaseLayout from "@/components/layouts/Layout.Base.astro";
+
+import TitleSection from "@/components/layouts/Section.Title.astro";
+import ArchProjectCard from "@/components/arch-project/Card.astro";
+import Typography from "@/components/ui/Typography.astro";
+import CardContainer from "@/components/ui/Card.Container.astro";
+
+import { themeVars } from "@/lib/theme";
+import Section from "@/components/ui/Section.astro";
+import Divider from "@/components/ui/Divider.astro";
+import { getCollection } from "astro:content";
+
+const archProjects = (await getCollection("archProject")).toSorted(
+    (p1, p2) => (p2.data.startDate.getTime() - p1.data.startDate.getTime())
+);
+---
+
+<BaseLayout
+    title={"Zane Chen - Architecture Projects"}
+    description={"Although no longer doing architecture, the past experience deeply shapes my mindset when doing things."}
+>
+    <TitleSection omitDivider>
+        <Typography as="h1" variant="h3">Projects by an Architect</Typography>
+    </TitleSection>
+    <Section
+        style={{
+            backgroundColor: `rgb(${themeVars.color.default.background})`,
+        }}
+    >
+        <Divider />
+        <CardContainer columns={2}>
+            {
+                archProjects.map((project) => (
+                    <ArchProjectCard project={project} />
+                ))
+            }
+        </CardContainer>
+    </Section>
+</BaseLayout>

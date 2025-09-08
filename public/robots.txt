@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zane-portfolio.kiyo-n-zane.com/sitemap-index.xml

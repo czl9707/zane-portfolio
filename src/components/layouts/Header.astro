@@ -1,0 +1,149 @@
+---
+import Section from "@/components/ui/Section.astro";
+import Typography from "@/components/ui/Typography.astro";
+import Button from "@/components/ui/Button.astro";
+
+import HeaderNavigationMenu from "@/components/layouts/Header.NavigationMenu";
+import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
+---
+
+<Section class:list={"HeaderContainer"}>
+    <a href={"/"}>
+        <Typography variant="h5" style={{ cursor: "pointer", fontWeight: 900 }}>
+            ZANE.C
+        </Typography>
+    </a>
+
+    <div style={{ flex: "1 1" }}></div>
+
+    <div class:list={["NoShowOnPhone"]}>
+        <HeaderNavigationMenu client:load>
+            <Fragment slot="label">
+                <Button
+                    variant="filled"
+                    color="transparent"
+                    class:list={"NavigationTriggerButton"}
+                >
+                    <span>Works</span>
+                    <CaretDownIcon />
+                </Button>
+            </Fragment>
+            <Fragment slot="content">
+                <Button variant="filled" color="transparent">
+                    <a href={"/project/by/developer"}>Now a Software Engineer</a
+                    >
+                </Button>
+                <a href={"/project/by/architect"}>
+                    <Button variant="filled" color="transparent"
+                        >Once an Architect</Button
+                    >
+                </a>
+            </Fragment>
+        </HeaderNavigationMenu>
+	</div>
+	
+    <div class:list={["NoShowOnPhone"]}>
+        <HeaderNavigationMenu client:load>
+            <Fragment slot="label">
+                <Button variant="filled" color="transparent">
+                    <span>Writings</span>
+                    <CaretDownIcon />
+                </Button>
+            </Fragment>
+            <Fragment slot="content">
+                <a href={"/blog"}>
+                    <Button variant="filled" color="transparent">Blogs</Button>
+                </a>
+                <a href={"/writing"}>
+                    <Button variant="filled" color="transparent"
+                        >Constellations</Button
+                    >
+                </a>
+            </Fragment>
+        </HeaderNavigationMenu>
+	</div>
+
+		
+	<div class:list={["NoShowOnPhone"]}>		
+        <Button
+            variant="filled"
+            color="transparent"
+            class:list={["NoShowOnPhone"]}
+        >
+            <a href={"/about"}>About</a>
+        </Button>
+    </div>
+
+    <div class:list={["ShowOnPhone"]}>
+        <HeaderNavigationMenu client:load>
+            <Fragment slot="label">
+                <Button variant="filled" color="transparent">
+                    <HamburgerMenuIcon />
+                </Button>
+            </Fragment>
+            <Fragment slot="content">
+                <a href={"/project/by/developer"}>
+                    <Button variant="filled" color="transparent"
+                        >Work - Software Engineer</Button
+                    >
+                </a>
+                <a href={"/project/by/architect"}>
+                    <Button variant="filled" color="transparent"
+                        >Work - Architect</Button
+                    >
+                </a>
+                <a href={"/blog"}>
+                    <Button variant="filled" color="transparent"
+                        >Writings - Blogs</Button
+                    >
+                </a>
+                <a href={"/writing"}>
+                    <Button variant="filled" color="transparent"
+                        >Writings - Constellations</Button
+                    >
+                </a>
+                <a href={"/about"}>
+                    <Button variant="filled" color="transparent">About</Button>
+                </a>
+            </Fragment>
+        </HeaderNavigationMenu>
+    </div>
+</Section>
+
+<style>
+    @keyframes SlideDown {
+        from {
+            transform: translateY(-100%);
+        }
+        to {
+            transform: none;
+        }
+    }
+
+    .HeaderContainer {
+        position: fixed;
+        top: 0;
+        height: var(--size-header-height);
+        z-index: 50;
+        width: 100vw;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--spacing-paragraph);
+        animation: SlideDown var(--transition-long)
+            cubic-bezier(0.75, 0, 0.25, 1) forwards;
+        background-color: rgb(var(--color-default-background));
+    }
+
+    @media (--smaller-than-sm) {
+        .NoShowOnPhone {
+            display: none;
+        }
+    }
+
+    @media (--larger-than-sm) {
+        .ShowOnPhone {
+            display: none;
+        }
+    }
+</style>

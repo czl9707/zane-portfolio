@@ -1,0 +1,39 @@
+@keyframes SlideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: none; opacity: 1; }
+}
+
+.NavigationMenuPanel {
+    position: relative;
+    & > div {
+        animation: SlideUp var(--transition-short) ease-out both;
+        display: flex;
+        position: absolute;
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: var(--size-border-radius);
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        top: 0.5rem;
+        right: 0;
+        width: max-content;
+        background-color: rgb(var(--color-default-foreground) / 15%);
+        backdrop-filter: blur(1rem);
+    }
+}
+
+.NavigationList {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-paragraph);
+    align-items: center;
+}
+
+.NavigationTrigger {
+    svg {
+        transition-duration: var(--transition-short);
+    }
+    &[data-state="closed"] svg {
+        transform: scaleY(-100%);
+    }
+}
