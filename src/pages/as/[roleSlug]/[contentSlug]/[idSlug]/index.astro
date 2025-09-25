@@ -20,5 +20,5 @@ export async function getStaticPaths() {
 }
 
 const {roleSlug: role, contentSlug: content, idSlug: id} = Astro.params;
-Astro.redirect(`/${content}/by/${role}/${id}`);
+return Astro.redirect(`/${content}/by/${role}/${id}`);
 ---

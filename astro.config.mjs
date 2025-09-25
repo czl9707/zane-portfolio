@@ -12,8 +12,6 @@ import { RehypeReferenceTranslation } from './src/lib/markdown/rehype-reference-
 import { rehypeHashStyleHeadings } from './src/lib/markdown/rehype-hash-style-headings';
 import { rehypeSectionize } from './src/lib/markdown/rehype-sectionize';
 
-import vercel from "@astrojs/vercel";
-
 // https://astro.build/config
 export default defineConfig({
   site: 'https://zane-portfolio.kiyo-n-zane.com',
@@ -58,6 +56,4 @@ export default defineConfig({
       "/as/architect/project": "/project/by/architect",
       "/as/developer/project": "/project/by/developer",
   },
-
-  adapter: vercel(),
 });
