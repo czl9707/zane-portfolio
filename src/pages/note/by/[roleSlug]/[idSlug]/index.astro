@@ -75,8 +75,13 @@ const { Content, headings } = await render(noteEntry);
                 </MarkdownContainer>
             </Fragment>
             <Fragment slot="sidePanel">
-                <Typography variant="h6" style={{ marginBottom: "1rem" }}>Table of Content</Typography>
-                <TOC headings={headings}/>
+                {
+                    headings.length > 0 && 
+                    <>
+                        <Typography variant="h6" style={{ marginBottom: "1rem" }}>Table of Content</Typography>
+                        <TOC headings={headings}/>
+                    </>
+                }
             </Fragment>
         </PageLayout>
     </Section>

@@ -12,7 +12,7 @@ const blog = defineCollection({
         z.object({
             title: z.string(),
             description: z.string(),
-            "cover-url": z.string(),
+            cover: z.string(),
             tags: z.array(z.string()),
             featured: z.boolean(),
             "created-date": z.date(),
