@@ -32,6 +32,7 @@ const { class: className, ...others } = Astro.props;
     .Markdown {
         img {
             width: 100%;
+            height: auto;
             object-fit: cover;
             border-radius: var(--size-border-radius);
         }
@@ -58,11 +59,11 @@ const { class: className, ...others } = Astro.props;
 
     .Markdown {
         strong {
-            color: rgb(var(--color-nebular-foreground));
+            color: rgb(var(--color-star-foreground));
         }
 
         a {
-            color: rgb(var(--color-nebular-foreground));
+            color: rgb(var(--color-star-foreground));
             text-decoration-line: underline;
             transition: opacity 0.3s;
             &:hover {
@@ -136,7 +137,7 @@ const { class: className, ...others } = Astro.props;
             border-left: 4px solid rgb(var(--color-default-foreground) / 0.25);
             padding-left: var(--spacing-component);
             padding-top: var(--spacing-paragraph);
-            margin-bottom: var(--spacing-paragraph);
+            padding-bottom: var(--spacing-paragraph);
             font-style: italic;
         }
     }

@@ -11,6 +11,7 @@ import remarkGfm from "remark-gfm"
 import { RehypeReferenceTranslation } from './src/lib/markdown/rehype-reference-translation';
 import { rehypeHashStyleHeadings } from './src/lib/markdown/rehype-hash-style-headings';
 import { rehypeSectionize } from './src/lib/markdown/rehype-sectionize';
+import { remarkImageTranslation } from './src/lib/markdown/remark-img-translation';
 
 // https://astro.build/config
 export default defineConfig({
@@ -39,15 +40,16 @@ export default defineConfig({
           theme: 'github-dark-high-contrast',
       },
       remarkPlugins:[
-          remarkMath,
-          remarkGfm,
+        remarkImageTranslation,
+        remarkMath,
+        remarkGfm,
       ],
       rehypePlugins:[
-          RehypeReferenceTranslation,
-          rehypeHeadingIds,
-          rehypeHashStyleHeadings,
-          rehypeSectionize,
-          rehypeMathjax
+        RehypeReferenceTranslation,
+        rehypeHeadingIds,
+        rehypeHashStyleHeadings,
+        rehypeSectionize,
+        rehypeMathjax
       ],
   },
 
