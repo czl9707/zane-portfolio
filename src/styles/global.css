@@ -98,7 +98,7 @@ body {
 
     --color-nebular-foreground: 94 190 115;
     --color-nebular-background: 255 255 255;
-    --color-star-foreground: 235 239 98;
+    --color-star-foreground: 232 232 142;
     --color-star-background: 255 255 255;
     --color-galaxy-foreground: 218 108 251;
     --color-galaxy-background: 255 255 255;
@@ -114,7 +114,7 @@ body[data-theme='dark'] {
 
     --color-nebular-foreground: 94 190 115;
     --color-nebular-background: 0 0 0;
-    --color-star-foreground: 235 239 98;
+    --color-star-foreground: 232 232 142;
     --color-star-background: 0 0 0;
     --color-galaxy-foreground: 218 108 251;
     --color-galaxy-background: 0 0 0;
