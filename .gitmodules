@@ -2,5 +2,3 @@
 	path = src/contents
 	url = https://github.com/czl9707/notes-n-writings.git
 	branch = main
-[submodule "src/contents"]
-	url = https://github.com/czl9707/notes-n-writings/tree/main
