@@ -17,7 +17,7 @@
         top: 0.5rem;
         right: 0;
         width: max-content;
-        background-color: rgb(var(--color-default-foreground) / 15%);
+        background-color: rgb(var(--color-primary-foreground) / 15%);
         backdrop-filter: blur(1rem);
     }
 }

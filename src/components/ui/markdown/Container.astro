@@ -59,11 +59,11 @@ const { class: className, ...others } = Astro.props;
 
     .Markdown {
         strong {
-            color: rgb(var(--color-star-foreground));
+            color: rgb(var(--color-accent-foreground));
         }
 
         a {
-            color: rgb(var(--color-star-foreground));
+            color: rgb(var(--color-accent-foreground));
             text-decoration-line: underline;
             transition: opacity 0.3s;
             &:hover {
@@ -134,7 +134,7 @@ const { class: className, ...others } = Astro.props;
     /* Callout */
     .Markdown {
         blockquote {
-            border-left: 4px solid rgb(var(--color-default-foreground) / 0.25);
+            border-left: 4px solid rgb(var(--color-primary-foreground) / 0.25);
             padding-left: var(--spacing-component);
             padding-top: var(--spacing-paragraph);
             padding-bottom: var(--spacing-paragraph);
@@ -145,9 +145,9 @@ const { class: className, ...others } = Astro.props;
     /* Inline Code */
     .Markdown {
         p > code {
-            background-color: rgb(var(--color-nebular-foreground) / 25%);
+            background-color: rgb(var(--color-accent-foreground) / 25%);
             border-radius: var(--size-border-radius);
-            border: 0.5px rgb(var(--color-nebular-foreground) / 50%) solid;
+            border: 0.5px rgb(var(--color-accent-foreground) / 50%) solid;
             padding-left: 0.5rem;
             padding-right: 0.5rem;
         }
@@ -160,8 +160,8 @@ const { class: className, ...others } = Astro.props;
             width: 100%;
             margin: 0;
             border: 0;
-            border-top: 1px solid rgb(var(--color-default-foreground) / 0.5);
-            background-color: rgb(var(--color-default-background));
+            border-top: 1px solid rgb(var(--color-primary-foreground) / 0.5);
+            background-color: rgb(var(--color-primary-background));
         }
     }
 
@@ -169,11 +169,11 @@ const { class: className, ...others } = Astro.props;
     .Markdown {
         pre {
             background-color: rgb(
-                var(--color-default-foreground) / 0.05
+                var(--color-primary-foreground) / 0.05
             ) !important;
             border-radius: var(--size-border-radius);
             position: relative;
-            border: 1px solid rgb(var(--color-default-foreground));
+            border: 1px solid rgb(var(--color-primary-foreground));
             padding: var(--spacing-paragraph);
 
             & > code {
@@ -201,7 +201,7 @@ const { class: className, ...others } = Astro.props;
 
                 &::-webkit-scrollbar-thumb {
                     background-color: rgb(
-                        var(--color-default-foreground) / 20%
+                        var(--color-primary-foreground) / 20%
                     );
                     border-radius: 0.25rem;
                 }

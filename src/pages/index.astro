@@ -75,7 +75,7 @@ const devProjects = (await getCollection("devProject")).filter(b => b.data.featu
     <TitleSection>
       <ResponsiveHeading label='WRITINGS' id="writings" variant="h2" variantSM="h4"/>
     </TitleSection>
-    <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
+    <Section style={{backgroundColor: `rgb(${themeVars.color.primary.background})`}}>
       <Divider />
       <CardContainer columns={3} minColumns={1}>
         {
@@ -99,7 +99,7 @@ const devProjects = (await getCollection("devProject")).filter(b => b.data.featu
     <TitleSection>
       <ResponsiveHeading label='NOW A SOFTWARE ENGINEER' id="as_a_developer" variant="h2" variantSM="h4"/>
     </TitleSection>
-    <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
+    <Section style={{backgroundColor: `rgb(${themeVars.color.primary.background})`}}>
       <Divider />
       <CardContainer columns={3} minColumns={1}>
         {
@@ -124,7 +124,7 @@ const devProjects = (await getCollection("devProject")).filter(b => b.data.featu
     <TitleSection>
       <ResponsiveHeading label='ONCE AN ARCHITECT' id="as_an_architect" variant="h2" variantSM="h4"/>
     </TitleSection>
-    <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
+    <Section style={{backgroundColor: `rgb(${themeVars.color.primary.background})`}}>
       <Divider />
       <CardContainer columns={2}>
         {
@@ -135,7 +135,7 @@ const devProjects = (await getCollection("devProject")).filter(b => b.data.featu
       </CardContainer>
     </Section>
     <Section style={{
-      backgroundColor: `rgb(${themeVars.color.default.background})`,
+      backgroundColor: `rgb(${themeVars.color.primary.background})`,
       display: "flex", flexDirection: "column", alignItems: "center",
       padding:`${themeVars.spacing.group} 0`
     }}>
@@ -149,7 +149,7 @@ const devProjects = (await getCollection("devProject")).filter(b => b.data.featu
     </Section>
 
     <!-- Ending -->
-    <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
+    <Section style={{backgroundColor: `rgb(${themeVars.color.primary.background})`}}>
       <SlideUpDiv>
         <Typography variant='h1'>
           <svg width={"100%"} viewBox="0 0 45 7">
@@ -171,7 +171,7 @@ const devProjects = (await getCollection("devProject")).filter(b => b.data.featu
 
 <style>
 .SVGText {
-    fill: rgb(var(--color-default-foreground));
+    fill: rgb(var(--color-primary-foreground));
     font-family: var(--typography-h1-fontFamily);
     user-select: none;
 }
