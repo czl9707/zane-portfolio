@@ -47,7 +47,7 @@ const { Content, headings } = await render(blogEntry);
                     label={blogEntry.data.title}/>
                 <Spacer spacing="paragraph" />
                 <Typography variant="h6" as="h2" color="secondary">{blogEntry.data.description}</Typography>
-                <ChipContainer>
+                <ChipContainer style={{marginTop: themeVars.spacing.paragraph}}>
                     {
                         (blogEntry.data.tags ?? []).map(tag => (
                             <Chip>
