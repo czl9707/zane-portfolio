@@ -8,7 +8,7 @@ import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
 <SectionDiv class:list={["ContentSection"]}>
     <Divider />
     <Grid columns={4} class:list={["ContentGrid"]}>
-        <SlideUpDiv class:list={["ContentContainer"]}>
+        <SlideUpDiv class:list={["ContentTitleContainer"]}>
             <slot name="header"/>
         </SlideUpDiv>
         <slot/>
@@ -20,15 +20,17 @@ import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
     background-color: rgb(var(--color-primary-background));
 }
 
-.ContentContainer {
+.ContentTitleContainer {
     background-color: rgb(var(--color-primary-background));
     position: sticky;
     top: var(--size-header-height);
     padding-bottom: var(--spacing-paragraph);
-    grid-column: "span 1 / span 1"
+    grid-column: span 1 / span 1;
+    z-index: 10;
 }
 
 .ContentGrid {
+    align-items: start;
     padding-bottom: var(--spacing-component);
     padding-top: var(--spacing-component);
 }

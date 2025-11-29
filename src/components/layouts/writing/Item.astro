@@ -1,0 +1,148 @@
+---
+import { displayRole, type RoleType } from '@/lib/utils/constants'
+import { MonthAsString } from '@/lib/utils/date'
+import type { HTMLAttributeAnchorTarget } from 'react'
+
+import Chip from '@/components/ui/Chip.astro'
+import ChipContainer from '@/components/ui/Chip.Container.astro'
+import Typography from '@/components/ui/Typography.astro'
+import MarkdownBlock from '@/components/ui/markdown/Block.astro'
+import SlideUpDiv from '@/components/ui/SlideUpDiv.astro'
+import Spacer from '@/components/ui/Spacer.astro'
+
+interface Props {
+    data: {
+        title: string,
+        role: RoleType
+        tags?: string[]
+        date: Date,
+        description?: string
+    }
+    href: string,
+    target?: HTMLAttributeAnchorTarget,
+}
+const { data, href, target } = Astro.props;
+data.tags ??= [];
+---
+<a href={href} target={target}>
+    <SlideUpDiv class:list={["WritingItem"]} >
+        <div class:list={["WritingItemTitle"]}>
+            <Typography variant='h6'>{data.title}</Typography>
+            <Typography variant='body2'><i>by a {displayRole(data.role)}</i></Typography>
+            <Typography variant='body1'>{MonthAsString(data.date)}</Typography>
+        </div>
+
+
+        <div class:list={["WritingItemHidden"]}>
+            <Spacer spacing="paragraph" />
+            <ChipContainer class:list={["WritingItemTags"]}>
+                <Chip color="secondary">
+                    <Typography variant='body2'>by a {displayRole(data.role)}</Typography>
+                </Chip>
+                {data.tags.map(t => <Chip>
+                    <Typography variant='body2'>{t}</Typography>
+                </Chip>)}
+            </ChipContainer>
+        </div>
+        
+        {
+            data.description != undefined &&
+            <div class:list={["WritingItemDescription", "WritingItemHidden"]}>
+                <Spacer spacing="paragraph" />
+                <MarkdownBlock content={data.description}>
+                    {data.description}
+                </MarkdownBlock>
+            </div>
+        }
+    </SlideUpDiv>
+</a>
+
+<style>
+.WritingItem {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    
+    .WritingItemTitle {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-paragraph);
+
+        > :nth-child(1) {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 50%;
+            
+            transition: max-width var(--transition-short) ease-in;
+        }
+        > :nth-child(2) {
+            white-space: nowrap;            
+            opacity: 0.75;
+
+            transition: opacity var(--transition-short) ease-in var(--transition-short);
+        }
+        > :nth-child(3) {
+            flex: 1 1;
+            white-space: nowrap;
+            text-align: end;
+            opacity: 0.75;
+        }
+    }
+
+    
+    
+    &:hover {
+        .WritingItemHidden {
+            opacity: 1;
+            max-height: 4.5rem;
+
+            transition: opacity var(--transition-short) ease-in,
+                padding-top var(--transition-short) ease-in,
+                max-height var(--transition-short) ease-in;
+        }
+
+        .WritingItemDescription {
+            opacity: 0.75;
+        }
+        .WritingItemTags {
+            opacity: 1;
+        }
+
+        .WritingItemTitle {
+            > :nth-child(1) {
+                max-width: 100%;
+                transition: max-width var(--transition-short) ease-in var(--transition-short);
+            }
+            > :nth-child(2) {
+                opacity: 0;
+                transition: opacity var(--transition-short) ease-in;
+            }
+        }
+    }
+
+    .WritingItemHidden {
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+
+        transition: opacity var(--transition-short) ease-in 0s,
+            padding-top var(--transition-short) ease-in,
+            max-height var(--transition-short) ease-in;
+    }
+
+    .WritingItemDescription {
+        p {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+        }
+    }
+    .WritingItemTags {
+        pointer-events: none;
+    }
+}
+</style>

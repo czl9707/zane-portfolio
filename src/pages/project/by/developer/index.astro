@@ -2,7 +2,7 @@
 import BaseLayout from '@/components/layouts/Layout.Base.astro';
 
 import TitleSection from '@/components/layouts/Section.Title.astro'
-import ContentCard from '@/components/layouts/Card.Content.astro';
+import ProjectCard from '@/components/layouts/project/Card.astro';
 
 import Typography from '@/components/ui/Typography.astro';
 import CardContainer from '@/components/ui/Card.Container.astro';
@@ -21,16 +21,10 @@ const devProjects = await getCollection("devProject");
     </TitleSection>
     <Section style={{backgroundColor: `rgb(${themeVars.color.primary.background})`}}>
       <Divider />
-      <CardContainer columns={3} minColumns={1}>
+      <CardContainer columns={2}>
         {
           devProjects.map(proj => (
-            <ContentCard href={proj.data.externalLink} target='_blank' 
-              data={{
-                date: proj.data.startDate, 
-                title: proj.data.title,
-                tags: proj.data.tags,
-                description: proj.data.description
-            }}/>
+            <ProjectCard project={proj}/>
           ))
         }
       </CardContainer>

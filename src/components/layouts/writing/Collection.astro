@@ -13,14 +13,13 @@ type ContentType = DataEntryMap["blog"][string] | DataEntryMap["note"][string];
 
 interface Props {
     writings: ContentType[];
-    hierachical?: boolean;
 }
-const { writings, hierachical = false } = Astro.props;
+const { writings } = Astro.props;
 ---
 
 <Section>
     <Divider />
-    <CardContainer columns={3} minColumns={1}>
+    <CardContainer columns={3}>
         {
             writings.map((writing) => (
                 <ContentCard
@@ -35,12 +34,6 @@ const { writings, hierachical = false } = Astro.props;
                                 ? writing.data.description
                                 : undefined,
                     }}
-                    occupiedColumns={hierachical ? (
-                        writing.collection === "blog" ? 2 : 1
-                    ) : undefined}
-                    occupiedRows={hierachical ? (
-                        writing.collection === "blog" ? 2 : 1
-                    ) : undefined}
                 />
             ))
         }

@@ -18,6 +18,7 @@ const { columns, minColumns = 1, class: className, ...others } = Astro.props;
     
     @media(--smaller-than-md) {
         grid-template-columns: repeat(var(--grid-columns-min), minmax(0, 1fr));
+        column-gap: unset;
     }
 }
 </style>

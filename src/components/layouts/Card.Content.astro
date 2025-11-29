@@ -20,14 +20,11 @@ interface Props {
     }
     href: string,
     target?: HTMLAttributeAnchorTarget,
-    occupiedColumns?: number,
-    occupiedRows?: number,
 }
-const { data, href, target, occupiedColumns = 1, occupiedRows = 1 } = Astro.props;
+const { data, href, target } = Astro.props;
 data.tags ??= [];
 ---
 <CardBase class:list={["ContentCard"]}
-    occupiedRows={occupiedRows} occupiedColumns={occupiedColumns} 
     href={href} target={target}>
 
     <div class:list={["ContentCardTitle"]}>

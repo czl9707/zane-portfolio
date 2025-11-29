@@ -147,7 +147,7 @@ const { class: className, ...others } = Astro.props;
         p > code {
             background-color: rgb(var(--color-accent-foreground) / 25%);
             border-radius: var(--size-border-radius);
-            border: 0.5px rgb(var(--color-accent-foreground) / 50%) solid;
+            border: var(--border-secondary);
             padding-left: 0.5rem;
             padding-right: 0.5rem;
         }
@@ -160,7 +160,7 @@ const { class: className, ...others } = Astro.props;
             width: 100%;
             margin: 0;
             border: 0;
-            border-top: 1px solid rgb(var(--color-primary-foreground) / 0.5);
+            border-top: var(--border);
             background-color: rgb(var(--color-primary-background));
         }
     }
@@ -171,9 +171,9 @@ const { class: className, ...others } = Astro.props;
             background-color: rgb(
                 var(--color-primary-foreground) / 0.05
             ) !important;
-            border-radius: var(--size-border-radius);
             position: relative;
-            border: 1px solid rgb(var(--color-primary-foreground));
+            border-radius: var(--size-border-radius);
+            border: var(--border);
             padding: var(--spacing-paragraph);
 
             & > code {

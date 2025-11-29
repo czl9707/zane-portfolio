@@ -5,12 +5,11 @@ import Grid from '@/components/ui/Grid.astro'
 
 interface Props extends HTMLAttributes<'div'> {
     columns: number,
-    minColumns?: number, // TODO: kill this maybe
 }
-const { columns, minColumns = 1, class: className, ...others } = Astro.props;
+const { columns, class: className, ...others } = Astro.props;
 ---
 
-<Grid columns={columns} minColumns={minColumns} {...others} 
+<Grid columns={columns} {...others} 
     class:list={["CardContainerGrid", className]}>
     <slot/>
 </Grid>

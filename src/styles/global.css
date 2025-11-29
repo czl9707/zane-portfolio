@@ -97,6 +97,9 @@ body {
     --color-secondary-foreground: 75 75 75;
     --color-accent-foreground: 255 140 66;
     --color-accent-background: 255 255 255;
+    
+    --border: 1px solid rgb(var(--color-primary-foreground) / 0.5);
+    --border-secondary: 1px solid rgb(var(--color-primary-foreground) / 0.25);
 }
 
 body[data-theme='dark'] {
