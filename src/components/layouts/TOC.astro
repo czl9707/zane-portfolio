@@ -34,11 +34,11 @@ headings.forEach(h => h.depth = shownDepths.indexOf(h.depth));
     transition: background-color var(--transition-short);
 
     &[data-active=true] {
-        background-color: rgb(var(--color-default-foreground) / 25%);
+        background-color: rgb(var(--color-primary-foreground) / 25%);
     }
     &[data-active=false] {
         &:hover {
-            background-color: rgb(var(--color-default-foreground) / 10%);
+            background-color: rgb(var(--color-primary-foreground) / 10%);
         }
     }
 }
@@ -47,7 +47,7 @@ headings.forEach(h => h.depth = shownDepths.indexOf(h.depth));
     border-radius: var(--size-border-radius); 
     display: inline-flex; 
     flex-direction: column;
-    border: 1px solid rgb(var(--color-default-foreground));
+    border: var(--border);
     padding: var(--spacing-paragraph); 
     margin-bottom: var(--spacing-paragraph); 
     flex: 0 1 content;

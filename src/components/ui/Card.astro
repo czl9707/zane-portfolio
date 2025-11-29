@@ -6,15 +6,11 @@ import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
 interface Props extends HTMLAttributes<"div"> {
     href: string;
     target?: HTMLAttributeAnchorTarget;
-    occupiedColumns?: number;
-    occupiedRows?: number;
 }
 
 const {
     href,
     target,
-    occupiedColumns = 1,
-    occupiedRows = 1,
     class: className,
     ...others
 } = Astro.props;
@@ -26,16 +22,10 @@ const {
     </SlideUpDiv>
 </a>
 
-<style define:vars={{ 
-    "card-columns": occupiedColumns, 
-    "card-rows": occupiedRows 
-}}>
+<style>
 .OutlinedCard {
     width: 100%;
     height: 100%;
-    
-    grid-column: span var(--card-columns);
-    grid-row: span var(--card-rows);
 
     @media(--smaller-than-md) {
         grid-column: span 1;
@@ -51,14 +41,14 @@ const {
         box-sizing: border-box;
 
         padding: var(--spacing-paragraph);
-        border: .5px rgb(var(--color-default-foreground) / .25) solid;
-        background-color: rgb(var(--color-default-foreground) / 0);
+        border: var(--border-secondary);
+        background-color: rgb(var(--color-primary-foreground) / 0);
         
         transition: all var(--transition-short);
         
         &:hover {
-            border: .5px rgb(var(--color-default-foreground) / .5) solid;
-            background-color: rgb(var(--color-default-foreground) / .15);
+            border: var(--border);
+            background-color: rgb(var(--color-primary-foreground) / .15);
         }
     }
 }

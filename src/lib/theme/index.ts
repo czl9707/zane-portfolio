@@ -20,12 +20,9 @@ interface TypographyToken extends ThemeToken {
 
 interface Theme extends ThemeToken {
     color: {
-        default: ColorToken,
+        primary: ColorToken,
         secondary: ColorToken,
-        nebular: ColorToken,
-        star: ColorToken,
-        galaxy: ColorToken,
-        solar: ColorToken,
+        accent: ColorToken,
     },
     breakpoint: {
         xs: string,
@@ -80,12 +77,9 @@ export type {
 // vars generator
 const theme: Theme = {
     color: {
-        default: { background: "", foreground: "" },
+        primary: { background: "", foreground: "" },
         secondary: { background: "", foreground: "" },
-        nebular: { background: "", foreground: "" },
-        star: { background: "", foreground: "" },
-        galaxy: { background: "", foreground: "" },
-        solar: { background: "", foreground: "" },
+        accent: { background: "", foreground: "" },
     },
     breakpoint: {
         xs: "",

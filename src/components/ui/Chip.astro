@@ -2,13 +2,13 @@
 import type { HTMLAttributes } from "astro/types";
 import { themeVars, type ColorVariation } from "@/lib/theme";
 
-type ChipColorVariation = Exclude<ColorVariation, "default">;
+type ChipColorVariation = Exclude<ColorVariation, "primary">;
 
 interface Props extends HTMLAttributes<"div"> {
   color?: ChipColorVariation;
 }
 
-const { color = "secondary", class: className, ...others } = Astro.props;
+const { color = "accent", class: className, ...others } = Astro.props;
 const chipColor = themeVars.color[color].foreground;
 ---
 
@@ -18,9 +18,9 @@ const chipColor = themeVars.color[color].foreground;
     border-radius: var(--size-border-radius);
 
     transition: all var(--transition-short);
-    background-color: rgb(var(--chip-color) / 0.2);
+    background-color: rgb(var(--chip-color) / 0.3);
     &:hover {
-      background-color: rgb(var(--chip-color) / 0.4);
+      background-color: rgb(var(--chip-color) / 0.5);
       text-decoration: underline;
     }
   }

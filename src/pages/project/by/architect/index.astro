@@ -2,7 +2,7 @@
 import BaseLayout from "@/components/layouts/Layout.Base.astro";
 
 import TitleSection from "@/components/layouts/Section.Title.astro";
-import ArchProjectCard from "@/components/arch-project/Card.astro";
+import ArchProjectCard from "@/components/layouts/project/Card.astro";
 import Typography from "@/components/ui/Typography.astro";
 import CardContainer from "@/components/ui/Card.Container.astro";
 
@@ -25,7 +25,7 @@ const archProjects = (await getCollection("archProject")).toSorted(
     </TitleSection>
     <Section
         style={{
-            backgroundColor: `rgb(${themeVars.color.default.background})`,
+            backgroundColor: `rgb(${themeVars.color.primary.background})`,
         }}
     >
         <Divider />

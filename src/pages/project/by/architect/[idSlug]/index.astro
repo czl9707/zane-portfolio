@@ -9,8 +9,8 @@ import BaseLayout from "@/components/layouts/Layout.Base.astro";
 import StickyHero from '@/components/layouts/StickyHero.astro';
 import TitleSection from '@/components/layouts/Section.Title.astro'
 
-import ArchProjectCard from "@/components/arch-project/Card.astro";
-import ContentBlock from "@/components/arch-project/ContentBlock.astro";
+import ArchProjectCard from "@/components/layouts/project/Card.astro";
+import ContentBlock from "@/components/layouts/project/ContentBlock.astro";
 
 import Section from '@/components/ui/Section.astro';
 import Divider from '@/components/ui/Divider.astro';
@@ -86,7 +86,7 @@ export async function getStaticPaths() {
     <!-- Major Content -->
     <Section
         style={{
-            backgroundColor: `rgb(${themeVars.color.default.background})`,
+            backgroundColor: `rgb(${themeVars.color.primary.background})`,
         }}
     >
         <Divider />
@@ -116,7 +116,7 @@ export async function getStaticPaths() {
     <TitleSection omitDivider>
       <Typography variant='h3'>Other Projects</Typography>
     </TitleSection>
-    <Section style={{backgroundColor: `rgb(${themeVars.color.default.background})`}}>
+    <Section style={{backgroundColor: `rgb(${themeVars.color.primary.background})`}}>
       <Divider />
       <CardContainer columns={2}>
         {
@@ -127,7 +127,7 @@ export async function getStaticPaths() {
       </CardContainer>
     </Section>
     <Section style={{
-      backgroundColor: `rgb(${themeVars.color.default.background})`,
+      backgroundColor: `rgb(${themeVars.color.primary.background})`,
       display: "flex", flexDirection: "column", alignItems: "center",
       padding:`${themeVars.spacing.group} 0`
     }}>

@@ -9,19 +9,19 @@ interface Props extends HTMLAttributes<"div"> {
   color?: ButtonColorVariation;
 }
 
-const { variant = "outlined", color = "default", class: className, ...others } = Astro.props;
+const { variant = "outlined", color = "primary", class: className, ...others } = Astro.props;
 let textColor, backgroundColor, maskColor;
 
 if (variant === "outlined")
 {
-    textColor = themeVars.color[color === 'transparent' ? 'default' : color].foreground;
+    textColor = themeVars.color[color === 'transparent' ? 'primary' : color].foreground;
     backgroundColor = color === "transparent" ? "transparent" : themeVars.color[color].background;
-    maskColor = themeVars.color.default.foreground;
+    maskColor = themeVars.color.primary.foreground;
 }
 else {
-    textColor = color === "transparent" ? themeVars.color.default.foreground : themeVars.color[color].background;
+    textColor = color === "transparent" ? themeVars.color.primary.foreground : themeVars.color[color].background;
     backgroundColor = color === "transparent" ? "transparent" : themeVars.color[color].foreground;
-    maskColor = themeVars.color.default[color === "transparent" ? "foreground" : "background"];
+    maskColor = themeVars.color.primary[color === "transparent" ? "foreground" : "background"];
 }
 ---
 
