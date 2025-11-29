@@ -6,26 +6,25 @@ import TitleSection from "@/components/layouts/Section.Title.astro";
 import WritingCollection from "@/components/layouts/writing/Collection.astro"
 
 import Typography from "@/components/ui/Typography.astro";
-import { arrangeContent } from "./_helper";
-import { shuffle } from "@/lib/utils/random-array";
 
-const DESCRIPTION = "The backyard of my mind, where pieces inter-connected."
+const DESCRIPTION = "Backyard of my mind, where pieces inter-connected."
 
-const blogs = (await getCollection("blog")).toSorted(
-    (b1, b2) => b2.data["created-date"].getTime() - b1.data["created-date"].getTime()
+const blogs = await getCollection("blog")
+const notes = await getCollection("note");
+
+const writings = [...blogs, ...notes].toSorted(
+    (b1, b2) => b2.data["last-updated-date"].getTime() - b1.data["last-updated-date"].getTime()
 );
-const notes = shuffle(await getCollection("note"));
-const writings = arrangeContent(notes, blogs);
 ---
 
 
 <BaseLayout
-    title={"Zane Chen - Mind Constellations"}
+    title={"Zane Chen - Backyard"}
     description={DESCRIPTION}
 >
     <TitleSection omitDivider>
-        <Typography as="h1" variant="h3">Mind Constellations</Typography>
+        <Typography as="h1" variant="h3">Backyard</Typography>
         <Typography as="h2" variant="h6" color="secondary">{DESCRIPTION}</Typography>
     </TitleSection>
-    <WritingCollection writings={writings} hierachical/>
+    <WritingCollection writings={writings} title="Short-Form Notes"/>
 </BaseLayout>

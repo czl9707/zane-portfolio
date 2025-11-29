@@ -14,6 +14,8 @@
         border-radius: var(--size-border-radius);
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
+        min-width: 8rem;
+        
         top: 0.5rem;
         right: 0;
         width: max-content;

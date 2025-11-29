@@ -1,41 +1,49 @@
 ---
 import type { DataEntryMap } from "astro:content";
 
-import CardContainer from "@/components/ui/Card.Container.astro";
-import ContentCard from "@/components/layouts/Card.Content.astro";
+import ContentSection from '@/components/layouts/Section.Content.astro'
+import Item from '@/components/layouts/writing/Item.astro';
 
-import Section from "@/components/ui/Section.astro";
 import Divider from "@/components/ui/Divider.astro";
+import Typography from "@/components/ui/Typography.astro";
+import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
 
+import { themeVars } from '@/lib/theme';
 import type { RoleType } from "@/lib/utils/constants";
 
-type ContentType = DataEntryMap["blog"][string] | DataEntryMap["note"][string];
+type ContentType = DataEntryMap["blog" | "note"][string];
 
 interface Props {
+    title: string,
     writings: ContentType[];
 }
-const { writings } = Astro.props;
+const { title, writings } = Astro.props;
 ---
 
-<Section>
-    <Divider />
-    <CardContainer columns={3}>
+<ContentSection>
+    <Typography variant='h5' color="secondary" slot={"header"}>
+        {title}
+    </Typography>
+    <div style={{ 
+        gridColumn: "span 3 / span 3", display: "flex", 
+        gap: themeVars.spacing.paragraph, flexDirection:"column"
+    }}>
         {
-            writings.map((writing) => (
-                <ContentCard
-                    href={"/" + writing.id}
-                    data={{
-                        date: writing.data["created-date"],
-                        title: writing.data.title,
-                        tags: writing.data.tags,
-                        role: writing.id.split("/").at(-2) as RoleType,
-                        description:
-                            writing.collection === "blog"
-                                ? writing.data.description
-                                : undefined,
-                    }}
-                />
-            ))
+            writings.map(item => {
+                const role = item.id.split("/").at(-2) as RoleType;
+                return <>
+                    <Item href={"/" + item.id} data={{
+                        date: item.data['created-date'], 
+                        role: role,
+                        title: item.data.title,
+                        tags: item.data.tags,
+                        description: item.collection == "blog" ? item.data.description : undefined,
+                    }}/>
+                    <SlideUpDiv><Divider/></SlideUpDiv>
+                </>
+            }
+            )
         }
-    </CardContainer>
-</Section>
+        <slot/>
+    </div>
+</ContentSection>
