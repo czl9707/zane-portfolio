@@ -9,21 +9,27 @@ interface Props {
 }
 const { project } = Astro.props;
 ---
-<a href={`/project/by/architect/${project.id}`} class:list={["ArchProjectCardWrapper"]}>
-    <SlideUpDiv class:list={["ArchProjectCard"]}>
+<a href={
+    project.collection === "archProject" ? `/project/by/architect/${project.id}` : project.data.externalLink
+} 
+    class:list={["ProjectCardWrapper"]}>
+    <SlideUpDiv class:list={["ProjectCard"]}>
         <img src={project.data.cover.url} alt={project.data.cover.alt} />
         <div class:list={["CardInformation"]}>
             <Typography variant="h3">{project.data.title.toUpperCase()}</Typography>
             <Typography variant="body1" color="secondary">{project.data.tags.join(" · ")}</Typography>
-            <Typography variant="h6" color="secondary">{project.data.subTitle}</Typography>
+            { 
+                <Typography variant="h6" color="secondary">
+                    {project.collection === "archProject" ? project.data.subTitle : project.data.description}
+                </Typography>
+            }
         </div>
     </SlideUpDiv>
 </a>
 
 
-
 <style>
-.ArchProjectCardWrapper {
+.ProjectCardWrapper {
     width: 100%;
     height: 100%;
     
@@ -31,7 +37,7 @@ const { project } = Astro.props;
     grid-row: span var(--card-rows);
 }
 
-.ArchProjectCard {
+.ProjectCard {
     aspect-ratio: 4/3;
 
     position: relative;

@@ -9,7 +9,7 @@ import BaseLayout from "@/components/layouts/Layout.Base.astro";
 import StickyHero from '@/components/layouts/StickyHero.astro';
 import TitleSection from '@/components/layouts/Section.Title.astro'
 
-import ArchProjectCard from "@/components/layouts/project/Card.astro";
+import ProjectCard from "@/components/layouts/project/Card.astro";
 import ContentBlock from "@/components/layouts/project/ContentBlock.astro";
 
 import Section from '@/components/ui/Section.astro';
@@ -121,7 +121,7 @@ export async function getStaticPaths() {
       <CardContainer columns={2}>
         {
           archProjects.map(project => (
-            <ArchProjectCard project={project}/>
+            <ProjectCard project={project}/>
           ))
         }
       </CardContainer>
