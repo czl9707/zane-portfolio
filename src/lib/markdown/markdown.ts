@@ -2,7 +2,7 @@ import { unified, type PluggableList } from "unified";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
-import { RehypeReferenceTranslation } from "@/lib/markdown/rehype-reference-translation";
+import { rehypeReferenceTranslation } from "@/lib/markdown/rehype-reference-translation";
 
 
 async function render(
@@ -14,7 +14,7 @@ async function render(
         .use(remarkParse)
         .use(remarkPlugins)
         .use(remarkRehype)
-        .use([RehypeReferenceTranslation, ...rehypePlugins])
+        .use([rehypeReferenceTranslation, ...rehypePlugins])
         .use(rehypeStringify);
 
     const result = await processor.process(content);

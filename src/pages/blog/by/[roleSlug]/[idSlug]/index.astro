@@ -1,6 +1,7 @@
 ---
 import { render } from "astro:content";
 import { getCollection, getEntry } from "astro:content";
+import { Image } from 'astro:assets';
 
 import MarkdownContainer from "@/components/ui/markdown/Container.astro";
 import BaseLayout from "@/components/layouts/Layout.Base.astro";
@@ -34,6 +35,9 @@ export async function getStaticPaths() {
 const { idSlug: id, roleSlug: role } = Astro.params;
 
 const blogEntry = await getEntry("blog", `blog/by/${role}/${id}`)!;
+const images = import.meta.glob<{ default: ImageMetadata }>(
+    `/src/contents/Media/**`);
+const coverImage = images[`/src/contents/${blogEntry.data.cover}`]
 const { Content, headings } = await render(blogEntry);
 ---
 <BaseLayout
@@ -75,6 +79,7 @@ const { Content, headings } = await render(blogEntry);
         <PageLayout>
             <Fragment slot="content">
                 <MarkdownContainer>
+                    <Image src={coverImage()} alt={`Featured image for ${blogEntry.data.title}`} />
                     <Content />
                 </MarkdownContainer>
             </Fragment>

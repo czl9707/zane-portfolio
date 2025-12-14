@@ -8,7 +8,7 @@ import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import remarkMath from "remark-math"
 import rehypeMathjax from "rehype-mathjax"
 import remarkGfm from "remark-gfm"
-import { RehypeReferenceTranslation } from './src/lib/markdown/rehype-reference-translation';
+import { rehypeReferenceTranslation } from './src/lib/markdown/rehype-reference-translation';
 import { rehypeHashStyleHeadings } from './src/lib/markdown/rehype-hash-style-headings';
 import { rehypeSectionize } from './src/lib/markdown/rehype-sectionize';
 import { remarkImageTranslation } from './src/lib/markdown/remark-img-translation';
@@ -45,7 +45,7 @@ export default defineConfig({
         remarkGfm,
       ],
       rehypePlugins:[
-        RehypeReferenceTranslation,
+        rehypeReferenceTranslation,
         rehypeHeadingIds,
         rehypeHashStyleHeadings,
         rehypeSectionize,

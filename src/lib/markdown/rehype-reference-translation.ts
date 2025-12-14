@@ -2,7 +2,7 @@ import type * as Hast from 'hast';
 import { visit, CONTINUE } from 'unist-util-visit'
 
 
-export function RehypeReferenceTranslation()
+export function rehypeReferenceTranslation()
 {
     return function(tree: Hast.Root)
     {
