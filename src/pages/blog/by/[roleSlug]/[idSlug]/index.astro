@@ -19,6 +19,9 @@ import { displayRole, type RoleType } from "@/lib/utils/constants";
 import { DateAsString } from "@/lib/utils/date";
 import Divider from "@/components/ui/Divider.astro";
 import TOC from "@/components/layouts/TOC.astro";
+import { shuffle } from "@/lib/utils/random-array";
+import Item from "@/components/layouts/writing/Item.astro";
+import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
 
 export async function getStaticPaths() {
     const blogs = await getCollection("blog");
@@ -35,9 +38,15 @@ export async function getStaticPaths() {
 const { idSlug: id, roleSlug: role } = Astro.params;
 
 const blogEntry = await getEntry("blog", `blog/by/${role}/${id}`)!;
-const images = import.meta.glob<{ default: ImageMetadata }>(
-    `/src/contents/Media/**`);
-const coverImage = images[`/src/contents/${blogEntry.data.cover}`]
+const coverImage = import.meta.glob<{ default: ImageMetadata }>(
+    `/src/contents/Media/**`)[`/src/contents/${blogEntry.data.cover}`];
+
+
+let recentBlogs = (await getCollection("blog"))
+    .filter(b => b.id !== blogEntry.id && b.id.startsWith(`blog/by/${role}/`))
+    .toSorted((b1, b2) => b2.data["created-date"].getTime() - b1.data["created-date"].getTime())
+    .slice(0, 4);
+
 const { Content, headings } = await render(blogEntry);
 ---
 <BaseLayout
@@ -87,12 +96,48 @@ const { Content, headings } = await render(blogEntry);
                 {
                     headings.length > 0 && 
                     <>
-                        <Typography variant="h6" style={{ marginBottom: "1rem" }}>Table of Content</Typography>
+                        <Typography variant="h6" style={{ marginBottom: "1rem" }}>On this page</Typography>
                         <TOC headings={headings}/>
                     </>
                 }
             </Fragment>
         </PageLayout>
+
+        <Spacer spacing="group"/>
+
+        {
+            recentBlogs.length > 0 &&
+            <>
+                <Divider/>
+                <Spacer spacing="block"/>
+                <PageLayout>
+                    <Fragment slot="content">
+                        <Typography variant="h4">Related</Typography>
+                        <Spacer spacing="component"/>
+
+                        <div style={{ display: "flex", gap: themeVars.spacing.paragraph, flexDirection:"column"}}>
+                            {
+                                recentBlogs.map(item => {
+                                    const role = item.id.split("/").at(-2) as RoleType;
+                                    return <>
+                                        <Item href={"/" + item.id} data={{
+                                            date: item.data['created-date'], 
+                                            role: role,
+                                            title: item.data.title,
+                                            tags: item.data.tags,
+                                            description: item.data.description,
+                                        }}/>
+                                        <SlideUpDiv><Divider/></SlideUpDiv>
+                                    </>
+                                })
+                            }
+                        </div>
+                    </Fragment>
+
+                </PageLayout>
+                <Spacer spacing="group"/>
+            </>
+        }
     </Section>
 </BaseLayout>
 

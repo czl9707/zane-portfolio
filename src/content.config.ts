@@ -2,11 +2,14 @@ import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 import * as ArchProject from "@/lib/cms/zane-arch-project";
 import * as DevProject from "@/lib/cms/zane-dev-project";
+import { markdownLoader } from "@/lib/markdown/markdown-loader";
 
 const blog = defineCollection({
-    loader: glob({
-        base: "./src/contents/",
-        pattern: ["blog/**/*.md", "!**/drafts/**"]
+    loader: markdownLoader({
+            baseLoader: glob({
+            base: "./src/contents/",
+            pattern: ["blog/**/*.md", "!**/drafts/**"]
+        })
     }),
     schema: () =>
         z.object({
@@ -17,13 +20,16 @@ const blog = defineCollection({
             featured: z.boolean(),
             "created-date": z.date(),
             "last-updated-date": z.date(),
+            hasLinksTo: z.array(z.string()).default([]),
         }),
 });
 
 const note = defineCollection({
-    loader: glob({
-        base: "./src/contents/",
-        pattern: ["note/**/*.md", "!**/drafts/**"],
+    loader: markdownLoader({
+        baseLoader: glob({
+            base: "./src/contents/",
+            pattern: ["note/**/*.md", "!**/drafts/**"],
+        })
     }),
     schema: () =>
         z.object({
@@ -31,6 +37,7 @@ const note = defineCollection({
             tags: z.array(z.string()),
             "created-date": z.date(),
             "last-updated-date": z.date(),
+            hasLinksTo: z.array(z.string()).default([]),
         }),
 });
 

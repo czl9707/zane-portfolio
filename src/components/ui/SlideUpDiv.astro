@@ -12,7 +12,7 @@ const { class: className, ...others } = Astro.props;
 <style>
     @keyframes SlideUpEffect {
         from {
-            transform: translateY(min(5rem, 75%));
+            transform: translateY(max(2rem, min(5rem, 75%)));
             opacity: 0;
         }
         to {

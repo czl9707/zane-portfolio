@@ -1,11 +1,10 @@
 import type * as Mdast from 'mdast';
-import type { DataMap, VFile } from 'vfile';
 import { visit, CONTINUE } from 'unist-util-visit'
 
 
 export function remarkImageTranslation()
 {
-    return function(tree: Mdast.Root, file: VFile)
+    return function(tree: Mdast.Root)
     {
         visit(tree, 
             (node: Mdast.Node) => node.type === "image", 

@@ -1,8 +1,7 @@
 import type * as Hast from 'hast';
 import { visit, CONTINUE } from 'unist-util-visit'
 
-
-export function rehypeReferenceTranslation()
+export function rehypeExternalLinkAttr()
 {
     return function(tree: Hast.Root)
     {
@@ -16,14 +15,6 @@ export function rehypeReferenceTranslation()
                     (node as Hast.Element).properties["target"] = "_blank"; 
                     return CONTINUE;
                 }
-
-                // Obsidian have file path without "/" at the beginning, add "/" to fix inter links
-                const path = href.split("#")[0];
-                if (path.endsWith(".md") && !path.startsWith("/"))
-                {
-                    (node as Hast.Element).properties!.href = '/' + href.replace(".md", "");
-                }
-                return CONTINUE;
             },
         )
     }
