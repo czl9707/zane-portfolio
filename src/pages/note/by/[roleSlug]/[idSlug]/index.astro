@@ -16,6 +16,10 @@ import { themeVars } from "@/lib/theme";
 import { displayRole, type RoleType } from "@/lib/utils/constants";
 import { DateAsString } from "@/lib/utils/date";
 import TOC from "@/components/layouts/TOC.astro";
+import { shuffle } from "@/lib/utils/random-array";
+import Item from "@/components/layouts/writing/Item.astro";
+import Divider from "@/components/ui/Divider.astro";
+import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
 
 export async function getStaticPaths() {
     const notes = await getCollection("note");
@@ -32,6 +36,12 @@ export async function getStaticPaths() {
 const { idSlug: id, roleSlug: role } = Astro.params;
 const noteEntry = await getEntry("note", `note/by/${role}/${id}`)!;
 const { Content, headings } = await render(noteEntry);
+
+let relatedNotes = (await getCollection("note"))
+    .filter(n => 
+        (n.data.hasLinksTo.includes(noteEntry.id) && n.id !== noteEntry.id) ||
+        noteEntry.data.hasLinksTo.includes(n.id)
+    ).slice(0, 5);
 ---
 <BaseLayout
     title={noteEntry.data.title}
@@ -78,12 +88,47 @@ const { Content, headings } = await render(noteEntry);
                 {
                     headings.length > 0 && 
                     <>
-                        <Typography variant="h6" style={{ marginBottom: "1rem" }}>Table of Content</Typography>
+                        <Typography variant="h6" style={{ marginBottom: "1rem" }}>On this page</Typography>
                         <TOC headings={headings}/>
                     </>
                 }
             </Fragment>
         </PageLayout>
+
+        <Spacer spacing="group"/>
+
+        {
+            relatedNotes.length > 0 &&
+            <>
+                <Divider/>
+                <Spacer spacing="block"/>
+                <PageLayout>
+                    <Fragment slot="content">
+                        <Typography variant="h4">Read More</Typography>
+                        <Spacer spacing="component"/>
+
+                        <div style={{ display: "flex", gap: themeVars.spacing.paragraph, flexDirection:"column"}}>
+                            {
+                                relatedNotes.map(item => {
+                                    const role = item.id.split("/").at(-2) as RoleType;
+                                    return <>
+                                        <Item href={"/" + item.id} data={{
+                                            date: item.data['created-date'], 
+                                            role: role,
+                                            title: item.data.title,
+                                            tags: item.data.tags,
+                                        }}/>
+                                        <SlideUpDiv><Divider/></SlideUpDiv>
+                                    </>
+                                })
+                            }
+                        </div>
+                    </Fragment>
+
+                </PageLayout>
+                <Spacer spacing="group"/>
+            </>
+        }
     </Section>
 </BaseLayout>
 

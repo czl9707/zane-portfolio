@@ -13,7 +13,7 @@ export function remarkImageTranslation()
 
                 if (!url.startsWith("http") && !url.startsWith("/"))
                 {
-                    (node as Mdast.Image).url! = '@contents/' + url;
+                    (node as Mdast.Image).url! = '/src/contents/' + url;
                 }
                 return CONTINUE;
             },

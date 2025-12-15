@@ -8,10 +8,11 @@ import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import remarkMath from "remark-math"
 import rehypeMathjax from "rehype-mathjax"
 import remarkGfm from "remark-gfm"
-import { RehypeReferenceTranslation } from './src/lib/markdown/rehype-reference-translation';
+import { rehypeExternalLinkAttr } from './src/lib/markdown/rehype-external-link-attr';
 import { rehypeHashStyleHeadings } from './src/lib/markdown/rehype-hash-style-headings';
 import { rehypeSectionize } from './src/lib/markdown/rehype-sectionize';
 import { remarkImageTranslation } from './src/lib/markdown/remark-img-translation';
+import { remarkReferenceTranslation } from './src/lib/markdown/remark-reference-translation';
 
 // https://astro.build/config
 export default defineConfig({
@@ -40,12 +41,13 @@ export default defineConfig({
           theme: 'github-dark-high-contrast',
       },
       remarkPlugins:[
+        remarkReferenceTranslation,
         remarkImageTranslation,
         remarkMath,
         remarkGfm,
       ],
       rehypePlugins:[
-        RehypeReferenceTranslation,
+        rehypeExternalLinkAttr,
         rehypeHeadingIds,
         rehypeHashStyleHeadings,
         rehypeSectionize,
