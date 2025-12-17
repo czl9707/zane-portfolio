@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import type { DataEntryMap } from 'astro:content';
 import * as d3 from 'd3';
 
-import type { RoleType } from '@/lib/utils/constants';
+import { displayRole, type RoleType } from '@/lib/utils/constants';
 
 import styles from './Graph.module.css';
 
@@ -35,7 +35,7 @@ function colorFromRole(role: RoleType): string {
         case "christian":
             return "rgb(76 196 205)";
         default:
-            return "rgb(92 59 46)";
+            return "rgb(148 171 147)";
     }
 }
 
@@ -96,36 +96,39 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
             .data(links)
             .join("line");
 
+        const nodeGroup = svg.append("g");
 
-        const node = svg.append("g")
-            .selectAll<SVGAElement, Node>("a")
+        const nodeLinks = nodeGroup.selectAll<SVGAElement, Node>("a")
             .data(nodes)
             .join("a")
-            .attr("href", d => "/" + d.id)
-            .attr("style", "cursor: pointer; text-decoration: none;")
-            .append("circle")
+            .attr("href", d => "/" + d.id);
+
+        const node = nodeLinks.append("circle")
             .attr("stroke", d => d.type == "blog" ? "transparent" : colorFromRole(d.role))
             .attr("stroke-width", d => d.type == "blog" ? 0 : 3)
             .attr("stroke-opacity", d => d.type == "blog" ? 0 : 0.6)
             .attr("r", d => 4 + Math.sqrt(d.links))
             .attr("fill", d => d.type == "blog" ? colorFromRole(d.role) : "rgb(var(--color-primary-background))")
-            .attr("fill-opacity", d => d.type == "blog" ? 0.6 : 1)
-            .on("mouseover", function(_, d) {
-                d3.select(this)
+            .attr("fill-opacity", d => d.type == "blog" ? 0.6 : 1);
+
+        const nodeText1 = nodeLinks.append("text")
+            .text(d => d.label);
+        const nodeText2 = nodeLinks.append("text")
+            .text(d => `${d.type} by a ${displayRole(d.role)}`);
+
+        node.on("mouseover", function(_, d) {
+                d3.select(this.parentElement)
                     .attr("data-selected", "true");
-                const temp = d3.selectAll<SVGLineElement, Link>("line")
+                d3.selectAll<SVGLineElement, Link>("line")
                     .filter(l => (l.source as unknown as Node).id === d.id || (l.target as unknown as Node).id === d.id)
                     .attr("data-selected", "true");
-                console.log(temp);
             })
             .on("mouseout", function(_, d) {
-                d3.select(this)
+                d3.select(this.parentElement)
                     .attr("data-selected", null);
+
                 d3.selectAll<SVGLineElement, Link>("line")
-                    .filter(l => {
-                        return (l.source as unknown as Node).id === d.id || (l.target as unknown as Node).id === d.id
-                    })
-                        
+                    .filter(l => (l.source as unknown as Node).id === d.id || (l.target as unknown as Node).id === d.id)
                     .attr("data-selected", null);
             });
 
@@ -148,6 +151,10 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
 
             node.attr("cx", d => d.x)
                 .attr("cy", d => d.y);
+            nodeText1.attr("x", d => d.x)
+                .attr("y", d => d.y + 32);
+            nodeText2.attr("x", d => d.x)
+                .attr("y", d => d.y + 48);
         });
 
         function dragstarted(event: d3.D3DragEvent<SVGCircleElement, Node, Node>) {
@@ -169,6 +176,8 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
         }
         function zoomed({transform}: d3.D3ZoomEvent<SVGSVGElement, unknown>) {
             node.attr("transform", transform.toString());
+            nodeText1.attr("transform", transform.toString());
+            nodeText2.attr("transform", transform.toString());
             link.attr("transform", transform.toString());
         }
 
