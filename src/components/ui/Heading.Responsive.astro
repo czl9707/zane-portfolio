@@ -29,8 +29,9 @@ let { variant, variantSM, as = variant, label, id } = Astro.props<TypographyTag>
 
 <style>
     .HeadingWithTag {
-        &::before {
+        &::before {            
             content: "#"; 
+            overflow: visible;
             position: absolute;
             transform: translateX(-145%);
             transition: opacity var(--transition-short);

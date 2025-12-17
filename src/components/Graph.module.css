@@ -1,0 +1,32 @@
+svg.writingGraph {
+    width: 100%;
+    height: 100vh;
+
+    * {
+        transition: 
+            fill var(--transition-short) ease,
+            stroke var(--transition-short) ease,
+            fill-opacity var(--transition-short) ease,
+            stroke-opacity var(--transition-short) ease;
+    }
+
+    circle {
+        cursor: pointer;
+        
+        &[data-selected="true"] {
+            stroke-opacity: 1;
+            fill-opacity: 1;
+        }
+    }
+
+    line {
+        stroke: rgb(var(--color-primary-foreground));
+        stroke-opacity: 0.2;
+        stroke-width: 1;
+        
+        &[data-selected="true"] {
+            stroke-opacity: 0.5;
+            stroke-width: 2;
+        }
+    }
+}
