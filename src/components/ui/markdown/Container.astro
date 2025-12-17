@@ -13,6 +13,7 @@ const { class: className, ...others } = Astro.props;
 
 <style>
     .Markdown {
+        overflow-x: visible;
         display: flex;
         flex-direction: column;
         gap: var(--spacing-paragraph);
@@ -108,6 +109,7 @@ const { class: className, ...others } = Astro.props;
             /* .HeadingWithTag { */
             &::before {
                 content: "#";
+                overflow: visible;
                 position: absolute;
                 transform: translateX(-145%);
                 transition: opacity var(--transition-short);

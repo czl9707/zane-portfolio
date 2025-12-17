@@ -1,0 +1,64 @@
+svg.writingGraph {
+    width: 100%;
+    height: 100vh;
+
+    * {
+        transition: 
+            fill var(--transition-short) ease,
+            stroke var(--transition-short) ease,
+            fill-opacity var(--transition-short) ease,
+            stroke-opacity var(--transition-short) ease,
+            opacity var(--transition-short) ease;
+    }
+
+    a {
+        text-decoration: none;
+
+        circle {
+            cursor: pointer;
+        }
+        &[data-selected="true"] {
+            circle {
+                stroke-opacity: 1;
+                fill-opacity: 1;
+            }
+        }
+        
+        text {
+            text-anchor: middle;
+            opacity: 0;
+            pointer-events: none;
+
+            &:nth-child(2) {
+                fill: rgb(var(--color-primary-foreground));
+                font-family: var(--typography-body1-fontFamily);
+                font-size: var(--typography-body1-fontSize);
+                font-weight: var(--typography-body1-fontWeight);
+            }
+            &:nth-child(3) {
+                fill: rgb(var(--color-secondary-foreground));
+                font-family: var(--typography-body2-fontFamily);
+                font-size: var(--typography-body2-fontSize);
+                font-weight: var(--typography-body2-fontWeight);
+                font-style: italic;
+            }
+
+        }
+        &[data-selected="true"] {
+            text {
+                opacity: 1;
+            }
+        }
+    }
+
+    line {
+        stroke: rgb(var(--color-primary-foreground));
+        stroke-opacity: 0.2;
+        stroke-width: 1;
+        
+        &[data-selected="true"] {
+            stroke-opacity: 0.5;
+            stroke-width: 2;
+        }
+    }
+}
