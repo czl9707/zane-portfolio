@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 
 import { displayRole, type RoleType } from '@/lib/utils/constants';
 
-import styles from './Graph.module.css';
+import graphStyle from './Graph.module.css';
 
 type Writing = DataEntryMap["blog" | "note"][string];
 
@@ -31,12 +31,15 @@ interface Link {
 function colorFromRole(role: RoleType): string {
     switch (role) {
         case "developer":
-            return "rgb(var(--color-accent-foreground))";
+            return "var(--color-accent-foreground)";
         case "christian":
-            return "rgb(76 196 205)";
+            return "76 196 205";
         default:
-            return "rgb(148 171 147)";
+            return "148 171 147";
     }
+}
+function isLinkMatchingNode(link: Link, node: Node): boolean {
+    return ((link.source as unknown as Node).id === node.id || (link.target as unknown as Node).id === node.id);
 }
 
 const Graph: React.FC<GraphProps> = ({ writings }) => {
@@ -101,34 +104,43 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
         const nodeLinks = nodeGroup.selectAll<SVGAElement, Node>("a")
             .data(nodes)
             .join("a")
+            .attr("data-type", d => d.type)
             .attr("href", d => "/" + d.id);
 
         const node = nodeLinks.append("circle")
-            .attr("stroke", d => d.type == "blog" ? "transparent" : colorFromRole(d.role))
-            .attr("stroke-width", d => d.type == "blog" ? 0 : 3)
-            .attr("stroke-opacity", d => d.type == "blog" ? 0 : 0.6)
-            .attr("r", d => 4 + Math.sqrt(d.links))
-            .attr("fill", d => d.type == "blog" ? colorFromRole(d.role) : "rgb(var(--color-primary-background))")
-            .attr("fill-opacity", d => d.type == "blog" ? 0.6 : 1);
+            .attr("r", d => 4 + Math.sqrt(links.filter(l => isLinkMatchingNode(l, d)).length))
+            .style("--node-color", d => colorFromRole(d.role));
 
-        const nodeText1 = nodeLinks.append("text")
+        const textGroup = svg.append("g");
+
+        const textLabel = textGroup.selectAll<SVGTextElement, Node>("text.label")
+            .data(nodes)
+            .join("text")
+            .attr("class", graphStyle.label)
             .text(d => d.label);
-        const nodeText2 = nodeLinks.append("text")
+
+        const textDescription = textGroup.selectAll<SVGTextElement, Node>("text.description")
+            .data(nodes)
+            .join("text")
+            .attr("class", graphStyle.description)
             .text(d => `${d.type} by a ${displayRole(d.role)}`);
 
         node.on("mouseover", function(_, d) {
                 d3.select(this.parentElement)
                     .attr("data-selected", "true");
+                textLabel.filter(n => n.id === d.id).attr("data-selected", "true");
+                textDescription.filter(n => n.id === d.id).attr("data-selected", "true");
                 d3.selectAll<SVGLineElement, Link>("line")
-                    .filter(l => (l.source as unknown as Node).id === d.id || (l.target as unknown as Node).id === d.id)
+                    .filter(l => isLinkMatchingNode(l, d))
                     .attr("data-selected", "true");
             })
             .on("mouseout", function(_, d) {
                 d3.select(this.parentElement)
                     .attr("data-selected", null);
-
+                textLabel.filter(n => n.id === d.id).attr("data-selected", null);
+                textDescription.filter(n => n.id === d.id).attr("data-selected", null);
                 d3.selectAll<SVGLineElement, Link>("line")
-                    .filter(l => (l.source as unknown as Node).id === d.id || (l.target as unknown as Node).id === d.id)
+                    .filter(l => isLinkMatchingNode(l, d))
                     .attr("data-selected", null);
             });
 
@@ -151,9 +163,9 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
 
             node.attr("cx", d => d.x)
                 .attr("cy", d => d.y);
-            nodeText1.attr("x", d => d.x)
+            textLabel.attr("x", d => d.x)
                 .attr("y", d => d.y + 32);
-            nodeText2.attr("x", d => d.x)
+            textDescription.attr("x", d => d.x)
                 .attr("y", d => d.y + 48);
         });
 
@@ -176,8 +188,8 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
         }
         function zoomed({transform}: d3.D3ZoomEvent<SVGSVGElement, unknown>) {
             node.attr("transform", transform.toString());
-            nodeText1.attr("transform", transform.toString());
-            nodeText2.attr("transform", transform.toString());
+            textLabel.attr("transform", transform.toString());
+            textDescription.attr("transform", transform.toString());
             link.attr("transform", transform.toString());
         }
 
@@ -186,7 +198,7 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
         }
     }, [containerRef]);
 
-  return <svg ref={containerRef} className={styles.writingGraph} />;
+  return <svg ref={containerRef} className={graphStyle.writingGraph} />;
 };
 
 export default Graph;
