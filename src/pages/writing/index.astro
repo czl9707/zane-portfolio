@@ -2,11 +2,11 @@
 import { getCollection } from "astro:content";
 
 import BaseLayout from "@/components/layouts/Layout.Base.astro";
-import Graph from "@/components/Graph.tsx";
+import Graph from "@/components/layouts/writing/Graph";
 
 const DESCRIPTION = "Backyard of my mind, where pieces inter-connected."
 
-const blogs = await getCollection("blog")
+const blogs = await getCollection("blog");
 const notes = await getCollection("note");
 
 const writings = [...blogs, ...notes].toSorted(
