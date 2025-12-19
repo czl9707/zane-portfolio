@@ -46,6 +46,8 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
     const containerRef = useRef<SVGSVGElement>(null);
     const simulationRef = useRef<d3.Simulation<Node, undefined> | null>(null);
     const draggedNodePoseRef = useRef<{x: number, y: number} | undefined>(undefined);
+    const touchStartDistanceRef = useRef<number | undefined>(undefined);
+    const selectedNodeRef = useRef<Node | undefined>(undefined);
 
     useEffect(() => {
         if (!containerRef.current) return;
