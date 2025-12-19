@@ -127,24 +127,30 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
             .attr("class", graphStyle.description)
             .text(d => `${d.type} by a ${displayRole(d.role)}`);
 
-        node.on("mouseover", function(_, d) {
-                d3.select(this.parentElement)
-                    .attr("data-selected", "true");
-                textLabel.filter(n => n.id === d.id).attr("data-selected", "true");
-                textDescription.filter(n => n.id === d.id).attr("data-selected", "true");
-                d3.selectAll<SVGLineElement, Link>("line")
-                    .filter(l => isLinkMatchingNode(l, d))
-                    .attr("data-selected", "true");
-            })
-            .on("mouseout", function(_, d) {
-                d3.select(this.parentElement)
-                    .attr("data-selected", null);
-                textLabel.filter(n => n.id === d.id).attr("data-selected", null);
-                textDescription.filter(n => n.id === d.id).attr("data-selected", null);
-                d3.selectAll<SVGLineElement, Link>("line")
-                    .filter(l => isLinkMatchingNode(l, d))
-                    .attr("data-selected", null);
-            });
+        function handleMouseOver(this: SVGCircleElement, event: React.MouseEvent<SVGCircleElement>, d: Node) {
+            d3.select(this.parentElement)
+                .attr("data-selected", "true");
+            textLabel.filter(n => n.id === d.id).attr("data-selected", "true");
+            textDescription.filter(n => n.id === d.id).attr("data-selected", "true");
+            d3.selectAll<SVGLineElement, Link>("line")
+                .filter(l => isLinkMatchingNode(l, d))
+                .attr("data-selected", "true");
+        }
+
+        function handleMouseOut(this: SVGCircleElement, event: React.MouseEvent<SVGCircleElement>, d: Node) {
+            d3.select(this.parentElement)
+                .attr("data-selected", null);
+            textLabel.filter(n => n.id === d.id).attr("data-selected", null);
+            textDescription.filter(n => n.id === d.id).attr("data-selected", null);
+            d3.selectAll<SVGLineElement, Link>("line")
+                .filter(l => isLinkMatchingNode(l, d))
+                .attr("data-selected", null);
+        }
+
+        node.on("mouseover", handleMouseOver)
+            .on("mouseout", handleMouseOut)
+            .on("touchstart", handleMouseOver)
+            .on("touchend", handleMouseOut);
 
         node.call(d3.drag<SVGCircleElement, Node>()
             .on("start", dragstarted)
@@ -156,6 +162,19 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
             .extent([[0, 0], [width, height]])
             .scaleExtent([.3, 2])
             .on("zoom", zoomed));
+
+        svg.on("touchstart.background", function() {
+            if (selectedNodeRef.current) {
+                d3.select(`a[href="/${selectedNodeRef.current.id}"]`)
+                    .attr("data-selected", null);
+                textLabel.filter(n => n.id === selectedNodeRef.current!.id).attr("data-selected", null);
+                textDescription.filter(n => n.id === selectedNodeRef.current!.id).attr("data-selected", null);
+                d3.selectAll<SVGLineElement, Link>("line")
+                    .filter(l => isLinkMatchingNode(l, selectedNodeRef.current!))
+                    .attr("data-selected", null);
+                selectedNodeRef.current = undefined;
+            }
+        });
 
         simulation.on("tick", () => {
             link.attr("x1", d => (d.source as unknown as Node).x)
