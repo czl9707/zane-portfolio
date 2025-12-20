@@ -21,8 +21,9 @@ import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
 }
 
 .ContentTitleContainer {
-    background-color: rgb(var(--color-primary-background));
-    position: sticky;
+    @media(--larger-than-md) {
+        position: sticky;
+    }
     top: var(--size-header-height);
     padding-bottom: var(--spacing-paragraph);
     grid-column: span 1 / span 1;

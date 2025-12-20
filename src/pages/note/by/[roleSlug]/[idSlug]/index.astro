@@ -45,6 +45,7 @@ let relatedNotes = (await getCollection("note"))
 <BaseLayout
     title={noteEntry.data.title}
     description={`Zane's note on ${noteEntry.data.title}`}
+    image={`/note/by/${role}/${id}/og.jpeg`}
 >
     <Section style={{backgroundColor: `rgb(${themeVars.color.primary.background})`}}>
         <Spacer spacing="block" />

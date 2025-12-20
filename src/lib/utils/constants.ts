@@ -11,4 +11,4 @@ export function displayRole(role: RoleType) {
 }
 
 export const SITE_TITLE = "Zane Chen";
-export const SITE_DESCRIPTION = 'Welcome to my digital corner!';
+export const SITE_DESCRIPTION = 'Zane\'s digital corner, where he dumps his thoughts, projects, and insights on anything.';

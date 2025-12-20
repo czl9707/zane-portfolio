@@ -19,7 +19,6 @@ import { displayRole, type RoleType } from "@/lib/utils/constants";
 import { DateAsString } from "@/lib/utils/date";
 import Divider from "@/components/ui/Divider.astro";
 import TOC from "@/components/layouts/TOC.astro";
-import { shuffle } from "@/lib/utils/random-array";
 import Item from "@/components/layouts/writing/Item.astro";
 import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
 
@@ -52,6 +51,7 @@ const { Content, headings } = await render(blogEntry);
 <BaseLayout
     title={blogEntry.data.title}
     description={blogEntry.data.description}
+    image={`/blog/by/${role}/${id}/og.jpeg`}
 >
     <StickyHero>
         <PageLayout>
