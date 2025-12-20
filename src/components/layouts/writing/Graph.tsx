@@ -96,7 +96,8 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
             .attr("height", height)
             .attr("viewBox", [-width / 2, -height / 2, width, height]);
 
-        const link = svg.append("g")
+        const linkGroup = svg.append("g");
+        const link = linkGroup
             .selectAll("line")
             .data(links)
             .join("line");
@@ -110,18 +111,18 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
             .attr("href", d => "/" + d.id);
 
         const node = nodeLinks.append("circle")
-            .attr("r", d => 4 + Math.sqrt(links.filter(l => isLinkMatchingNode(l, d)).length))
+            .attr("r", d => 2 + Math.sqrt(links.filter(l => isLinkMatchingNode(l, d)).length))
             .style("--node-color", d => colorFromRole(d.role));
 
-        const textGroup = svg.append("g");
-
-        const textLabel = textGroup.selectAll<SVGTextElement, Node>("text.label")
+        const textLableGroup = svg.append("g");
+        const textLabel = textLableGroup.selectAll<SVGTextElement, Node>("text.label")
             .data(nodes)
             .join("text")
             .attr("class", graphStyle.label)
             .text(d => d.label);
-
-        const textDescription = textGroup.selectAll<SVGTextElement, Node>("text.description")
+            
+        const textDescriptionGroup = svg.append("g");
+        const textDescription = textDescriptionGroup.selectAll<SVGTextElement, Node>("text.description")
             .data(nodes)
             .join("text")
             .attr("class", graphStyle.description)
@@ -160,21 +161,8 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
   
         svg.call(d3.zoom<SVGSVGElement, unknown>()
             .extent([[0, 0], [width, height]])
-            .scaleExtent([.3, 2])
+            .scaleExtent([.3, 10])
             .on("zoom", zoomed));
-
-        svg.on("touchstart.background", function() {
-            if (selectedNodeRef.current) {
-                d3.select(`a[href="/${selectedNodeRef.current.id}"]`)
-                    .attr("data-selected", null);
-                textLabel.filter(n => n.id === selectedNodeRef.current!.id).attr("data-selected", null);
-                textDescription.filter(n => n.id === selectedNodeRef.current!.id).attr("data-selected", null);
-                d3.selectAll<SVGLineElement, Link>("line")
-                    .filter(l => isLinkMatchingNode(l, selectedNodeRef.current!))
-                    .attr("data-selected", null);
-                selectedNodeRef.current = undefined;
-            }
-        });
 
         simulation.on("tick", () => {
             link.attr("x1", d => (d.source as unknown as Node).x)
@@ -197,9 +185,8 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
             event.subject.fy = draggedNodePoseRef.current!.y;
         }
         function dragged(event: d3.D3DragEvent<SVGCircleElement, Node, Node>) {
-            const transform = d3.zoomTransform(containerRef.current!);
-            event.subject.fx = draggedNodePoseRef.current!.x  + (event.x - draggedNodePoseRef.current!.x) / transform.k;
-            event.subject.fy = draggedNodePoseRef.current!.y  + (event.y - draggedNodePoseRef.current!.y) / transform.k;
+            event.subject.fx = event.x;
+            event.subject.fy = event.y;
         }
         function dragended(event: d3.D3DragEvent<SVGCircleElement, Node, Node>) {
             if (!event.active) simulation.alphaTarget(0);
@@ -208,10 +195,16 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
             event.subject.fy = undefined;
         }
         function zoomed({transform}: d3.D3ZoomEvent<SVGSVGElement, unknown>) {
-            node.attr("transform", transform.toString());
-            textLabel.attr("transform", transform.toString());
-            textDescription.attr("transform", transform.toString());
-            link.attr("transform", transform.toString());
+            // if (transform.k > 6) {
+            //     textLabel.attr("data-zoomed-in", "true");
+            //     textDescription.attr("data-zoomed-in", "true");
+            // }
+            // else {
+            //     textLabel.attr("data-zoomed-in", null);
+            //     textDescription.attr("data-zoomed-in", null);
+            // }
+
+            svg.attr("transform", transform.toString());
         }
 
         return () => {

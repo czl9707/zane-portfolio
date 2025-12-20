@@ -1,6 +1,6 @@
 // @ts-check
 
-import { defineConfig, envField  } from 'astro/config';
+import { defineConfig, envField, fontProviders  } from 'astro/config';
 
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
@@ -16,48 +16,57 @@ import { remarkReferenceTranslation } from './src/lib/markdown/remark-reference-
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://zane-portfolio.kiyo-n-zane.com',
+    site: 'https://zane-portfolio.kiyo-n-zane.com',
 
-  integrations: [
-      sitemap({
-          filter(path){return !path.includes("/as/")}
-      }), 
-      react()
-  ],
+    integrations: [
+        sitemap({
+            filter(path){return !path.includes("/as/")}
+        }), 
+        react()
+    ],
 
-  trailingSlash: "ignore",
-  compressHTML: true,
+    trailingSlash: "ignore",
+    compressHTML: true,
 
-  env: {
-      schema: {
-          ADMIN_URL: envField.number({ context: "server", access: "secret" }),
-          ADMIN_APIKEY: envField.string({ context: "server", access: "secret" }),
-      }
-  },
+    env: {
+        schema: {
+            ADMIN_URL: envField.number({ context: "server", access: "secret" }),
+            ADMIN_APIKEY: envField.string({ context: "server", access: "secret" }),
+        }
+    },
 
-  markdown: {
-      syntaxHighlight: "shiki",
-      shikiConfig: {
-          theme: 'github-dark-high-contrast',
-      },
-      remarkPlugins:[
-        remarkReferenceTranslation,
-        remarkImageTranslation,
-        remarkMath,
-        remarkGfm,
-      ],
-      rehypePlugins:[
-        rehypeExternalLinkAttr,
-        rehypeHeadingIds,
-        rehypeHashStyleHeadings,
-        rehypeSectionize,
-        rehypeMathjax
-      ],
-  },
+    markdown: {
+        syntaxHighlight: "shiki",
+        shikiConfig: {
+            theme: 'github-dark-high-contrast',
+        },
+        remarkPlugins:[
+            remarkReferenceTranslation,
+            remarkImageTranslation,
+            remarkMath,
+            remarkGfm,
+        ],
+        rehypePlugins:[
+            rehypeExternalLinkAttr,
+            rehypeHeadingIds,
+            rehypeHashStyleHeadings,
+            rehypeSectionize,
+            rehypeMathjax
+        ],
+    },
 
-  redirects: {
-      "/as/developer/blog": "/blog",
-      "/as/architect/project": "/project/by/architect",
-      "/as/developer/project": "/project/by/developer",
-  },
+    redirects: {
+        "/as/developer/blog": "/blog",
+        "/as/architect/project": "/project/by/architect",
+        "/as/developer/project": "/project/by/developer",
+    },
+
+    experimental: {
+        fonts: [{
+            provider: fontProviders.fontsource(),
+            name: "Red Hat Mono",
+            cssVariable: "--font-mono",
+            weights: [400, 500, 600, 700]
+    }]
+  }
 });
