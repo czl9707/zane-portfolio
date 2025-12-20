@@ -46,8 +46,8 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
     const containerRef = useRef<SVGSVGElement>(null);
     const simulationRef = useRef<d3.Simulation<Node, undefined> | null>(null);
     const draggedNodePoseRef = useRef<{x: number, y: number} | undefined>(undefined);
-    const touchStartDistanceRef = useRef<number | undefined>(undefined);
-    const selectedNodeRef = useRef<Node | undefined>(undefined);
+    // const touchStartDistanceRef = useRef<number | undefined>(undefined);
+    // const selectedNodeRef = useRef<Node | undefined>(undefined);
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -195,16 +195,10 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
             event.subject.fy = undefined;
         }
         function zoomed({transform}: d3.D3ZoomEvent<SVGSVGElement, unknown>) {
-            // if (transform.k > 6) {
-            //     textLabel.attr("data-zoomed-in", "true");
-            //     textDescription.attr("data-zoomed-in", "true");
-            // }
-            // else {
-            //     textLabel.attr("data-zoomed-in", null);
-            //     textDescription.attr("data-zoomed-in", null);
-            // }
-
-            svg.attr("transform", transform.toString());
+            nodeGroup.attr("transform", transform.toString());
+            linkGroup.attr("transform", transform.toString());
+            textDescriptionGroup.attr("transform", transform.toString());
+            textLableGroup.attr("transform", transform.toString());
         }
 
         return () => {
