@@ -3,11 +3,13 @@ import * as react from "react";
 import sharp from "sharp";
 import { getFontData } from "astro:assets";
 import type { AstroSharedContext } from "astro";
+import fs from "node:fs/promises";
+import path from "node:path";
+
+import { outDir } from "astro:config/server";
 
 const fontCache: Font[] = [];
-async function getCustomFonts(
-    context: AstroSharedContext
-): Promise<Font[]> {
+async function getCustomFonts(): Promise<Font[]> {
     if (fontCache.length > 0) {
         return fontCache;
     }
@@ -19,7 +21,10 @@ async function getCustomFonts(
         {
             const fontSrc = fontData.find(d => d.weight === weight.toString() && d.style === style)!
                 .src.find(s => s.format == "woff")!;
-            const fontDataRaw = await fetch(new URL(fontSrc.url, context.url.origin)).then(res => res.arrayBuffer())
+
+            const fontDataRaw = await fs.readFile(
+                path.resolve((outDir as URL).pathname + fontSrc.url),
+            );
 
             fontCache.push({
                 name: "Red Hat Mono",
@@ -34,8 +39,7 @@ async function getCustomFonts(
 };
 
 export async function generateOgImage(
-    {title, subTitle}: {title: string, subTitle: string},
-    context: AstroSharedContext
+    {title, subTitle}: {title: string, subTitle: string}
 ): Promise<ArrayBuffer> {
     const content = (
         <div style={{ 
@@ -62,7 +66,7 @@ export async function generateOgImage(
 		width: 1200,
 		height: 630,
 		debug: false,
-		fonts: await getCustomFonts(context),
+		fonts: await getCustomFonts(),
 	});
 
 	const jpeg = await sharp(Buffer.from(svg))

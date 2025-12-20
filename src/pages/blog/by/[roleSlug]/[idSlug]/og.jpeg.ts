@@ -12,7 +12,6 @@ export async function GET(context:AstroSharedContext)
             title: blogEntry.data.title,
             subTitle: `Blog by a ${displayRole(role as RoleType)}`,
         },
-        context
     );
 
     return new Response(jpeg, {
