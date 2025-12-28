@@ -2,15 +2,22 @@ import { generateOgImage } from "@/lib/utils/open-graph";
 import { displayRole, type RoleType } from '@/lib/utils/constants';
 import type { AstroSharedContext } from "astro";
 import { getCollection, getEntry } from "astro:content";
+import fs from "node:fs/promises";
+import path from "node:path";
 
 export async function GET(context:AstroSharedContext)
 {
     const { idSlug: id, roleSlug: role } = context.params;
 
     const blogEntry = await getEntry("blog", `blog/by/${role}/${id}`)!;
+    const backgroundImage = await fs.readFile(
+        path.resolve(`./src/contents/${blogEntry.data.cover}`),
+    );
+
     const jpeg = await generateOgImage({
             title: blogEntry.data.title,
             subTitle: `Blog by a ${displayRole(role as RoleType)}`,
+            backgroundImage: "data:image/svg+xml;base64," + backgroundImage.toString('base64'),
         },
     );
 
