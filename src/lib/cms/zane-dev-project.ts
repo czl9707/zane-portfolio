@@ -1,26 +1,20 @@
-import { graphqlFetch } from "@/lib/cms/graphql-fetch"
-import type { ImageInfo } from "@/lib/cms/common.type";
+import { graphqlFetch } from "@/lib/cms/graphql-fetch";
+import { ZaneDevProjectDtoSchema, CMSError } from "@/lib/cms/schemas";
+import type { ZaneDevProjectDto, ImageInfo } from "@/lib/cms/schemas";
+import { z } from "zod";
 
+/**
+ * Transformed developer project data with Date objects instead of timestamps
+ */
 interface ZaneDevProjectInfo {
-    title: string,
-    tags: string[],
-    featured: boolean,
-    startDate: Date,
-    endDate?: Date,
-    description: string,
-    externalLink: string,
-    cover: ImageInfo,
-}
-
-interface ZaneDevProjectDto {
-    title: string,
-    tags?: string[],
-    featured: boolean,
-    startDate: number,
-    endDate?: number,
-    description: string,
-    externalLink: string,
-    cover: ImageInfo,
+    title: string;
+    tags: string[];
+    featured: boolean;
+    startDate: Date;
+    endDate?: Date;
+    description: string;
+    externalLink: string;
+    cover: ImageInfo;
 }
 
 const zaneDevProjectBaseFragment = `
@@ -51,22 +45,62 @@ query {
 ${zaneDevProjectBaseFragment}
 `;
 
-
-
-
+/**
+ * Fetches all developer projects from the CMS.
+ *
+ * Retrieves a list of software development projects with metadata
+ * including title, description, tags, and cover images. Used to
+ * populate the developer projects page.
+ *
+ * @returns Promise containing array of developer project information
+ * @throws {CMSError} If the CMS request fails or data validation fails
+ *
+ * @example
+ * ```typescript
+ * const projects = await getAll();
+ * projects.forEach(p => console.log(p.title, p.externalLink));
+ * ```
+ */
 export async function getAll(): Promise<ZaneDevProjectInfo[]> {
-    return await graphqlFetch(
-        GQL_QueryAll
-    ).then(
-        async req => await req.json()
-    ).then(
-        data => data.data["ZaneDevProjects"].docs.map(fromDto)
-    );
+    try {
+        const data = await graphqlFetch(GQL_QueryAll);
+
+        // Validate response structure
+        const responseSchema = z.object({
+            ZaneDevProjects: z.object({
+                docs: z.array(ZaneDevProjectDtoSchema),
+            }),
+        });
+
+        const validationResult = responseSchema.safeParse(data);
+        if (!validationResult.success) {
+            throw new CMSError(
+                "Invalid developer projects data structure from CMS",
+                validationResult.error
+            );
+        }
+
+        const projects = validationResult.data.ZaneDevProjects.docs;
+        return projects.map(fromDto);
+    } catch (error) {
+        if (error instanceof CMSError) {
+            throw error;
+        }
+        throw new CMSError("Failed to fetch developer projects", error);
+    }
 }
 
+/**
+ * Transforms a developer project DTO from the CMS into the internal format.
+ *
+ * Converts timestamp numbers to Date objects and ensures tags array exists.
+ *
+ * @param dto - The raw developer project data from CMS
+ * @returns Transformed project data with Date objects
+ */
 function fromDto(dto: ZaneDevProjectDto): ZaneDevProjectInfo {
     return {
-        title: dto.title as string,
+        title: dto.title,
         tags: dto.tags ?? [],
         featured: dto.featured,
         startDate: new Date(dto.startDate),
@@ -74,5 +108,5 @@ function fromDto(dto: ZaneDevProjectDto): ZaneDevProjectInfo {
         description: dto.description,
         cover: dto.cover,
         externalLink: dto.externalLink,
-    }
+    };
 }
