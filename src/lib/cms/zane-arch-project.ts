@@ -123,31 +123,15 @@ ${zaneArchProjectBaseFragment}
  * ```
  */
 async function getAll(): Promise<string[]> {
-    try {
-        const data = await graphqlFetch(GQL_QueryAll);
-
-        // Validate response structure
-        const responseSchema = z.object({
+    const data = await graphqlFetch(
+        GQL_QueryAll,
+        z.object({
             ZaneArchProjects: z.object({
                 docs: z.array(z.object({ id: z.string() })),
             }),
-        });
-
-        const validationResult = responseSchema.safeParse(data);
-        if (!validationResult.success) {
-            throw new CMSError(
-                "Invalid architecture projects list data structure from CMS",
-                validationResult.error
-            );
-        }
-
-        return validationResult.data.ZaneArchProjects.docs.map((d) => d.id);
-    } catch (error) {
-        if (error instanceof CMSError) {
-            throw error;
-        }
-        throw new CMSError("Failed to fetch architecture project IDs", error);
-    }
+        })
+    );
+    return data.ZaneArchProjects.docs.map((d) => d.id);
 }
 
 /**
@@ -168,38 +152,19 @@ async function getAll(): Promise<string[]> {
  * ```
  */
 async function getById(id: string): Promise<ZaneArchProjectInfo> {
-    try {
-        const data = await graphqlFetch(GQL_QueryById, { id });
-
-        // Validate response structure
-        const responseSchema = z.object({
+    const data = await graphqlFetch(
+        GQL_QueryById,
+        z.object({
             ZaneArchProject: ZaneArchProjectDtoSchema.nullable(),
-        });
+        }),
+        { id }
+    );
 
-        const validationResult = responseSchema.safeParse(data);
-        if (!validationResult.success) {
-            throw new CMSError(
-                `Invalid architecture project data structure from CMS for project ID: ${id}`,
-                validationResult.error
-            );
-        }
-
-        const projectData = validationResult.data.ZaneArchProject;
-        if (projectData === null) {
-            throw new CMSError(
-                `Architecture project not found: ${id}`,
-                undefined,
-                404
-            );
-        }
-
-        return fromDto(projectData);
-    } catch (error) {
-        if (error instanceof CMSError) {
-            throw error;
-        }
-        throw new CMSError(`Failed to fetch architecture project: ${id}`, error);
+    if (data.ZaneArchProject === null) {
+        throw new CMSError(`Architecture project not found: ${id}`, undefined, 404);
     }
+
+    return fromDto(data.ZaneArchProject);
 }
 
 /**

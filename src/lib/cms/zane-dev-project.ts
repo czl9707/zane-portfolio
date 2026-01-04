@@ -1,5 +1,5 @@
 import { graphqlFetch } from "@/lib/cms/graphql-fetch";
-import { ZaneDevProjectDtoSchema, CMSError } from "@/lib/cms/schemas";
+import { ZaneDevProjectDtoSchema } from "@/lib/cms/schemas";
 import type { ZaneDevProjectDto, ImageInfo } from "@/lib/cms/schemas";
 import { z } from "zod";
 
@@ -62,32 +62,15 @@ ${zaneDevProjectBaseFragment}
  * ```
  */
 export async function getAll(): Promise<ZaneDevProjectInfo[]> {
-    try {
-        const data = await graphqlFetch(GQL_QueryAll);
-
-        // Validate response structure
-        const responseSchema = z.object({
+    const data = await graphqlFetch(
+        GQL_QueryAll,
+        z.object({
             ZaneDevProjects: z.object({
                 docs: z.array(ZaneDevProjectDtoSchema),
             }),
-        });
-
-        const validationResult = responseSchema.safeParse(data);
-        if (!validationResult.success) {
-            throw new CMSError(
-                "Invalid developer projects data structure from CMS",
-                validationResult.error
-            );
-        }
-
-        const projects = validationResult.data.ZaneDevProjects.docs;
-        return projects.map(fromDto);
-    } catch (error) {
-        if (error instanceof CMSError) {
-            throw error;
-        }
-        throw new CMSError("Failed to fetch developer projects", error);
-    }
+        })
+    );
+    return data.ZaneDevProjects.docs.map(fromDto);
 }
 
 /**
