@@ -62,18 +62,18 @@ export async function generateOgImage(
                 <img src={backgroundImage} style={{ 
                     position: "absolute", top: 0, left: 0, width: "100%", height: "100%",
                     objectFit: "cover", objectPosition: "center",
-                    filter: "brightness(80%) opacity(0.3)",
+                    filter: "opacity(0.3)",
                 }} />
             }
             {
                 !backgroundImage &&
                 <>
                     <p style={{ 
-                        fontSize: 420, fontWeight: 700, width: 1200, textAlign:"center", position: "absolute", opacity:0.15, lineHeight: 0,
+                        fontSize: 420, fontWeight: 700, width: 1200, textAlign: "center", position: "absolute", opacity:0.15, lineHeight: 0,
                         top: -60
                     }}>ZANE</p>
                     <p style={{ 
-                        fontSize: 420, fontWeight: 700, width: 1200, textAlign:"center", position: "absolute", opacity:0.15, lineHeight: 0,
+                        fontSize: 420, fontWeight: 700, width: 1200, textAlign: "center", position: "absolute", opacity:0.15, lineHeight: 0,
                         top: 600
                     }}>CHEN</p>
                 </>

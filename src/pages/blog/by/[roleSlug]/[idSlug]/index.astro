@@ -156,6 +156,7 @@ const { Content, headings } = await render(blogEntry);
         height: 100vh;
         object-fit: cover;
         object-position: center;
+        filter:  opacity(0.5); //TODO: adjust brightness as needed
     }
 
     .hero-background-overlay {
@@ -168,8 +169,8 @@ const { Content, headings } = await render(blogEntry);
 
         background: linear-gradient(
             to bottom,
-            rgba(var(--color-primary-background) / 0.6) 0%,
-            rgba(var(--color-primary-background) / 1) 98%
+            rgba(var(--color-primary-background) / 0.4) 0%,
+            rgba(var(--color-primary-background) / 1) 95%
         );
     }
 </style>
