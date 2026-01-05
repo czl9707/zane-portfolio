@@ -1,15 +1,16 @@
 import type * as Mdast from 'mdast';
+import type { VFile } from 'vfile';
 import { visit, CONTINUE } from 'unist-util-visit'
-
+import path from 'node:path';
 /**
- * Remark plugin to convert relative image paths to absolute paths.
+ * Remark plugin to convert relative image paths to relative paths based on file location.
  *
  * This plugin transforms relative image paths from markdown files (typically
- * from Obsidian vault or git submodule) to absolute paths that work with
- * Astro's asset pipeline.
+ * from Obsidian vault or git submodule) to relative paths that resolve from
+ * the current markdown file's directory to the image in the contents folder.
  *
  * **Transformations:**
- * - `Media/image.png` → `/src/contents/Media/image.png`
+ * - `Media/image.png` → `../../contents/Media/image.png` (relative to markdown file)
  * - External URLs (http/https) are left unchanged
  * - Absolute paths (starting with `/`) are left unchanged
  *
@@ -21,23 +22,24 @@ import { visit, CONTINUE } from 'unist-util-visit'
  * remarkPlugins: [remarkImageTranslation]
  *
  * // Input markdown: ![Alt text](Media/screenshot.png)
- * // Output: <img src="/src/contents/Media/screenshot.png" alt="Alt text">
+ * // Output: <img src="../../contents/Media/screenshot.png" alt="Alt text">
  * ```
  */
 export function remarkImageTranslation()
 {
-    return function(tree: Mdast.Root)
+    return function(tree: Mdast.Root, file: VFile)
     {
+        const filePath = file.history![0];
+
         visit(tree,
             (node: Mdast.Node) => node.type === "image",
             (node) => {
                 const url = (node as Mdast.Image).url!;
 
-                // Only transform relative paths (not URLs or absolute paths)
-                if (!url.startsWith("http") && !url.startsWith("/"))
+                if (!url.startsWith("http") && (url.startsWith("/Media") || url.startsWith("Media")))
                 {
-                    // Prepend contents directory path for Astro to resolve
-                    (node as Mdast.Image).url! = '/src/contents/' + url;
+                    const imgPath = path.join(file.cwd!, "src", "contents", url);
+                    (node as Mdast.Image).url! = path.relative(path.dirname(filePath), imgPath);
                 }
                 return CONTINUE;
             },
