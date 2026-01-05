@@ -53,10 +53,16 @@ const { Content, headings } = await render(blogEntry);
     description={blogEntry.data.description}
     image={`/blog/by/${role}/${id}/og.jpeg`}
 >
+    <Image
+        src={coverImage()}
+        alt={`Featured image for ${blogEntry.data.title}`}
+        class="hero-background-image"
+    />
+    <div class="hero-background-overlay" />
     <StickyHero>
         <PageLayout>
             <Fragment slot="content">
-                <ResponsiveHeading variant="h2" variantSM="h3" as="h1" 
+                <ResponsiveHeading variant="h2" variantSM="h3" as="h1"
                     label={blogEntry.data.title}/>
                 <Spacer spacing="paragraph" />
                 <Typography variant="h6" as="h2" color="secondary">{blogEntry.data.description}</Typography>
@@ -81,14 +87,13 @@ const { Content, headings } = await render(blogEntry);
             </Fragment>
         </PageLayout>
     </StickyHero>
-
+    
     <Section style={{backgroundColor: `rgb(${themeVars.color.primary.background})`}}>
         <Divider/>
         <Spacer spacing="block"/>
         <PageLayout>
             <Fragment slot="content">
                 <MarkdownContainer>
-                    <Image src={coverImage()} alt={`Featured image for ${blogEntry.data.title}`} />
                     <Content />
                 </MarkdownContainer>
             </Fragment>
@@ -142,5 +147,29 @@ const { Content, headings } = await render(blogEntry);
 </BaseLayout>
 
 <style>
+    .hero-background-image {
+        position: fixed;
+        z-index: -3;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+        object-position: center;
+    }
 
+    .hero-background-overlay {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+
+        background: linear-gradient(
+            to bottom,
+            rgba(var(--color-primary-background) / 0.6) 0%,
+            rgba(var(--color-primary-background) / 1) 98%
+        );
+    }
 </style>

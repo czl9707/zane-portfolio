@@ -1,4 +1,4 @@
-<div class:list={["LayoutContainer"]}>
+<div class:list={["LayoutContainer", Astro.props.class]} style={Astro.props.style}>
     <div class:list={["ContentContainer"]}>
         <slot name="content"/>
     </div>
@@ -10,6 +10,7 @@
 <style>
 .LayoutContainer {
     display: grid;
+    position: relative;
     align-items: start;
     justify-items: start;
     gap: var(--spacing-component);
@@ -19,7 +20,6 @@
     width: 100%;
     margin: auto;
     box-sizing: border-box;
-    background-color: rgb(var(--color-primary-background));
 
     @media(--smaller-than-md) {
         grid-template-columns: repeat(5, minmax(0, 1fr));
