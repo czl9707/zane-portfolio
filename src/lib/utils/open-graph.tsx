@@ -53,10 +53,17 @@ export async function generateOgImage(
     const content = (
         <div style={{ 
             background: "black", color:'white', fontFamily: "Red Hat Mono",
-            width: 1200, height: 630, paddingLeft: 96, paddingRight: 96, overflow: "hidden",
-            display: "flex", flexDirection: "column", alignContent: "center", justifyContent: "center",
-            mixBlendMode: "multiply",
+            width: "1200px", height: "630px", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column",
         }}>
+            <div
+            style={{ 
+                width: "100%", 
+                paddingLeft: "96px", paddingRight: "96px", overflow: "hidden",
+                display: "flex", flexDirection: "column", alignContent: "center", justifyContent: "center", flexWrap: "nowrap",
+                mixBlendMode: "multiply", boxSizing: "border-box",
+            }}
+            >
+
             {
                 backgroundImage &&
                 <img src={backgroundImage} style={{ 
@@ -65,22 +72,22 @@ export async function generateOgImage(
                     filter: "opacity(0.3)",
                 }} />
             }
+
             {
                 !backgroundImage &&
-                <>
-                    <p style={{ 
-                        fontSize: 420, fontWeight: 700, width: 1200, textAlign: "center", position: "absolute", opacity:0.15, lineHeight: 0,
-                        top: -60
-                    }}>ZANE</p>
-                    <p style={{ 
-                        fontSize: 420, fontWeight: 700, width: 1200, textAlign: "center", position: "absolute", opacity:0.15, lineHeight: 0,
-                        top: 600
-                    }}>CHEN</p>
-                </>
+                <p style={{ 
+                    fontSize: "420px", fontWeight: "700", width: "100%", textAlign: "center", opacity:0.15, lineHeight: "390px",
+                }}>ZANE</p>
             }
-
-            <h1 style={{ fontSize: 60, fontWeight: 700 }}>{title}</h1>
-            {subTitle && <p style={{ fontSize: "28px", opacity: 0.75, fontWeight: 500 }}>{subTitle}</p>}
+            <h1 style={{ fontSize: "60px", fontWeight: "700" }}>{title}</h1>
+            {subTitle && <p style={{ fontSize: "28px", opacity: 0.75, fontWeight: "500" }}>{subTitle}</p>}
+            {
+                !backgroundImage &&
+                <p style={{ 
+                    fontSize: "420px", fontWeight: "700", width: "100%", textAlign: "center", opacity:0.15, lineHeight: "390px",
+                }}>CHEN</p>
+            }
+            </div>
         </div>
     );
     
@@ -88,7 +95,7 @@ export async function generateOgImage(
     const svg = await satori(content, {
 		width: 1200,
 		height: 630,
-		debug: false,
+		// debug: true,
 		fonts: await getCustomFonts(),
 	});
 
