@@ -70,8 +70,6 @@ import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
         </Button>
     </div>
 
-    <ThemeToggle />
-
     <div class:list={["ShowOnPhone"]}>
         <HeaderNavigationMenu client:load>
             <Fragment slot="label">
@@ -98,6 +96,8 @@ import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
             </Fragment>
         </HeaderNavigationMenu>
     </div>
+
+    <ThemeToggle />
 </Section>
 
 <style>

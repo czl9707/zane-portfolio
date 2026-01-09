@@ -37,8 +37,12 @@ export default defineConfig({
 
     markdown: {
         syntaxHighlight: "shiki",
-        shikiConfig: {
-            theme: 'github-dark-high-contrast',
+        shikiConfig: 
+        {
+            themes: {
+                light: 'github-dark-high-contrast',
+                dark: 'github-light-high-contrast',
+            },
         },
         remarkPlugins:[
             remarkReferenceTranslation,
