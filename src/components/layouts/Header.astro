@@ -2,6 +2,7 @@
 import Section from "@/components/ui/Section.astro";
 import Typography from "@/components/ui/Typography.astro";
 import Button from "@/components/ui/Button.astro";
+import ThemeToggle from "@/components/layouts/ThemeToggle.astro";
 
 import HeaderNavigationMenu from "@/components/layouts/Header.NavigationMenu";
 import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
@@ -9,7 +10,7 @@ import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 
 <Section class:list={"HeaderContainer"}>
     <a href={"/"}>
-        <Typography variant="h5" style={{ cursor: "pointer", fontWeight: 900 }}>
+        <Typography variant="h5" style={{ cursor: "pointer", fontWeight: 800 }}>
             ZANE.C
         </Typography>
     </a>
@@ -30,14 +31,11 @@ import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
             </Fragment>
             <Fragment slot="content">
                 <Button variant="filled" color="transparent">
-                    <a href={"/project/by/developer"}>Now a Software Engineer</a
-                    >
+                    <a href={"/project/by/developer"}>Now a Software Engineer</a>
                 </Button>
-                <a href={"/project/by/architect"}>
-                    <Button variant="filled" color="transparent"
-                        >Once an Architect</Button
-                    >
-                </a>
+                <Button variant="filled" color="transparent">
+                    <a href={"/project/by/architect"}>Once an Architect</a>
+                </Button>
             </Fragment>
         </HeaderNavigationMenu>
 	</div>
@@ -51,18 +49,18 @@ import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
                 </Button>
             </Fragment>
             <Fragment slot="content">
-                <a href={"/blog"}>
-                    <Button variant="filled" color="transparent">Blogs</Button>
-                </a>
-                <a href={"/writing"}>
-                    <Button variant="filled" color="transparent">Graph</Button>
-                </a>
+                <Button variant="filled" color="transparent">
+                    <a href={"/blog"}>Blogs</a>
+                </Button>
+                <Button variant="filled" color="transparent">
+                    <a href={"/writing"}>Graph</a>
+                </Button>
             </Fragment>
         </HeaderNavigationMenu>
 	</div>
 
 		
-	<div class:list={["NoShowOnPhone"]}>		
+	<div class:list={["NoShowOnPhone"]}>
         <Button
             variant="filled"
             color="transparent"
@@ -72,6 +70,8 @@ import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
         </Button>
     </div>
 
+    <ThemeToggle />
+
     <div class:list={["ShowOnPhone"]}>
         <HeaderNavigationMenu client:load>
             <Fragment slot="label">
@@ -80,29 +80,21 @@ import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
                 </Button>
             </Fragment>
             <Fragment slot="content">
-                <a href={"/project/by/developer"}>
-                    <Button variant="filled" color="transparent">
-                        Work - Software Engineer</Button
-                    >
-                </a>
-                <a href={"/project/by/architect"}>
-                    <Button variant="filled" color="transparent">
-                        Work - Architect</Button
-                    >
-                </a>
-                <a href={"/blog"}>
-                    <Button variant="filled" color="transparent">
-                        Writings - Blogs</Button
-                    >
-                </a>
-                <a href={"/writing"}>
-                    <Button variant="filled" color="transparent">
-                        Writings - Graph</Button
-                    >
-                </a>
-                <a href={"/about"}>
-                    <Button variant="filled" color="transparent">About</Button>
-                </a>
+                <Button variant="filled" color="transparent">
+                    <a href={"/project/by/developer"}>Work - Software Engineer</a>
+                </Button>
+                <Button variant="filled" color="transparent">
+                    <a href={"/project/by/architect"}>Work - Architect</a>
+                </Button>                
+                <Button variant="filled" color="transparent">
+                    <a href={"/blog"}>Writings - Blogs</a>
+                </Button>
+                <Button variant="filled" color="transparent">
+                    <a href={"/writing"}>Writings - Graph</a>
+                </Button>
+                <Button variant="filled" color="transparent">
+                    <a href={"/about"}>About</a>
+                </Button>
             </Fragment>
         </HeaderNavigationMenu>
     </div>
@@ -130,7 +122,7 @@ import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
         gap: var(--spacing-paragraph);
         animation: SlideDown var(--transition-long)
             cubic-bezier(0.75, 0, 0.25, 1) forwards;
-        background-image: linear-gradient(to bottom, rgb(var(--color-primary-background)) 15%, transparent);
+        background-image: linear-gradient(to bottom, rgb(var(--color-primary-background)) 10%, transparent);
     }
 
     @media (--smaller-than-sm) {

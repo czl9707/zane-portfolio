@@ -1,0 +1,48 @@
+---
+import Button from "@/components/ui/Button.astro";
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
+---
+
+<Button variant="filled" color="transparent" id="theme-toggle">
+    <SunIcon id="sun-icon" />
+    <MoonIcon id="moon-icon" />
+</Button>
+
+<script>
+    function initTheme() {
+        const storedTheme = localStorage.getItem("theme") || "dark";
+        document.body.setAttribute("data-theme", storedTheme);
+    }
+
+    function toggleTheme() {
+        const currentTheme = document.body.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+        document.body.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+    }
+
+    initTheme();
+
+    const toggleButton = document.getElementById("theme-toggle");
+    toggleButton?.addEventListener("click", toggleTheme);
+</script>
+
+<style>
+    body[data-theme="dark"] {
+        #sun-icon {
+            display: block;
+        }
+        #moon-icon {
+            display: none;
+        }
+    }
+
+    body[data-theme="light"] {
+        #sun-icon {
+            display: none;
+        }
+        #moon-icon {
+            display: block;
+        }
+    }
+</style>

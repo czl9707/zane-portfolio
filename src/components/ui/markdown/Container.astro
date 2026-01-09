@@ -36,6 +36,10 @@ const { class: className, ...others } = Astro.props;
             height: auto;
             object-fit: cover;
             border-radius: var(--size-border-radius);
+
+            body[data-theme="light"] & {
+                filter: revert(1) hue-rotate(180deg);
+            }
         }
     }
 
@@ -136,7 +140,7 @@ const { class: className, ...others } = Astro.props;
     /* Callout */
     .Markdown {
         blockquote {
-            border-left: 4px solid rgb(var(--color-primary-foreground) / 0.25);
+            border-left: 4px solid rgb(var(--color-primary-foreground) / 25%);
             padding-left: var(--spacing-component);
             padding-top: var(--spacing-paragraph);
             padding-bottom: var(--spacing-paragraph);
