@@ -89,12 +89,12 @@ body {
 }
 
 body {
-    --color-primary-background: 248 249 250;
+    --color-primary-background: 242 240 235;
     --color-secondary-background: 180 180 180;
     --color-primary-foreground: 33 37 41;
     --color-secondary-foreground: 75 75 75;
     --color-accent-foreground: 255 140 66;
-    --color-accent-background: 248 249 250;
+    --color-accent-background: 242 240 235;
     
     --border: 1px solid rgb(var(--color-primary-foreground) / 0.5);
     --border-secondary: 1px solid rgb(var(--color-primary-foreground) / 0.25);
