@@ -45,6 +45,7 @@ else {
     overflow: hidden;
     padding: 0.5rem 1rem;
     margin: 0;
+    min-height: calc(var(--typography-button-fontSize) * var(--typography-button-lineHeight) + 1rem);
 
 		display: flex;
 		flex-direction: row;
@@ -65,13 +66,13 @@ else {
 
     &:hover {
       .ButtonMask {
-        background-color: rgb(var(--button-mask-color) / 0.2);
+        background-color: rgb(var(--button-mask-color) / 0.1);
       }
     }
 
     &:active {
       .ButtonMask {
-        background-color: rgb(var(--button-mask-color) / 0.4);
+        background-color: rgb(var(--button-mask-color) / 0.2);
       }
     }
   }
@@ -85,11 +86,11 @@ else {
   }
 </style>
 
-<div class:list={[
+<button class:list={[
   "ButtonContainer", 
   variant === "filled" ? "FilledButtonContainer" : "OutlineButtonContainer",
   className
 ]} {...others}>
   <div class:list={["ButtonMask"]}></div>
   <slot />
-</div>
+</button>

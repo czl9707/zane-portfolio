@@ -20,7 +20,11 @@ const { title, description, image } = Astro.props;
   <head>
     <BaseHead title={title} description={description} image={image} />
   </head>
-  <body data-theme="dark">
+  <body>
+    <script is:inline>
+      const theme = localStorage.getItem("theme") || "dark";
+      document.body.setAttribute("data-theme", theme);
+    </script>
     <Header />
     <main>
       <slot />

@@ -25,17 +25,18 @@ p,h1,h2,h3,h4,h5,h6,span {
     padding: 0;
 }
 
-:root {
+
+body {
     --spacing-block: 12rem;
     --spacing-group: 4rem;
     --spacing-component: 2.5rem;
     --spacing-paragraph: 1rem;
-
+    
     --breakpoint-xs: 450px;
     --breakpoint-sm: 720px;
     --breakpoint-md: 1080px;
     --breakpoint-lg: 1440px;
-
+    
     --typography-body1-fontFamily: "Geist Variable";
     --typography-body1-fontWeight: 400;
     --typography-body1-fontSize: 1rem;
@@ -45,7 +46,7 @@ p,h1,h2,h3,h4,h5,h6,span {
     --typography-body2-fontSize: 0.875rem;
     --typography-body2-lineHeight: 1.5;
     --typography-button-fontFamily: "Geist Variable";
-    --typography-button-fontWeight: 700;
+    --typography-button-fontWeight: 600;
     --typography-button-fontSize: 0.875rem;
     --typography-button-lineHeight: 1.6;
     --typography-code-fontFamily: "Red Hat Mono Variable";
@@ -76,14 +77,11 @@ p,h1,h2,h3,h4,h5,h6,span {
     --typography-h6-fontWeight: 500;
     --typography-h6-fontSize: 1.25rem;
     --typography-h6-lineHeight: 1.6;
-
+    
     --transition-short: .3s;
     --transition-long: .9s;
-
+    
     --size-border-radius: .25rem;
-}
-
-body {
     --size-header-height: 4.5rem;
     @media(--larger-than-xs) {
         --size-header-height: 6rem;
@@ -91,12 +89,12 @@ body {
 }
 
 body {
-    --color-primary-background: 255 255 255;
+    --color-primary-background: 248 249 250;
     --color-secondary-background: 180 180 180;
-    --color-primary-foreground: 0 0 0;
+    --color-primary-foreground: 33 37 41;
     --color-secondary-foreground: 75 75 75;
     --color-accent-foreground: 255 140 66;
-    --color-accent-background: 255 255 255;
+    --color-accent-background: 248 249 250;
     
     --border: 1px solid rgb(var(--color-primary-foreground) / 0.5);
     --border-secondary: 1px solid rgb(var(--color-primary-foreground) / 0.25);
@@ -109,6 +107,9 @@ body[data-theme='dark'] {
     --color-secondary-foreground: 180 180 180;
     --color-accent-foreground: 255 140 66;
     --color-accent-background: 0 0 0;
+
+    --border: 1px solid rgb(var(--color-primary-foreground));
+    --border-secondary: 1px solid rgb(var(--color-primary-foreground) / 0.5);
 }
 
 @custom-media --smaller-than-xs (max-width:450px);

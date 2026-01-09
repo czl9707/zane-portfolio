@@ -156,7 +156,11 @@ const { Content, headings } = await render(blogEntry);
         height: 100vh;
         object-fit: cover;
         object-position: center;
-        filter:  opacity(0.5);
+        opacity: .5;
+
+        body[data-theme="light"] & {
+            filter: invert(1) hue-rotate(180deg);
+        }
     }
 
     .hero-background-overlay {
