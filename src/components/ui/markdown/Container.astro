@@ -175,7 +175,7 @@ const { class: className, ...others } = Astro.props;
     .Markdown {
         pre {
             background-color: rgb(
-                var(--color-accent-foreground) / 10%
+                var(--color-accent-foreground) / 7%
             ) !important;
             position: relative;
             border-radius: var(--size-border-radius);
@@ -191,10 +191,16 @@ const { class: className, ...others } = Astro.props;
                 font-size: var(--typography-code-fontSize);
                 font-weight: var(--typography-code-fontWeight);
                 line-height: var(--typography-code-lineHeight);
-                padding-bottom: var(--spacing-paragraph);
 
                 & span {
                     min-height: var(--typography-code-fontSize);
+
+                    body[data-theme="light"] & {
+                        color: var(--shiki-light);
+                    }
+                    body[data-theme="dark"] & {
+                        color: var(--shiki-dark);
+                    }
                 }
 
                 &::-webkit-scrollbar {

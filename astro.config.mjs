@@ -40,9 +40,10 @@ export default defineConfig({
         shikiConfig: 
         {
             themes: {
-                light: 'github-dark-high-contrast',
-                dark: 'github-light-high-contrast',
+                light: 'github-light-high-contrast',
+                dark: 'github-dark-high-contrast',
             },
+            defaultColor: false,
         },
         remarkPlugins:[
             remarkReferenceTranslation,
