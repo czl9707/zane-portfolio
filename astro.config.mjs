@@ -71,6 +71,7 @@ export default defineConfig({
             provider: fontProviders.fontsource(),
             name: "Red Hat Mono",
             cssVariable: "--font-mono",
+            formats: ["woff"],
             weights: [400, 500, 600, 700]
     }]
   }
