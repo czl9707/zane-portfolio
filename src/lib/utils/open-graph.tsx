@@ -57,36 +57,36 @@ export async function generateOgImage(
         }}>
             <div
             style={{ 
-                width: "100%", 
+                width: "100%", minHeight:"100%",
                 paddingLeft: "96px", paddingRight: "96px", overflow: "hidden",
                 display: "flex", flexDirection: "column", alignContent: "center", justifyContent: "center", flexWrap: "nowrap",
                 mixBlendMode: "multiply", boxSizing: "border-box",
             }}
             >
 
-            {
-                backgroundImage &&
-                <img src={backgroundImage} style={{ 
-                    position: "absolute", top: 0, left: 0, width: "100%", height: "100%",
-                    objectFit: "cover", objectPosition: "center",
-                    filter: "opacity(0.3)",
-                }} />
-            }
+                {
+                    backgroundImage &&
+                    <img src={backgroundImage} style={{ 
+                        position: "absolute", top: 0, left: 0, width: "100%", height: "100%",
+                        objectFit: "cover", objectPosition: "center",
+                        filter: "opacity(0.3)",
+                    }} />
+                }
 
-            {
-                !backgroundImage &&
-                <p style={{ 
-                    fontSize: "420px", fontWeight: "700", width: "100%", textAlign: "center", opacity:0.15, lineHeight: "390px",
-                }}>ZANE</p>
-            }
-            <h1 style={{ fontSize: "60px", fontWeight: "700" }}>{title}</h1>
-            {subTitle && <p style={{ fontSize: "28px", opacity: 0.75, fontWeight: "500" }}>{subTitle}</p>}
-            {
-                !backgroundImage &&
-                <p style={{ 
-                    fontSize: "420px", fontWeight: "700", width: "100%", textAlign: "center", opacity:0.15, lineHeight: "390px",
-                }}>CHEN</p>
-            }
+                {
+                    !backgroundImage &&
+                    <p style={{ 
+                        fontSize: "420px", fontWeight: "700", width: "100%", textAlign: "center", opacity:0.15, lineHeight: "390px",
+                    }}>ZANE</p>
+                }
+                <h1 style={{ fontSize: "60px", fontWeight: "700" }}>{title}</h1>
+                {subTitle && <p style={{ fontSize: "28px", opacity: 0.75, fontWeight: "500" }}>{subTitle}</p>}
+                {
+                    !backgroundImage &&
+                    <p style={{ 
+                        fontSize: "420px", fontWeight: "700", width: "100%", textAlign: "center", opacity:0.15, lineHeight: "390px",
+                    }}>CHEN</p>
+                }
             </div>
         </div>
     );
