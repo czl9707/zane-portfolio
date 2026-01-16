@@ -132,11 +132,9 @@ export async function getStaticPaths() {
       padding:`${themeVars.spacing.group} 0`
     }}>
       <SlideUpDiv >
-        <a href="/project/by/architect">
-          <Button variant="outlined">
-            View All Projects
-          </Button>
-        </a>
+        <Button as="a" variant="outlined" href="/project/by/architect">
+        View All Projects
+        </Button>
       </SlideUpDiv>
     </Section>
 </BaseLayout>

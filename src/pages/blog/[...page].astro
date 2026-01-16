@@ -1,0 +1,50 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@/components/layouts/Layout.Base.astro";
+import TitleSection from "@/components/layouts/Section.Title.astro";
+import WritingCollection from "@/components/layouts/writing/Collection.astro";
+import Pagination from "@/components/ui/Pagination.astro";
+import Typography from "@/components/ui/Typography.astro";
+import SlideUpDiv from "@/components/ui/SlideUpDiv.astro";
+import Spacer from "@/components/ui/Spacer.astro";
+
+
+const DESCRIPTION = "Some condensed thoughts around the topics I interested over time.";
+
+export const getStaticPaths = (async ({ paginate }) => {
+    const blogs = (await getCollection("blog")).toSorted(
+        (b1, b2) => b2.data["created-date"].getTime() - b1.data["created-date"].getTime()
+    );
+    const pages = paginate(blogs, { pageSize: 20 });
+    // Add /1 route that mirrors the index page
+    const firstPage = pages.find(p => p.params.page === undefined);
+    if (firstPage) {
+        pages.push({ ...firstPage, params: { page: "1" } });
+    }
+    return pages;
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<BaseLayout
+    title={"Zane Chen - Blogs"}
+    description={DESCRIPTION}
+>
+    <TitleSection omitDivider>
+        <Typography as="h1" variant="h3">Blogs</Typography>
+        <Typography as="h2" variant="h6" color="secondary">{DESCRIPTION}</Typography>
+    </TitleSection>
+    <WritingCollection writings={page.data} title="All Blogs">
+        <Spacer/>
+        <SlideUpDiv>
+            <Pagination
+                currentPage={page.currentPage}
+                totalPages={page.lastPage}
+                baseUrl="/blog"
+            />
+        </SlideUpDiv>
+    </WritingCollection>
+</BaseLayout>

@@ -1,15 +1,27 @@
 ---
 import { themeVars, type ColorVariation } from "@/lib/theme";
-import type { HTMLAttributes } from "astro/types";
+import type { HTMLAttributes, HTMLTag, Polymorphic } from "astro/types";
 
 type ButtonColorVariation = ColorVariation | "transparent";
 
-interface Props extends HTMLAttributes<"div"> {
+type Props<Tag extends HTMLTag> = Polymorphic<{
+  as: Tag;
   variant?: "outlined" | "filled";
   color?: ButtonColorVariation;
-}
+  disabled?: boolean;
+}>;
 
-const { variant = "outlined", color = "primary", class: className, ...others } = Astro.props;
+// interface Props extends HTMLAttributes<"button"> 
+
+const { 
+  variant = "outlined", 
+  color = "primary", 
+  class: className, 
+  as: Tag = "button",
+  disabled = false,
+  ...others
+} = Astro.props as Props<HTMLTag>;
+
 let textColor, backgroundColor, maskColor;
 
 if (variant === "outlined")
@@ -34,6 +46,7 @@ else {
 >
   .ButtonContainer {
     border-radius: var(--size-border-radius);
+    box-sizing: border-box;
 
     font-family: var(--typography-button-fontFamily);
     font-size: var(--typography-button-fontSize);
@@ -64,6 +77,11 @@ else {
       transition: background-color var(--transition-short);
     }
 
+    &[data-disabled="true"] {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
     &:hover {
       .ButtonMask {
         background-color: rgb(var(--button-mask-color) / 0.1);
@@ -86,11 +104,11 @@ else {
   }
 </style>
 
-<button class:list={[
+<Tag class:list={[
   "ButtonContainer", 
   variant === "filled" ? "FilledButtonContainer" : "OutlineButtonContainer",
   className
-]} {...others}>
+]} data-disabled={disabled} {...others}>
   <div class:list={["ButtonMask"]}></div>
   <slot />
-</button>
+</Tag>

@@ -1,0 +1,79 @@
+---
+import Button from "@/components/ui/Button.astro";
+import { themeVars } from "@/lib/theme";
+import { CaretLeftIcon, CaretRightIcon } from "@radix-ui/react-icons";
+
+interface Props {
+    currentPage: number;
+    totalPages: number;
+    baseUrl: string;
+}
+
+const { currentPage, totalPages, baseUrl } = Astro.props;
+
+function getPageUrl(page: number): string {
+    return `${baseUrl}/${page}`;
+}
+
+const hasPrev = currentPage > 1;
+const hasNext = currentPage < totalPages;
+
+// Generate page numbers to display
+const pageNumbers: number[] = [];
+for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+}
+---
+
+
+<nav class="Pagination" aria-label="Pagination">
+    <Button as="a"
+        variant="filled"
+        color="transparent"
+        href={getPageUrl(currentPage - 1)}
+        disabled={!hasPrev}
+    >
+        <CaretLeftIcon />
+        Prev
+    </Button>
+
+    <div class="PaginationPages">
+        {pageNumbers.map((page) => (
+            <Button as="a"
+                variant={page === currentPage ? "outlined" : "filled"}
+                color="transparent"
+                href={getPageUrl(page)}
+                disabled={page === currentPage}
+                aria-current={page === currentPage ? "page" : undefined}
+            >
+                {page}
+            </Button>
+        ))}
+    </div>
+
+    <Button as="a"
+        variant="filled"
+        color="transparent"
+        href={getPageUrl(currentPage + 1)}
+        disabled={!hasNext}
+    >
+        Next
+        <CaretRightIcon />
+    </Button>
+</nav>
+
+
+<style>
+    .Pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-paragraph);
+    }
+
+    .PaginationPages {
+        display: flex;
+        align-items: center;
+        gap: calc(var(--spacing-paragraph) / 2);
+    }
+</style>
