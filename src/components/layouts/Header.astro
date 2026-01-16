@@ -30,11 +30,11 @@ import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
                 </Button>
             </Fragment>
             <Fragment slot="content">
-                <Button variant="filled" color="transparent">
-                    <a href={"/project/by/developer"}>Now a Software Engineer</a>
+                <Button variant="filled" color="transparent" as="a" href={"/project/by/developer"}>
+                    Now a Software Engineer
                 </Button>
-                <Button variant="filled" color="transparent">
-                    <a href={"/project/by/architect"}>Once an Architect</a>
+                <Button variant="filled" color="transparent" as="a" href={"/project/by/architect"}>
+                    Once an Architect
                 </Button>
             </Fragment>
         </HeaderNavigationMenu>
@@ -49,11 +49,11 @@ import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
                 </Button>
             </Fragment>
             <Fragment slot="content">
-                <Button variant="filled" color="transparent">
-                    <a href={"/blog"}>Blogs</a>
+                <Button variant="filled" color="transparent" as="a" href={"/blog"}>
+                    Blogs
                 </Button>
-                <Button variant="filled" color="transparent">
-                    <a href={"/writing"}>Graph</a>
+                <Button variant="filled" color="transparent" as="a" href={"/writing"}>
+                    Graph
                 </Button>
             </Fragment>
         </HeaderNavigationMenu>
@@ -65,8 +65,10 @@ import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
             variant="filled"
             color="transparent"
             class:list={["NoShowOnPhone"]}
+            as="a"
+            href={"/about"}
         >
-            <a href={"/about"}>About</a>
+            About
         </Button>
     </div>
 
@@ -78,20 +80,21 @@ import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
                 </Button>
             </Fragment>
             <Fragment slot="content">
-                <Button variant="filled" color="transparent">
-                    <a href={"/project/by/developer"}>Work - Software Engineer</a>
+                <Button variant="filled" color="transparent" as="a" href={"/project/by/developer"}>
+                    Work - Software Engineer
                 </Button>
-                <Button variant="filled" color="transparent">
-                    <a href={"/project/by/architect"}>Work - Architect</a>
-                </Button>                
-                <Button variant="filled" color="transparent">
-                    <a href={"/blog"}>Writings - Blogs</a>
+                <Button variant="filled" color="transparent" as="a" href={"/project/by/architect"}>
+                    Work - Architect
                 </Button>
-                <Button variant="filled" color="transparent">
-                    <a href={"/writing"}>Writings - Graph</a>
+                <Button variant="filled" color="transparent" as="a" href={"/blog"}>
+                    Writings - Blogs
                 </Button>
-                <Button variant="filled" color="transparent">
-                    <a href={"/about"}>About</a>
+
+                <Button variant="filled" color="transparent" as="a" href={"/writing"}>
+                    Writings - Graph
+                </Button>
+                <Button variant="filled" color="transparent" as="a" href={"/about"}>
+                    About
                 </Button>
             </Fragment>
         </HeaderNavigationMenu>

@@ -107,11 +107,9 @@ const devProjects = (await getCollection("devProject"))
       padding:`${themeVars.spacing.group} 0`
     }}>
       <SlideUpDiv >
-        <a href="/project/by/developer">
-          <Button variant="outlined">
+          <Button as="a" variant="outlined" href="/project/by/developer">
             View All Projects
           </Button>
-        </a>
       </SlideUpDiv>
     </Section>
 
@@ -135,11 +133,9 @@ const devProjects = (await getCollection("devProject"))
       padding:`${themeVars.spacing.group} 0`
     }}>
       <SlideUpDiv >
-        <a href="/project/by/architect">
-          <Button variant="outlined">
-            View All Projects
-          </Button>
-        </a>
+        <Button as="a" variant="outlined" href="/project/by/architect">
+          View All Projects
+        </Button>
       </SlideUpDiv>
     </Section>
 

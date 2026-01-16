@@ -17,7 +17,13 @@ export const getStaticPaths = (async ({ paginate }) => {
     const blogs = (await getCollection("blog")).toSorted(
         (b1, b2) => b2.data["created-date"].getTime() - b1.data["created-date"].getTime()
     );
-    return paginate(blogs, { pageSize: 20 });
+    const pages = paginate(blogs, { pageSize: 20 });
+    // Add /1 route that mirrors the index page
+    const firstPage = pages.find(p => p.params.page === undefined);
+    if (firstPage) {
+        pages.push({ ...firstPage, params: { page: "1" } });
+    }
+    return pages;
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
