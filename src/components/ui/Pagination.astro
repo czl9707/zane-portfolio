@@ -1,0 +1,89 @@
+---
+import Button from "@/components/ui/Button.astro";
+import { themeVars } from "@/lib/theme";
+import { CaretLeftIcon, CaretRightIcon } from "@radix-ui/react-icons";
+
+interface Props {
+    currentPage: number;
+    totalPages: number;
+    baseUrl: string;
+}
+
+const { currentPage, totalPages, baseUrl } = Astro.props;
+
+function getPageUrl(page: number): string {
+    if (page === 1) return baseUrl;
+    return `${baseUrl}/${page}`;
+}
+
+const hasPrev = currentPage > 1;
+const hasNext = currentPage < totalPages;
+
+// Generate page numbers to display
+const pageNumbers: number[] = [];
+for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+}
+---
+
+{totalPages > 1 && (
+    <nav class="Pagination" aria-label="Pagination">
+        <Button
+            variant="filled"
+            color="transparent"
+            disabled={!hasPrev}
+        >
+            <a href={hasPrev ? getPageUrl(currentPage - 1) : undefined}>
+                <CaretLeftIcon />
+                Prev
+            </a>
+        </Button>
+
+        <div class="PaginationPages">
+            {pageNumbers.map((page) => (
+                <Button
+                    variant={page === currentPage ? "outlined" : "filled"}
+                    color="transparent"
+                    aria-current={page === currentPage ? "page" : undefined}
+                >
+                    <a href={page !== currentPage ? getPageUrl(page) : undefined}>
+                        {page}
+                    </a>
+                </Button>
+            ))}
+        </div>
+
+        <Button
+            variant="filled"
+            color="transparent"
+            disabled={!hasNext}
+        >
+            <a href={hasNext ? getPageUrl(currentPage + 1) : undefined}>
+                Next
+                <CaretRightIcon />
+            </a>
+        </Button>
+    </nav>
+)}
+
+<style>
+    .Pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-paragraph);
+    }
+
+    .PaginationPages {
+        display: flex;
+        align-items: center;
+        gap: calc(var(--spacing-paragraph) / 2);
+    }
+
+    .Pagination a {
+        color: inherit;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+</style>

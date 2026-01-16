@@ -4,7 +4,7 @@ import type { HTMLAttributes } from "astro/types";
 
 type ButtonColorVariation = ColorVariation | "transparent";
 
-interface Props extends HTMLAttributes<"div"> {
+interface Props extends HTMLAttributes<"button"> {
   variant?: "outlined" | "filled";
   color?: ButtonColorVariation;
 }
@@ -62,6 +62,11 @@ else {
       pointer-events: none;
       background-color: transparent;
       transition: background-color var(--transition-short);
+    }
+
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.5;
     }
 
     &:hover {
