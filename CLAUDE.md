@@ -60,15 +60,24 @@ The markdown system has custom remark/rehype plugins (in `src/lib/markdown/`):
 
 ```
 /                         # Home page
-/blog                     # All blogs
-/blog/by/{author}         # Blogs filtered by author
-/note                     # All notes
-/note/by/{author}         # Notes filtered by author
+/blog                     # All blogs (paginated, 20 per page)
+/blog/{page}              # Blog pagination (e.g., /blog/2, /blog/3)
+/blog/by/{author}/{slug}  # Individual blog post
+/note                     # All notes (paginated, 20 per page)
+/note/{page}              # Note pagination (e.g., /note/2, /note/3)
+/note/by/{author}/{slug}  # Individual note
 /project/by/architect     # Architecture projects (from CMS)
 /project/by/developer     # Developer projects (from CMS)
 /writing                  # Combined blogs + notes view
 /about                    # About page
 ```
+
+### Pagination
+
+Blog and note listing pages use Astro's `paginate()` function with `[...page].astro` dynamic routes:
+- 20 items per page
+- Both `/blog` and `/blog/1` resolve to the first page (same for notes)
+- Pagination component at `src/components/ui/Pagination.astro`
 
 ### Path Aliasing
 
@@ -84,6 +93,24 @@ import BaseLayout from '@/components/layouts/Layout.Base.astro';
 - `src/components/ui/`: Reusable UI components (Typography, Grid, Cards, etc.)
 - `src/lib/theme/`: Theme utilities and CSS custom property management
 - `src/styles/`: Global and modular CSS
+
+### Polymorphic Button Component
+
+The Button component (`src/components/ui/Button.astro`) uses Astro's native `Polymorphic` type to render as different HTML elements:
+
+```astro
+<!-- Renders as <button> (default) -->
+<Button variant="outlined">Click me</Button>
+
+<!-- Renders as <a> with href -->
+<Button as="a" href="/path" variant="filled">Link</Button>
+```
+
+Props:
+- `as`: HTML tag to render (default: `"button"`)
+- `variant`: `"outlined"` | `"filled"`
+- `color`: `"primary"` | `"secondary"` | `"accent"` | `"transparent"`
+- `disabled`: boolean (uses `data-disabled` attribute for styling)
 
 ## Important Notes
 
