@@ -19,6 +19,7 @@ const {
   class: className, 
   as: Tag = "button",
   disabled = false,
+  style,
   ...others
 } = Astro.props as Props<HTMLTag>;
 
@@ -36,6 +37,22 @@ else {
     maskColor = themeVars.color.primary[color === "transparent" ? "foreground" : "background"];
 }
 ---
+
+<Tag class:list={[
+  "ButtonContainer", 
+  variant === "filled" ? "FilledButtonContainer" : "OutlineButtonContainer",
+  className
+]} data-disabled={disabled} 
+style={{
+  ...(style ?? {}),
+  "--button-text-color": textColor,
+  "--button-background-color": backgroundColor,
+  "--button-mask-color": maskColor,
+}}
+{...others}>
+  <div class:list={["ButtonMask"]}></div>
+  <slot />
+</Tag>
 
 <style
   define:vars={{
@@ -104,11 +121,3 @@ else {
   }
 </style>
 
-<Tag class:list={[
-  "ButtonContainer", 
-  variant === "filled" ? "FilledButtonContainer" : "OutlineButtonContainer",
-  className
-]} data-disabled={disabled} {...others}>
-  <div class:list={["ButtonMask"]}></div>
-  <slot />
-</Tag>
