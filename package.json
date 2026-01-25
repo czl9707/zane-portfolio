@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
-    "@astrojs/rss": "^4.0.14",
+    "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.6.1",
     "@fontsource-variable/geist": "^5.2.8",
     "@fontsource-variable/red-hat-mono": "^5.2.8",
