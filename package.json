@@ -19,7 +19,7 @@
     "d3": "^7.9.0",
     "hast-util-to-string": "^3.0.1",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react-dom": "^19.2.4",
     "rehype-mathjax": "^7.1.0",
     "remark-math": "^6.0.0"
   },
