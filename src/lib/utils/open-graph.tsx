@@ -1,7 +1,7 @@
 import satori, { type Font, type FontStyle, type FontWeight } from "satori"
 import * as react from "react";
 import sharp from "sharp";
-import { getFontData } from "astro:assets";
+import { fontData as fontDataAsset  } from "astro:assets";
 import fs from "node:fs/promises";
 import path from "node:path";
 
@@ -13,7 +13,7 @@ async function getCustomFonts(): Promise<Font[]> {
         return fontCache;
     }
 
-    const fontData = getFontData("--font-mono");
+    const fontData = fontDataAsset["--font-mono"];
     for (const weight of ([400, 500, 600, 700] as FontWeight[]))
     {
         for (const style of (["normal", "italic"] as FontStyle[]) )
