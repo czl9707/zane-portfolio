@@ -38,7 +38,7 @@ const { idSlug: id, roleSlug: role } = Astro.params;
 
 const blogEntry = await getEntry("blog", `blog/by/${role}/${id}`)!;
 const coverImage = import.meta.glob<{ default: ImageMetadata }>(
-    `/src/contents/Media/**`)[`/src/contents/${blogEntry.data.cover}`];
+    `/src/contents/media/**`)[`/src/contents/${blogEntry.data.cover}`];
 
 
 let recentBlogs = (await getCollection("blog"))

@@ -119,7 +119,7 @@ Static Project Pages
 The markdown pipeline includes custom plugins for Obsidian compatibility:
 
 - **Reference Translation**: Converts `blog/post.md` → `/blog/post` and tracks internal links for the knowledge graph
-- **Image Translation**: Converts `Media/image.png` → `/src/contents/Media/image.png`
+- **Image Translation**: Converts `media/image.png` → `/src/contents/media/image.png`
 - **Sectionize**: Wraps content in `<section>` elements for table of contents generation
 
 ### Error Handling

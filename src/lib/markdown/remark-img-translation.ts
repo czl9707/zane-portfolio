@@ -10,7 +10,7 @@ import path from 'node:path';
  * the current markdown file's directory to the image in the contents folder.
  *
  * **Transformations:**
- * - `Media/image.png` → `../../contents/Media/image.png` (relative to markdown file)
+ * - `media/image.png` → `../../contents/media/image.png` (relative to markdown file)
  * - External URLs (http/https) are left unchanged
  * - Absolute paths (starting with `/`) are left unchanged
  *
@@ -21,8 +21,8 @@ import path from 'node:path';
  * // In astro.config.mjs
  * remarkPlugins: [remarkImageTranslation]
  *
- * // Input markdown: ![Alt text](Media/screenshot.png)
- * // Output: <img src="../../contents/Media/screenshot.png" alt="Alt text">
+ * // Input markdown: ![Alt text](media/screenshot.png)
+ * // Output: <img src="../../contents/media/screenshot.png" alt="Alt text">
  * ```
  */
 export function remarkImageTranslation()
@@ -36,7 +36,7 @@ export function remarkImageTranslation()
             (node) => {
                 const url = (node as Mdast.Image).url!;
 
-                if (!url.startsWith("http") && (url.startsWith("/Media") || url.startsWith("Media")))
+                if (!url.startsWith("http") && (url.startsWith("/media") || url.startsWith("media")))
                 {
                     const imgPath = path.join(file.cwd!, "src", "contents", url);
                     (node as Mdast.Image).url! = path.relative(path.dirname(filePath), imgPath);
