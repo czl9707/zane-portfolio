@@ -9,6 +9,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Node
+        uses: actions/setup_node@v4
+        with:
+          node-version: 22.x
       - name: Checkout
         uses: actions/checkout@v6
         with:
