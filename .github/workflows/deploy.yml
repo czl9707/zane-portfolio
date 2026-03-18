@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Setup Node
@@ -30,17 +30,15 @@ jobs:
           submodules: 'true'
 
       - name: Install dependencies
-        working-directory: web
         run: npm ci
 
       - name: Build
-        working-directory: web
-        run: npm run build
+        run: npm run build -- --outDir out
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: web/out
+          path: out
 
   deploy:
     environment:
