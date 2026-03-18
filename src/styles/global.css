@@ -108,7 +108,7 @@ body[data-theme='dark'] {
     --color-accent-foreground: 255 140 66;
     --color-accent-background: 0 0 0;
 
-    --border: 1px solid rgb(var(--color-primary-foreground));
+    --border: 1px solid rgb(var(--color-primary-foreground) / 0.75);
     --border-secondary: 1px solid rgb(var(--color-primary-foreground) / 0.5);
 }
 
