@@ -182,7 +182,7 @@ const { class: className, ...others } = Astro.props;
             border: var(--border);
             padding: var(--spacing-paragraph);
 
-            & > code {
+            & > :global(code) {
                 overflow-x: scroll;
                 display: block;
                 tab-size: 4;
@@ -192,7 +192,7 @@ const { class: className, ...others } = Astro.props;
                 font-weight: var(--typography-code-fontWeight);
                 line-height: var(--typography-code-lineHeight);
 
-                & span {
+                & :global(span) {
                     min-height: var(--typography-code-fontSize);
 
                     body[data-theme="light"] & {
