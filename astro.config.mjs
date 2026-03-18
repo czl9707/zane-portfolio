@@ -66,13 +66,11 @@ export default defineConfig({
         "/as/developer/project": "/project/by/developer",
     },
 
-    experimental: {
-        fonts: [{
-            provider: fontProviders.fontsource(),
-            name: "Red Hat Mono",
-            cssVariable: "--font-mono",
-            formats: ["woff"],
-            weights: [400, 500, 600, 700]
+    fonts: [{
+        provider: fontProviders.fontsource(),
+        name: "Red Hat Mono",
+        cssVariable: "--font-mono",
+        formats: ["woff"],
+        weights: [400, 500, 600, 700]
     }]
-  }
 });
