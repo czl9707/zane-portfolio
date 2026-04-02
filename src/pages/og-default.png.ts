@@ -11,7 +11,7 @@ export async function GET()
     );
     return new Response(jpeg, {
 		headers: {
-			"Content-Type": "image/jpeg",
+			"Content-Type": "image/png",
 		},
 	});
 }

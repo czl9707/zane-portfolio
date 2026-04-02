@@ -51,12 +51,13 @@ export async function generateOgImage(
     {title, subTitle, backgroundImage}: {title: string, subTitle: string, backgroundImage?: string}
 ): Promise<ArrayBuffer> {
     const content = (
-        <div style={{ 
-            background: "black", color:'white', fontFamily: "Red Hat Mono",
+        <div style={{
+            background: backgroundImage ? "black" : "linear-gradient(135deg, #000000 0%, #0d0500 20%, #1a0a00 40%, #261000 60%, #331500 80%, #3f1a00 100%)",
+            color:'white', fontFamily: "Red Hat Mono",
             width: "1200px", height: "630px", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column",
         }}>
             <div
-            style={{ 
+            style={{
                 width: "100%", minHeight:"100%",
                 paddingLeft: "96px", paddingRight: "96px", overflow: "hidden",
                 display: "flex", flexDirection: "column", alignContent: "center", justifyContent: "center", flexWrap: "nowrap",
@@ -66,42 +67,30 @@ export async function generateOgImage(
 
                 {
                     backgroundImage &&
-                    <img src={backgroundImage} style={{ 
+                    <img src={backgroundImage} style={{
                         position: "absolute", top: 0, left: 0, width: "100%", height: "100%",
                         objectFit: "cover", objectPosition: "center",
                         filter: "opacity(0.3)",
                     }} />
                 }
 
-                {
-                    !backgroundImage &&
-                    <p style={{ 
-                        fontSize: "420px", fontWeight: "700", width: "100%", textAlign: "center", opacity:0.15, lineHeight: "390px",
-                    }}>ZANE</p>
-                }
                 <h1 style={{ fontSize: "60px", fontWeight: "700" }}>{title}</h1>
                 {subTitle && <p style={{ fontSize: "28px", opacity: 0.75, fontWeight: "500" }}>{subTitle}</p>}
-                {
-                    !backgroundImage &&
-                    <p style={{ 
-                        fontSize: "420px", fontWeight: "700", width: "100%", textAlign: "center", opacity:0.15, lineHeight: "390px",
-                    }}>CHEN</p>
-                }
             </div>
         </div>
     );
-    
-    
+
+
     const svg = await satori(content, {
-		width: 1200,
-		height: 630,
-		// debug: true,
-		fonts: await getCustomFonts(),
-	});
+			width: 1200,
+			height: 630,
+			// debug: true,
+			fonts: await getCustomFonts(),
+		});
 
-	const jpeg = await sharp(Buffer.from(svg))
-		.jpeg({quality: 60, })
-		.toBuffer();
+		const jpeg = await sharp(Buffer.from(svg))
+			.png()
+			.toBuffer();
 
-	return jpeg.buffer as ArrayBuffer;
+		return jpeg.buffer as ArrayBuffer;
 }

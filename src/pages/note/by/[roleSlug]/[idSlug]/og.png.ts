@@ -16,7 +16,7 @@ export async function GET(context:AstroSharedContext)
 
     return new Response(jpeg, {
         headers: {
-            "Content-Type": "image/jpeg",
+            "Content-Type": "image/png",
         },
     });
 }
