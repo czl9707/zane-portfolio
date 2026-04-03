@@ -74,8 +74,8 @@ export async function generateOgImage(
                     }} />
                 }
 
-                <h1 style={{ fontSize: "60px", fontWeight: "700" }}>{title}</h1>
-                {subTitle && <p style={{ fontSize: "28px", opacity: 0.75, fontWeight: "500" }}>{subTitle}</p>}
+                <h1 style={{ fontSize: "48px", fontWeight: "700" }}>{title}</h1>
+                {subTitle && <p style={{ fontSize: "24px", opacity: 0.75, fontWeight: "500" }}>{subTitle}</p>}
             </div>
         </div>
     );
