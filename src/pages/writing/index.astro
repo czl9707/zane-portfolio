@@ -18,6 +18,7 @@ const writings = [...blogs, ...notes].toSorted(
 <BaseLayout
     title={"Zane Chen - Graph"}
     description={DESCRIPTION}
+    noindex={true}
 >
     <Graph writings={writings} client:load />
 </BaseLayout>

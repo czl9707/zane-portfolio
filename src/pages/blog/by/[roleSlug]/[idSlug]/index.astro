@@ -47,12 +47,29 @@ let recentBlogs = (await getCollection("blog"))
     .slice(0, 4);
 
 const { Content, headings } = await render(blogEntry);
+
+const articleSchema = {
+	"@context": "https://schema.org",
+	"@type": "Article",
+	headline: blogEntry.data.title,
+	description: blogEntry.data.description,
+	image: new URL(`/blog/by/${role}/${id}/og.png`, Astro.site).toString(),
+	datePublished: blogEntry.data["created-date"].toISOString(),
+	dateModified: blogEntry.data["last-updated-date"].toISOString(),
+	author: {
+		"@type": "Person",
+		name: "Zane Chen",
+		url: Astro.site?.toString(),
+	},
+	keywords: blogEntry.data.tags.join(", "),
+};
 ---
 <BaseLayout
     title={blogEntry.data.title}
     description={blogEntry.data.description}
     image={`/blog/by/${role}/${id}/og.png`}
 >
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <Image
         src={coverImage()}
         alt={`Featured image for ${blogEntry.data.title}`}

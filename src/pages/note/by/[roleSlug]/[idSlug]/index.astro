@@ -36,6 +36,22 @@ const { idSlug: id, roleSlug: role } = Astro.params;
 const noteEntry = await getEntry("note", `note/by/${role}/${id}`)!;
 const { Content, headings } = await render(noteEntry);
 
+const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: noteEntry.data.title,
+    description: `Zane's note on ${noteEntry.data.title}`,
+    image: new URL(`/note/by/${role}/${id}/og.png`, Astro.site).toString(),
+    datePublished: noteEntry.data["created-date"].toISOString(),
+    dateModified: noteEntry.data["last-updated-date"].toISOString(),
+    author: {
+        "@type": "Person",
+        name: "Zane Chen",
+        url: Astro.site?.toString(),
+    },
+    keywords: noteEntry.data.tags.join(", "),
+};
+
 let relatedNotes = (await getCollection("note"))
     .filter(n => 
         (n.data.hasLinksTo.includes(noteEntry.id) && n.id !== noteEntry.id) ||
@@ -47,6 +63,7 @@ let relatedNotes = (await getCollection("note"))
     description={`Zane's note on ${noteEntry.data.title}`}
     image={`/note/by/${role}/${id}/og.png`}
 >
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <Section style={{backgroundColor: `rgb(${themeVars.color.primary.background})`}}>
         <Spacer spacing="block" />
 

@@ -1,13 +1,33 @@
 ---
-import { SITE_TITLE } from '@/lib/utils/constants';
+import { SITE_TITLE, SITE_DESCRIPTION } from '@/lib/utils/constants';
 
 interface Props {
 	title: string;
 	description: string;
 	image?: string;
+	noindex?: boolean;
 }
 
-const { title, description, image="/og-default.png" } = Astro.props;
+const { title, description, image="/og-default.png", noindex = false } = Astro.props;
+
+const websiteSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	name: SITE_TITLE,
+	description: SITE_DESCRIPTION,
+	url: Astro.site?.toString(),
+};
+
+const personSchema = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	name: "Zane Chen",
+	url: Astro.site?.toString(),
+	sameAs: [
+		"https://www.linkedin.com/in/zeling-chen",
+		"https://github.com/czl9707",
+	],
+};
 ---
 
 <!-- Global Metadata -->
@@ -20,8 +40,8 @@ const { title, description, image="/og-default.png" } = Astro.props;
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
 <link rel="sitemap" href="/sitemap-index.xml" />
-<!-- Canonical URL -->
-<link rel="canonical" href={ new URL(Astro.url.pathname, Astro.site)} />
+{noindex && <meta name="robots" content="noindex, follow" />}
+{!noindex && <link rel="canonical" href={ new URL(Astro.url.pathname, Astro.site)} />}
 <link
 	rel="alternate"
 	type="application/rss+xml"
@@ -48,3 +68,6 @@ const { title, description, image="/og-default.png" } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />

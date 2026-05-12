@@ -7,7 +7,6 @@ import ProjectCard from '@/components/layouts/project/Card.astro';
 import Typography from '@/components/ui/Typography.astro';
 import CardContainer from '@/components/ui/Card.Container.astro';
 
-import { SITE_DESCRIPTION, SITE_TITLE } from '@/lib/utils/constants';
 import { themeVars } from '@/lib/theme';
 import Section from '@/components/ui/Section.astro';
 import Divider from '@/components/ui/Divider.astro';
@@ -15,7 +14,7 @@ import { getCollection } from 'astro:content';
 
 const devProjects = await getCollection("devProject");
 ---
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+<BaseLayout title="Zane Chen - Developer Projects" description="Software engineering projects built by Zane Chen.">
     <TitleSection>
       <Typography variant='h3' as="h1">Projects by a Developer</Typography>
     </TitleSection>

@@ -101,6 +101,16 @@ import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
     </div>
 
     <ThemeToggle />
+
+    <nav aria-label="Site navigation" class="CrawlerNav">
+        <a href="/">Home</a>
+        <a href="/project/by/developer">Developer Projects</a>
+        <a href="/project/by/architect">Architecture Projects</a>
+        <a href="/blog">Blogs</a>
+        <a href="/note">Notes</a>
+        <a href="/writing">Graph</a>
+        <a href="/about">About</a>
+    </nav>
 </Section>
 
 <style>
@@ -126,6 +136,18 @@ import { CaretDownIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
         animation: SlideDown var(--transition-long)
             cubic-bezier(0.75, 0, 0.25, 1) forwards;
         background-image: linear-gradient(to bottom, rgb(var(--color-primary-background)) 10%, transparent);
+    }
+
+    .CrawlerNav {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
     }
 
     @media (--smaller-than-sm) {
