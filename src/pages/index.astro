@@ -69,9 +69,9 @@ const devProjects = (await getCollection("devProject"))
       <Typography variant='h5' color="secondary" id="who_am_i" slot={"header"}>
           Who am I?
       </Typography>
-      <SlideUpDiv style={{ gridColumn: "span 2 / span 2" }}>
+      <div style={{ gridColumn: "span 2 / span 2" }}>
         <MarkdownBlock content={homepageGlob.whoAmI} variant='keywordHighlighted'/>
-      </SlideUpDiv>
+      </div>
     </ContentSection>
 
     <!-- Writings -->

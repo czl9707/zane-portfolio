@@ -1,6 +1,7 @@
 ---
 import { render as renderMarkdown } from "@/lib/markdown/markdown";
 import MarkdownContainer from "@/components/ui/markdown/Container.astro";
+import { rehypeInjectClassname } from "@/lib/markdown/rehype-inject-classname";
 
 interface Props {
     content: string;
@@ -8,6 +9,11 @@ interface Props {
 }
 
 const { content, variant = "default" } = Astro.props;
+
+var rendered = variant == "keywordHighlighted" ? renderMarkdown(content, [], [
+    [rehypeInjectClassname, { class2inject: "SlideUpContainer" }]
+]) : renderMarkdown(content);
+
 ---
 
 <MarkdownContainer
@@ -15,7 +21,7 @@ const { content, variant = "default" } = Astro.props;
         { Markdown_KeyWordHighLighted: variant == "keywordHighlighted" },
     ]}
 >
-    <Fragment set:html={renderMarkdown(content)} />
+    <Fragment set:html={rendered} />
 </MarkdownContainer>
 
 <style>
