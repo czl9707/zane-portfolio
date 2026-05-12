@@ -40,9 +40,9 @@ const aboutMeGlobes = await getAboutMe();
         <Typography variant="h5" as="h1" color="secondary" slot={"header"}>
             About Zane
         </Typography>
-        <SlideUpDiv style={{ gridColumn: "span 2 / span 2" }}>
+        <div style={{ gridColumn: "span 2 / span 2" }}>
             <MarkdownBlock content={aboutMeGlobes.aboutMe} variant='keywordHighlighted' />
-        </SlideUpDiv>
+        </div>
     </ContentSection>
 
     <TitleSection>
@@ -56,12 +56,12 @@ const aboutMeGlobes = await getAboutMe();
                     <Typography variant="h5" color="secondary" slot={"header"}>
                         {ex.year.join(" - ")}
                     </Typography>
-                    <SlideUpDiv style={{ gridColumn: "span 2 / span 2" }}>
+                    <div style={{ gridColumn: "span 2 / span 2" }}>
                         <MarkdownBlock
                             content={ex.experience}
                             variant='keywordHighlighted'
                         />
-                    </SlideUpDiv>
+                    </div>
                 </ContentSection>
             ))
     }
