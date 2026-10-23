@@ -6,12 +6,12 @@ import type { VFile } from 'vfile';
  * Remark plugin to convert Obsidian-style internal links to Astro routes.
  *
  * This plugin transforms markdown links in the Obsidian format (e.g., "blog/post.md")
- * into Astro-compatible routes (e.g., "/blog/post"). It also tracks all internal
+ * into Astro-compatible routes (e.g., "/blog/post/"). It also tracks all internal
  * links to build a knowledge graph of content relationships.
  *
  * **Transformations:**
- * - `blog/post.md` → `/blog/post`
- * - `blog/post.md#heading` → `/blog/post#heading`
+ * - `blog/post.md` → `/blog/post/`
+ * - `blog/post.md#heading` → `/blog/post/#heading`
  * - External links and absolute paths are left unchanged
  *
  * **Side Effects:**
@@ -25,7 +25,7 @@ import type { VFile } from 'vfile';
  * remarkPlugins: [remarkReferenceTranslation]
  *
  * // Input markdown: [My Post](blog/my-post.md)
- * // Output HTML: <a href="/blog/my-post">My Post</a>
+ * // Output HTML: <a href="/blog/my-post/">My Post</a>
  * ```
  */
 export function remarkReferenceTranslation()
@@ -41,8 +41,11 @@ export function remarkReferenceTranslation()
                 const path = (node as Mdast.Link).url.split("#")[0];
                 if (path.endsWith(".md") && !path.startsWith("/"))
                 {
-                    // Transform: "blog/post.md#heading" → "/blog/post#heading"
-                    (node as Mdast.Link).url = '/' + (node as Mdast.Link).url.replace(".md", "");
+                    // Transform: "blog/post.md#heading" → "/blog/post/#heading"
+                    // (site URLs are canonical in trailing-slash form)
+                    const [linkPath, ...anchorParts] = (node as Mdast.Link).url.replace(".md", "").split("#");
+                    const anchor = anchorParts.length > 0 ? `#${anchorParts.join("#")}` : "";
+                    (node as Mdast.Link).url = `/${linkPath}/${anchor}`;
 
                     // Track this link for knowledge graph building
                     links.add(path.replace(".md", ""));

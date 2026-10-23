@@ -24,15 +24,14 @@ export default defineConfig({
                 if (path.includes("/as/")) return false;
                 if (/\/blog\/\d+\/?$/.test(path)) return false;
                 if (/\/note\/\d+\/?$/.test(path)) return false;
-                if (path.includes("/writing")) return false;
+                if (/\/writing\/?$/.test(path)) return false; // graph page itself is noindex; tag pages under /writing/tag/ stay
                 return true;
             },
-            lastmod: new Date(),
         }), 
         react()
     ],
 
-    trailingSlash: "ignore",
+    trailingSlash: "always",
     compressHTML: true,
 
     env: {
@@ -68,11 +67,11 @@ export default defineConfig({
     },
 
     redirects: {
-        "/as/developer/blog": "/blog",
-        "/as/architect/project": "/project/by/architect",
-        "/as/developer/project": "/project/by/developer",
-        "/blog/1": "/blog",
-        "/note/1": "/note",
+        "/as/developer/blog": "/blog/",
+        "/as/architect/project": "/project/by/architect/",
+        "/as/developer/project": "/project/by/developer/",
+        "/blog/1": "/blog/",
+        "/note/1": "/note/",
     },
 
     fonts: [{

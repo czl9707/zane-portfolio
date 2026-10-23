@@ -1,0 +1,24 @@
+# Legacy / guessed URLs that used to 404 (flagged by Google Search Console).
+# Project index: there is no /project page, only the per-role listings.
+/project          /project/by/developer/  301
+/project/         /project/by/developer/  301
+/project/by       /project/by/developer/  301
+/project/by/      /project/by/developer/  301
+# Role archives: there is no /blog/by/<role> or /note/by/<role> index page,
+# only individual articles under those prefixes.
+/blog/by/developer    /blog/  301
+/blog/by/developer/   /blog/  301
+/blog/by/architect    /blog/  301
+/blog/by/architect/   /blog/  301
+/blog/by/human-being  /blog/  301
+/blog/by/human-being/ /blog/  301
+/blog/by/christian    /blog/  301
+/blog/by/christian/   /blog/  301
+/note/by/developer    /note/  301
+/note/by/developer/   /note/  301
+/note/by/architect    /note/  301
+/note/by/architect/   /note/  301
+/note/by/human-being  /note/  301
+/note/by/human-being/ /note/  301
+/note/by/christian    /note/  301
+/note/by/christian/   /note/  301

@@ -65,7 +65,8 @@ const articleSchema = {
 };
 ---
 <BaseLayout
-    title={blogEntry.data.title}
+    title={`${blogEntry.data.title} | Zane Chen`}
+    ogType="article"
     description={blogEntry.data.description}
     image={`/blog/by/${role}/${id}/og.png`}
 >
@@ -87,7 +88,7 @@ const articleSchema = {
                     {
                         (blogEntry.data.tags ?? []).map(tag => (
                             <Chip>
-                                <a href={`/writing/tag/${tag}`}>
+                                <a href={`/writing/tag/${tag}/`}>
                                     <Typography variant="body1">#{tag}</Typography>
                                 </a>
                             </Chip>
@@ -142,7 +143,7 @@ const articleSchema = {
                                 recentBlogs.map(item => {
                                     const role = item.id.split("/").at(-2) as RoleType;
                                     return <>
-                                        <Item href={"/" + item.id} data={{
+                                        <Item href={"/" + item.id + "/"} data={{
                                             date: item.data['created-date'], 
                                             role: role,
                                             title: item.data.title,
@@ -170,7 +171,7 @@ const articleSchema = {
         top: 0;
         left: 0;
         width: 100%;
-        height: 100vh;
+        height: 100svh;
         object-fit: cover;
         object-position: center;
         opacity: .65;
@@ -186,7 +187,7 @@ const articleSchema = {
         top: 0;
         left: 0;
         width: 100%;
-        height: 100vh;
+        height: 100svh;
 
         background: linear-gradient(
             to bottom,

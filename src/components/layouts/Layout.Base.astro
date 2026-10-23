@@ -12,14 +12,15 @@ interface Props {
   description: string;
   image?: string;
   noindex?: boolean;
+  ogType?: string;
 }
 
-const { title, description, image, noindex } = Astro.props;
+const { title, description, image, noindex, ogType } = Astro.props;
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} image={image} noindex={noindex} />
+    <BaseHead title={title} description={description} image={image} noindex={noindex} ogType={ogType} />
   </head>
   <body>
     <script is:inline>
@@ -36,7 +37,7 @@ const { title, description, image, noindex } = Astro.props;
 
 <style>
   main {
-    min-height: 100vh;
+    min-height: 100svh;
     box-sizing: border-box;
 
     isolation: isolate;
@@ -44,7 +45,7 @@ const { title, description, image, noindex } = Astro.props;
 
   body {
     width: 100%;
-    min-height: 100vh;
+    min-height: 100svh;
     box-sizing: border-box;
     margin: 0;
     overflow-x: visible;

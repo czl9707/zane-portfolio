@@ -108,7 +108,7 @@ const Graph: React.FC<GraphProps> = ({ writings }) => {
             .data(nodes)
             .join("a")
             .attr("data-type", d => d.type)
-            .attr("href", d => "/" + d.id);
+            .attr("href", d => "/" + d.id + "/");
 
         const node = nodeLinks.append("circle")
             .attr("r", d => 2 + Math.sqrt(links.filter(l => isLinkMatchingNode(l, d)).length))
