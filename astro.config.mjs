@@ -66,13 +66,8 @@ export default defineConfig({
         ],
     },
 
-    redirects: {
-        "/as/developer/blog": "/blog/",
-        "/as/architect/project": "/project/by/architect/",
-        "/as/developer/project": "/project/by/developer/",
-        "/blog/1": "/blog/",
-        "/note/1": "/note/",
-    },
+    // Redirects live in public/_redirects (real 301s at the Cloudflare layer)
+    // instead of Astro's static redirects, which only build meta-refresh pages.
 
     fonts: [{
         provider: fontProviders.fontsource(),

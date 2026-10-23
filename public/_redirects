@@ -22,3 +22,15 @@
 /note/by/human-being/ /note/  301
 /note/by/christian    /note/  301
 /note/by/christian/   /note/  301
+
+# Former astro.config static redirects (meta-refresh stubs), now real 301s.
+/as/developer/blog     /blog/                  301
+/as/developer/blog/    /blog/                  301
+/as/architect/project  /project/by/architect/  301
+/as/architect/project/ /project/by/architect/  301
+/as/developer/project  /project/by/developer/  301
+/as/developer/project/ /project/by/developer/  301
+/blog/1                /blog/                  301
+/blog/1/               /blog/                  301
+/note/1                /note/                  301
+/note/1/               /note/                  301
