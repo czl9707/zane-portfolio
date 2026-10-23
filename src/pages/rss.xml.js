@@ -11,7 +11,7 @@ export async function GET(context) {
 		site: context.site,
 		items: [
 			...posts.map((post) => {
-				const link = "/" + post.filePath.split("/").slice(-4).join("/").replace(".md", "")
+				const link = "/" + post.filePath.split("/").slice(-4).join("/").replace(".md", "") + "/"
 				return {
 					title: post.data.title,
 					description: post.data.description,
@@ -22,7 +22,7 @@ export async function GET(context) {
 				}
 			}),
 			...notes.map((note) => {
-				const link = "/" + note.filePath.split("/").slice(-4).join("/").replace(".md", "")
+				const link = "/" + note.filePath.split("/").slice(-4).join("/").replace(".md", "") + "/"
 				return {
 					title: note.data.title,
 					lastUpdateDate: note.data["last-updated-date"],

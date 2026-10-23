@@ -32,7 +32,7 @@ const { title, writings } = Astro.props;
             writings.map(item => {
                 const role = item.id.split("/").at(-2) as RoleType;
                 return <>
-                    <Item href={"/" + item.id} data={{
+                    <Item href={"/" + item.id + "/"} data={{
                         date: item.data['created-date'], 
                         role: role,
                         title: item.data.title,

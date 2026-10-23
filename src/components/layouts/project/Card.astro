@@ -10,7 +10,7 @@ interface Props {
 const { project } = Astro.props;
 ---
 <a href={
-    project.collection === "archProject" ? `/project/by/architect/${project.id}` : project.data.externalLink
+    project.collection === "archProject" ? `/project/by/architect/${project.id}/` : project.data.externalLink
 } 
     class:list={["ProjectCardWrapper"]}>
     <SlideUpDiv class:list={["ProjectCard"]}>

@@ -20,7 +20,7 @@ let { variant, variantSM, as = variant, label, id } = Astro.props<TypographyTag>
 ]}>{label}</Typography>
 {
     variantSM && 
-    <Typography id={id} variant={variantSM} as={as} class:list={[
+    <Typography variant={variantSM} as="p" aria-hidden="true" class:list={[
         "HeadingWithTag", 
         "NoShowOnSM"
     ]}>{label}</Typography>

@@ -12,7 +12,12 @@ interface Props {
 const { currentPage, totalPages, baseUrl } = Astro.props;
 
 function getPageUrl(page: number): string {
-    return `${baseUrl}/${page}`;
+    // Page 1 lives at the base URL itself; linking to `${baseUrl}/1`
+    // would hit the redirect stub for page 1 instead of the real page.
+    // Clamp so the disabled Prev/Next buttons never point at page 0
+    // or past the last page (both would 404).
+    const clamped = Math.min(Math.max(page, 1), totalPages);
+    return clamped === 1 ? `${baseUrl}/` : `${baseUrl}/${clamped}/`;
 }
 
 const hasPrev = currentPage > 1;

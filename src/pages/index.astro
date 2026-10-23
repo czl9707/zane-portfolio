@@ -77,7 +77,7 @@ const devProjects = (await getCollection("devProject"))
       <ResponsiveHeading label='WRITINGS' id="writings" variant="h2" variantSM="h4"/>
     </TitleSection>
     <WritingCollection writings={blogs} title="Featured Blogs">
-      <a href={"/blog"}>
+      <a href={"/blog/"}>
         <SlideUpDiv class:list={[buttonHoverContext]} 
           style={{fontSize:themeVars.typographies.h6, textAlign: "end"}}>
           <ExtendingButton label='All Blogs'/>
@@ -105,7 +105,7 @@ const devProjects = (await getCollection("devProject"))
       padding:`${themeVars.spacing.group} 0`
     }}>
       <SlideUpDiv >
-          <Button as="a" variant="outlined" href="/project/by/developer">
+          <Button as="a" variant="outlined" href="/project/by/developer/">
             View All Projects
           </Button>
       </SlideUpDiv>
@@ -131,7 +131,7 @@ const devProjects = (await getCollection("devProject"))
       padding:`${themeVars.spacing.group} 0`
     }}>
       <SlideUpDiv >
-        <Button as="a" variant="outlined" href="/project/by/architect">
+        <Button as="a" variant="outlined" href="/project/by/architect/">
           View All Projects
         </Button>
       </SlideUpDiv>
@@ -140,9 +140,9 @@ const devProjects = (await getCollection("devProject"))
     <!-- Ending -->
     <Section style={{backgroundColor: `rgb(${themeVars.color.primary.background})`}}>
       <SlideUpDiv>
-        <Typography variant='h1'>
+        <Typography variant='h1' as="p">
           <svg width={"100%"} viewBox="0 0 45 7">
-            <title id="ZANE_CHEN">ZANE CHEN</title>
+            <title id="ZANE_CHEN_END">ZANE CHEN</title>
             <text class:list={["SVGText"]} x="50%" y="50%"
               textLength={45} lengthAdjust="spacingAndGlyphs"
               font-weight={700} font-size="7.2px"

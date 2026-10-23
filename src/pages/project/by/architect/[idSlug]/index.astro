@@ -39,7 +39,7 @@ export async function getStaticPaths() {
 }
 ---
 <BaseLayout
-    title={project.data.title}
+    title={`${project.data.title} | Zane Chen`}
     description={project.data.subTitle}
 >
     <!-- Project Info -->
@@ -132,7 +132,7 @@ export async function getStaticPaths() {
       padding:`${themeVars.spacing.group} 0`
     }}>
       <SlideUpDiv >
-        <Button as="a" variant="outlined" href="/project/by/architect">
+        <Button as="a" variant="outlined" href="/project/by/architect/">
         View All Projects
         </Button>
       </SlideUpDiv>
