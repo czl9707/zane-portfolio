@@ -9,5 +9,6 @@
 	},
 	"observability": {
 		"enabled": true
-	}
+	},
+	"previews": {}
 }
